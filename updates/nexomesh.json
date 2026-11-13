@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "app": "nexomesh",
-  "status": "unpublished",
-  "versionName": null,
-  "versionCode": null,
-  "downloadUrl": null,
-  "sha256": null,
+  "status": "published",
+  "versionName": "0.11.1",
+  "versionCode": 17,
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/nexomesh-0.11.1/NexoMesh-0.11.1.apk",
+  "sha256": "d7f364955bb08d25a563dff5a78e3192cd6600024c6a4893726a27c529e180ec",
   "mandatory": false,
   "changelog": {
-    "es": "",
-    "ca": "",
-    "en": ""
+    "es": "Incorpora UrySoft Updater para consultar nuevas versiones.",
+    "ca": "Incorpora UrySoft Updater per consultar noves versions.",
+    "en": "Adds UrySoft Updater to check for new versions."
   }
 }
