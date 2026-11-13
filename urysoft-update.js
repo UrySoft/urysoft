@@ -1,0 +1,1 @@
+const ub=document.getElementById("urysoftUpdate"); if(ub && window.LumenNative && typeof window.LumenNative.checkUpdates === "function"){ub.hidden=false;ub.onclick=()=>window.LumenNative.checkUpdates();}

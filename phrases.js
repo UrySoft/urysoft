@@ -1,0 +1,7 @@
+import {PHRASES,coordinates,mapUrl,quickText} from './quick.js?v=4.0.0';
+export const CATALAN=Object.freeze(['Hola','Em reps?','Rebut','Espera','Vaig cap allà','Estic bé','Gràcies','Necessito ajuda','Necessito rescat','Necessito ajuda mèdica','Hi ha persones ferides','No em puc moure','Estic atrapat','Estic perdut','Necessito aigua','No tinc cobertura telefònica','Estem fora de perill','Porta ajuda a aquestes coordenades']);
+export const ENGLISH=Object.freeze(['Hello','Can you receive me?','Received','Wait','I’m on my way','I’m fine','Thank you','I need help','I need rescue','I need medical help','There are injured people','I cannot move','I am trapped','I am lost','I need water','I have no phone coverage','We are safe','Bring help to these coordinates']);
+export function phraseList(locale){return locale==='ca'?CATALAN:locale==='en'?ENGLISH:PHRASES;}
+// Localised phrases travel as exact text using the existing lossless codecs.
+// Legacy compact phrase IDs remain Spanish and unchanged on the wire.
+export function localizedQuickText(id,point=null,locale='es'){if(locale==='es')return quickText(id,point);const list=phraseList(locale);if(!Number.isInteger(id)||!list[id])throw Error('Frase no válida');if(!point)return list[id];const p=coordinates(point.lat,point.lon);return`${list[id]}\n${locale==='ca'?'Ubicació':'Location'}: ${p.lat.toFixed(5)},${p.lon.toFixed(5)}\n${mapUrl(p.lat,p.lon)}`;}
