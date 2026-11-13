@@ -1,0 +1,14 @@
+const $=s=>document.querySelector(s);
+const read=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const save=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
+let lang=read('urysoft-lang')||navigator.language.slice(0,2);if(!COPY[lang])lang='en';
+let theme=read('urysoft-theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');
+let comments=[],available=false,loadVersion=0;
+function text(tag,value,cls){const n=document.createElement(tag);n.textContent=value;if(cls)n.className=cls;return n}
+function displayComments(){const t=COPY[lang],area=$('#published');area.replaceChildren();if(!available){area.append(text('p',t.unavailable));return}if(!comments.length)area.append(text('p',t.empty));comments.forEach(c=>{const card=text('article','','comment');card.append(text('strong',c.name),text('p',t[c.kind]+(c.rating?' · '+'★'.repeat(c.rating):'')),text('p',c.message));if(c.reply){const r=text('div','','reply');r.append(text('strong',t.reply),text('p',c.reply));card.append(r)}area.append(card)})}
+function render(){document.documentElement.lang=lang;$('#lang').value=lang;document.querySelectorAll('[data-t]').forEach(e=>e.textContent=COPY[lang][e.dataset.t]);for(const [selector,key] of [['#features','items'],['#steps','stepItems']]){$(selector).replaceChildren(...COPY[lang][key].map(x=>text('li',x)))}displayComments();}
+function applyTheme(){document.documentElement.dataset.theme=theme;$('#theme').textContent=theme==='dark'?'☀':'☾';save('urysoft-theme',theme)}
+async function loadComments(){const version=++loadVersion;$('#published').textContent=COPY[lang].loading;try{const r=await fetch('/api/comments?app=lumen');if(!r.ok)throw Error();const data=await r.json();if(!Array.isArray(data))throw Error();if(version!==loadVersion)return;comments=data;available=true}catch{available=false}$('#comment-form button[type=submit]').disabled=!available;displayComments()}
+$('#lang').onchange=e=>{lang=e.target.value;save('urysoft-lang',lang);render()};$('#theme').onclick=()=>{theme=theme==='dark'?'light':'dark';applyTheme()};
+$('#comment-form').onsubmit=async e=>{e.preventDefault();const form=e.currentTarget,button=form.querySelector('button[type=submit]');if(!available||button.disabled)return;const f=new FormData(form);button.disabled=true;$('#form-status').textContent='';try{const r=await fetch('/api/comments?app=lumen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.get('name'),kind:f.get('kind'),rating:Number(f.get('rating')),message:f.get('message'),website:f.get('website'),consent:f.get('consent')==='on'})});if(!r.ok)throw Error();form.reset();$('#form-status').textContent=COPY[lang].sent}catch{$('#form-status').textContent=COPY[lang].error}finally{button.disabled=false}};
+applyTheme();render();loadComments();
