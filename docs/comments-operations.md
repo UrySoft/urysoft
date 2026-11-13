@@ -4,7 +4,7 @@ La primera ficha completa es `/apps/lumen/`. Conserva ES/CA/EN, el tema elegido 
 
 ## Administración
 
-Acceso: `/admin/comments/`. Introducir la clave privada configurada como secreto `COMMENTS_ADMIN_KEY` en Cloudflare Pages (producción). La clave se conserva únicamente en memoria durante la visita al panel; no se guarda en el navegador ni en el repositorio. Salir o cerrar la página elimina la copia de la sesión. La clave no debe compartirse públicamente. Su rotación se hace sustituyendo el secreto en Cloudflare y desplegando otra vez.
+Acceso: `/admin/comments/`. Inicio de sesión con Google mediante Google Identity Services. El servidor verifica la firma RS256 con las claves públicas de Google, el emisor, el destinatario, la caducidad y el correo verificado autorizado. El token se conserva solo en memoria y deja de aceptarse al caducar. Salir elimina la sesión local. La clave manual anterior ya no se acepta.
 
 Los estados son pendiente, publicado y oculto. Todos los envíos entran pendientes. Guardar una respuesta con el estado pendiente u oculto no la publica; el comentario y la respuesta se muestran únicamente en estado publicado. No se requieren cuentas de GitHub. No se recogen correos ni se envían avisos: el visitante debe volver a la ficha para ver la respuesta publicada.
 
@@ -14,7 +14,8 @@ La lista de administración muestra los 200 mensajes más recientes y la públic
 
 - D1 `urysoft-comments`, jurisdicción UE; binding de producción `COMMENTS_DB`.
 - Inicializar con `migrations/0001-comments.sql`.
-- Secreto de producción `COMMENTS_ADMIN_KEY`, generado aleatoriamente con 32 bytes o más.
+- Variables de producción `GOOGLE_CLIENT_ID` y `COMMENTS_ADMIN_EMAIL`. El correo autorizado es oriolba@gmail.com.
+- `COMMENTS_ADMIN_KEY` se conserva exclusivamente como secreto interno para los hashes de límites de envío; ya no permite entrar al panel.
 - Pages Functions atiende únicamente `/api/comments` y subrutas.
 - Límite de cinco envíos por hora y dirección de origen, mediante identificador hash con secreto y ventana horaria. No se almacena la dirección IP en las tablas. Los identificadores de límite caducan tras dos horas y se limpian en el siguiente envío aceptado.
 - Las operaciones de escritura requieren mismo origen; no se habilita CORS. Todo el contenido público y administrativo se presenta como texto, sin interpretar HTML de los usuarios.

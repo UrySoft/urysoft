@@ -1,3 +1,4 @@
+import {googleAdmin} from '../../../server/google-auth.js';
 const APPS = new Set(['lumen','nexomesh','foldery','widgery','minairo']);
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const digest=async s=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))).map(x=>x.toString(16).padStart(2,'0')).join('');
@@ -6,9 +7,10 @@ export async function onRequest({request,env,params}){
   const url=new URL(request.url), path=(params.path||[]).join('/');
   if(request.method!=='GET' && request.headers.get('Origin')!==url.origin) return json({error:'Origen no permitido'},403);
   try {
+    if(path==='config'&&request.method==='GET')return json({googleClientId:env.GOOGLE_CLIENT_ID||null});
     if(path==='admin'){
       const supplied=request.headers.get('Authorization')||'';
-      if(await digest(supplied)!==await digest('Bearer '+env.COMMENTS_ADMIN_KEY)) return json({error:'Acceso no autorizado'},401);
+      if(!supplied.startsWith('Bearer ')||!await googleAdmin(supplied.slice(7),env.GOOGLE_CLIENT_ID,env.COMMENTS_ADMIN_EMAIL)) return json({error:'Acceso no autorizado'},401);
       if(request.method==='GET') return json((await env.COMMENTS_DB.prepare('SELECT id,app,name,kind,message,rating,status,reply,created_at FROM comments ORDER BY created_at DESC LIMIT 200').all()).results);
       if(request.method==='PATCH'){
         const body=await request.json();
