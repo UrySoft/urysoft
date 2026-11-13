@@ -1,4 +1,5 @@
 .private/
+.work/
 node_modules/
 .dev.vars
 .env*
