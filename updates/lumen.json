@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "app": "lumen",
+  "status": "unpublished",
+  "versionName": null,
+  "versionCode": null,
+  "downloadUrl": null,
+  "sha256": null,
+  "mandatory": false,
+  "changelog": {
+    "es": "",
+    "ca": "",
+    "en": ""
+  }
+}
