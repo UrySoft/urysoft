@@ -41,7 +41,8 @@ export async function onRequest({request,env,params}){
       if(typeof nonce!=='string'||!/^[a-f0-9]{64}$/.test(nonce))bad('GOOGLE_SIGN_IN_FAILED',401);
       const challenge=await db.prepare('SELECT * FROM premium_challenges WHERE code_hash=? AND expires_at>? AND account_id IS NULL').bind(nonce,now).first();
       if(!challenge)bad('LINK_EXPIRED',410);
-      const identity=await folderyGoogle(credential,env.FOLDERY_GOOGLE_CLIENT_ID,nonce);if(!identity)bad('GOOGLE_SIGN_IN_FAILED',401);
+      let identityFailure='UNKNOWN';
+      const identity=await folderyGoogle(credential,env.FOLDERY_GOOGLE_CLIENT_ID,nonce,fetch,now,reason=>identityFailure=reason);if(!identity)bad('GOOGLE_SIGN_IN_FAILED_'+identityFailure,401);
       const account=await sha256('google:'+identity.sub),code=randomToken(),codeHash=await sha256(code);
       const consumed=await db.prepare('UPDATE premium_challenges SET code_hash=?,account_id=? WHERE code_hash=? AND account_id IS NULL AND expires_at>? RETURNING device_id').bind(codeHash,account,nonce,now).first();
       if(!consumed)bad('ALREADY_USED',409);
