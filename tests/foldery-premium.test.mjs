@@ -66,9 +66,10 @@ writeFileSync('.work/foldery/license-fixtures/public.txt',Buffer.from(await cryp
 const redirectStart=await (await call('device/start',{mode:'restore',lang:'ca'},secondDevice)).json();
 const redirectCode=new URL(redirectStart.url).hash.slice(1),redirectSession=await (await call('session',{code:redirectCode})).json();
 const redirectToken=await googleToken(redirectSession.nonce);
-async function redirect(credential,cookie='csrf-test',csrf='csrf-test'){
- return onRequest({env,params:{path:['google','redirect']},request:new Request('https://urysoft.pages.dev/api/foldery/google/redirect',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Origin:'https://urysoft.pages.dev',Cookie:cookie?'g_csrf_token='+cookie:''},body:new URLSearchParams({credential,g_csrf_token:csrf})})});
+async function redirect(credential,cookie='csrf-test',csrf='csrf-test',requestOrigin='null'){
+ return onRequest({env,params:{path:['google','redirect']},request:new Request('https://urysoft.pages.dev/api/foldery/google/redirect',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Origin:requestOrigin,Cookie:cookie?'g_csrf_token='+cookie:''},body:new URLSearchParams({credential,g_csrf_token:csrf})})});
 }
+assert.equal((await redirect(redirectToken,'csrf-test','csrf-test','https://evil.example')).status,403);
 assert.equal((await redirect(redirectToken,'')).status,403);
 assert.equal((await redirect(redirectToken,'different-cookie')).status,403);
 assert.equal((await redirect(await googleToken(redirectSession.nonce,{aud:'admin-client'}))).status,401);

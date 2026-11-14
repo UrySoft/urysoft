@@ -25,7 +25,9 @@ export async function onRequest({request,env,params}){
   if(!env.PREMIUM_DB||!env.FOLDERY_GOOGLE_CLIENT_ID||!env.FOLDERY_LICENSE_PRIVATE_KEY||env.FOLDERY_PREMIUM_ENABLED!=='sandbox'||env.PAYPAL_ENVIRONMENT!=='sandbox')return json({error:'PREMIUM_NOT_AVAILABLE'},503);
   if(request.method!=='POST')return json({error:'METHOD_NOT_ALLOWED'},405);
   const suppliedOrigin=request.headers.get('Origin');
-  if(path==='google/redirect'&&suppliedOrigin&&![origin,'https://accounts.google.com'].includes(suppliedOrigin))return json({error:'ORIGIN_NOT_ALLOWED'},403);
+  // Google's cross-origin form-post can carry an opaque Origin. The signed,
+  // one-use nonce and Google's double-submit CSRF cookie are required below.
+  if(path==='google/redirect'&&suppliedOrigin&&![origin,'https://accounts.google.com','null'].includes(suppliedOrigin))return json({error:'ORIGIN_NOT_ALLOWED'},403);
   if(!['webhook','google/redirect'].includes(path)&&suppliedOrigin&&suppliedOrigin!==origin)return json({error:'ORIGIN_NOT_ALLOWED'},403);
   const db=env.PREMIUM_DB;
   try{

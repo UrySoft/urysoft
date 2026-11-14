@@ -9,6 +9,7 @@ document.documentElement.lang=lang;
 for(const id of ['test','intro','coffee','price','annual','renewal','subscribe','privacy','offline','home'])el(id).textContent=t[id];
 for(const text of t.benefits){const li=document.createElement('li');li.textContent=text;el('benefits').append(li)}
 const code=location.hash.slice(1);history.replaceState(null,'',location.pathname+location.search);
+window.addEventListener('hashchange',()=>{if(/^[A-Za-z0-9_-]{43}$/.test(location.hash.slice(1)))location.reload()});
 const status=text=>{el('status').textContent=text};
 async function api(path,data={}){const r=await fetch('/api/foldery/'+path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',referrerPolicy:'no-referrer',body:JSON.stringify({code,...data})});const b=await r.json();if(!r.ok)throw Error(b.error);return b}
 function showSignedIn(mode){el('google').replaceChildren();if(mode==='restore'){el('offer').hidden=true;status(t.restore)}else{el('subscribe').hidden=false;status(t.ready)}}
