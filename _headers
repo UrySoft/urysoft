@@ -3,6 +3,12 @@
   X-Robots-Tag: noindex, nofollow
 /assets/apps/*
   X-Content-Type-Options: nosniff
+/descargas/foldery/Foldery-1.5.9-sandbox.apk
+  Content-Type: application/vnd.android.package-archive
+  Content-Disposition: attachment; filename="Foldery-1.5.9-sandbox.apk"
+  Cache-Control: public, max-age=86400, immutable
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, nofollow
 /foldery/premium/*
   Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
