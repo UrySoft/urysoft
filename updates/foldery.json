@@ -1,5 +1,14 @@
 {
   "schemaVersion": 1,
   "app": "foldery",
-  "status": "unpublished"
+  "status": "published",
+  "versionCode": 23,
+  "versionName": "1.6.0",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-v1.6.0/Foldery-1.6.0.apk",
+  "sha256": "e4e9555d8a5369923a9d165352efee98296ae7e12eefb1489caf1f848969a714",
+  "changelog": {
+    "es": "Premium para apoyar el desarrollo: 6 €/año, recuperación con Google y pago con PayPal. Versión gratuita y mejoras de personalización.",
+    "ca": "Premium per donar suport al desenvolupament: 6 €/any, recuperació amb Google i pagament amb PayPal. Versió gratuïta i millores de personalització.",
+    "en": "Support development with Premium: €6/year, Google recovery and PayPal payments. Free version and customization improvements."
+  }
 }
