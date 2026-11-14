@@ -53,7 +53,7 @@ export function paypal(env,send=fetch){
       const data=await request('/v1/billing/subscriptions','POST',{
         plan_id:env.PAYPAL_PLAN_ID,custom_id:accountId,
         application_context:{brand_name:'UrySoft',locale:lang==='en'?'en-US':'es-ES',shipping_preference:'NO_SHIPPING',user_action:'SUBSCRIBE_NOW',
-          return_url:ORIGIN+'/foldery/premium/?result=approved',cancel_url:ORIGIN+'/foldery/premium/?result=cancelled'}
+          return_url:ORIGIN+'/foldery/premium/?result=approved&lang='+(['ca','en'].includes(lang)?lang:'es'),cancel_url:ORIGIN+'/foldery/premium/?result=cancelled&lang='+(['ca','en'].includes(lang)?lang:'es')}
       },requestId);
       const approval=data.links?.find(l=>l.rel==='approve'&&l.method==='GET')?.href;
       let url;try{url=new URL(approval)}catch{throw new PaymentError('INVALID_APPROVAL_URL')}

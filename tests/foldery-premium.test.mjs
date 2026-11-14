@@ -46,7 +46,7 @@ assert.equal((await (await call('device/status',{approved:true,license:'forged'}
 subStatus='ACTIVE';db.exec('UPDATE premium_checkouts SET verified_at=0');
 let granted=await (await call('device/status')).json();assert.equal(granted.state,'premium');assert(granted.license);
 const [h,p,s]=granted.license.split('.');assert(await crypto.subtle.verify('RSASSA-PKCS1-v1_5',pair.publicKey,Buffer.from(s,'base64url'),new TextEncoder().encode(h+'.'+p)));
-const claims=JSON.parse(Buffer.from(p,'base64url'));assert.equal(claims.device,await sha256(device));assert.equal(claims.aud,'cat.urysoft.widgets');assert(claims.exp<=claims.iat+30*86400);assert(claims.exp<=claims.paidThrough);
+const claims=JSON.parse(Buffer.from(p,'base64url'));assert.equal(claims.device,await sha256(device));assert.equal(claims.aud,'cat.urysoft.widgets');assert.equal(claims.environment,'sandbox');assert(claims.exp<=claims.iat+30*86400);assert(claims.exp<=claims.paidThrough);
 assert.equal((await (await call('checkout',{code})).json()).alreadyPremium,true);
 const restored=await start(secondDevice,'restore');assert.equal((await call('google',{code:restored.code,credential:await googleToken(restored.session.nonce)})).status,200);
 const restoredLicense=await (await call('device/status',{},secondDevice)).json();assert.equal(restoredLicense.state,'premium');assert.equal(JSON.parse(Buffer.from(restoredLicense.license.split('.')[1],'base64url')).device,await sha256(secondDevice));
