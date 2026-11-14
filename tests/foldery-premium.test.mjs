@@ -72,6 +72,7 @@ async function redirect(credential,cookie='csrf-test',csrf='csrf-test',requestOr
 }
 assert.equal((await redirect(redirectToken,'csrf-test','csrf-test','https://evil.example')).status,403);
 assert.equal((await redirect(redirectToken,'')).status,403);
+const browserFailure=await onRequest({env,params:{path:['google','redirect']},request:new Request('https://urysoft.pages.dev/api/foldery/google/redirect',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Accept:'text/html'},body:'credential=invalid'})});assert.equal(browserFailure.status,303);assert(new URL(browserFailure.headers.get('Location')).searchParams.get('result')==='signin_error');
 assert.equal((await redirect(redirectToken,'different-cookie')).status,403);
 const rejectedAudience=await redirect(await googleToken(redirectSession.nonce,{aud:'admin-client'}));assert.equal(rejectedAudience.status,401);assert.equal((await rejectedAudience.json()).error,'GOOGLE_SIGN_IN_FAILED_AUDIENCE');
 const direct=await redirect(redirectToken);assert.equal(direct.status,303);

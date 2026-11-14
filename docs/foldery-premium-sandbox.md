@@ -24,7 +24,7 @@ Use a separate D1 binding named PREMIUM_DB, initialized with migrations/0002-fol
 - FOLDERY_GOOGLE_CLIENT_ID (customer client, not GOOGLE_CLIENT_ID)
 - PAYPAL_CLIENT_SECRET and FOLDERY_LICENSE_PRIVATE_KEY as encrypted secrets.
 
-The signing value is base64 PKCS8 RSA private key. Only its public SPKI verification key is compiled into Android. Neither private key, client secret nor original APK signing files belong in GitHub, the static website or source/APK archives.
+The signing value is base64 PKCS8 RSA private key. Only its public SPKI verification key is compiled into Android. Signed licenses explicitly declare the Sandbox environment, and this test APK accepts only that environment. Use a different license signing key and an explicit native environment change for a future live release; never reuse the test signing key. Neither private key, client secret nor original APK signing files belong in GitHub, the static website or source/APK archives.
 
 PayPal webhook target: https://urysoft.pages.dev/api/foldery/webhook. Verify notifications through PayPal's signature-verification API before processing. Duplicate event IDs are recorded, and reconciliation fetches the current subscription and transaction state instead of trusting a notification's claimed status.
 
@@ -32,6 +32,10 @@ PayPal webhook target: https://urysoft.pages.dev/api/foldery/webhook. Verify not
 
 Run node tests/paypal-subscriptions.test.mjs, node tests/foldery-premium.test.mjs and the existing comments tests. Native PremiumPolicy and PremiumClaims host tests cover limits, legacy configurations, signed licenses, device binding, tampering and expiry. The Android build verifies the original signing certificate and the existing core tests.
 
-Before live release: complete a real browser Sandbox purchase and restoration test; test the APK on a phone; confirm the seller account and final tax/invoicing treatment; complete Google's public branding/consent configuration and publish its audience; prepare a separate live PayPal connection and reconcile its plan; add the live webhook; explicitly enable and test the live path in a subsequent reviewed change. None of these is implied by passing mocked integration tests.
+The published browser flow was verified on 14 November 2026: Google account binding, a fictitious EUR 6 annual Sandbox purchase, a server-signed device-bound license, recovery through the same Google account on a second fictitious installation, and cancellation preserving the paid period. The Android Java verifier accepted the actual server-issued recovery license and rejected tampering, a different device and expiry. No real money was charged. The fictitious subscription's renewal was cancelled after testing. This is not a physical-phone UI test.
+
+The checkout was checked without horizontal overflow at 320 and 412 CSS pixels in Spanish, Catalan and English. Google uses a same-tab redirect with double-submit CSRF validation and a one-use signed nonce. Failed browser sign-in returns a readable message instead of exposing API diagnostics. Provider requests use redirect:manual and reject non-success responses, since Cloudflare Workers does not support redirect:error.
+
+Before live release: test the APK on a phone; confirm the seller account and final tax/invoicing treatment; complete Google's public branding/consent configuration and publish its audience; prepare a separate live PayPal connection and reconcile its plan; add the live webhook and separate live license signing key; explicitly enable and test the live path in a subsequent reviewed change. None of these is implied by passing the Sandbox tests.
 
 Official references: https://developer.paypal.com/api/subscriptions/v1/ ; https://developer.paypal.com/subscriptions/webhooks/ ; https://developers.google.com/identity/gsi/web/reference/js-reference .

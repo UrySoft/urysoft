@@ -120,5 +120,8 @@ export async function onRequest({request,env,params}){
       return json({url:result.approvalUrl});
     }
     return json({error:'NOT_FOUND'},404);
-  }catch(e){return json({error:e instanceof PaymentError?e.code:'REQUEST_FAILED'},e instanceof PaymentError?e.status:500)}
+  }catch(e){
+    if(path==='google/redirect'&&request.headers.get('Accept')?.includes('text/html'))return new Response(null,{status:303,headers:{Location:origin+'/foldery/premium/?result=signin_error','Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
+    return json({error:e instanceof PaymentError?e.code:'REQUEST_FAILED'},e instanceof PaymentError?e.status:500);
+  }
 }
