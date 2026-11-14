@@ -1,1 +1,1 @@
-{"version":1,"include":["/api/comments","/api/comments/*"],"exclude":[]}
+{"version":1,"include":["/api/comments","/api/comments/*","/api/foldery/*"],"exclude":[]}
