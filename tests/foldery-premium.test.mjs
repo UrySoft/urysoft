@@ -35,6 +35,7 @@ assert.equal((await (await call('device/status')).json()).state,'awaiting_google
 const {code,session}=await start();assert.equal(session.googleClientId,'premium-only-client');assert.equal(session.environment,'sandbox');
 assert.equal((await call('checkout',{code})).status,401);
 for(const extra of [{aud:'admin-client'},{iss:'https://evil.example'},{exp:1},{email_verified:false}])assert.equal(await folderyGoogle(await googleToken(session.nonce,extra),'premium-only-client',session.nonce),null);
+assert.equal(await folderyGoogle(await googleToken(session.nonce),'premium-only-client',session.nonce,async(url,opts)=>{assert.equal(opts.redirect,'manual');return new Response(null,{status:302,headers:{Location:'https://evil.example'}})}),null);
 assert.equal((await call('google',{code,credential:await googleToken('wrong-nonce')})).status,401);
 assert.equal((await call('google',{code,credential:await googleToken(session.nonce)})).status,200);
 assert.equal((await call('google',{code,credential:await googleToken(session.nonce)})).status,409);

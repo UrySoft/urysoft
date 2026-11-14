@@ -15,7 +15,7 @@ export async function folderyGoogle(token,clientId,nonce,send=fetch,now=Date.now
     if(!Number.isInteger(p.exp)||p.exp<=seconds||!Number.isInteger(p.iat)||p.iat>seconds+60||p.iat<seconds-7200)return reject('TIME');
     if(typeof p.sub!=='string'||!p.sub||p.sub.length>255||p.email_verified!==true)return reject('IDENTITY');
     stage='CERTIFICATE_FETCH';
-    const r=await send('https://www.googleapis.com/oauth2/v3/certs',{redirect:'error',signal:AbortSignal.timeout(8000)});if(!r.ok)return reject('CERTIFICATES');
+    const r=await send('https://www.googleapis.com/oauth2/v3/certs',{redirect:'manual',signal:AbortSignal.timeout(8000)});if(!r.ok)return reject('CERTIFICATES');
     stage='CERTIFICATE_JSON';
     const keys=await r.json(),jwk=keys.keys?.find(k=>k.kid===h.kid&&k.kty==='RSA'&&k.alg==='RS256');if(!jwk)return reject('KEY');
     stage='KEY_IMPORT';

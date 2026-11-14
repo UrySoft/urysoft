@@ -22,7 +22,9 @@ export function paypal(env,send=fetch){
   const base=mode==='sandbox'?'https://api-m.sandbox.paypal.com':'https://api-m.paypal.com';
   let access;
   async function json(path,options={}){
-    const response=await send(base+path,{...options,redirect:'error',signal:AbortSignal.timeout(12000)});
+    // Workers supports manual/follow, not redirect:error. Reject every non-2xx
+    // response before reading it; never forward Authorization to another host.
+    const response=await send(base+path,{...options,redirect:'manual',signal:AbortSignal.timeout(12000)});
     if(!response.ok)throw new PaymentError('PAYPAL_REQUEST_FAILED',response.status===429?503:502);
     if(response.status===204)return null;
     const text=await response.text();

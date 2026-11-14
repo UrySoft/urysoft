@@ -24,7 +24,7 @@ assert.throws(()=>paypal({PAYPAL_ENVIRONMENT:'other',PAYPAL_CLIENT_ID:'test',PAY
 const env={PAYPAL_ENVIRONMENT:'sandbox',PAYPAL_CLIENT_ID:'test-only',PAYPAL_CLIENT_SECRET:'test-only',PAYPAL_PLAN_ID:planId,PAYPAL_WEBHOOK_ID:'TEST-WH'};
 let calls=[];let approval='https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=TEST';let owner='a'.repeat(64);
 const send=async(url,opts)=>{
- calls.push({url,opts});assert(url.startsWith('https://api-m.sandbox.paypal.com/'));assert.equal(opts.redirect,'error');
+ calls.push({url,opts});assert(url.startsWith('https://api-m.sandbox.paypal.com/'));assert.equal(opts.redirect,'manual');
  if(url.endsWith('/v1/oauth2/token'))return Response.json({access_token:'test-token'});
  if(url.endsWith('/v1/billing/plans/'+planId))return Response.json(plan);
  if(url.endsWith('/v1/billing/subscriptions')&&opts.method==='POST'){const b=JSON.parse(opts.body);assert.equal(b.plan_id,planId);assert.equal(b.custom_id,owner);assert.equal(b.application_context.shipping_preference,'NO_SHIPPING');return Response.json({id:'I-SUBTEST12345',links:[{rel:'approve',method:'GET',href:approval}]});}
@@ -42,4 +42,7 @@ assert.equal(await api.verifyWebhook(new Headers(),{}),false);
 const headers=new Headers({'paypal-auth-algo':'SHA256withRSA','paypal-cert-url':'https://api.sandbox.paypal.com/v1/notifications/certs/CERT-TEST','paypal-transmission-id':'test','paypal-transmission-sig':'test','paypal-transmission-time':new Date(now).toISOString()});
 assert.equal(await api.verifyWebhook(headers,{id:'EVENT'}),true);
 headers.set('paypal-cert-url','https://evil.example/cert');assert.equal(await api.verifyWebhook(headers,{}),false);
+let redirects=0;
+await assert.rejects(()=>paypal(env,async(url,opts)=>{redirects++;assert.equal(opts.redirect,'manual');return new Response(null,{status:302,headers:{Location:'https://evil.example'}})}).plan(),/PAYPAL_REQUEST_FAILED/);
+assert.equal(redirects,1,'credentials are never forwarded through redirects');
 console.log('PASS: PayPal pricing, ownership, cancellation, payment confirmation, webhook verification and sandbox isolation.');
