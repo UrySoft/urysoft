@@ -8,6 +8,11 @@ const params=new URLSearchParams(location.search),lang=['ca','en'].includes(para
 t.unavailable={es:'Las suscripciones todavía no están disponibles. No se realizará ningún cobro.',ca:'Les subscripcions encara no estan disponibles. No es farà cap cobrament.',en:'Subscriptions are not available yet. No payment will be taken.'}[lang];
 t.support={es:'Ayuda: ',ca:'Ajuda: ',en:'Help: '}[lang]+'urysoftcompany@gmail.com';
 el('support').textContent=t.support;
+const legalWords={es:['Condiciones de suscripción','Privacidad','Acepto las condiciones de la suscripción anual de 6 €, con renovación automática.','Debes aceptar las condiciones antes de continuar.'],ca:['Condicions de subscripció','Privacitat','Accepto les condicions de la subscripció anual de 6 €, amb renovació automàtica.','Has d’acceptar les condicions abans de continuar.'],en:['Subscription terms','Privacy','I accept the terms of the €6 annual subscription with automatic renewal.','Accept the terms before continuing.']}[lang];
+['terms-link','privacy-link','accept-label'].forEach((id,i)=>el(id).textContent=legalWords[i]);
+const TERMS_VERSION='2026-11-14';let checkoutBusy=false,signedInForPurchase=false;
+function updateSubscribe(){el('subscribe').disabled=checkoutBusy||!signedInForPurchase||!el('accept-terms').checked}
+el('accept-terms').addEventListener('change',updateSubscribe);
 document.documentElement.lang=lang;
 for(const id of ['test','intro','coffee','price','annual','renewal','subscribe','privacy','offline','home'])el(id).textContent=t[id];
 for(const text of t.benefits){const li=document.createElement('li');li.textContent=text;el('benefits').append(li)}
@@ -15,7 +20,7 @@ const code=location.hash.slice(1),cleanParams=new URLSearchParams({lang});if(['a
 window.addEventListener('hashchange',()=>{if(/^[A-Za-z0-9_-]{43}$/.test(location.hash.slice(1)))location.reload()});
 const status=text=>{el('status').textContent=text};
 async function api(path,data={}){const r=await fetch('/api/foldery/live/'+path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',referrerPolicy:'no-referrer',body:JSON.stringify({code,...data})});const b=await r.json();if(!r.ok)throw Error(b.error);return b}
-function showSignedIn(mode){el('google').replaceChildren();if(mode==='restore'){el('offer').hidden=true;status(t.restore)}else{el('subscribe').hidden=false;status(t.ready)}}
+function showSignedIn(mode){el('google').replaceChildren();if(mode==='restore'){el('offer').hidden=true;status(t.restore)}else{signedInForPurchase=true;el('agreement').hidden=false;el('subscribe').hidden=false;updateSubscribe();status(t.ready)}}
 async function start(){
  const availability=await fetch('/api/foldery/live/status',{cache:'no-store',credentials:'omit'});
  if(!availability.ok||(await availability.json()).available!==true){status(t.unavailable);return}
@@ -29,5 +34,5 @@ async function start(){
  script.onload=()=>{google.accounts.id.initialize({client_id:session.googleClientId,nonce:session.nonce,auto_select:false,ux_mode:'redirect',login_uri:'https://urysoft.pages.dev/api/foldery/live/google/redirect'});google.accounts.id.renderButton(el('google'),{theme:'outline',size:'large',text:'signin_with',width:Math.min(360,el('google').clientWidth),locale:lang})};
  script.onerror=()=>status(t.error);document.head.append(script);
 }
-el('subscribe').addEventListener('click',async()=>{el('subscribe').disabled=true;status(t.busy);try{const result=await api('checkout',{lang});if(result.alreadyPremium){status(t.already);return}const u=new URL(result.url);if(u.protocol!=='https:'||u.hostname!=='www.paypal.com'||u.pathname!=='/webapps/billing/subscriptions')throw Error('Invalid destination');location.assign(u.href)}catch{status(t.error);el('subscribe').disabled=false}});
+el('subscribe').addEventListener('click',async()=>{if(checkoutBusy||!signedInForPurchase)return;if(!el('accept-terms').checked){status(legalWords[3]);return}checkoutBusy=true;updateSubscribe();status(t.busy);try{const result=await api('checkout',{lang,termsAccepted:true,termsVersion:TERMS_VERSION});if(result.alreadyPremium){status(t.already);return}const u=new URL(result.url);if(u.protocol!=='https:'||u.hostname!=='www.paypal.com'||u.pathname!=='/webapps/billing/subscriptions')throw Error('Invalid destination');location.assign(u.href)}catch{status(t.error);checkoutBusy=false;updateSubscribe()}});
 start().catch(()=>status(t.error));

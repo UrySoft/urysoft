@@ -1,6 +1,7 @@
 import {paypal,paidEntitlement,PaymentError} from './foldery-live-paypal.js';
 import {folderyGoogle} from './foldery-google.js';
 import {sha256,randomToken,issueFolderyLicense} from './foldery-live-license.js';
+import {validAgreement,recordAgreement} from './foldery-live-agreement.js';
 const origin='https://urysoft.pages.dev';
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'}});
 const bad=(code,status=400)=>{throw new PaymentError(code,status)};
@@ -104,8 +105,9 @@ export async function liveRequest({request,env,params}){
       let row=await db.prepare('SELECT * FROM premium_checkouts WHERE account_id=?').bind(challenge.account_id).first();
       row=await reconcile(env,row,true,now);
       if(row?.paid_until>now)return json({alreadyPremium:true});
+      if(!validAgreement(data))bad('TERMS_ACCEPTANCE_REQUIRED',400);
       if(row?.subscription_id){
-        if(row.status==='APPROVAL_PENDING'&&row.approval_url&&now-row.created_at<86400000)return json({url:row.approval_url});
+        if(row.status==='APPROVAL_PENDING'&&row.approval_url&&now-row.created_at<86400000){await recordAgreement(db,challenge.account_id,row.request_id,data.lang,now);return json({url:row.approval_url});}
         // Never start another automatic subscription while one may still renew.
         if(!['CANCELLED','EXPIRED'].includes(row.status))bad('EXISTING_SUBSCRIPTION_REQUIRES_REVIEW',409);
         await db.prepare('DELETE FROM premium_checkouts WHERE account_id=? AND subscription_id=?').bind(row.account_id,row.subscription_id).run();row=null;
@@ -115,6 +117,7 @@ export async function liveRequest({request,env,params}){
         row=reservation||await db.prepare('SELECT * FROM premium_checkouts WHERE account_id=?').bind(challenge.account_id).first();
       }
       if(now-row.created_at>48*3600000)bad('CHECKOUT_REQUIRES_REVIEW',409);
+      await recordAgreement(db,challenge.account_id,row.request_id,data.lang,now);
       const result=await paypal(env).create(challenge.account_id,row.request_id,data.lang);
       await db.prepare('UPDATE premium_checkouts SET subscription_id=?,approval_url=?,status=? WHERE account_id=? AND request_id=?').bind(result.id,result.approvalUrl,'APPROVAL_PENDING',challenge.account_id,row.request_id).run();
       return json({url:result.approvalUrl});
