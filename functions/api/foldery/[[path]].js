@@ -81,7 +81,8 @@ export async function onRequest({request,env,params}){
       let row=await db.prepare('SELECT * FROM premium_checkouts WHERE account_id=?').bind(registered.account_id).first();
       try{row=await reconcile(env,row,false,now)}catch{if(!row?.verified_at)throw new PaymentError('PAYMENT_VERIFICATION_UNAVAILABLE',503)}
       const license=row?await issueFolderyLicense(env,device,registered.account_id,row.paid_until,row.verified_at,now):null;
-      return json({state:license?'premium':'free',license,paidThrough:row?.paid_until||null,renewing:row?.status==='ACTIVE',environment:'sandbox'});
+      const pending=row?.status==='APPROVAL_PENDING'||(row?.status==='ACTIVE'&&!row.paid_until);
+      return json({state:license?'premium':pending?'pending_payment':'free',license,paidThrough:row?.paid_until||null,renewing:row?.status==='ACTIVE',environment:'sandbox'});
     }
     if(!/^[A-Za-z0-9_-]{43}$/.test(data.code||''))bad('INVALID_LINK');
     const codeHash=await sha256(data.code);

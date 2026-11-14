@@ -42,7 +42,7 @@ assert.equal((await call('google',{code,credential:await googleToken(session.non
 assert.equal((await (await call('device/status')).json()).state,'free');
 assert.equal((await call('checkout',{code})).status,200);assert.equal(createCalls,1);
 assert.equal((await call('checkout',{code})).status,200);assert.equal(createCalls,1,'pending checkout reused instead of duplicate subscription');
-assert.equal((await (await call('device/status',{approved:true,license:'forged'})).json()).state,'free');
+assert.equal((await (await call('device/status',{approved:true,license:'forged'})).json()).state,'pending_payment');
 subStatus='ACTIVE';db.exec('UPDATE premium_checkouts SET verified_at=0');
 let granted=await (await call('device/status')).json();assert.equal(granted.state,'premium');assert(granted.license);
 const [h,p,s]=granted.license.split('.');assert(await crypto.subtle.verify('RSASSA-PKCS1-v1_5',pair.publicKey,Buffer.from(s,'base64url'),new TextEncoder().encode(h+'.'+p)));
