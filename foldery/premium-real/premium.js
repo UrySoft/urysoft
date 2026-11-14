@@ -9,6 +9,7 @@ t.unavailable={es:'Las suscripciones todavía no están disponibles. No se reali
 t.support={es:'Ayuda: ',ca:'Ajuda: ',en:'Help: '}[lang]+'urysoftcompany@gmail.com';
 el('support').textContent=t.support;
 const legalWords={es:['Condiciones de suscripción','Privacidad','Acepto las condiciones de la suscripción anual de 6 €, con renovación automática.','Debes aceptar las condiciones antes de continuar.'],ca:['Condicions de subscripció','Privacitat','Accepto les condicions de la subscripció anual de 6 €, amb renovació automàtica.','Has d’acceptar les condicions abans de continuar.'],en:['Subscription terms','Privacy','I accept the terms of the €6 annual subscription with automatic renewal.','Accept the terms before continuing.']}[lang];
+legalWords[2]+={es:' Recibiré la confirmación en un archivo descargable.',ca:' Rebré la confirmació en un fitxer descarregable.',en:' I will receive the confirmation as a downloadable file.'}[lang];
 ['terms-link','privacy-link','accept-label'].forEach((id,i)=>el(id).textContent=legalWords[i]);
 const TERMS_VERSION='2026-11-14';let checkoutBusy=false,signedInForPurchase=false;
 function updateSubscribe(){el('subscribe').disabled=checkoutBusy||!signedInForPurchase||!el('accept-terms').checked}
@@ -16,16 +17,32 @@ el('accept-terms').addEventListener('change',updateSubscribe);
 document.documentElement.lang=lang;
 for(const id of ['test','intro','coffee','price','annual','renewal','subscribe','privacy','offline','home'])el(id).textContent=t[id];
 for(const text of t.benefits){const li=document.createElement('li');li.textContent=text;el('benefits').append(li)}
+const receiptWords={es:{download:'Guardar confirmación de compra',retry:'Volver a comprobar la confirmación',ready:'Tu confirmación está preparada. Guárdala para conservar las condiciones y los datos de la contratación.',pending:'Todavía no se ha confirmado el pago. Puedes volver a comprobarlo más tarde.',signin:'Para recuperar la confirmación, abre Recuperar Premium desde Foldery y entra con la misma cuenta de Google.',error:'No se pudo descargar la confirmación. Puedes reintentarlo.',busy:'Comprobando la confirmación…'},ca:{download:'Desa la confirmació de compra',retry:'Torna a comprovar la confirmació',ready:'La confirmació està preparada. Desa-la per conservar les condicions i les dades de la contractació.',pending:'Encara no s’ha confirmat el pagament. Pots tornar-ho a comprovar més tard.',signin:'Per recuperar la confirmació, obre Recupera Premium des de Foldery i entra amb el mateix compte de Google.',error:'No s’ha pogut descarregar la confirmació. Pots tornar-ho a provar.',busy:'Comprovant la confirmació…'},en:{download:'Save purchase confirmation',retry:'Check confirmation again',ready:'Your confirmation is ready. Save it to keep your contract terms and details.',pending:'Payment has not been confirmed yet. You can check again later.',signin:'To recover the confirmation, open Restore Premium in Foldery and sign in with the same Google account.',error:'Unable to download the confirmation. You can try again.',busy:'Checking confirmation…'}}[lang];
+const receiptArea=document.createElement('section'),receiptStatus=document.createElement('p'),receiptDownload=document.createElement('a'),receiptRetry=document.createElement('button');
+receiptArea.hidden=true;receiptArea.id='confirmation';receiptStatus.setAttribute('role','status');receiptDownload.textContent=receiptWords.download;receiptDownload.download='Foldery-confirmacion.html';receiptDownload.className='receipt-download';receiptDownload.hidden=true;receiptRetry.textContent=receiptWords.retry;receiptRetry.hidden=true;receiptArea.append(receiptStatus,receiptDownload,receiptRetry);el('status').after(receiptArea);
+let receiptBusy=false,receiptUsesCookie=false,receiptObjectUrl;
+async function prepareReceipt(useCookie,autoDownload=false){
+ if(receiptBusy)return;receiptBusy=true;receiptUsesCookie=useCookie;receiptArea.hidden=false;receiptRetry.hidden=true;receiptStatus.textContent=receiptWords.busy;
+ try{
+  const r=await fetch('/api/foldery/live/receipt',{method:useCookie?'GET':'POST',credentials:'same-origin',cache:'no-store',referrerPolicy:'no-referrer',...(useCookie?{}:{headers:{'Content-Type':'application/json'},body:JSON.stringify({code})})});
+  if(!r.ok){receiptStatus.textContent=r.status===409?receiptWords.pending:[401,404,410].includes(r.status)?receiptWords.signin:receiptWords.error;receiptRetry.hidden=false;return}
+  if(!r.headers.get('Content-Type')?.startsWith('text/html'))throw Error('Invalid confirmation');
+  const html=await r.text();if(html.length>262144)throw Error('Confirmation too large');
+  if(receiptObjectUrl)URL.revokeObjectURL(receiptObjectUrl);receiptObjectUrl=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+  receiptDownload.href=receiptObjectUrl;receiptDownload.hidden=false;receiptStatus.textContent=receiptWords.ready;if(autoDownload)receiptDownload.click();
+ }catch{receiptStatus.textContent=receiptWords.error;receiptRetry.hidden=false}finally{receiptBusy=false}
+}
+receiptRetry.addEventListener('click',()=>prepareReceipt(receiptUsesCookie));
 const code=location.hash.slice(1),cleanParams=new URLSearchParams({lang});if(['approved','cancelled','signin_error'].includes(params.get('result')))cleanParams.set('result',params.get('result'));history.replaceState(null,'',location.pathname+'?'+cleanParams);
 window.addEventListener('hashchange',()=>{if(/^[A-Za-z0-9_-]{43}$/.test(location.hash.slice(1)))location.reload()});
 const status=text=>{el('status').textContent=text};
-async function api(path,data={}){const r=await fetch('/api/foldery/live/'+path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',referrerPolicy:'no-referrer',body:JSON.stringify({code,...data})});const b=await r.json();if(!r.ok)throw Error(b.error);return b}
-function showSignedIn(mode){el('google').replaceChildren();if(mode==='restore'){el('offer').hidden=true;status(t.restore)}else{signedInForPurchase=true;el('agreement').hidden=false;el('subscribe').hidden=false;updateSubscribe();status(t.ready)}}
+async function api(path,data={}){const r=await fetch('/api/foldery/live/'+path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',referrerPolicy:'no-referrer',body:JSON.stringify({code,...data})});const b=await r.json();if(!r.ok)throw Error(b.error);return b}
+function showSignedIn(mode){el('google').replaceChildren();if(mode==='restore'){el('offer').hidden=true;status(t.restore);prepareReceipt(false)}else{signedInForPurchase=true;el('agreement').hidden=false;el('subscribe').hidden=false;updateSubscribe();status(t.ready)}}
 async function start(){
  const availability=await fetch('/api/foldery/live/status',{cache:'no-store',credentials:'omit'});
  if(!availability.ok||(await availability.json()).available!==true){status(t.unavailable);return}
  for(const id of ['test','intro','offer','privacy','offline'])el(id).hidden=false;
- if(params.has('result')){el('offer').hidden=true;status(params.get('result')==='signin_error'?t.error+' '+t.expired:t[params.get('result')==='approved'?'approved':'cancelled']);return}
+ if(params.has('result')){el('offer').hidden=true;status(params.get('result')==='signin_error'?t.error+' '+t.expired:t[params.get('result')==='approved'?'approved':'cancelled']);if(params.get('result')==='approved')prepareReceipt(true,true);return}
  if(!/^[A-Za-z0-9_-]{43}$/.test(code)){status(t.expired);return}
  const session=await api('session');
  if(session.signedIn){showSignedIn(session.mode);return}
@@ -34,5 +51,5 @@ async function start(){
  script.onload=()=>{google.accounts.id.initialize({client_id:session.googleClientId,nonce:session.nonce,auto_select:false,ux_mode:'redirect',login_uri:'https://urysoft.pages.dev/api/foldery/live/google/redirect'});google.accounts.id.renderButton(el('google'),{theme:'outline',size:'large',text:'signin_with',width:Math.min(360,el('google').clientWidth),locale:lang})};
  script.onerror=()=>status(t.error);document.head.append(script);
 }
-el('subscribe').addEventListener('click',async()=>{if(checkoutBusy||!signedInForPurchase)return;if(!el('accept-terms').checked){status(legalWords[3]);return}checkoutBusy=true;updateSubscribe();status(t.busy);try{const result=await api('checkout',{lang,termsAccepted:true,termsVersion:TERMS_VERSION});if(result.alreadyPremium){status(t.already);return}const u=new URL(result.url);if(u.protocol!=='https:'||u.hostname!=='www.paypal.com'||u.pathname!=='/webapps/billing/subscriptions')throw Error('Invalid destination');location.assign(u.href)}catch{status(t.error);checkoutBusy=false;updateSubscribe()}});
+el('subscribe').addEventListener('click',async()=>{if(checkoutBusy||!signedInForPurchase)return;if(!el('accept-terms').checked){status(legalWords[3]);return}checkoutBusy=true;updateSubscribe();status(t.busy);try{const result=await api('checkout',{lang,termsAccepted:true,termsVersion:TERMS_VERSION});if(result.alreadyPremium){status(t.already);prepareReceipt(false,true);return}const u=new URL(result.url);if(u.protocol!=='https:'||u.hostname!=='www.paypal.com'||u.pathname!=='/webapps/billing/subscriptions')throw Error('Invalid destination');location.assign(u.href)}catch{status(t.error);checkoutBusy=false;updateSubscribe()}});
 start().catch(()=>status(t.error));

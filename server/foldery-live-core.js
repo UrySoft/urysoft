@@ -2,6 +2,7 @@ import {paypal,paidEntitlement,PaymentError} from './foldery-live-paypal.js';
 import {folderyGoogle} from './foldery-google.js';
 import {sha256,randomToken,issueFolderyLicense} from './foldery-live-license.js';
 import {validAgreement,recordAgreement} from './foldery-live-agreement.js';
+import {receiptCookie,receiptSession,storedConfirmation,createConfirmation,confirmationResponse} from './foldery-live-confirmation.js';
 const origin='https://urysoft.pages.dev';
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'}});
 const bad=(code,status=400)=>{throw new PaymentError(code,status)};
@@ -24,14 +25,25 @@ async function reconcile(env,row,force=false,now=Date.now()){
 export async function liveRequest({request,env,params}){
   const path=(params.path||[]).join('/'),now=Date.now();
   if(!env.PREMIUM_DB||!env.FOLDERY_GOOGLE_CLIENT_ID||!env.FOLDERY_LICENSE_PRIVATE_KEY||env.FOLDERY_PREMIUM_ENABLED!=='live'||env.PAYPAL_ENVIRONMENT!=='live')return json({error:'PREMIUM_NOT_AVAILABLE'},503);
-  if(request.method!=='POST')return json({error:'METHOD_NOT_ALLOWED'},405);
+  const receiptGet=path==='receipt'&&request.method==='GET';
+  if(request.method!=='POST'&&!receiptGet)return json({error:'METHOD_NOT_ALLOWED'},405);
   const suppliedOrigin=request.headers.get('Origin');
   // Google's cross-origin form-post can carry an opaque Origin. The signed,
   // one-use nonce and Google's double-submit CSRF cookie are required below.
   if(path==='google/redirect'&&suppliedOrigin&&![origin,'https://accounts.google.com','null'].includes(suppliedOrigin))return json({error:'ORIGIN_NOT_ALLOWED'},403);
   if(!['webhook','google/redirect'].includes(path)&&suppliedOrigin&&suppliedOrigin!==origin)return json({error:'ORIGIN_NOT_ALLOWED'},403);
   const db=env.PREMIUM_DB;
+  async function checkoutResponse(value,row){const response=json(value);response.headers.set('Set-Cookie',await receiptCookie(db,row,now));return response;}
+  async function receiptFor(accountId,requestId){
+    if(requestId){const frozen=await storedConfirmation(db,accountId,requestId);if(frozen)return confirmationResponse(frozen.document_html);}
+    let row=await db.prepare('SELECT * FROM premium_checkouts WHERE account_id=?').bind(accountId).first();
+    if(!row||requestId&&row.request_id!==requestId)bad('CONFIRMATION_NOT_FOUND',404);
+    const frozen=await storedConfirmation(db,accountId,row.request_id);if(frozen)return confirmationResponse(frozen.document_html);
+    row=await reconcile(env,row,true,now);
+    return confirmationResponse(await createConfirmation(db,row,now));
+  }
   try{
+    if(receiptGet){const session=await receiptSession(db,request,now);return await receiptFor(session.account_id,session.request_id);}
     if(path==='google/redirect'){
       if(!request.headers.get('Content-Type')?.startsWith('application/x-www-form-urlencoded')||Number(request.headers.get('Content-Length')||0)>20000)bad('INVALID_GOOGLE_RESPONSE');
       const raw=await request.text();if(raw.length>20000)bad('INVALID_GOOGLE_RESPONSE');
@@ -90,6 +102,7 @@ export async function liveRequest({request,env,params}){
     let challenge=await db.prepare('SELECT * FROM premium_challenges WHERE code_hash=? AND expires_at>?').bind(codeHash,now).first();
     if(!challenge)bad('LINK_EXPIRED',410);
     if(path==='session')return json({googleClientId:env.FOLDERY_GOOGLE_CLIENT_ID,nonce:codeHash,mode:challenge.mode,environment:'live',signedIn:!!challenge.account_id});
+    if(path==='receipt'){if(!challenge.account_id)bad('GOOGLE_SIGN_IN_REQUIRED',401);return await receiptFor(challenge.account_id);}
     if(path==='google'){
       if(challenge.account_id)bad('ALREADY_USED',409);
       const identity=await folderyGoogle(data.credential,env.FOLDERY_GOOGLE_CLIENT_ID,codeHash);if(!identity)bad('GOOGLE_SIGN_IN_FAILED',401);
@@ -104,10 +117,10 @@ export async function liveRequest({request,env,params}){
       if(!challenge.account_id||challenge.mode!=='subscribe')bad('GOOGLE_SIGN_IN_REQUIRED',401);
       let row=await db.prepare('SELECT * FROM premium_checkouts WHERE account_id=?').bind(challenge.account_id).first();
       row=await reconcile(env,row,true,now);
-      if(row?.paid_until>now)return json({alreadyPremium:true});
+      if(row?.paid_until>now)return await checkoutResponse({alreadyPremium:true},row);
       if(!validAgreement(data))bad('TERMS_ACCEPTANCE_REQUIRED',400);
       if(row?.subscription_id){
-        if(row.status==='APPROVAL_PENDING'&&row.approval_url&&now-row.created_at<86400000){await recordAgreement(db,challenge.account_id,row.request_id,data.lang,now);return json({url:row.approval_url});}
+        if(row.status==='APPROVAL_PENDING'&&row.approval_url&&now-row.created_at<86400000){await recordAgreement(db,challenge.account_id,row.request_id,data.lang,now);return await checkoutResponse({url:row.approval_url},row);}
         // Never start another automatic subscription while one may still renew.
         if(!['CANCELLED','EXPIRED'].includes(row.status))bad('EXISTING_SUBSCRIPTION_REQUIRES_REVIEW',409);
         await db.prepare('DELETE FROM premium_checkouts WHERE account_id=? AND subscription_id=?').bind(row.account_id,row.subscription_id).run();row=null;
@@ -120,7 +133,7 @@ export async function liveRequest({request,env,params}){
       await recordAgreement(db,challenge.account_id,row.request_id,data.lang,now);
       const result=await paypal(env).create(challenge.account_id,row.request_id,data.lang);
       await db.prepare('UPDATE premium_checkouts SET subscription_id=?,approval_url=?,status=? WHERE account_id=? AND request_id=?').bind(result.id,result.approvalUrl,'APPROVAL_PENDING',challenge.account_id,row.request_id).run();
-      return json({url:result.approvalUrl});
+      return await checkoutResponse({url:result.approvalUrl},row);
     }
     return json({error:'NOT_FOUND'},404);
   }catch(e){
