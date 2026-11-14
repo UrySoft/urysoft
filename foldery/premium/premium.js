@@ -19,7 +19,7 @@ async function start(){
  if(session.signedIn){showSignedIn(session.mode);return}
  if(session.mode==='restore')el('offer').hidden=true;
  const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client?hl='+lang;script.async=true;
- script.onload=()=>{google.accounts.id.initialize({client_id:session.googleClientId,nonce:session.nonce,auto_select:false,callback:async response=>{try{await api('google',{credential:response.credential});showSignedIn(session.mode)}catch{status(t.error)}}});google.accounts.id.renderButton(el('google'),{theme:'outline',size:'large',text:'signin_with',width:Math.min(360,el('google').clientWidth),locale:lang})};
+ script.onload=()=>{google.accounts.id.initialize({client_id:session.googleClientId,nonce:session.nonce,auto_select:false,ux_mode:'redirect',login_uri:'https://urysoft.pages.dev/api/foldery/google/redirect'});google.accounts.id.renderButton(el('google'),{theme:'outline',size:'large',text:'signin_with',width:Math.min(360,el('google').clientWidth),locale:lang})};
  script.onerror=()=>status(t.error);document.head.append(script);
 }
 el('subscribe').addEventListener('click',async()=>{el('subscribe').disabled=true;status(t.busy);try{const result=await api('checkout',{lang});if(result.alreadyPremium){status(t.already);return}const u=new URL(result.url);if(u.protocol!=='https:'||u.hostname!=='www.sandbox.paypal.com'||u.pathname!=='/webapps/billing/subscriptions')throw Error('Invalid destination');location.assign(u.href)}catch{status(t.error);el('subscribe').disabled=false}});

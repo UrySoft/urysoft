@@ -25,9 +25,28 @@ export async function onRequest({request,env,params}){
   if(!env.PREMIUM_DB||!env.FOLDERY_GOOGLE_CLIENT_ID||!env.FOLDERY_LICENSE_PRIVATE_KEY||env.FOLDERY_PREMIUM_ENABLED!=='sandbox'||env.PAYPAL_ENVIRONMENT!=='sandbox')return json({error:'PREMIUM_NOT_AVAILABLE'},503);
   if(request.method!=='POST')return json({error:'METHOD_NOT_ALLOWED'},405);
   const suppliedOrigin=request.headers.get('Origin');
-  if(path!=='webhook'&&suppliedOrigin&&suppliedOrigin!==origin)return json({error:'ORIGIN_NOT_ALLOWED'},403);
+  if(path==='google/redirect'&&suppliedOrigin&&![origin,'https://accounts.google.com'].includes(suppliedOrigin))return json({error:'ORIGIN_NOT_ALLOWED'},403);
+  if(!['webhook','google/redirect'].includes(path)&&suppliedOrigin&&suppliedOrigin!==origin)return json({error:'ORIGIN_NOT_ALLOWED'},403);
   const db=env.PREMIUM_DB;
   try{
+    if(path==='google/redirect'){
+      if(!request.headers.get('Content-Type')?.startsWith('application/x-www-form-urlencoded')||Number(request.headers.get('Content-Length')||0)>20000)bad('INVALID_GOOGLE_RESPONSE');
+      const raw=await request.text();if(raw.length>20000)bad('INVALID_GOOGLE_RESPONSE');
+      const form=new URLSearchParams(raw),csrf=form.get('g_csrf_token'),cookie=request.headers.get('Cookie')?.split(';').map(s=>s.trim()).find(s=>s.startsWith('g_csrf_token='))?.slice(13);
+      if(!csrf||csrf.length>512||csrf!==cookie)bad('GOOGLE_CSRF_FAILED',403);
+      const credential=form.get('credential');let nonce;
+      try{const p=credential.split('.')[1];nonce=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(p.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0)))).nonce;}catch{bad('GOOGLE_SIGN_IN_FAILED',401)}
+      if(typeof nonce!=='string'||!/^[a-f0-9]{64}$/.test(nonce))bad('GOOGLE_SIGN_IN_FAILED',401);
+      const challenge=await db.prepare('SELECT * FROM premium_challenges WHERE code_hash=? AND expires_at>? AND account_id IS NULL').bind(nonce,now).first();
+      if(!challenge)bad('LINK_EXPIRED',410);
+      const identity=await folderyGoogle(credential,env.FOLDERY_GOOGLE_CLIENT_ID,nonce);if(!identity)bad('GOOGLE_SIGN_IN_FAILED',401);
+      const account=await sha256('google:'+identity.sub),code=randomToken(),codeHash=await sha256(code);
+      const consumed=await db.prepare('UPDATE premium_challenges SET code_hash=?,account_id=? WHERE code_hash=? AND account_id IS NULL AND expires_at>? RETURNING device_id').bind(codeHash,account,nonce,now).first();
+      if(!consumed)bad('ALREADY_USED',409);
+      await db.prepare('UPDATE premium_devices SET account_id=? WHERE device_id=?').bind(account,consumed.device_id).run();
+      const lang=['ca','en'].includes(challenge.lang)?challenge.lang:'es';
+      return new Response(null,{status:303,headers:{Location:origin+'/foldery/premium/?lang='+lang+'#'+code,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
+    }
     const data=await body(request);
     if(path==='webhook'){
       const api=paypal(env);if(!await api.verifyWebhook(request.headers,data))bad('INVALID_WEBHOOK',401);
@@ -51,7 +70,7 @@ export async function onRequest({request,env,params}){
         const code=randomToken(),hash=await sha256(code),mode=data.mode==='restore'?'restore':'subscribe',lang=['ca','en'].includes(data.lang)?data.lang:'es';
         await db.prepare('DELETE FROM premium_challenges WHERE expires_at<?').bind(now).run();
         await db.prepare('INSERT OR IGNORE INTO premium_devices(device_id,created_at) VALUES(?,?)').bind(device,now).run();
-        await db.prepare('INSERT INTO premium_challenges(code_hash,device_id,mode,expires_at) VALUES(?,?,?,?)').bind(hash,device,mode,now+900000).run();
+        await db.prepare('INSERT INTO premium_challenges(code_hash,device_id,mode,lang,expires_at) VALUES(?,?,?,?,?)').bind(hash,device,mode,lang,now+900000).run();
         return json({url:origin+'/foldery/premium/?lang='+lang+'#'+code,expiresAt:now+900000});
       }
       const registered=await db.prepare('SELECT account_id FROM premium_devices WHERE device_id=?').bind(device).first();

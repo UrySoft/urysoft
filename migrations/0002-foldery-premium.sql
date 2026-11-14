@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS premium_devices (
  device_id TEXT PRIMARY KEY, account_id TEXT, created_at INTEGER NOT NULL
 );
 CREATE TABLE IF NOT EXISTS premium_challenges (
- code_hash TEXT PRIMARY KEY, device_id TEXT NOT NULL, mode TEXT NOT NULL,
+ code_hash TEXT PRIMARY KEY, device_id TEXT NOT NULL, mode TEXT NOT NULL, lang TEXT NOT NULL DEFAULT 'es',
  account_id TEXT, expires_at INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS premium_challenge_expiry ON premium_challenges(expires_at);

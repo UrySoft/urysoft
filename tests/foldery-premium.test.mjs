@@ -63,5 +63,19 @@ mkdirSync('.work/foldery/license-fixtures',{recursive:true});
 writeFileSync('.work/foldery/license-fixtures/valid.jwt',restoredLicense.license);
 writeFileSync('.work/foldery/license-fixtures/device.txt',await sha256(secondDevice));
 writeFileSync('.work/foldery/license-fixtures/public.txt',Buffer.from(await crypto.subtle.exportKey('spki',pair.publicKey)).toString('base64'));
+const redirectStart=await (await call('device/start',{mode:'restore',lang:'ca'},secondDevice)).json();
+const redirectCode=new URL(redirectStart.url).hash.slice(1),redirectSession=await (await call('session',{code:redirectCode})).json();
+const redirectToken=await googleToken(redirectSession.nonce);
+async function redirect(credential,cookie='csrf-test',csrf='csrf-test'){
+ return onRequest({env,params:{path:['google','redirect']},request:new Request('https://urysoft.pages.dev/api/foldery/google/redirect',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Origin:'https://urysoft.pages.dev',Cookie:cookie?'g_csrf_token='+cookie:''},body:new URLSearchParams({credential,g_csrf_token:csrf})})});
+}
+assert.equal((await redirect(redirectToken,'')).status,403);
+assert.equal((await redirect(redirectToken,'different-cookie')).status,403);
+assert.equal((await redirect(await googleToken(redirectSession.nonce,{aud:'admin-client'}))).status,401);
+const direct=await redirect(redirectToken);assert.equal(direct.status,303);
+const returned=new URL(direct.headers.get('Location'));assert.equal(returned.origin,'https://urysoft.pages.dev');assert.equal(returned.searchParams.get('lang'),'ca');assert.equal(returned.pathname,'/foldery/premium/');
+assert.notEqual(returned.hash.slice(1),redirectCode,'browser credential rotated after Google return');
+assert.equal((await (await call('session',{code:returned.hash.slice(1)})).json()).signedIn,true);
+assert.equal((await redirect(redirectToken)).status,410,'signed return cannot be replayed');
 globalThis.fetch=oldFetch;
 console.log('PASS: Google nonce/audience/replay protection, isolated customer identity, checkout reuse, payment proof, device binding, signed leases, restore, cancellation, refunds, expiry and verified webhook replay handling.');
