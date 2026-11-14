@@ -1,5 +1,5 @@
 // Provisional until the owner approves the matching documents for publication.
-export const TERMS_VERSION='2026-11-14';
+export const TERMS_VERSION='2026-11-14.2';
 export const PRIVACY_VERSION='2026-11-14';
 export function validAgreement(data){return data.termsAccepted===true&&data.termsVersion===TERMS_VERSION;}
 export async function recordAgreement(db,accountId,requestId,lang,now){
