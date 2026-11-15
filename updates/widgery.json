@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "app": "widgery",
+  "status": "published",
+  "versionCode": 59,
+  "versionName": "3.1.0",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/widgery-3.1.0/Widgery-3.1.0.apk",
+  "sha256": "1421e620e8be984b92d2b411602b61584cbb3332e4ac6be3305a3826873c4a98",
+  "changelog": {
+    "es": "Actualizaciones desde la app. Biblioteca ilimitada; Gratis permite colocar una página, un recorte y un widget de comunidad de otro autor. Premium opcional de 12 €/año con Google y PayPal.",
+    "ca": "Actualitzacions des de l’app. Biblioteca il·limitada; Gratis permet col·locar una pàgina, un retall i un giny de comunitat d’un altre autor. Premium opcional de 12 €/any amb Google i PayPal.",
+    "en": "In-app updates. Unlimited library; Free allows one full page, one crop and one community home-screen widget by another author. Optional €12/year Premium with Google and PayPal."
+  }
+}
