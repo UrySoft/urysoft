@@ -83,7 +83,33 @@
         "es": "Laberintos y navegación para experimentar con recorridos.",
         "ca": "Laberints i navegació per experimentar amb recorreguts.",
         "en": "Mazes and navigation for experimenting with paths."
-      }
+      },
+      "versions": [
+        {
+          "label": "0.1",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.1.html"
+        },
+        {
+          "label": "0.2",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.2.html"
+        },
+        {
+          "label": "0.3",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.3.html"
+        },
+        {
+          "label": "0.4",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.4.html"
+        },
+        {
+          "label": "0.5",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.5.html"
+        },
+        {
+          "label": "0.6",
+          "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.6.html"
+        }
+      ]
     },
     {
       "id": "experiment-7",
@@ -95,7 +121,41 @@
         "es": "Una prueba de construcción y defensa de una base espacial.",
         "ca": "Una prova de construcció i defensa d’una base espacial.",
         "en": "An experiment in building and defending a space base."
-      }
+      },
+      "versions": [
+        {
+          "label": "1.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v1.0.html"
+        },
+        {
+          "label": "2.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v2.0.html"
+        },
+        {
+          "label": "3.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v3.0.html"
+        },
+        {
+          "label": "4.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v4.0.html"
+        },
+        {
+          "label": "5.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v5.0.html"
+        },
+        {
+          "label": "6.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v6.0.html"
+        },
+        {
+          "label": "7.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v7.0.html"
+        },
+        {
+          "label": "8.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v8.0.html"
+        }
+      ]
     },
     {
       "id": "experiment-8",
@@ -170,20 +230,8 @@
       }
     },
     {
-      "id": "experiment-14",
-      "name": "Orbital Siege",
-      "url": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.v1.0.html",
-      "image": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.png",
-      "category": "games",
-      "description": {
-        "es": "Defensa orbital, mejoras y oleadas de enemigos en un prototipo.",
-        "ca": "Defensa orbital, millores i onades d’enemics en un prototip.",
-        "en": "Orbital defense, upgrades and enemy waves in a prototype."
-      }
-    },
-    {
       "id": "experiment-15",
-      "name": "Orbital Siege 2.0",
+      "name": "Orbital Siege",
       "url": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.v2.0.html",
       "image": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege2.png",
       "category": "games",
@@ -191,7 +239,13 @@
         "es": "Una segunda iteración del experimento de defensa orbital.",
         "ca": "Una segona iteració de l’experiment de defensa orbital.",
         "en": "A second iteration of the orbital-defense experiment."
-      }
+      },
+      "versions": [
+        {
+          "label": "1.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.v1.0.html"
+        }
+      ]
     },
     {
       "id": "experiment-16",
@@ -203,7 +257,13 @@
         "es": "Una prueba arcade de combates submarinos.",
         "ca": "Una prova arcade de combats submarins.",
         "en": "An arcade experiment with submarine battles."
-      }
+      },
+      "versions": [
+        {
+          "label": "1.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/mkwar/mkwar.v1.0.html"
+        }
+      ]
     },
     {
       "id": "experiment-17",
@@ -242,20 +302,8 @@
       }
     },
     {
-      "id": "experiment-20",
-      "name": "MUD & STEEL: Trench Warfare",
-      "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v1.0.html",
-      "image": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.png",
-      "category": "games",
-      "description": {
-        "es": "Un experimento de estrategia ambientado en una guerra de trincheras.",
-        "ca": "Un experiment d’estratègia ambientat en una guerra de trinxeres.",
-        "en": "A strategy experiment set in trench warfare."
-      }
-    },
-    {
       "id": "experiment-21",
-      "name": "MUD & STEEL 2.0: Trench Warfare",
+      "name": "MUD & STEEL: Trench Warfare",
       "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v2.0.html",
       "image": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.png",
       "category": "games",
@@ -263,7 +311,21 @@
         "es": "Una nueva iteración del prototipo de estrategia de trincheras.",
         "ca": "Una nova iteració del prototip d’estratègia de trinxeres.",
         "en": "A new iteration of the trench-warfare strategy prototype."
-      }
+      },
+      "versions": [
+        {
+          "label": "0.1.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v0.1.0.html"
+        },
+        {
+          "label": "1.0",
+          "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v1.0.html"
+        },
+        {
+          "label": "1.x",
+          "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v1.x.html"
+        }
+      ]
     },
     {
       "id": "experiment-22",
@@ -299,6 +361,54 @@
         "es": "Una prueba de defensa fantástica con arco y oleadas de enemigos.",
         "ca": "Una prova de defensa fantàstica amb arc i onades d’enemics.",
         "en": "A fantasy-defense experiment with archery and enemy waves."
+      }
+    },
+    {
+      "id": "recovered-solar",
+      "name": "Sistema Solar",
+      "url": "https://urysoft.github.io/ai.html.games/games/sistemasolar/sistemasolar.v1.1.html",
+      "image": "/assets/playground/recovered/solar.png",
+      "category": "simulators",
+      "description": {
+        "es": "Explora órbitas y cuerpos celestes en una simulación interactiva. Algunas imágenes externas pueden no cargar.",
+        "ca": "Explora òrbites i cossos celestes en una simulació interactiva. Algunes imatges externes poden no carregar.",
+        "en": "Explore orbits and celestial bodies in an interactive simulation. Some external images may not load."
+      }
+    },
+    {
+      "id": "recovered-viper",
+      "name": "Viper · beta",
+      "url": "https://urysoft.github.io/ai.html.games/games/viper/viper.beta0.html",
+      "image": "/assets/playground/recovered/viper.png",
+      "category": "games",
+      "description": {
+        "es": "Un prototipo espacial con nave, propulsión y controles táctiles. Una prueba de manejo y disparo, todavía en beta.",
+        "ca": "Un prototip espacial amb nau, propulsió i controls tàctils. Una prova de pilotatge i trets, encara en beta.",
+        "en": "A space prototype with a ship, thrust and touch controls. An early flight-and-shooting experiment."
+      }
+    },
+    {
+      "id": "recovered-dashboard",
+      "name": "Dashboard Bolsa · demo",
+      "url": "https://urysoft.github.io/ai.html.games/games/prova/cast1.html",
+      "image": "/assets/playground/recovered/dashboard.png",
+      "category": "simulators",
+      "description": {
+        "es": "Gráficos de precio y volumen con datos de ejemplo. Incluye una prueba de Chromecast; la transmisión no está verificada.",
+        "ca": "Gràfics de preu i volum amb dades d’exemple. Inclou una prova de Chromecast; la transmissió no està verificada.",
+        "en": "Price and volume charts with sample data. Includes a Chromecast experiment; casting has not been verified."
+      }
+    },
+    {
+      "id": "recovered-candles",
+      "name": "Panel de Velas Japonesas",
+      "url": "https://urysoft.github.io/ai.html.games/games/prova/kanji1.html",
+      "image": "/assets/playground/recovered/candles.png",
+      "category": "simulators",
+      "description": {
+        "es": "Prototipo de análisis de patrones con importación CSV. La carga de Yahoo Finance depende de servicios externos y no está verificada.",
+        "ca": "Prototip d’anàlisi de patrons amb importació CSV. La càrrega de Yahoo Finance depèn de serveis externs i no està verificada.",
+        "en": "A pattern-analysis prototype with CSV import. Yahoo Finance loading depends on external services and has not been verified."
       }
     }
   ]
