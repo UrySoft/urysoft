@@ -1,0 +1,305 @@
+{
+  "original": "https://urysoft.github.io/ai.html.games/",
+  "items": [
+    {
+      "id": "experiment-0",
+      "name": "Tres en Raya",
+      "url": "https://urysoft.github.io/ai.html.games/games/tresenralla/index.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/tresenralla/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Tres en raya para probar la lógica de juego y la interacción.",
+        "ca": "Tres en ratlla per provar la lògica de joc i la interacció.",
+        "en": "Tic-tac-toe for experimenting with game logic and interaction."
+      }
+    },
+    {
+      "id": "experiment-1",
+      "name": "Mastermind",
+      "url": "https://urysoft.github.io/ai.html.games/games/mastermind/index.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/mastermind/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Combinaciones, pistas y deducción en un experimento de lógica.",
+        "ca": "Combinacions, pistes i deducció en un experiment de lògica.",
+        "en": "Combinations, clues and deduction in a logic experiment."
+      }
+    },
+    {
+      "id": "experiment-2",
+      "name": "Moon Landing",
+      "url": "https://urysoft.github.io/ai.html.games/games/moonlanding/moonlanding.v0.1.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/moonlanding/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Un aterrizaje lunar para jugar con la gravedad y el empuje.",
+        "ca": "Un aterratge lunar per jugar amb la gravetat i l’empenta.",
+        "en": "A lunar landing experiment with gravity and thrust."
+      }
+    },
+    {
+      "id": "experiment-3",
+      "name": "Numeric Wars",
+      "url": "https://urysoft.github.io/ai.html.games/games/numericwars/numericwars.v0.1.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/numericwars/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Una prueba de estrategia por turnos con números.",
+        "ca": "Una prova d’estratègia per torns amb números.",
+        "en": "A turn-based strategy experiment using numbers."
+      }
+    },
+    {
+      "id": "experiment-4",
+      "name": "Morse Wars",
+      "url": "https://urysoft.github.io/ai.html.games/games/numericwars/morsewars.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/numericwars/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "El prototipo Morse Wars del cajón de pruebas.",
+        "ca": "El prototip Morse Wars del calaix de proves.",
+        "en": "The Morse Wars prototype from the collection."
+      }
+    },
+    {
+      "id": "experiment-5",
+      "name": "Space Conquest (MVP)",
+      "url": "https://urysoft.github.io/ai.html.games/games/spaceconquest/spaceconquest.v0.1.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/spaceconquest/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Un primer prototipo de conquista espacial y gestión de recursos.",
+        "ca": "Un primer prototip de conquesta espacial i gestió de recursos.",
+        "en": "An early prototype of space conquest and resource management."
+      }
+    },
+    {
+      "id": "experiment-6",
+      "name": "Minotaurio",
+      "url": "https://urysoft.github.io/ai.html.games/games/minotaurio/minotaurio.v0.7.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/minotaurio/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Laberintos y navegación para experimentar con recorridos.",
+        "ca": "Laberints i navegació per experimentar amb recorreguts.",
+        "en": "Mazes and navigation for experimenting with paths."
+      }
+    },
+    {
+      "id": "experiment-7",
+      "name": "Siege of the Stars",
+      "url": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/siegeofthestars.v9.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/siegeofthestars/icono.webp",
+      "category": "games",
+      "description": {
+        "es": "Una prueba de construcción y defensa de una base espacial.",
+        "ca": "Una prova de construcció i defensa d’una base espacial.",
+        "en": "An experiment in building and defending a space base."
+      }
+    },
+    {
+      "id": "experiment-8",
+      "name": "Mechserker",
+      "url": "https://urysoft.github.io/ai.html.games/games/mechserker/mechserker.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/mechserker/images/mechserker.webp",
+      "category": "games",
+      "description": {
+        "es": "Un proyecto de juego que quedó en desarrollo.",
+        "ca": "Un projecte de joc que va quedar en desenvolupament.",
+        "en": "A game project that remained in development."
+      }
+    },
+    {
+      "id": "experiment-9",
+      "name": "Dashboard Salarial",
+      "url": "https://urysoft.github.io/ai.html.games/games/salario/salario.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/salario/icono.webp",
+      "category": "simulators",
+      "description": {
+        "es": "Un simulador experimental para explorar el desglose de un salario.",
+        "ca": "Un simulador experimental per explorar el desglossament d’un salari.",
+        "en": "An experimental simulator exploring the breakdown of a salary."
+      }
+    },
+    {
+      "id": "experiment-10",
+      "name": "Dashboard de Facturación para Autónomos en España",
+      "url": "https://urysoft.github.io/ai.html.games/games/autonomo/autonomo.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/autonomo/autonomo.webp",
+      "category": "simulators",
+      "description": {
+        "es": "Una prueba de cálculos de facturación para autónomos.",
+        "ca": "Una prova de càlculs de facturació per a autònoms.",
+        "en": "An experiment with billing calculations for self-employed workers."
+      }
+    },
+    {
+      "id": "experiment-11",
+      "name": "Dashboard de Indemnización y Paro en España",
+      "url": "https://urysoft.github.io/ai.html.games/games/paro/paro.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/autonomo/autonomo.webp",
+      "category": "simulators",
+      "description": {
+        "es": "Un simulador experimental sobre indemnización y desempleo.",
+        "ca": "Un simulador experimental sobre indemnització i atur.",
+        "en": "An experimental simulator about severance and unemployment."
+      }
+    },
+    {
+      "id": "experiment-12",
+      "name": "Dashboard Vivienda vs Sueldo",
+      "url": "https://urysoft.github.io/ai.html.games/games/viviendasueldos/viviendasueldos.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/autonomo/autonomo.webp",
+      "category": "simulators",
+      "description": {
+        "es": "Una comparación experimental entre vivienda y salarios.",
+        "ca": "Una comparació experimental entre habitatge i salaris.",
+        "en": "An experimental comparison of housing and wages."
+      }
+    },
+    {
+      "id": "experiment-13",
+      "name": "Dashboard IPC Real vs. Salario",
+      "url": "https://urysoft.github.io/ai.html.games/games/ipc/ipc.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/autonomo/autonomo.webp",
+      "category": "simulators",
+      "description": {
+        "es": "Una prueba para explorar inflación personal y poder adquisitivo.",
+        "ca": "Una prova per explorar inflació personal i poder adquisitiu.",
+        "en": "An experiment exploring personal inflation and purchasing power."
+      }
+    },
+    {
+      "id": "experiment-14",
+      "name": "Orbital Siege",
+      "url": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.png",
+      "category": "games",
+      "description": {
+        "es": "Defensa orbital, mejoras y oleadas de enemigos en un prototipo.",
+        "ca": "Defensa orbital, millores i onades d’enemics en un prototip.",
+        "en": "Orbital defense, upgrades and enemy waves in a prototype."
+      }
+    },
+    {
+      "id": "experiment-15",
+      "name": "Orbital Siege 2.0",
+      "url": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege.v2.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/orbitalsiege/orbitalsiege2.png",
+      "category": "games",
+      "description": {
+        "es": "Una segunda iteración del experimento de defensa orbital.",
+        "ca": "Una segona iteració de l’experiment de defensa orbital.",
+        "en": "A second iteration of the orbital-defense experiment."
+      }
+    },
+    {
+      "id": "experiment-16",
+      "name": "SUB-MISSION: MK-WAR",
+      "url": "https://urysoft.github.io/ai.html.games/games/mkwar/mkwar.v2.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/mkwar/mk_war_vertical.png",
+      "category": "games",
+      "description": {
+        "es": "Una prueba arcade de combates submarinos.",
+        "ca": "Una prova arcade de combats submarins.",
+        "en": "An arcade experiment with submarine battles."
+      }
+    },
+    {
+      "id": "experiment-17",
+      "name": "NEON WARFARE",
+      "url": "https://urysoft.github.io/ai.html.games/games/missile/missile.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/missile/missile.png",
+      "category": "games",
+      "description": {
+        "es": "Un experimento rápido de arcade con estética neón.",
+        "ca": "Un experiment ràpid d’arcade amb estètica neó.",
+        "en": "A quick neon-themed arcade experiment."
+      }
+    },
+    {
+      "id": "experiment-18",
+      "name": "SCORCHED EARTH",
+      "url": "https://urysoft.github.io/ai.html.games/games/scorchedearth/scorchedearth.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/scorchedearth/scorchedearth_vertical.png",
+      "category": "games",
+      "description": {
+        "es": "Un tributo experimental a los combates de artillería por turnos.",
+        "ca": "Un tribut experimental als combats d’artilleria per torns.",
+        "en": "An experimental tribute to turn-based artillery games."
+      }
+    },
+    {
+      "id": "experiment-19",
+      "name": "DotDash Go",
+      "url": "https://urysoft.github.io/ai.html.games/games/dotdashgo/dotdashgo.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/dotdashgo/dotdashgo.png",
+      "category": "communication",
+      "description": {
+        "es": "Pruebas de comunicación con Morse, luz y sonido.",
+        "ca": "Proves de comunicació amb Morse, llum i so.",
+        "en": "Experiments with Morse, light and sound communication."
+      }
+    },
+    {
+      "id": "experiment-20",
+      "name": "MUD & STEEL: Trench Warfare",
+      "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.png",
+      "category": "games",
+      "description": {
+        "es": "Un experimento de estrategia ambientado en una guerra de trincheras.",
+        "ca": "Un experiment d’estratègia ambientat en una guerra de trinxeres.",
+        "en": "A strategy experiment set in trench warfare."
+      }
+    },
+    {
+      "id": "experiment-21",
+      "name": "MUD & STEEL 2.0: Trench Warfare",
+      "url": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.v2.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/mudandsteel/mudandsteel.png",
+      "category": "games",
+      "description": {
+        "es": "Una nueva iteración del prototipo de estrategia de trincheras.",
+        "ca": "Una nova iteració del prototip d’estratègia de trinxeres.",
+        "en": "A new iteration of the trench-warfare strategy prototype."
+      }
+    },
+    {
+      "id": "experiment-22",
+      "name": "Simulador Actuarial de Pensiones",
+      "url": "https://urysoft.github.io/ai.html.games/games/pension/pension.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/pension/pension.png",
+      "category": "simulators",
+      "description": {
+        "es": "Un modelo experimental para explorar escenarios del sistema de pensiones.",
+        "ca": "Un model experimental per explorar escenaris del sistema de pensions.",
+        "en": "An experimental model exploring pension-system scenarios."
+      }
+    },
+    {
+      "id": "experiment-23",
+      "name": "Kiriki",
+      "url": "https://urysoft.github.io/ai.html.games/games/kiriki/kiriki.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/kiriki/kiriki.png",
+      "category": "games",
+      "description": {
+        "es": "Dados, faroles y retos en una prueba del juego clásico.",
+        "ca": "Daus, farols i reptes en una prova del joc clàssic.",
+        "en": "Dice, bluffing and challenges in a version of the classic game."
+      }
+    },
+    {
+      "id": "experiment-24",
+      "name": "BloodStorm",
+      "url": "https://urysoft.github.io/ai.html.games/games/bloodstorm/bloodstorm.v1.0.html",
+      "image": "https://urysoft.github.io/ai.html.games/games/bloodstorm/bloodstorm.v1.png",
+      "category": "games",
+      "description": {
+        "es": "Una prueba de defensa fantástica con arco y oleadas de enemigos.",
+        "ca": "Una prova de defensa fantàstica amb arc i onades d’enemics.",
+        "en": "A fantasy-defense experiment with archery and enemy waves."
+      }
+    }
+  ]
+}
