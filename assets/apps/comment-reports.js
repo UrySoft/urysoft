@@ -1,0 +1,17 @@
+(()=>{
+ const texts={es:{report:'Denunciar',title:'Denunciar comentario',reason:'Motivo',spam:'Spam o publicidad',abuse:'Contenido ofensivo',privacy:'Datos personales',other:'Otro motivo',details:'Detalles (opcional, máximo 1000 caracteres)',send:'Enviar denuncia',cancel:'Cancelar',sent:'Denuncia enviada. UrySoft la revisará.',error:'No se pudo enviar. Inténtalo más tarde.',edited:'Editado por UrySoft'},ca:{report:'Denuncia',title:'Denuncia el comentari',reason:'Motiu',spam:'Spam o publicitat',abuse:'Contingut ofensiu',privacy:'Dades personals',other:'Un altre motiu',details:'Detalls (opcional, màxim 1000 caràcters)',send:'Envia la denúncia',cancel:'Cancel·la',sent:'Denúncia enviada. UrySoft la revisarà.',error:'No s’ha pogut enviar. Torna-ho a provar més tard.',edited:'Editat per UrySoft'},en:{report:'Report',title:'Report comment',reason:'Reason',spam:'Spam or advertising',abuse:'Abusive content',privacy:'Personal information',other:'Other',details:'Details (optional, up to 1000 characters)',send:'Submit report',cancel:'Cancel',sent:'Report sent. UrySoft will review it.',error:'Could not send. Please try again later.',edited:'Edited by UrySoft'}};
+ const text=()=>texts[document.documentElement.lang]||texts.en,make=(tag,content)=>{const n=document.createElement(tag);n.textContent=content;return n};
+ window.urysoftCommentTools=(card,c)=>{
+  const t=text();if(c.edited_at)card.append(make('small',t.edited));
+  const button=make('button',t.report);button.type='button';button.className='report-comment';button.style.cssText='display:block;margin-top:12px;padding:8px 12px;min-height:44px;font:inherit;cursor:pointer';
+  button.onclick=()=>{
+   const dialog=document.createElement('dialog');dialog.style.cssText='max-width:440px;width:calc(100% - 48px);border:1px solid #718096;border-radius:18px;padding:20px;box-sizing:border-box';
+   const form=document.createElement('form'),heading=make('h2',t.title),label=make('label',t.reason),select=document.createElement('select');select.style.cssText='display:block;width:100%;padding:12px;font:inherit';select.name='reason';
+   for(const key of ['spam','abuse','privacy','other']){const o=make('option',t[key]);o.value=key;select.append(o)}label.append(select);
+   const dl=make('label',t.details),details=document.createElement('textarea');details.maxLength=1000;details.rows=4;details.style.cssText='display:block;width:100%;box-sizing:border-box;font:inherit;margin:8px 0;padding:10px';dl.append(details);
+   const status=make('p','');status.setAttribute('role','status');const send=make('button',t.send),cancel=make('button',t.cancel);for(const b of [send,cancel])b.style.cssText='padding:12px;margin:5px;font:inherit;min-height:44px;cursor:pointer';send.type='submit';cancel.type='button';cancel.onclick=()=>dialog.close();
+   form.append(heading,label,dl,status,send,cancel);dialog.append(form);document.body.append(dialog);dialog.addEventListener('close',()=>{dialog.remove();button.focus()},{once:true});
+   form.onsubmit=async e=>{e.preventDefault();send.disabled=true;try{const r=await fetch('/api/comments/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:c.id,reason:select.value,details:details.value,website:''})});if(!r.ok)throw Error();status.textContent=t.sent;send.hidden=true;cancel.textContent=t.cancel}catch{status.textContent=t.error;send.disabled=false}};dialog.showModal();
+  };card.append(button);
+ };
+})();

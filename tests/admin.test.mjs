@@ -1,0 +1,58 @@
+import {readFileSync} from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import assert from 'node:assert/strict';
+import {onRequest as admin} from '../functions/api/admin/[[path]].js';
+import {onRequest as analytics} from '../functions/api/analytics.js';
+import {onRequest as report} from '../functions/api/comments/report.js';
+import {onRequest as comments} from '../functions/api/comments/[[path]].js';
+const db=new DatabaseSync(':memory:');for(const p of ['0001-comments.sql','0005-administration.sql'])db.exec(readFileSync('migrations/'+p,'utf8'));
+function prepared(sql,values=[]){return {bind(...a){return prepared(sql,a)},first:async()=>db.prepare(sql).get(...values),all:async()=>({results:db.prepare(sql).all(...values)}),run:async()=>{const r=db.prepare(sql).run(...values);return {meta:{last_row_id:Number(r.lastInsertRowid),changes:r.changes}}}}}
+const database={prepare:prepared,batch:async list=>{db.exec('BEGIN');try{const results=[];for(const s of list)results.push(await s.run());db.exec('COMMIT');return results}catch(e){db.exec('ROLLBACK');throw e}}};
+const pair=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);const jwk={...await crypto.subtle.exportKey('jwk',pair.publicKey),kid:'admin-test',alg:'RS256'};
+globalThis.fetch=async()=>new Response(JSON.stringify({keys:[jwk]}),{headers:{'Cache-Control':'max-age=300'}});
+const head=Buffer.from(JSON.stringify({alg:'RS256',kid:jwk.kid})).toString('base64url'),payload=Buffer.from(JSON.stringify({iss:'https://accounts.google.com',aud:'test-client',email:'owner@gmail.com',email_verified:true,sub:'test-owner',iat:Math.floor(Date.now()/1000),exp:Math.floor(Date.now()/1000)+3600})).toString('base64url'),signed=head+'.'+payload;
+const token=signed+'.'+Buffer.from(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',pair.privateKey,new TextEncoder().encode(signed))).toString('base64url');
+const env={COMMENTS_ADMIN_KEY:'test-salt',COMMENTS_DB:database,GOOGLE_CLIENT_ID:'test-client',COMMENTS_ADMIN_EMAIL:'owner@gmail.com'};
+async function call(handler,path,method='GET',body,options={}){const req=new Request('https://example.com/api/'+path,{method,headers:{Origin:options.origin||'https://example.com','Content-Type':'application/json',Authorization:'Bearer '+(options.token||token),'User-Agent':'Mozilla/5.0 Chrome/130.0 Android Mobile',...options.headers},...(body?{body:JSON.stringify(body)}:{})});Object.defineProperty(req,'cf',{value:{country:'ES',...options.cf}});return handler({request:req,env,params:{path:path.startsWith('admin/')?path.split('?')[0].split('/').slice(1,2):[]}})}
+const api=(path,method='GET',body,opts)=>call(admin,'admin/'+path,method,body,opts);
+assert.equal((await api('summary','GET',null,{token:'invalid'})).status,401);
+assert.equal((await api('comments','PATCH',{}, {origin:'https://evil.example'})).status,403);
+const original={name:'Visitante',message:'Una sugerencia importante y útil',kind:'idea',rating:4,consent:true};
+assert.equal((await call(comments,'comments?app=lumen','POST',original)).status,201);
+let list=await(await api('comments?status=pending')).json();assert.equal(list.items.length,1);let c=list.items[0];
+assert.deepEqual(await(await call(comments,'comments?app=lumen')).json(),[]);
+assert.equal((await api('comments','PATCH',{id:c.id,version:'old',action:'approve'})).status,409);
+async function act(action,extra={}){const r=await api('comments','PATCH',{id:c.id,version:c.updated_at,action,...extra});assert.equal(r.status,200,JSON.stringify(await r.clone().json()));c=(await r.json()).comment;return c}
+await act('approve');assert.equal((await(await call(comments,'comments?app=lumen')).json()).length,1);
+await act('edit',{name:'Visitante',message:'Texto corregido para proteger la privacidad',reply:'Gracias por escribir.',kind:'idea',rating:4,note:'Nota privada del administrador'});
+let publicRows=await(await call(comments,'comments?app=lumen')).json();assert.equal(publicRows[0].message,c.message);assert.ok(publicRows[0].edited_at);assert.equal(publicRows[0].moderation_note,undefined);
+assert.equal((await call(report,'comments/report','POST',{id:c.id,reason:'privacy',details:'Datos que no deberían mostrarse'})).status,201);
+assert.equal((await call(report,'comments/report','POST',{id:c.id,reason:'invalid',details:''})).status,400);
+let reports=await(await api('reports')).json();assert.equal(reports.items.length,1);assert.equal(reports.items[0].app,'lumen');
+assert.equal((await(await api('comments?status=approved&reported=1')).json()).items.length,1);
+await api('reports','PATCH',{id:reports.items[0].id,status:'resolved'});assert.equal((await(await api('reports')).json()).items.length,0);
+await act('reject');assert.deepEqual(await(await call(comments,'comments?app=lumen')).json(),[]);assert.equal((await(await api('comments?status=rejected')).json()).items.length,1);
+await act('trash');assert.equal((await(await api('comments?status=trash')).json()).items.length,1);await act('restore');assert.equal(c.status,'pending');assert.deepEqual(await(await call(comments,'comments?app=lumen')).json(),[]);
+const history=await(await api('comment?id='+c.id)).json();assert.ok(history.history.some(h=>JSON.parse(h.before_json).message===original.message));
+assert.equal(JSON.parse(history.original.before_json).message,original.message);
+assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'ELIMINAR'})).status,409);
+await act('trash');assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'no'})).status,400);
+assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'ELIMINAR'})).status,200);
+assert.equal((await api('comment?id='+c.id)).status,404);assert.equal(db.prepare('SELECT COUNT(*) AS n FROM comment_reports WHERE comment_id=?').get(c.id).n,0);assert.equal(db.prepare('SELECT COUNT(*) AS n FROM moderation_audit WHERE comment_id=?').get(c.id).n,0);
+assert.equal((await api('comments?status=all&q=%27%20OR%201%3D1')).status,200);
+// Pagination and safe searches across older comments.
+const insert=db.prepare("INSERT INTO comments(app,name,kind,message,rating,status,reply,created_at,updated_at) VALUES('lumen','Tester','idea',?,0,'pending','',?,?)");for(let i=0;i<60;i++)insert.run('Older message '+i,new Date().toISOString(),new Date().toISOString());
+list=await(await api('comments?status=pending')).json();assert.equal(list.items.length,25);assert.ok(list.next);const next=await(await api('comments?status=pending&before='+list.next)).json();assert.ok(next.items.every(x=>x.id<list.next));
+const event={id:crypto.randomUUID(),event:'page',path:'/apps/lumen/',referrer:'https://www.google.com/search?q=PRIVATE',language:'es',source:'facebook'};
+assert.equal((await call(analytics,'analytics','POST',event)).status,204);assert.equal((await call(analytics,'analytics','POST',event)).status,204);
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID(),event:'download',target:'lumen'});
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID(),event:'click',target:'https://example.com/foldery/premium-real/?token=SECRET'});
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID(),path:'/admin/'});
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID()},{headers:{DNT:'1'}});
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID()},{headers:{'User-Agent':'Googlebot'}});
+await call(analytics,'analytics','POST',{...event,id:crypto.randomUUID(),referrer:'https://example.com/'}, {cf:{country:'US'}});
+const data=await(await api('analytics')).json();assert.equal(data.totals.page,2);assert.equal(data.totals.visit,1);assert.equal(data.totals.download,1);assert.ok(data.referrers.some(r=>r.label==='google.com'));assert.equal(data.devices[0].label,'Móvil');assert.equal(data.countries.length,2);assert.equal(data.clicks[0].label,'otra-página');
+const dump=JSON.stringify(db.prepare('SELECT * FROM analytics_counts').all());assert.ok(!/PRIVATE|SECRET|Connecting-IP/.test(dump));
+assert.equal((await api('analytics?from=2026-01-01&to=2025-01-01')).status,400);
+assert.equal((await api('seo')).status,200);
+console.log('Passed: admin authorization, origin checks, optimistic edits, moderation audit, rejection, trash/restore, public privacy, reports, resolution, pagination, SQL-safe search, aggregate analytics, concurrent-safe dedupe, referrers, countries, DNT, bots, private page exclusion, URL redaction and SEO.');

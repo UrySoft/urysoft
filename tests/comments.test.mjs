@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
 import assert from 'node:assert/strict';
 const {onRequest}=await import('../functions/api/comments/[[path]].js');
-const db=new DatabaseSync(':memory:');db.exec(readFileSync('migrations/0001-comments.sql','utf8'));
+const db=new DatabaseSync(':memory:');db.exec(readFileSync('migrations/0001-comments.sql','utf8'));db.exec(readFileSync('migrations/0005-administration.sql','utf8'));
 function prepared(sql,values=[]){return {
  bind(...args){return prepared(sql,args)},
  first:async()=>db.prepare(sql).get(...values),
@@ -26,9 +26,9 @@ assert.equal((await call('GET',null,true,'test-only-rate-salt')).status,401);
 for(const claims of [{email:'other@gmail.com'},{aud:'another-client'},{email_verified:false},{exp:1},{iss:'https://evil.example'}])assert.equal((await call('GET',null,true,await token(claims))).status,401);
 assert.equal((await call('GET',null,true,validToken.slice(0,-4)+'abcd')).status,401);
 const pending=await (await call('GET',null,true)).json();assert.equal(pending[0].status,'pending');
-assert.equal((await call('PATCH',{id:pending[0].id,status:'approved',reply:'Gracias por tu propuesta.'},true)).status,200);
+assert.equal((await call('PATCH',{id:pending[0].id,status:'approved',reply:'Gracias por tu propuesta.'},true)).status,410);db.prepare('UPDATE comments SET status=?,reply=? WHERE id=?').run('approved','Gracias por tu propuesta.',pending[0].id);
 const published=await (await call('GET')).json();assert.equal(published.length,1);assert.equal(published[0].reply,'Gracias por tu propuesta.');assert.equal(published[0].message,message.message);
-await call('PATCH',{id:pending[0].id,status:'hidden',reply:''},true);assert.deepEqual(await (await call('GET')).json(),[]);
+db.prepare('UPDATE comments SET status=? WHERE id=?').run('hidden',pending[0].id);assert.deepEqual(await (await call('GET')).json(),[]);
 for(let i=0;i<4;i++)assert.equal((await call('POST',message)).status,201);
 assert.equal((await call('POST',message)).status,429);
 console.log('Passed: unavailable configuration, validation, private pending messages, admin authentication, approval, reply, hiding and submission limit.');

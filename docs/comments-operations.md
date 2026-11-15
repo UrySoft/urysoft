@@ -1,28 +1,23 @@
-# Comentarios y fichas de aplicaciones
+# Administración de UrySoft
 
-La primera ficha completa es `/apps/lumen/`. Conserva ES/CA/EN, el tema elegido y la descarga oficial 4.0.2. Los iconos y capturas proceden de la copia local de recuperación de Lumen 4.0.1. Las capturas se identifican como 3.7–3.9 para no presentarlas como imágenes actuales de 4.0.2.
+Acceso: /admin/ (también compatible /admin/comments/). Google Identity Services y verificación RS256 en servidor, correo administrador autorizado y caducidad; token únicamente en memoria. No se amplían los permisos de Google. No se exponen bases de datos ni secretos al navegador.
 
-## Administración
+## Moderación
+API autenticada /api/admin/*. Búsqueda por app, estado, tipo, texto y denuncias; paginación por ID de 25 en 25. Edición de alias, mensaje, tipo, valoración y respuesta; nota privada. Ediciones de nombre/mensaje público señaladas como editadas por UrySoft. Aprobación, ocultación, rechazo, papelera y restauración a pendientes. Guardado con versión optimista para evitar sobrescribir cambios de otra pestaña.
 
-Acceso: `/admin/comments/`. Inicio de sesión con Google mediante Google Identity Services. El servidor verifica la firma RS256 con las claves públicas de Google, el emisor, el destinatario, la caducidad y el correo verificado autorizado. El token se conserva solo en memoria y deja de aceptarse al caducar. Salir elimina la sesión local. La clave manual anterior ya no se acepta.
+Auditoría atómica antes/después. El original se consulta independientemente de las últimas 100 entradas de historial. La eliminación permanente solo está disponible desde la papelera, exige escribir ELIMINAR y elimina comentario, denuncias e historial; no se ha ejecutado sobre datos reales durante el desarrollo. La anterior API PATCH /api/comments/admin responde 410 para impedir cambios sin historial.
 
-Los estados son pendiente, publicado y oculto. Todos los envíos entran pendientes. Guardar una respuesta con el estado pendiente u oculto no la publica; el comentario y la respuesta se muestran únicamente en estado publicado. No se requieren cuentas de GitHub. No se recogen correos ni se envían avisos: el visitante debe volver a la ficha para ver la respuesta publicada.
+Denuncias en /api/comments/report: solo mensajes publicados, motivos tipados, detalles hasta 1000 caracteres, origen propio, límite temporal de cinco por hora. El motivo y los detalles nunca se publican. Resolver/descartar/reabrir no cambia la visibilidad del comentario. El panel abre la ficha original y permite moderar desde el propio editor de la denuncia.
 
-La lista de administración muestra los 200 mensajes más recientes y la pública los 100 publicados más recientes. Esta primera versión no incluye paginación ni borrado desde el panel. Los mensajes se conservan en D1 hasta que el administrador los elimine desde Cloudflare. La aprobación modera la visibilidad, no verifica la identidad del alias ni que el autor haya instalado la app.
+## Estadísticas
+Contadores propios agregados en COMMENTS_DB, sin cookies de seguimiento ni identificadores persistentes de visitantes. Se excluyen admin, compra, API, robots reconocibles y señales DNT/GPC. Página, entradas estimadas, clics, clics de descarga y páginas visibles 30 segundos. País de request.cf.country, dominio de referencia, dispositivo/navegador categorizados, idioma seleccionado y fuente de campaña permitida. No IP en estadísticas, consultas privadas, texto de formularios, huellas digitales ni usuarios únicos. Seudónimos temporales con clave para límites antiabuso, aislados de estadísticas; deduplicación por evento aleatorio 24 horas. Limpieza al recibir nuevos eventos; agregados hasta 400 días. Fechas UTC. Los bloqueadores, referencias ocultas y robots no reconocidos limitan la exactitud. Clic de APK no prueba descarga completada ni instalación.
 
-## Infraestructura
+Filtro por fechas (hasta 400 días), página y país. CSV seguro frente a fórmulas. Clasificaciones de hasta 50 filas por dimensión, serie diaria, resumen y recomendaciones basadas únicamente en datos recogidos. La medición empieza con la activación, sin estadísticas inventadas ni importación de solicitudes técnicas de Cloudflare como visitas humanas.
 
-- D1 `urysoft-comments`, jurisdicción UE; binding de producción `COMMENTS_DB`.
-- Inicializar con `migrations/0001-comments.sql`.
-- Variables de producción `GOOGLE_CLIENT_ID` y `COMMENTS_ADMIN_EMAIL`. El correo autorizado es oriolba@gmail.com.
-- `COMMENTS_ADMIN_KEY` se conserva exclusivamente como secreto interno para los hashes de límites de envío; ya no permite entrar al panel.
-- Pages Functions atiende únicamente `/api/comments` y subrutas.
-- Límite de cinco envíos por hora y dirección de origen, mediante identificador hash con secreto y ventana horaria. No se almacena la dirección IP en las tablas. Los identificadores de límite caducan tras dos horas y se limpian en el siguiente envío aceptado.
-- Las operaciones de escritura requieren mismo origen; no se habilita CORS. Todo el contenido público y administrativo se presenta como texto, sin interpretar HTML de los usuarios.
-- Honeypot y límite básico de frecuencia; no se ha integrado CAPTCHA. Se recomienda revisar el volumen de abuso antes de ampliar el formulario.
+## SEO
+robots.txt y sitemap.xml con portada, cinco apps, ayuda y Calaix. Canonical y vistas previas Open Graph. Informe técnico generado a partir de HTML publicado en server/seo-report.js. Las consultas de búsqueda, impresiones y posiciones requieren Search Console: se enlaza su panel oficial, no se simula integración ni datos.
 
-## Verificación
+## Publicación y pruebas
+Aplicar migrations/0005-administration.sql solo a COMMENTS_DB, después de 0001-comments.sql. Migración aditiva (tres columnas y cinco tablas); no aplicar a bases Premium. En producción se verificó 1 comentario conservado, 3 columnas y 5 tablas nuevas. No se modificaron suscripciones ni pagos.
 
-Ejecutar `node tests/comments.test.mjs` para verificar esquema, validación, autenticación, mensajes pendientes privados, aprobación, respuesta, ocultación y límite de frecuencia. Las comprobaciones locales usan SQLite real y un adaptador de las operaciones D1.
-
-Las otras aplicaciones conservan sus fichas existentes hasta preparar sus contenidos y recursos reales. El backend ya admite identificadores lumen, nexomesh, foldery, widgery y minairo.
+node tests/admin.test.mjs y node tests/comments.test.mjs. Pruebas con SQLite real y claves Google ficticias: autorización, origen, validación, historial, versiones, privacidad, denuncias, estados, paginación, agregación, deduplicación, exclusiones y SEO. Vista local aislada con datos ficticios en .work/admin-preview.mjs; nunca se despliega ni se copia esa base a producción.

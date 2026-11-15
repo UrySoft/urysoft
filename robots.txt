@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /foldery/premium/
+Disallow: /foldery/premium-real/
+Disallow: /widgery/premium-real/
+Sitemap: https://urysoft.pages.dev/sitemap.xml

@@ -12,18 +12,13 @@ export async function onRequest({request,env,params}){
       const supplied=request.headers.get('Authorization')||'';
       if(!supplied.startsWith('Bearer ')||!await googleAdmin(supplied.slice(7),env.GOOGLE_CLIENT_ID,env.COMMENTS_ADMIN_EMAIL)) return json({error:'Acceso no autorizado'},401);
       if(request.method==='GET') return json((await env.COMMENTS_DB.prepare('SELECT id,app,name,kind,message,rating,status,reply,created_at FROM comments ORDER BY created_at DESC LIMIT 200').all()).results);
-      if(request.method==='PATCH'){
-        const body=await request.json();
-        if(!Number.isInteger(body.id)||!['pending','approved','hidden'].includes(body.status)||typeof body.reply!=='string'||body.reply.length>3000) return json({error:'Datos no válidos'},400);
-        await env.COMMENTS_DB.prepare('UPDATE comments SET status=?,reply=?,updated_at=? WHERE id=?').bind(body.status,body.reply.trim(),new Date().toISOString(),body.id).run();
-        return json({ok:true});
-      }
+      if(request.method==='PATCH')return json({error:'Usa el nuevo panel de administración'},410);
       return json({error:'Método no permitido'},405);
     }
     if(path) return json({error:'No encontrado'},404);
     const app=url.searchParams.get('app');
     if(!APPS.has(app)) return json({error:'Aplicación no válida'},400);
-    if(request.method==='GET') return json((await env.COMMENTS_DB.prepare("SELECT id,name,kind,message,rating,reply,created_at FROM comments WHERE app=? AND status='approved' ORDER BY created_at DESC LIMIT 100").bind(app).all()).results);
+    if(request.method==='GET') return json((await env.COMMENTS_DB.prepare("SELECT id,name,kind,message,rating,reply,created_at,edited_at FROM comments WHERE app=? AND status='approved' AND moderation_state='normal' ORDER BY created_at DESC LIMIT 100").bind(app).all()).results);
     if(request.method!=='POST') return json({error:'Método no permitido'},405);
     if(!request.headers.get('Content-Type')?.startsWith('application/json')) return json({error:'Formato no válido'},415);
     const raw=await request.text();if(raw.length>10000) return json({error:'Mensaje demasiado largo'},413);

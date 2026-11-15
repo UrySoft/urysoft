@@ -1,1 +1,1 @@
-{"version":1,"include":["/api/comments","/api/comments/*","/api/foldery/*","/api/widgery/*"],"exclude":[]}
+{"version":1,"include":["/api/comments","/api/comments/*","/api/foldery/*","/api/widgery/*","/api/admin/*","/api/analytics"],"exclude":[]}
