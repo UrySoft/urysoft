@@ -1,0 +1,15 @@
+/* Illustrated studio hero, created from the founder’s supplied portrait. */
+.hero.hero-lab{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:clamp(620px,52vw,820px);padding:96px 0;background:#050b1d;color:#f3f7ff}
+.hero-lab .hero-lab-art{position:absolute;inset:0;z-index:0;display:block;margin:0;border:0;border-radius:0;box-shadow:none;overflow:hidden}
+.hero-lab .hero-lab-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-lab::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#050b1df5 0%,#050b1de0 24%,#050b1d73 47%,#050b1d08 70%),linear-gradient(0deg,#050b1d80,transparent 32%)}
+.hero-lab .hero-layout{position:relative;z-index:2;display:block;grid-template-columns:none;transform:none}
+.hero-lab .hero-copy{width:52%;max-width:620px}
+.hero-lab h1{max-width:620px;margin:20px 0 24px;font-size:clamp(44px,5.3vw,76px);line-height:1.05;letter-spacing:-.045em;color:#f5f8ff;text-shadow:0 2px 24px #02061766}
+.hero-lab .eyebrow{color:#8be9f5;font-size:12px;line-height:1.7;letter-spacing:2px;font-weight:800}
+.hero-lab .lead{max-width:510px;color:#d2deed;font-size:19px;line-height:1.65;margin:0 0 28px}
+.hero-lab .primary{background:#67e8f9;color:#042431;min-height:48px;box-shadow:0 8px 30px #00d9ed12}
+.hero-lab .primary:hover{background:#a5f3fc}.hero-lab .primary:focus-visible{outline:3px solid #f5f8ff;outline-offset:5px}
+.hero-lab .small{max-width:510px;color:#b8c9dc;font-size:13px;margin-top:18px}
+@media(max-width:900px){.hero.hero-lab{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:44px 0 0}.hero-lab .hero-layout{order:1;padding-bottom:28px}.hero-lab .hero-copy{width:100%;max-width:640px}.hero-lab h1{font-size:clamp(38px,7vw,60px);max-width:640px}.hero-lab .lead{font-size:18px;max-width:580px}.hero-lab .hero-lab-art{position:relative;inset:auto;order:2;z-index:0;width:100%;height:clamp(290px,64vw,490px);margin-top:-8px}.hero-lab .hero-lab-art img{object-position:73% 32%}.hero-lab .hero-lab-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#050b1d 0%,#050b1d33 18%,transparent 36%,#050b1d22 100%);pointer-events:none}.hero-lab::after{display:none}}
+@media(max-width:380px){.hero.hero-lab{padding-top:32px}.hero-lab h1{font-size:36px}.hero-lab .lead{font-size:17px}.hero-lab .hero-lab-art{height:290px}}
