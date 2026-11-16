@@ -1,0 +1,21 @@
+name: Publish NexoMesh 0.11.2
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'descargas/NexoMesh-0.11.2.apk'
+      - '.github/workflows/publish-nexomesh-0.11.2.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify installer integrity
+        run: echo '1f8129f115e6d00dda840fd269a4f95e67dc1d254da4093cb62547e72f21de38  descargas/NexoMesh-0.11.2.apk' | sha256sum -c -
+      - name: Publish signed installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create nexomesh-0.11.2 descargas/NexoMesh-0.11.2.apk --target "$GITHUB_SHA" --title "NexoMesh 0.11.2" --notes "Corrige la disposición colineal del mapa de tres móviles. Conserva UrySoft Updater, el identificador com.urysoft.meshchat y la firma original de 0.11.0. versionCode 18. Solo se dibujan enlaces detectados."
