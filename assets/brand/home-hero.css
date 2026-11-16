@@ -13,3 +13,4 @@
 .hero-lab .small{color:#b8c9dc;font-size:13px;margin-top:18px;max-width:510px}
 @media(max-width:900px){.hero.hero-lab{grid-template-columns:1fr;gap:28px;padding:36px 0;width:calc(100% - 32px)}.hero-lab .hero-layout{grid-row:1;grid-column:1}.hero-lab .hero-lab-art{grid-row:2;grid-column:1;max-width:680px;justify-self:center;border-radius:18px}.hero-lab h1{font-size:clamp(36px,6vw,52px);max-width:640px}.hero-lab .lead{max-width:620px}}
 @media(max-width:380px){.hero-lab h1{font-size:34px}.hero-lab .lead{font-size:17px}}
+.hero.hero-lab{box-shadow:0 0 0 100vmax #050b1d;clip-path:inset(0 -100vmax)}
