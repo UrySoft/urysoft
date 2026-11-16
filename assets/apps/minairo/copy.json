@@ -148,7 +148,8 @@
     "privateTitle": "Instal·la Minairó al teu Android",
     "privateBody": "Descarrega l’instal·lador signat. Obre’l i, si Android ho demana, permet instal·lar aplicacions des del navegador. Per actualitzar, conserva l’aplicació i les dades; no cal desinstal·lar-la.",
     "privateContact": "Descarrega Minairó 6.35.1",
-    "coffee": "Menys que un cafè al mes."
+    "coffee": "Menys que un cafè al mes.",
+    "freeDownload": "Descàrrega gratuïta · Premium opcional"
   },
   "es": {
     "status": "Android · Disponible",
@@ -299,7 +300,8 @@
     "privateTitle": "Instala Minairó en tu Android",
     "privateBody": "Descarga el instalador firmado. Ábrelo y, si Android lo solicita, permite instalar aplicaciones desde tu navegador. Para actualizar, conserva la aplicación y sus datos; no necesitas desinstalarla.",
     "privateContact": "Descargar Minairó 6.35.1",
-    "coffee": "Menos que un café al mes."
+    "coffee": "Menos que un café al mes.",
+    "freeDownload": "Descarga gratuita · Premium opcional"
   },
   "en": {
     "status": "Android · Available",
@@ -450,6 +452,7 @@
     "privateTitle": "Install Minairó on your Android",
     "privateBody": "Download the signed installer. Open it and, if Android asks, allow installation from your browser. Keep the app and its data when updating; there is no need to uninstall it.",
     "privateContact": "Download Minairó 6.35.1",
-    "coffee": "Less than a coffee a month."
+    "coffee": "Less than a coffee a month.",
+    "freeDownload": "Free download · Optional Premium"
   }
 }
