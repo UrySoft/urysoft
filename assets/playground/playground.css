@@ -9,3 +9,11 @@ body[data-page="playground"]{--bg:#050b1d;--panel:#0d1730;--text:#f1f5ff;--muted
 @media(max-width:700px){.calaix-hero{min-height:0;padding:26px 22px 330px;border-radius:18px;align-items:flex-start}.calaix-hero-copy{width:100%;max-width:none}.calaix-hero::before{top:auto;height:330px;background-position:72% center}.calaix-hero::after{background:linear-gradient(180deg,#050b1d 0%,#050b1d 45%,transparent 74%)}.calaix-hero .experiment-intro{font-size:17px}.calaix-hero .experiment-label{margin-top:14px}}
 .calaix-hero::before{background-position:center top}
 @media(max-width:700px){.calaix-hero{padding-bottom:220px}.calaix-hero::before{height:auto;aspect-ratio:1672/941;background-size:contain;background-position:center bottom}.calaix-hero::after{top:auto;height:220px;background:linear-gradient(180deg,#050b1d,transparent 22%)}}
+/* On narrow screens the artwork follows the copy in normal flow: no fixed reserve or overlay seam. */
+@media(max-width:900px){
+ .calaix-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0;border-radius:18px}
+ .calaix-hero-copy{order:1;width:100%;max-width:none;padding:26px 22px 24px;box-sizing:border-box}
+ .calaix-hero::before{position:relative;inset:auto;order:2;z-index:0;display:block;flex:none;width:100%;height:auto;aspect-ratio:1672/941;background-image:linear-gradient(180deg,#050b1d,transparent 20%),url('/assets/playground/calaix-workshop.jpg');background-size:100% 100%;background-position:center;background-repeat:no-repeat}
+ .calaix-hero::after{display:none}
+ .calaix-hero .experiment-intro{font-size:17px}
+}
