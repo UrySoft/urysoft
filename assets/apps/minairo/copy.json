@@ -7,7 +7,7 @@
     "purpose": "Un petit ajudant per a les tasques quotidianes",
     "purposeBody": "Resumeix, tradueix, explica, resol i redacta amb el contingut que li facilites. L’avatar manté l’assistent a prop, i tu decideixes quan fer-lo servir.",
     "gallery": "Així es veu Minairó",
-    "galleryBody": "Pantalles de demostració de la interfície Android en mode fosc. Les dades i els models mostrats són d’exemple.",
+    "galleryBody": "Captures reals de Minairó, en anglès.",
     "construction": "En construcció",
     "comic": "Com vaig capturar un Minairó",
     "comicNote": "Una aventura fictícia de l’Oriol Badia, inspirada en la llegenda dels minairons. El mòbil és el nostre canut màgic.",
@@ -45,7 +45,7 @@
       ],
       [
         "Aquestes són pantalles de l’app?",
-        "Pantalles de demostració de la interfície Android en mode fosc. Les dades i els models mostrats són d’exemple."
+        "Captures reals de Minairó, en anglès."
       ],
       [
         "D’on surt el nom?",
@@ -164,7 +164,19 @@
     "planCustom": "Personalitzables",
     "planNotIncluded": "No incloses",
     "planAuthorized": "Contactes i grups autoritzats · Experimental",
-    "planRecovery": "Accedeix amb el mateix compte de Google per recuperar Premium en reinstal·lar o canviar de mòbil."
+    "planRecovery": "Accedeix amb el mateix compte de Google per recuperar Premium en reinstal·lar o canviar de mòbil.",
+    "galleryHint": "Obre una captura per veure-la completa. Desplaça’t per recórrer les pantalles llargues o amplia els detalls.",
+    "shotOpen": "Veure captura completa",
+    "shotClose": "Tanca",
+    "shotPrevious": "Anterior",
+    "shotNext": "Següent",
+    "shotZoom": "Amplia",
+    "shotReset": "Ajusta",
+    "shot0": "Inici de l’assistent",
+    "shot1": "Personalitat i Caràcter",
+    "shot2": "Tria una acció",
+    "shot3": "Ajusta i executa",
+    "shot4": "Revisa la resposta"
   },
   "es": {
     "status": "Android · Disponible",
@@ -174,7 +186,7 @@
     "purpose": "Un pequeño ayudante para tus tareas diarias",
     "purposeBody": "Resume, traduce, explica, resuelve y redacta con el contenido que le facilitas. El avatar mantiene el asistente cerca, y tú decides cuándo usarlo.",
     "gallery": "Así se ve Minairó",
-    "galleryBody": "Pantallas de demostración de la interfaz Android en modo oscuro. Los datos y los modelos mostrados son de ejemplo.",
+    "galleryBody": "Capturas reales de Minairó, en inglés.",
     "construction": "En construcción",
     "comic": "Cómo capturé un Minairó",
     "comicNote": "Una aventura ficticia de Oriol Badia, inspirada en la leyenda de los minairons. El móvil es nuestro canuto mágico.",
@@ -212,7 +224,7 @@
       ],
       [
         "¿Estas son pantallas de la app?",
-        "Pantallas de demostración de la interfaz Android en modo oscuro. Los datos y los modelos mostrados son de ejemplo."
+        "Capturas reales de Minairó, en inglés."
       ],
       [
         "¿De dónde viene el nombre?",
@@ -331,7 +343,19 @@
     "planCustom": "Personalizables",
     "planNotIncluded": "No incluidas",
     "planAuthorized": "Contactos y grupos autorizados · Experimental",
-    "planRecovery": "Accede con la misma cuenta de Google para recuperar Premium al reinstalar o cambiar de móvil."
+    "planRecovery": "Accede con la misma cuenta de Google para recuperar Premium al reinstalar o cambiar de móvil.",
+    "galleryHint": "Abre una captura para verla completa. Desplázate para recorrer las pantallas largas o amplía los detalles.",
+    "shotOpen": "Ver captura completa",
+    "shotClose": "Cerrar",
+    "shotPrevious": "Anterior",
+    "shotNext": "Siguiente",
+    "shotZoom": "Ampliar",
+    "shotReset": "Ajustar",
+    "shot0": "Inicio del asistente",
+    "shot1": "Personalidad y Carácter",
+    "shot2": "Elige una acción",
+    "shot3": "Ajusta y ejecuta",
+    "shot4": "Revisa la respuesta"
   },
   "en": {
     "status": "Android · Available",
@@ -341,7 +365,7 @@
     "purpose": "A little helper for everyday tasks",
     "purposeBody": "Summarise, translate, explain, solve and write using the content you provide. The avatar keeps your assistant close, and you decide when to use it.",
     "gallery": "Meet the interface",
-    "galleryBody": "Demonstration screens of the native Android interface in dark mode. Data and model names are examples.",
+    "galleryBody": "Real Minairó screenshots, shown in English.",
     "construction": "Under construction",
     "comic": "How I captured a Minairó",
     "comicNote": "A fictional adventure starring Oriol Badia, inspired by the minairons legend. The phone is our magical needle case.",
@@ -379,7 +403,7 @@
       ],
       [
         "Are these app screenshots?",
-        "Demonstration screens of the native Android interface in dark mode. Data and model names are examples."
+        "Real Minairó screenshots, shown in English."
       ],
       [
         "Where does the name come from?",
@@ -498,6 +522,18 @@
     "planCustom": "Customizable",
     "planNotIncluded": "Not included",
     "planAuthorized": "Authorized contacts and groups · Experimental",
-    "planRecovery": "Sign in with the same Google account to restore Premium after reinstalling or changing phones."
+    "planRecovery": "Sign in with the same Google account to restore Premium after reinstalling or changing phones.",
+    "galleryHint": "Open a screenshot to view it in full. Scroll through long screens or zoom in for detail.",
+    "shotOpen": "View full screenshot",
+    "shotClose": "Close",
+    "shotPrevious": "Previous",
+    "shotNext": "Next",
+    "shotZoom": "Zoom in",
+    "shotReset": "Fit",
+    "shot0": "Assistant home",
+    "shot1": "Personality and Character",
+    "shot2": "Choose an action",
+    "shot3": "Adjust and run",
+    "shot4": "Review the response"
   }
 }
