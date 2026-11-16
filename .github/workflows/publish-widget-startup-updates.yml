@@ -1,0 +1,25 @@
+name: Publish widget startup update checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'descargas/Foldery-1.6.1.apk'
+      - 'descargas/Widgery-3.1.1.apk'
+      - '.github/workflows/publish-widget-startup-updates.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify signed installer bytes
+        run: |
+          echo '040237713fa48f987a34c068169765dfafa0dff9d623deebe41ee72045a63758  descargas/Foldery-1.6.1.apk' | sha256sum -c -
+          echo 'd15e335872b282b51ba70b6e4f2a4660e53efa2df40b2521eb260dc4ffb81852  descargas/Widgery-3.1.1.apk' | sha256sum -c -
+      - name: Publish installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create foldery-1.6.1 descargas/Foldery-1.6.1.apk --target "$GITHUB_SHA" --title "Foldery 1.6.1" --notes "Comprueba nuevas versiones cada vez que se abre la app, sin límite diario. Comprobación en segundo plano y fallo automático silencioso sin Internet. Firma original compatible. Conserva las funciones Gratis y Premium de la versión anterior."
+          gh release create widgery-3.1.1 descargas/Widgery-3.1.1.apk --target "$GITHUB_SHA" --title "Widgery 3.1.1" --notes "Comprueba nuevas versiones cada vez que se abre la app, sin límite diario. Comprobación en segundo plano y fallo automático silencioso sin Internet. Firma original compatible. Conserva las funciones Gratis y Premium de la versión anterior."
