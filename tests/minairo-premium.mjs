@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {webcrypto,createPublicKey,verify} from 'node:crypto';
+import {annualMinairoPlan} from '../server/minairo-live-paypal.js';
+import {issueMinairoLicense} from '../server/minairo-live-license.js';
+import {liveProfile} from '../server/minairo-live-profile.js';
+if(!globalThis.crypto)Object.defineProperty(globalThis,"crypto",{value:webcrypto});
+const plan={id:'P-EXAMPLE',status:'ACTIVE',billing_cycles:[{tenure_type:'REGULAR',sequence:1,total_cycles:0,frequency:{interval_unit:'YEAR',interval_count:1},pricing_scheme:{fixed_price:{currency_code:'EUR',value:'12.00'}}}],payment_preferences:{}};
+assert.equal(annualMinairoPlan(plan,'P-EXAMPLE'),true);plan.billing_cycles[0].pricing_scheme.fixed_price.value='6.00';assert.equal(annualMinairoPlan(plan,'P-EXAMPLE'),false);console.log('PASS annual price 12 EUR, rejecting 6 EUR');
+assert.equal(liveProfile({}),null);console.log('PASS payments stay disabled without independent configuration');
+const pair=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
+const key=Buffer.from(await crypto.subtle.exportKey('pkcs8',pair.privateKey)).toString('base64');const publicKey=createPublicKey({key:Buffer.from(await crypto.subtle.exportKey('spki',pair.publicKey)),format:'der',type:'spki'});
+const now=Date.now(),token=await issueMinairoLicense({PAYPAL_ENVIRONMENT:'live',MINAIRO_LICENSE_PRIVATE_KEY:key},'a'.repeat(64),'b'.repeat(64),now+86400000,now,now);const [h,p,s]=token.split('.');const claims=JSON.parse(Buffer.from(p,'base64url'));assert.equal(claims.aud,'com.urysoft.minairo');assert.equal(JSON.parse(Buffer.from(h,'base64url')).kid,'minairo-live-2026-01');assert.equal(verify('RSA-SHA256',Buffer.from(h+'.'+p),publicKey,Buffer.from(s,'base64url')),true);assert.equal(await issueMinairoLicense({PAYPAL_ENVIRONMENT:'sandbox'},'a'.repeat(64),'b'.repeat(64),now+86400000,now,now),null);console.log('PASS signed Minairo entitlement and sandbox refusal');
