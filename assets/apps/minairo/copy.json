@@ -1,1 +1,452 @@
-{"ca":{"status":"Pròximament · En desenvolupament","headline":"Un Minairó al teu mòbil.","intro":"Un assistent d’intel·ligència artificial amb personalitat pròpia, inspirat en els minairons del Pirineu. L’estem preparant perquè t’ajudi amb els textos i el contingut del mòbil, amb un toc d’enginy.","availability":"L’APK encara no està disponible. Aquesta fitxa presenta el projecte; les funcions i el disseny poden canviar durant el desenvolupament.","purpose":"Petites feines, una gran ajuda","purposeBody":"Traduir, resumir i preparar respostes són part del projecte de Minairó. Estem treballant en un assistent que puguis adaptar a la teva manera de comunicar-te, amb ajustos de personalitat i caràcter.","gallery":"L’app s’està construint","galleryBody":"Aquí hi haurà les captures reals de Minairó quan estiguin preparades.","construction":"En construcció","comic":"Com vaig capturar un Minairó","comicNote":"Una aventura fictícia de l’Oriol Badia, inspirada en la llegenda dels minairons. El mòbil és el nostre canut màgic.","panels":[["Expedició als Pirineus","Em dic Oriol Badia i vaig pujar als Pirineus amb una missió: capturar un Minairó. Portava el mòbil carregat. El meu sentit de l’orientació, no tant."],["La primera fotografia","Entre les pedres vaig descobrir una criatura diminuta i plena d’energia. Li vaig fer unes fotos. Ell ja preguntava: «Què farem? Què direm?»"],["Capturat!","Un flaix, una espurna i… cap a dins del mòbil! Havia capturat el meu Minairó. El canut d’agulles acabava de rebre una actualització tecnològica."],["A treballar","Jo tenia textos per resumir i coses per traduir. Ell tenia una quantitat absurda de ganes de fer feina. Semblava un acord perfecte. Fins que va demanar més feina."],["L’app també demana feina","Ara el tinc dins del mòbil i estic construint l’app perquè hi pugui treballar. Ell insisteix: «Què farem? Què direm?» Jo: «Primer, acabar l’app!»"],["Un Minairó per a tothom","La pròxima aventura és compartir-lo: que tothom pugui tenir un Minairó al mòbil. De moment, l’app continua en construcció. Ell no ha deixat de preguntar per la feina."]],"faq":"Preguntes freqüents","questions":[["Ja el puc descarregar?","Encara no. Publicarem l’APK quan estigui preparat. Aquesta pàgina no ofereix cap instal·lador."],["Aquestes són pantalles de l’app?","No. Les imatges en construcció i el còmic són il·lustracions del projecte. Les captures reals arribaran més endavant."],["D’on surt el nom?","Dels minairons, éssers diminuts de la mitologia pirinenca coneguts per reclamar feina. L’Oriol i la captura amb el mòbil formen part de la nostra adaptació fictícia."],["Necessita permisos o connexió?","Depèn de les funcions que activis. L’accés al contingut de pantalla, al micròfon o a les notificacions requereix els permisos corresponents. Els motors en línia necessiten connexió; el mode local requereix models compatibles."]],"footer":"Minairó continua al taller. Pròximament a UrySoft.","apps":"Aplicacions","about":"Sobre UrySoft","story":"La història","theme":"Canviar tema","features":"Què estem preparant?","featureNote":"Funcions presents al projecte que estem desenvolupant. La disponibilitat final dependrà de les proves, els permisos i el motor configurat.","items":[["Un ajudant a la pantalla","Un avatar flotant i accessos ràpids per obrir l’assistent i treballar amb el contingut que li facilites."],["Textos més fàcils","Tradueix, resumeix, explica, reescriu i prepara respostes. També hi ha accions per resoldre consultes i crear indicacions pròpies."],["Documents i imatges","Aporta documents PDF, Word o text i imatges com a context. L’extracció de text i l’OCR tenen límits segons el fitxer."],["Parlar i escoltar","Entrada de veu i lectura de respostes. L’assistent de veu és experimental i depèn de la configuració i del dispositiu."],["Una manera de respondre pròpia","Ajusta sentit, actitud, personalitat i caràcter. Els perfils de l’assistent i de les notificacions són independents."],["Contingut creatiu","Hi ha fluxos d’imatges, publicacions i vídeo segons el proveïdor. El vídeo local no està disponible; les integracions web són experimentals."],["Notificacions, amb control","Respostes a notificacions compatibles de WhatsApp: revisió del text, converses autoritzades i opcions de pausa. Funció experimental, desactivada inicialment."],["Motor i historial","Tria entre motor local, ChatGPT o Gemini segons la configuració. Consulta els treballs i els paràmetres des de l’historial."]],"limits":"El Minairó necessita les seves eines","limitsBody":"El mode local requereix models i un dispositiu compatible. Els serveis en línia necessiten connexió i la configuració corresponent; el contingut necessari es comparteix amb el proveïdor triat. Les respostes poden contenir errors i cal revisar-les. No presentem totes les funcions com a disponibles sense connexió ni garantim el mateix resultat amb qualsevol motor.","comments":"Idees per al Minairó","commentNote":"Encara no es pot provar públicament. Pots proposar una idea o explicar què t’agradaria que fes. Els missatges són privats fins que els aprovem; la resposta d’UrySoft apareixerà aquí quan es publiquin.","name":"El teu nom","message":"La teva proposta","consent":"Accepto que el meu nom i missatge es puguin publicar després de la revisió.","send":"Enviar proposta","sent":"Proposta rebuda. Queda pendent de moderació.","error":"No s’ha pogut enviar. Torna-ho a provar més tard.","empty":"Encara no hi ha propostes publicades.","unavailable":"Les propostes no estan disponibles ara mateix.","reply":"Resposta d’UrySoft","source":"Inspiració: els minairons del Pirineu","back":"Tornar a les aplicacions","avatarAlt":"Avatar oficial de Minairó, amb barretina vermella i cervell verd il·luminat","artAlt":"Minairó treballant en la construcció de l’app","comicAlt":"Vinyeta {n}: {title}","faqExtra":["Necessita permisos o connexió?","Depèn de les funcions que activis. L’accés al contingut de pantalla, al micròfon o a les notificacions requereix els permisos corresponents. Els motors en línia necessiten connexió; el mode local requereix models compatibles."]},"es":{"status":"Próximamente · En desarrollo","headline":"Un Minairó en tu móvil.","intro":"Un asistente de inteligencia artificial con personalidad propia, inspirado en los minairons del Pirineo. Lo estamos preparando para ayudarte con los textos y el contenido del móvil, con un toque de ingenio.","availability":"El APK todavía no está disponible. Esta ficha presenta el proyecto; las funciones y el diseño pueden cambiar durante el desarrollo.","purpose":"Pequeñas tareas, una gran ayuda","purposeBody":"Traducir, resumir y preparar respuestas forman parte del proyecto de Minairó. Trabajamos en un asistente que puedas adaptar a tu forma de comunicarte, con ajustes de personalidad y carácter.","gallery":"Estamos construyendo la app","galleryBody":"Aquí estarán las capturas reales de Minairó cuando estén preparadas.","construction":"En construcción","comic":"Cómo capturé un Minairó","comicNote":"Una aventura ficticia de Oriol Badia, inspirada en la leyenda de los minairons. El móvil es nuestro canuto mágico.","panels":[["Expedición al Pirineo","Me llamo Oriol Badia y subí al Pirineo con una misión: capturar un Minairó. Llevaba el móvil cargado. Mi sentido de la orientación, no tanto."],["La primera fotografía","Entre las piedras descubrí una criatura diminuta y llena de energía. Le hice unas fotos. Él ya preguntaba: «¿Qué haremos? ¿Qué diremos?»"],["¡Capturado!","Un flash, una chispa y… ¡dentro del móvil! Había capturado a mi Minairó. El canuto de agujas acababa de recibir una actualización tecnológica."],["A trabajar","Yo tenía textos por resumir y cosas por traducir. Él tenía unas ganas absurdas de trabajar. Parecía un acuerdo perfecto. Hasta que pidió más trabajo."],["La app también da trabajo","Ahora lo tengo dentro del móvil y estoy construyendo la app para que pueda trabajar en ella. Él insiste: «¿Qué haremos? ¿Qué diremos?» Yo: «¡Primero, acabar la app!»"],["Un Minairó para todos","La próxima aventura es compartirlo: que todo el mundo pueda tener un Minairó en el móvil. Por ahora, la app sigue en construcción. Él no ha dejado de preguntar por el trabajo."]],"faq":"Preguntas frecuentes","questions":[["¿Ya puedo descargarlo?","Todavía no. Publicaremos el APK cuando esté preparado. Esta página no ofrece ningún instalador."],["¿Estas son pantallas de la app?","No. Las imágenes en construcción y el cómic son ilustraciones del proyecto. Las capturas reales llegarán más adelante."],["¿De dónde viene el nombre?","De los minairons, seres diminutos de la mitología pirenaica conocidos por reclamar trabajo. Oriol y la captura con el móvil forman parte de nuestra adaptación ficticia."],["¿Necesita permisos o conexión?","Depende de las funciones que actives. El acceso al contenido de pantalla, al micrófono o a las notificaciones requiere los permisos correspondientes. Los motores en línea necesitan conexión; el modo local requiere modelos compatibles."]],"footer":"Minairó sigue en el taller. Próximamente en UrySoft.","apps":"Aplicaciones","about":"Sobre UrySoft","story":"La historia","theme":"Cambiar tema","features":"¿Qué estamos preparando?","featureNote":"Funciones presentes en el proyecto en desarrollo. La disponibilidad final dependerá de las pruebas, los permisos y el motor configurado.","items":[["Un ayudante en pantalla","Un avatar flotante y accesos rápidos para abrir el asistente y trabajar con el contenido que le facilitas."],["Textos más fáciles","Traduce, resume, explica, reescribe y prepara respuestas. También incluye acciones para resolver consultas y crear indicaciones propias."],["Documentos e imágenes","Aporta documentos PDF, Word o texto e imágenes como contexto. La extracción de texto y el OCR tienen límites según el archivo."],["Hablar y escuchar","Entrada de voz y lectura de respuestas. El asistente de voz es experimental y depende de la configuración y del dispositivo."],["Una forma propia de responder","Ajusta sentido, actitud, personalidad y carácter. Los perfiles del asistente y de las notificaciones son independientes."],["Contenido creativo","Hay flujos de imágenes, publicaciones y vídeo según el proveedor. El vídeo local no está disponible; las integraciones web son experimentales."],["Notificaciones, con control","Respuestas a notificaciones compatibles de WhatsApp: revisión del texto, conversaciones autorizadas y opciones de pausa. Función experimental, desactivada inicialmente."],["Motor e historial","Elige entre motor local, ChatGPT o Gemini según la configuración. Consulta los trabajos y sus parámetros desde el historial."]],"limits":"El Minairó necesita sus herramientas","limitsBody":"El modo local requiere modelos y un dispositivo compatible. Los servicios en línea necesitan conexión y su configuración; el contenido necesario se comparte con el proveedor elegido. Las respuestas pueden contener errores y deben revisarse. No presentamos todas las funciones como disponibles sin conexión ni garantizamos el mismo resultado con cualquier motor.","comments":"Ideas para el Minairó","commentNote":"Todavía no se puede probar públicamente. Puedes proponer una idea o explicar qué te gustaría que hiciera. Los mensajes son privados hasta que los aprobemos; la respuesta de UrySoft aparecerá aquí cuando se publiquen.","name":"Tu nombre","message":"Tu propuesta","consent":"Acepto que mi nombre y mensaje se puedan publicar después de la revisión.","send":"Enviar propuesta","sent":"Propuesta recibida. Queda pendiente de moderación.","error":"No se ha podido enviar. Inténtalo de nuevo más tarde.","empty":"Todavía no hay propuestas publicadas.","unavailable":"Las propuestas no están disponibles ahora mismo.","reply":"Respuesta de UrySoft","source":"Inspiración: los minairons del Pirineo","back":"Volver a las aplicaciones","avatarAlt":"Avatar oficial de Minairó, con barretina roja y cerebro verde iluminado","artAlt":"Minairó trabajando en la construcción de la app","comicAlt":"Viñeta {n}: {title}","faqExtra":["¿Necesita permisos o conexión?","Depende de las funciones que actives. El acceso al contenido de pantalla, al micrófono o a las notificaciones requiere los permisos correspondientes. Los motores en línea necesitan conexión; el modo local requiere modelos compatibles."]},"en":{"status":"Coming soon · In development","headline":"A Minairó in your phone.","intro":"An AI assistant with a personality of its own, inspired by the minairons of the Pyrenees. We are preparing it to help with text and mobile content, with a touch of wit.","availability":"The APK is not available yet. This page introduces the project; features and design may change during development.","purpose":"Small tasks, a big helping hand","purposeBody":"Translation, summaries and drafting replies are part of the Minairó project. We are developing an assistant you can adapt to your communication style, with personality and character settings.","gallery":"The app is under construction","galleryBody":"Real Minairó screenshots will appear here when they are ready.","construction":"Under construction","comic":"How I captured a Minairó","comicNote":"A fictional adventure starring Oriol Badia, inspired by the minairons legend. The phone is our magical needle case.","panels":[["Into the Pyrenees","My name is Oriol Badia. I headed into the Pyrenees on a mission: capture a Minairó. My phone was fully charged. My sense of direction was less reliable."],["The first photograph","Among the rocks, I spotted a tiny creature bursting with energy. I took some photos. It was already asking: ‘What shall we do? What shall we say?’"],["Captured!","A flash, a spark and… into the phone! I had captured my Minairó. The traditional needle case had just received a technology upgrade."],["Time to work","I had texts to summarize and things to translate. It had a ridiculous amount of energy for work. A perfect arrangement. Until it asked for more work."],["The app needs work too","Now it lives inside my phone, and I am building the app so it can work there. It keeps asking: ‘What shall we do?’ Me: ‘Finish the app first!’"],["A Minairó for everyone","The next adventure is sharing it: a Minairó in everyone's phone. For now, the app is still under construction. It has not stopped asking for more work."]],"faq":"Frequently asked questions","questions":[["Can I download it now?","Not yet. We will publish the APK when it is ready. This page does not offer an installer."],["Are these app screenshots?","No. The construction images and comic illustrate the project. Real screenshots will come later."],["Where does the name come from?","From the minairons, tiny beings from Pyrenean mythology known for demanding work. Oriol and the phone capture are part of our fictional adaptation."],["Does it need permissions or a connection?","It depends on the features you enable. Access to screen content, microphone or notifications requires the corresponding permissions. Online engines need a connection; local mode requires compatible models."]],"footer":"Minairó is still in the workshop. Coming soon to UrySoft.","apps":"Applications","about":"About UrySoft","story":"The story","theme":"Switch theme","features":"What are we preparing?","featureNote":"Features present in the project under development. Final availability will depend on testing, permissions and the configured engine.","items":[["A helper on your screen","A floating avatar and shortcuts to open the assistant and work with content you provide."],["Easier text tasks","Translate, summarize, explain, rewrite and draft replies. There are also actions for solving queries and writing custom instructions."],["Documents and images","Provide PDF, Word or text documents and images as context. Text extraction and OCR have limits depending on the file."],["Speak and listen","Voice input and reading responses aloud. The voice assistant is experimental and depends on setup and device support."],["A voice of its own","Adjust stance, attitude, personality and character. Assistant and notification profiles are independent."],["Creative content","Image, social-post and video workflows depend on the provider. Local video is unavailable; web integrations are experimental."],["Notifications, with control","Replies to compatible WhatsApp notifications: text review, authorized conversations and pause controls. Experimental and initially disabled."],["Engine and history","Choose a local engine, ChatGPT or Gemini depending on setup. Browse work history and its recorded parameters."]],"limits":"Even a Minairó needs its tools","limitsBody":"Local mode requires models and a compatible device. Online services require a connection and appropriate setup; the necessary content is shared with your chosen provider. Responses may contain errors and need review. Not every feature works offline, and results are not guaranteed to be identical across engines.","comments":"Ideas for Minairó","commentNote":"Public testing is not available yet. Suggest an idea or explain what you would like it to do. Messages remain private until approved; UrySoft replies will appear here when published.","name":"Your name","message":"Your suggestion","consent":"I agree that my name and message may be published after review.","send":"Send suggestion","sent":"Suggestion received and awaiting moderation.","error":"Could not send. Please try again later.","empty":"No suggestions have been published yet.","unavailable":"Suggestions are currently unavailable.","reply":"UrySoft reply","source":"Inspired by the minairons of the Pyrenees","back":"Back to applications","avatarAlt":"Official Minairó avatar, with a red barretina cap and glowing green brain","artAlt":"Minairó working on the app under construction","comicAlt":"Panel {n}: {title}","faqExtra":["Does it need permissions or a connection?","It depends on the features you enable. Access to screen content, microphone or notifications requires the corresponding permissions. Online engines need a connection; local mode requires compatible models."]}}
+{
+  "ca": {
+    "status": "Android · Proves privades",
+    "headline": "El que veus. El que necessites.",
+    "intro": "El teu assistent visual, a un toc. Dona-li context, tria una acció i revisa la resposta sense perdre el fil del que feies.",
+    "availability": "Versió en proves privades. L’instal·lador encara no es distribueix públicament. Android 11 o posterior.",
+    "purpose": "Un petit ajudant per a les tasques quotidianes",
+    "purposeBody": "Resumeix, tradueix, explica, resol i redacta amb el contingut que li facilites. L’avatar manté l’assistent a prop, i tu decideixes quan fer-lo servir.",
+    "gallery": "Així es veu Minairó",
+    "galleryBody": "Pantalles de demostració de la interfície Android en mode fosc. Les dades i els models mostrats són d’exemple.",
+    "construction": "En construcció",
+    "comic": "Com vaig capturar un Minairó",
+    "comicNote": "Una aventura fictícia de l’Oriol Badia, inspirada en la llegenda dels minairons. El mòbil és el nostre canut màgic.",
+    "panels": [
+      [
+        "Expedició als Pirineus",
+        "Em dic Oriol Badia i vaig pujar als Pirineus amb una missió: capturar un Minairó. Portava el mòbil carregat. El meu sentit de l’orientació, no tant."
+      ],
+      [
+        "La primera fotografia",
+        "Entre les pedres vaig descobrir una criatura diminuta i plena d’energia. Li vaig fer unes fotos. Ell ja preguntava: «Què farem? Què direm?»"
+      ],
+      [
+        "Capturat!",
+        "Un flaix, una espurna i… cap a dins del mòbil! Havia capturat el meu Minairó. El canut d’agulles acabava de rebre una actualització tecnològica."
+      ],
+      [
+        "A treballar",
+        "Jo tenia textos per resumir i coses per traduir. Ell tenia una quantitat absurda de ganes de fer feina. Semblava un acord perfecte. Fins que va demanar més feina."
+      ],
+      [
+        "L’app també demana feina",
+        "Ara el tinc dins del mòbil i estic construint l’app perquè hi pugui treballar. Ell insisteix: «Què farem? Què direm?» Jo: «Primer, acabar l’app!»"
+      ],
+      [
+        "Un Minairó per a tothom",
+        "La nova aventura és ajudar-te amb textos, idees i tasques del mòbil. Encara pregunta: «Què farem? Què direm?»"
+      ]
+    ],
+    "faq": "Preguntes freqüents",
+    "questions": [
+      [
+        "Ja el puc descarregar?",
+        "La fitxa mostra l’aplicació i les funcions. L’instal·lador es comparteix només pel canal privat de proves. La descàrrega pública encara no està disponible."
+      ],
+      [
+        "Aquestes són pantalles de l’app?",
+        "Pantalles de demostració de la interfície Android en mode fosc. Les dades i els models mostrats són d’exemple."
+      ],
+      [
+        "D’on surt el nom?",
+        "Dels minairons, éssers diminuts de la mitologia pirinenca coneguts per reclamar feina. L’Oriol i la captura amb el mòbil formen part de la nostra adaptació fictícia."
+      ],
+      [
+        "Necessita permisos o connexió?",
+        "Depèn de les funcions que activis. L’accés al contingut de pantalla, al micròfon o a les notificacions requereix els permisos corresponents. Els motors en línia necessiten connexió; el mode local requereix models compatibles."
+      ]
+    ],
+    "footer": "Una mirada. Tu decideixes.",
+    "apps": "Aplicacions",
+    "about": "Sobre UrySoft",
+    "story": "La història",
+    "theme": "Canviar tema",
+    "features": "Fes lloc al que importa",
+    "featureNote": "Pantalla, text, imatges i documents com a context. Un mateix flux per triar acció, ajustar paràmetres i revisar resultats.",
+    "items": [
+      [
+        "Un ajudant a la pantalla",
+        "Un avatar flotant i accessos ràpids per obrir l’assistent i treballar amb el contingut que li facilites."
+      ],
+      [
+        "Textos més fàcils",
+        "Tradueix, resumeix, explica, reescriu i prepara respostes. També hi ha accions per resoldre consultes i crear indicacions pròpies."
+      ],
+      [
+        "Documents i imatges",
+        "Aporta documents PDF, Word o text i imatges com a context. L’extracció de text i l’OCR tenen límits segons el fitxer."
+      ],
+      [
+        "Parlar i escoltar",
+        "Entrada de veu i lectura de respostes. L’assistent de veu és experimental i depèn de la configuració i del dispositiu."
+      ],
+      [
+        "Una manera de respondre pròpia",
+        "Sentit i Actitud disponibles a Gratis. Personalitat i Caràcter personalitzables amb Premium. Conserva una base comuna i ajustos propis per consulta."
+      ],
+      [
+        "Contingut creatiu",
+        "Hi ha fluxos d’imatges, publicacions i vídeo segons el proveïdor. El vídeo local no està disponible; les integracions web són experimentals."
+      ],
+      [
+        "Notificacions, amb control",
+        "Funció Premium experimental: esborranys o respostes automàtiques a notificacions compatibles de WhatsApp, amb destinataris autoritzats i controls de pausa."
+      ],
+      [
+        "Motor i historial",
+        "Tria entre motor local, ChatGPT o Gemini segons la configuració. Consulta els treballs i els paràmetres des de l’historial."
+      ]
+    ],
+    "limits": "El Minairó necessita les seves eines",
+    "limitsBody": "El mode local requereix models i un dispositiu compatible. Els serveis en línia necessiten connexió i la configuració corresponent; el contingut necessari es comparteix amb el proveïdor triat. Les respostes poden contenir errors i cal revisar-les. No presentem totes les funcions com a disponibles sense connexió ni garantim el mateix resultat amb qualsevol motor.",
+    "comments": "Idees per al Minairó",
+    "commentNote": "Comparteix una idea o explica què milloraries. Els missatges es revisen abans de publicar-se; les respostes d’UrySoft apareixen al costat de cada comentari.",
+    "name": "El teu nom",
+    "message": "La teva proposta",
+    "consent": "Accepto que el meu nom i missatge es puguin publicar després de la revisió.",
+    "send": "Enviar proposta",
+    "sent": "Proposta rebuda. Queda pendent de moderació.",
+    "error": "No s’ha pogut enviar. Torna-ho a provar més tard.",
+    "empty": "Encara no hi ha propostes publicades.",
+    "unavailable": "Les propostes no estan disponibles ara mateix.",
+    "reply": "Resposta d’UrySoft",
+    "source": "Inspiració: els minairons del Pirineu",
+    "back": "Tornar a les aplicacions",
+    "avatarAlt": "Avatar oficial de Minairó, amb barretina vermella i cervell verd il·luminat",
+    "artAlt": "Minairó treballant en la construcció de l’app",
+    "comicAlt": "Vinyeta {n}: {title}",
+    "faqExtra": [
+      "Necessita permisos o connexió?",
+      "Depèn de les funcions que activis. L’accés al contingut de pantalla, al micròfon o a les notificacions requereix els permisos corresponents. Els motors en línia necessiten connexió; el mode local requereix models compatibles."
+    ],
+    "download": "Proves privades",
+    "downloadHint": "Versió 6.35.0 · Distribució privada",
+    "installHelp": "Sobre les proves privades",
+    "premiumTitle": "Més teu. Amb Premium.",
+    "premiumIntro": "Els mateixos motors d’intel·ligència als dos plans. Tria com personalitzar l’assistent i com presentar els resultats.",
+    "annual": "12 € l’any",
+    "equivalent": "Equival a 1 € al mes, amb pagament anual",
+    "renewal": "Renovació anual automàtica. Pots cancel·lar-la des de PayPal.",
+    "freeTitle": "Gratis",
+    "freeBody": "Totes les accions habituals i els motors configurats. Textos i imatges amb la marca de Minairó. Personalitat i Caràcter amb els valors originals.",
+    "premiumBody": "Treu les marques de textos i imatges. Personalitza Personalitat i Caràcter. Activa respostes automàtiques als contactes i grups autoritzats.",
+    "premiumCta": "Coneix Premium",
+    "billingPending": "Les subscripcions encara no estan activades. La versió gratuïta està disponible.",
+    "billingReady": "Activa o restaura Premium des d’Ajustes a l’aplicació.",
+    "trustTitle": "Tu tries on es processa",
+    "trustBody": "Pots configurar motors locals o serveis externs per tipus de resposta. El mode local requereix models compatibles; els serveis externs fan servir el teu compte i els seus límits. Les respostes s’han de revisar.",
+    "step1": "Aporta el context",
+    "step1Body": "Invoca l’assistent amb la pantalla o comparteix text, imatges i documents des d’una altra app.",
+    "step2": "Tria l’acció",
+    "step2Body": "Resumeix, respon, tradueix o prepara contingut. Ajusta només els paràmetres que necessitis.",
+    "step3": "Revisa i utilitza",
+    "step3Body": "Llegeix o escolta la resposta; copia, desa o comparteix quan estigui a punt.",
+    "how": "Tres passos per continuar amb el que feies",
+    "sourceNote": "Dirigit per Oriol Badia Campanera",
+    "premium_b_profile": "Personalitat i Caràcter",
+    "navFeatures": "Funcions",
+    "privateTitle": "Minairó continua en proves privades",
+    "privateBody": "La fitxa mostra l’aplicació i les funcions. L’instal·lador es comparteix només pel canal privat de proves. La descàrrega pública encara no està disponible.",
+    "privateContact": "Contacta amb UrySoft"
+  },
+  "es": {
+    "status": "Android · Pruebas privadas",
+    "headline": "Lo que ves. Lo que necesitas.",
+    "intro": "Tu asistente visual, a una pulsación. Dale contexto, elige una acción y revisa la respuesta sin perder el hilo de lo que estabas haciendo.",
+    "availability": "Versión en pruebas privadas. El instalador aún no se distribuye públicamente. Android 11 o posterior.",
+    "purpose": "Un pequeño ayudante para tus tareas diarias",
+    "purposeBody": "Resume, traduce, explica, resuelve y redacta con el contenido que le facilitas. El avatar mantiene el asistente cerca, y tú decides cuándo usarlo.",
+    "gallery": "Así se ve Minairó",
+    "galleryBody": "Pantallas de demostración de la interfaz Android en modo oscuro. Los datos y los modelos mostrados son de ejemplo.",
+    "construction": "En construcción",
+    "comic": "Cómo capturé un Minairó",
+    "comicNote": "Una aventura ficticia de Oriol Badia, inspirada en la leyenda de los minairons. El móvil es nuestro canuto mágico.",
+    "panels": [
+      [
+        "Expedición al Pirineo",
+        "Me llamo Oriol Badia y subí al Pirineo con una misión: capturar un Minairó. Llevaba el móvil cargado. Mi sentido de la orientación, no tanto."
+      ],
+      [
+        "La primera fotografía",
+        "Entre las piedras descubrí una criatura diminuta y llena de energía. Le hice unas fotos. Él ya preguntaba: «¿Qué haremos? ¿Qué diremos?»"
+      ],
+      [
+        "¡Capturado!",
+        "Un flash, una chispa y… ¡dentro del móvil! Había capturado a mi Minairó. El canuto de agujas acababa de recibir una actualización tecnológica."
+      ],
+      [
+        "A trabajar",
+        "Yo tenía textos por resumir y cosas por traducir. Él tenía unas ganas absurdas de trabajar. Parecía un acuerdo perfecto. Hasta que pidió más trabajo."
+      ],
+      [
+        "La app también da trabajo",
+        "Ahora lo tengo dentro del móvil y estoy construyendo la app para que pueda trabajar en ella. Él insiste: «¿Qué haremos? ¿Qué diremos?» Yo: «¡Primero, acabar la app!»"
+      ],
+      [
+        "Un Minairó para todos",
+        "Su nueva aventura es acompañarte con textos, ideas y tareas del móvil. Todavía pregunta: «¿Qué haremos? ¿Qué diremos?»"
+      ]
+    ],
+    "faq": "Preguntas frecuentes",
+    "questions": [
+      [
+        "¿Ya puedo descargarlo?",
+        "La ficha muestra la aplicación y sus funciones. El instalador se comparte únicamente por el canal privado de pruebas. La descarga pública todavía no está disponible."
+      ],
+      [
+        "¿Estas son pantallas de la app?",
+        "Pantallas de demostración de la interfaz Android en modo oscuro. Los datos y los modelos mostrados son de ejemplo."
+      ],
+      [
+        "¿De dónde viene el nombre?",
+        "De los minairons, seres diminutos de la mitología pirenaica conocidos por reclamar trabajo. Oriol y la captura con el móvil forman parte de nuestra adaptación ficticia."
+      ],
+      [
+        "¿Necesita permisos o conexión?",
+        "Depende de las funciones que actives. El acceso al contenido de pantalla, al micrófono o a las notificaciones requiere los permisos correspondientes. Los motores en línea necesitan conexión; el modo local requiere modelos compatibles."
+      ]
+    ],
+    "footer": "Una mirada. Tú decides.",
+    "apps": "Aplicaciones",
+    "about": "Sobre UrySoft",
+    "story": "La historia",
+    "theme": "Cambiar tema",
+    "features": "Haz sitio a lo importante",
+    "featureNote": "Pantalla, texto, imágenes y documentos como contexto. Un flujo común para elegir acción, ajustar parámetros y revisar resultados.",
+    "items": [
+      [
+        "Un ayudante en pantalla",
+        "Un avatar flotante y accesos rápidos para abrir el asistente y trabajar con el contenido que le facilitas."
+      ],
+      [
+        "Textos más fáciles",
+        "Traduce, resume, explica, reescribe y prepara respuestas. También incluye acciones para resolver consultas y crear indicaciones propias."
+      ],
+      [
+        "Documentos e imágenes",
+        "Aporta documentos PDF, Word o texto e imágenes como contexto. La extracción de texto y el OCR tienen límites según el archivo."
+      ],
+      [
+        "Hablar y escuchar",
+        "Entrada de voz y lectura de respuestas. El asistente de voz es experimental y depende de la configuración y del dispositivo."
+      ],
+      [
+        "Una forma propia de responder",
+        "Sentido y Actitud disponibles en Gratis. Personalidad y Carácter personalizables con Premium. Conserva una base común y ajustes propios por consulta."
+      ],
+      [
+        "Contenido creativo",
+        "Hay flujos de imágenes, publicaciones y vídeo según el proveedor. El vídeo local no está disponible; las integraciones web son experimentales."
+      ],
+      [
+        "Notificaciones, con control",
+        "Función Premium experimental: borradores o respuestas automáticas a notificaciones compatibles de WhatsApp, con destinatarios autorizados y controles de pausa."
+      ],
+      [
+        "Motor e historial",
+        "Elige entre motor local, ChatGPT o Gemini según la configuración. Consulta los trabajos y sus parámetros desde el historial."
+      ]
+    ],
+    "limits": "El Minairó necesita sus herramientas",
+    "limitsBody": "El modo local requiere modelos y un dispositivo compatible. Los servicios en línea necesitan conexión y su configuración; el contenido necesario se comparte con el proveedor elegido. Las respuestas pueden contener errores y deben revisarse. No presentamos todas las funciones como disponibles sin conexión ni garantizamos el mismo resultado con cualquier motor.",
+    "comments": "Ideas para el Minairó",
+    "commentNote": "Comparte una idea o cuéntanos qué mejorarías. Los mensajes se revisan antes de publicarse; las respuestas de UrySoft aparecen junto a cada comentario.",
+    "name": "Tu nombre",
+    "message": "Tu propuesta",
+    "consent": "Acepto que mi nombre y mensaje se puedan publicar después de la revisión.",
+    "send": "Enviar propuesta",
+    "sent": "Propuesta recibida. Queda pendiente de moderación.",
+    "error": "No se ha podido enviar. Inténtalo de nuevo más tarde.",
+    "empty": "Todavía no hay propuestas publicadas.",
+    "unavailable": "Las propuestas no están disponibles ahora mismo.",
+    "reply": "Respuesta de UrySoft",
+    "source": "Inspiración: los minairons del Pirineo",
+    "back": "Volver a las aplicaciones",
+    "avatarAlt": "Avatar oficial de Minairó, con barretina roja y cerebro verde iluminado",
+    "artAlt": "Minairó trabajando en la construcción de la app",
+    "comicAlt": "Viñeta {n}: {title}",
+    "faqExtra": [
+      "¿Necesita permisos o conexión?",
+      "Depende de las funciones que actives. El acceso al contenido de pantalla, al micrófono o a las notificaciones requiere los permisos correspondientes. Los motores en línea necesitan conexión; el modo local requiere modelos compatibles."
+    ],
+    "download": "Pruebas privadas",
+    "downloadHint": "Versión 6.35.0 · Distribución privada",
+    "installHelp": "Sobre las pruebas privadas",
+    "premiumTitle": "Más tuyo. Con Premium.",
+    "premiumIntro": "Los mismos motores de inteligencia en los dos planes. Elige cómo personalizar el asistente y cómo presentar sus resultados.",
+    "annual": "12 € al año",
+    "equivalent": "Equivale a 1 € al mes, con pago anual",
+    "renewal": "Renovación anual automática. Puedes cancelarla desde PayPal.",
+    "freeTitle": "Gratis",
+    "freeBody": "Todas las acciones habituales y los motores configurados. Textos e imágenes con la marca de Minairó. Personalidad y Carácter con sus valores originales.",
+    "premiumBody": "Quita las marcas de textos e imágenes. Personaliza Personalidad y Carácter. Activa respuestas automáticas en contactos y grupos autorizados.",
+    "premiumCta": "Conocer Premium",
+    "billingPending": "Las suscripciones todavía no están activadas. La versión gratuita está disponible.",
+    "billingReady": "Activa o restaura Premium desde Ajustes en la aplicación.",
+    "trustTitle": "Tú eliges dónde se procesa",
+    "trustBody": "Puedes configurar motores locales o servicios externos por tipo de respuesta. El modo local requiere modelos compatibles; los servicios externos usan tu cuenta y sus límites. Las respuestas necesitan revisión.",
+    "step1": "Aporta el contexto",
+    "step1Body": "Invoca el asistente con tu pantalla o comparte texto, imágenes y documentos desde otra app.",
+    "step2": "Elige la acción",
+    "step2Body": "Resume, responde, traduce o prepara contenido. Ajusta solo los parámetros que necesites.",
+    "step3": "Revisa y utiliza",
+    "step3Body": "Lee o escucha la respuesta; copia, guarda o comparte cuando esté lista.",
+    "how": "Tres pasos para seguir con lo tuyo",
+    "sourceNote": "Dirigido por Oriol Badia Campanera",
+    "premium_b_profile": "Personalidad y Carácter",
+    "navFeatures": "Funciones",
+    "privateTitle": "Minairó sigue en pruebas privadas",
+    "privateBody": "La ficha muestra la aplicación y sus funciones. El instalador se comparte únicamente por el canal privado de pruebas. La descarga pública todavía no está disponible.",
+    "privateContact": "Contactar con UrySoft"
+  },
+  "en": {
+    "status": "Android · Private testing",
+    "headline": "What you see. What you need.",
+    "intro": "Your visual assistant, one tap away. Add context, choose an action and review the answer without losing your train of thought.",
+    "availability": "Private testing build. The installer is not publicly distributed yet. Android 11 or later.",
+    "purpose": "A little helper for everyday tasks",
+    "purposeBody": "Summarise, translate, explain, solve and write using the content you provide. The avatar keeps your assistant close, and you decide when to use it.",
+    "gallery": "Meet the interface",
+    "galleryBody": "Demonstration screens of the native Android interface in dark mode. Data and model names are examples.",
+    "construction": "Under construction",
+    "comic": "How I captured a Minairó",
+    "comicNote": "A fictional adventure starring Oriol Badia, inspired by the minairons legend. The phone is our magical needle case.",
+    "panels": [
+      [
+        "Into the Pyrenees",
+        "My name is Oriol Badia. I headed into the Pyrenees on a mission: capture a Minairó. My phone was fully charged. My sense of direction was less reliable."
+      ],
+      [
+        "The first photograph",
+        "Among the rocks, I spotted a tiny creature bursting with energy. I took some photos. It was already asking: ‘What shall we do? What shall we say?’"
+      ],
+      [
+        "Captured!",
+        "A flash, a spark and… into the phone! I had captured my Minairó. The traditional needle case had just received a technology upgrade."
+      ],
+      [
+        "Time to work",
+        "I had texts to summarize and things to translate. It had a ridiculous amount of energy for work. A perfect arrangement. Until it asked for more work."
+      ],
+      [
+        "The app needs work too",
+        "Now it lives inside my phone, and I am building the app so it can work there. It keeps asking: ‘What shall we do?’ Me: ‘Finish the app first!’"
+      ],
+      [
+        "A Minairó for everyone",
+        "Its new adventure is helping with text, ideas and phone tasks. It still asks: “What shall we do? What shall we say?”"
+      ]
+    ],
+    "faq": "Frequently asked questions",
+    "questions": [
+      [
+        "Can I download it now?",
+        "This page presents the application and its features. The installer is shared only through the private testing channel. A public download is not available yet."
+      ],
+      [
+        "Are these app screenshots?",
+        "Demonstration screens of the native Android interface in dark mode. Data and model names are examples."
+      ],
+      [
+        "Where does the name come from?",
+        "From the minairons, tiny beings from Pyrenean mythology known for demanding work. Oriol and the phone capture are part of our fictional adaptation."
+      ],
+      [
+        "Does it need permissions or a connection?",
+        "It depends on the features you enable. Access to screen content, microphone or notifications requires the corresponding permissions. Online engines need a connection; local mode requires compatible models."
+      ]
+    ],
+    "footer": "One look. You decide.",
+    "apps": "Applications",
+    "about": "About UrySoft",
+    "story": "The story",
+    "theme": "Switch theme",
+    "features": "Make room for what matters",
+    "featureNote": "Screen, text, images and documents as context. One familiar flow to choose an action, adjust parameters and review the result.",
+    "items": [
+      [
+        "A helper on your screen",
+        "A floating avatar and shortcuts to open the assistant and work with content you provide."
+      ],
+      [
+        "Easier text tasks",
+        "Translate, summarize, explain, rewrite and draft replies. There are also actions for solving queries and writing custom instructions."
+      ],
+      [
+        "Documents and images",
+        "Provide PDF, Word or text documents and images as context. Text extraction and OCR have limits depending on the file."
+      ],
+      [
+        "Speak and listen",
+        "Voice input and reading responses aloud. The voice assistant is experimental and depends on setup and device support."
+      ],
+      [
+        "A voice of its own",
+        "Stance and Attitude are available in Free. Customise Personality and Character with Premium, using a shared base and per-query adjustments."
+      ],
+      [
+        "Creative content",
+        "Image, social-post and video workflows depend on the provider. Local video is unavailable; web integrations are experimental."
+      ],
+      [
+        "Notifications, with control",
+        "Experimental Premium feature: drafts or automatic replies to compatible WhatsApp notifications, with authorised recipients and pause controls."
+      ],
+      [
+        "Engine and history",
+        "Choose a local engine, ChatGPT or Gemini depending on setup. Browse work history and its recorded parameters."
+      ]
+    ],
+    "limits": "Even a Minairó needs its tools",
+    "limitsBody": "Local mode requires models and a compatible device. Online services require a connection and appropriate setup; the necessary content is shared with your chosen provider. Responses may contain errors and need review. Not every feature works offline, and results are not guaranteed to be identical across engines.",
+    "comments": "Ideas for Minairó",
+    "commentNote": "Share an idea or tell us what you would improve. Messages are reviewed before publication; UrySoft replies appear alongside each comment.",
+    "name": "Your name",
+    "message": "Your suggestion",
+    "consent": "I agree that my name and message may be published after review.",
+    "send": "Send suggestion",
+    "sent": "Suggestion received and awaiting moderation.",
+    "error": "Could not send. Please try again later.",
+    "empty": "No suggestions have been published yet.",
+    "unavailable": "Suggestions are currently unavailable.",
+    "reply": "UrySoft reply",
+    "source": "Inspired by the minairons of the Pyrenees",
+    "back": "Back to applications",
+    "avatarAlt": "Official Minairó avatar, with a red barretina cap and glowing green brain",
+    "artAlt": "Minairó working on the app under construction",
+    "comicAlt": "Panel {n}: {title}",
+    "faqExtra": [
+      "Does it need permissions or a connection?",
+      "It depends on the features you enable. Access to screen content, microphone or notifications requires the corresponding permissions. Online engines need a connection; local mode requires compatible models."
+    ],
+    "download": "Private testing",
+    "downloadHint": "Version 6.35.0 · Private distribution",
+    "installHelp": "About private testing",
+    "premiumTitle": "Make it yours. With Premium.",
+    "premiumIntro": "The same intelligence engines on both plans. Choose how to personalise your assistant and present your results.",
+    "annual": "€12 per year",
+    "equivalent": "Equivalent to €1 per month, billed annually",
+    "renewal": "Renews automatically each year. Cancel in PayPal.",
+    "freeTitle": "Free",
+    "freeBody": "Everyday actions and configured engines. Text and images carry Minairó branding. Personality and Character use the original values.",
+    "premiumBody": "Remove text and image branding. Customise Personality and Character. Enable automatic replies to authorised contacts and groups.",
+    "premiumCta": "Explore Premium",
+    "billingPending": "Subscriptions are not enabled yet. The free version is available.",
+    "billingReady": "Activate or restore Premium in the app’s Settings.",
+    "trustTitle": "Choose where it is processed",
+    "trustBody": "Configure local engines or external services by response type. Local mode needs compatible models; external services use your account and its limits. Review answers before using them.",
+    "step1": "Add context",
+    "step1Body": "Invoke the assistant with your screen or share text, images and documents from another app.",
+    "step2": "Choose an action",
+    "step2Body": "Summarise, reply, translate or prepare content. Adjust only the parameters you need.",
+    "step3": "Review and use",
+    "step3Body": "Read or listen to the response; copy, save or share when it is ready.",
+    "how": "Three steps to keep moving",
+    "sourceNote": "Directed by Oriol Badia Campanera",
+    "premium_b_profile": "Personality and Character",
+    "navFeatures": "Features",
+    "privateTitle": "Minairó is in private testing",
+    "privateBody": "This page presents the application and its features. The installer is shared only through the private testing channel. A public download is not available yet.",
+    "privateContact": "Contact UrySoft"
+  }
+}
