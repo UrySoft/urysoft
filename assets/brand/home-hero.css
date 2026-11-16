@@ -19,4 +19,9 @@
 .hero-lab .hero-lab-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#050b1d,transparent 12%,transparent 85%,#050b1d),linear-gradient(0deg,#050b1d,transparent 14%)}
 .hero-lab h1{font-size:clamp(44px,4vw,64px)}
 }
-@media(max-width:900px){.hero-lab .hero-lab-art{max-width:none;margin-inline:0}}
+@media(max-width:900px){.hero-lab .hero-lab-art{max-width:none;margin-inline:0}}/* Match the rounded, contained experiment banner while retaining artwork behind the copy. */
+.hero.hero-lab{width:calc(100% - 48px);max-width:1200px;margin:32px auto;min-height:500px;padding:48px 36px;border-radius:22px}
+.hero-lab .hero-layout{width:100%;max-width:none;margin:0}
+.hero-lab h1{font-size:clamp(40px,4vw,56px)}
+@media(min-width:901px){.hero-lab .hero-lab-art{left:0;right:0;width:100%;max-width:none;transform:none}}
+@media(max-width:900px){.hero.hero-lab{width:calc(100% - 32px);margin:24px auto;min-height:0;padding:28px 22px 0;border-radius:18px}.hero-lab .hero-layout{padding-bottom:26px}.hero-lab .hero-lab-art{width:calc(100% + 44px);max-width:none;align-self:center;height:clamp(280px,60vw,450px);margin:0 -22px}.hero-lab h1{font-size:clamp(36px,7vw,52px)}}
