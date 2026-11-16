@@ -15,3 +15,9 @@
 @media(max-width:360px){.site-header .brand .brand-image{width:158px;height:46px}.site-header .bar{gap:0 8px}.site-header nav{gap:16px}.site-header nav a{font-size:12px}.site-header .control{padding:8px}.site-header button.control{min-width:42px}}
 
 @media(max-width:760px){.site-header .brand{grid-column:1;grid-row:1;justify-self:start;max-width:100%}.site-header .controls{grid-column:2;grid-row:1}.site-header nav{grid-row:2}}
+/* Keep the approved mark intact as one image. */
+.site-header .brand .brand-image{width:220px;height:102px;object-fit:contain}
+.site-header .bar{min-height:122px}
+@media(max-width:850px){.site-header .brand .brand-image{width:190px;height:88px}}
+@media(max-width:760px){.site-header .brand .brand-image{width:160px;height:74px}.site-header .bar{min-height:0}}
+@media(max-width:360px){.site-header .brand .brand-image{width:140px;height:65px}}
