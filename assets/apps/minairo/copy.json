@@ -1,9 +1,9 @@
 {
   "ca": {
-    "status": "Android · Proves privades",
+    "status": "Android · Disponible",
     "headline": "El que veus. El que necessites.",
     "intro": "El teu assistent visual, a un toc. Dona-li context, tria una acció i revisa la resposta sense perdre el fil del que feies.",
-    "availability": "Versió en proves privades. L’instal·lador encara no es distribueix públicament. Android 11 o posterior.",
+    "availability": "Descàrrega directa i gratuïta des d’UrySoft. Premium és opcional.",
     "purpose": "Un petit ajudant per a les tasques quotidianes",
     "purposeBody": "Resumeix, tradueix, explica, resol i redacta amb el contingut que li facilites. L’avatar manté l’assistent a prop, i tu decideixes quan fer-lo servir.",
     "gallery": "Així es veu Minairó",
@@ -41,7 +41,7 @@
     "questions": [
       [
         "Ja el puc descarregar?",
-        "La fitxa mostra l’aplicació i les funcions. L’instal·lador es comparteix només pel canal privat de proves. La descàrrega pública encara no està disponible."
+        "Sí. Descarrega l’instal·lador signat des d’aquesta fitxa. Android pot demanar que permetis instal·lar des del navegador. Les actualitzacions conserven les dades i la signatura original."
       ],
       [
         "Aquestes són pantalles de l’app?",
@@ -119,13 +119,13 @@
       "Necessita permisos o connexió?",
       "Depèn de les funcions que activis. L’accés al contingut de pantalla, al micròfon o a les notificacions requereix els permisos corresponents. Els motors en línia necessiten connexió; el mode local requereix models compatibles."
     ],
-    "download": "Proves privades",
-    "downloadHint": "Versió 6.35.0 · Distribució privada",
-    "installHelp": "Sobre les proves privades",
+    "download": "Descarrega Minairó",
+    "downloadHint": "Versió 6.35.1 · Android 11 o posterior",
+    "installHelp": "Com instal·lar l’aplicació",
     "premiumTitle": "Més teu. Amb Premium.",
     "premiumIntro": "Els mateixos motors d’intel·ligència als dos plans. Tria com personalitzar l’assistent i com presentar els resultats.",
-    "annual": "12 € l’any",
-    "equivalent": "Equival a 1 € al mes, amb pagament anual",
+    "annual": "1 € al mes",
+    "equivalent": "Un únic cobrament anual de 12 €",
     "renewal": "Renovació anual automàtica. Pots cancel·lar-la des de PayPal.",
     "freeTitle": "Gratis",
     "freeBody": "Totes les accions habituals i els motors configurats. Textos i imatges amb la marca de Minairó. Personalitat i Caràcter amb els valors originals.",
@@ -145,15 +145,16 @@
     "sourceNote": "Dirigit per Oriol Badia Campanera",
     "premium_b_profile": "Personalitat i Caràcter",
     "navFeatures": "Funcions",
-    "privateTitle": "Minairó continua en proves privades",
-    "privateBody": "La fitxa mostra l’aplicació i les funcions. L’instal·lador es comparteix només pel canal privat de proves. La descàrrega pública encara no està disponible.",
-    "privateContact": "Contacta amb UrySoft"
+    "privateTitle": "Instal·la Minairó al teu Android",
+    "privateBody": "Descarrega l’instal·lador signat. Obre’l i, si Android ho demana, permet instal·lar aplicacions des del navegador. Per actualitzar, conserva l’aplicació i les dades; no cal desinstal·lar-la.",
+    "privateContact": "Descarrega Minairó 6.35.1",
+    "coffee": "Menys que un cafè al mes."
   },
   "es": {
-    "status": "Android · Pruebas privadas",
+    "status": "Android · Disponible",
     "headline": "Lo que ves. Lo que necesitas.",
     "intro": "Tu asistente visual, a una pulsación. Dale contexto, elige una acción y revisa la respuesta sin perder el hilo de lo que estabas haciendo.",
-    "availability": "Versión en pruebas privadas. El instalador aún no se distribuye públicamente. Android 11 o posterior.",
+    "availability": "Descarga directa y gratuita desde UrySoft. Premium es opcional.",
     "purpose": "Un pequeño ayudante para tus tareas diarias",
     "purposeBody": "Resume, traduce, explica, resuelve y redacta con el contenido que le facilitas. El avatar mantiene el asistente cerca, y tú decides cuándo usarlo.",
     "gallery": "Así se ve Minairó",
@@ -191,7 +192,7 @@
     "questions": [
       [
         "¿Ya puedo descargarlo?",
-        "La ficha muestra la aplicación y sus funciones. El instalador se comparte únicamente por el canal privado de pruebas. La descarga pública todavía no está disponible."
+        "Sí. Descarga el instalador firmado desde esta ficha. Android puede pedir que permitas instalar desde el navegador. Las actualizaciones conservan los datos y la firma original."
       ],
       [
         "¿Estas son pantallas de la app?",
@@ -269,13 +270,13 @@
       "¿Necesita permisos o conexión?",
       "Depende de las funciones que actives. El acceso al contenido de pantalla, al micrófono o a las notificaciones requiere los permisos correspondientes. Los motores en línea necesitan conexión; el modo local requiere modelos compatibles."
     ],
-    "download": "Pruebas privadas",
-    "downloadHint": "Versión 6.35.0 · Distribución privada",
-    "installHelp": "Sobre las pruebas privadas",
+    "download": "Descargar Minairó",
+    "downloadHint": "Versión 6.35.1 · Android 11 o posterior",
+    "installHelp": "Cómo instalar la aplicación",
     "premiumTitle": "Más tuyo. Con Premium.",
     "premiumIntro": "Los mismos motores de inteligencia en los dos planes. Elige cómo personalizar el asistente y cómo presentar sus resultados.",
-    "annual": "12 € al año",
-    "equivalent": "Equivale a 1 € al mes, con pago anual",
+    "annual": "1 € al mes",
+    "equivalent": "Un único cobro anual de 12 €",
     "renewal": "Renovación anual automática. Puedes cancelarla desde PayPal.",
     "freeTitle": "Gratis",
     "freeBody": "Todas las acciones habituales y los motores configurados. Textos e imágenes con la marca de Minairó. Personalidad y Carácter con sus valores originales.",
@@ -295,15 +296,16 @@
     "sourceNote": "Dirigido por Oriol Badia Campanera",
     "premium_b_profile": "Personalidad y Carácter",
     "navFeatures": "Funciones",
-    "privateTitle": "Minairó sigue en pruebas privadas",
-    "privateBody": "La ficha muestra la aplicación y sus funciones. El instalador se comparte únicamente por el canal privado de pruebas. La descarga pública todavía no está disponible.",
-    "privateContact": "Contactar con UrySoft"
+    "privateTitle": "Instala Minairó en tu Android",
+    "privateBody": "Descarga el instalador firmado. Ábrelo y, si Android lo solicita, permite instalar aplicaciones desde tu navegador. Para actualizar, conserva la aplicación y sus datos; no necesitas desinstalarla.",
+    "privateContact": "Descargar Minairó 6.35.1",
+    "coffee": "Menos que un café al mes."
   },
   "en": {
-    "status": "Android · Private testing",
+    "status": "Android · Available",
     "headline": "What you see. What you need.",
     "intro": "Your visual assistant, one tap away. Add context, choose an action and review the answer without losing your train of thought.",
-    "availability": "Private testing build. The installer is not publicly distributed yet. Android 11 or later.",
+    "availability": "Download directly from UrySoft for free. Premium is optional.",
     "purpose": "A little helper for everyday tasks",
     "purposeBody": "Summarise, translate, explain, solve and write using the content you provide. The avatar keeps your assistant close, and you decide when to use it.",
     "gallery": "Meet the interface",
@@ -341,7 +343,7 @@
     "questions": [
       [
         "Can I download it now?",
-        "This page presents the application and its features. The installer is shared only through the private testing channel. A public download is not available yet."
+        "Yes. Download the signed installer from this page. Android may ask you to allow installation from your browser. Updates retain your data and the original signature."
       ],
       [
         "Are these app screenshots?",
@@ -419,13 +421,13 @@
       "Does it need permissions or a connection?",
       "It depends on the features you enable. Access to screen content, microphone or notifications requires the corresponding permissions. Online engines need a connection; local mode requires compatible models."
     ],
-    "download": "Private testing",
-    "downloadHint": "Version 6.35.0 · Private distribution",
-    "installHelp": "About private testing",
+    "download": "Download Minairó",
+    "downloadHint": "Version 6.35.1 · Android 11 or later",
+    "installHelp": "How to install the app",
     "premiumTitle": "Make it yours. With Premium.",
     "premiumIntro": "The same intelligence engines on both plans. Choose how to personalise your assistant and present your results.",
-    "annual": "€12 per year",
-    "equivalent": "Equivalent to €1 per month, billed annually",
+    "annual": "€1 per month",
+    "equivalent": "One annual payment of €12",
     "renewal": "Renews automatically each year. Cancel in PayPal.",
     "freeTitle": "Free",
     "freeBody": "Everyday actions and configured engines. Text and images carry Minairó branding. Personality and Character use the original values.",
@@ -445,8 +447,9 @@
     "sourceNote": "Directed by Oriol Badia Campanera",
     "premium_b_profile": "Personality and Character",
     "navFeatures": "Features",
-    "privateTitle": "Minairó is in private testing",
-    "privateBody": "This page presents the application and its features. The installer is shared only through the private testing channel. A public download is not available yet.",
-    "privateContact": "Contact UrySoft"
+    "privateTitle": "Install Minairó on your Android",
+    "privateBody": "Download the signed installer. Open it and, if Android asks, allow installation from your browser. Keep the app and its data when updating; there is no need to uninstall it.",
+    "privateContact": "Download Minairó 6.35.1",
+    "coffee": "Less than a coffee a month."
   }
 }
