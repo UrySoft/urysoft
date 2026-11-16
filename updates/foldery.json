@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "foldery",
   "status": "published",
-  "versionCode": 23,
-  "versionName": "1.6.0",
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-v1.6.0/Foldery-1.6.0.apk",
-  "sha256": "e4e9555d8a5369923a9d165352efee98296ae7e12eefb1489caf1f848969a714",
+  "versionCode": 24,
+  "versionName": "1.6.1",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.6.1/Foldery-1.6.1.apk",
+  "sha256": "040237713fa48f987a34c068169765dfafa0dff9d623deebe41ee72045a63758",
   "changelog": {
-    "es": "Premium para apoyar el desarrollo: 6 €/año, recuperación con Google y pago con PayPal. Versión gratuita y mejoras de personalización.",
-    "ca": "Premium per donar suport al desenvolupament: 6 €/any, recuperació amb Google i pagament amb PayPal. Versió gratuïta i millores de personalització.",
-    "en": "Support development with Premium: €6/year, Google recovery and PayPal payments. Free version and customization improvements."
+    "es": "Comprueba nuevas versiones al abrir la app, sin esperar 24 horas. Conserva las funciones Gratis y Premium anteriores.",
+    "ca": "Comprova versions noves en obrir l’app, sense esperar 24 hores. Conserva les funcions Gratis i Premium anteriors.",
+    "en": "Checks for updates when opening the app without waiting 24 hours. Preserves existing Free and Premium features."
   }
 }
