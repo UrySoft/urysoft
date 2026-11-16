@@ -1,0 +1,25 @@
+name: Publish startup update checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'descargas/NexoMesh-0.11.3.apk'
+      - 'descargas/Lumen-4.0.3.apk'
+      - '.github/workflows/publish-startup-updates.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify signed installer bytes
+        run: |
+          echo '779f813006a6dfc833ddc7e46945c35638de9bbd75278117b7536de1c75ee740  descargas/NexoMesh-0.11.3.apk' | sha256sum -c -
+          echo 'bfc1c600ef62133fdb8dd88b072b89be23ecfc6c6e975c3927c801800e055a3b  descargas/Lumen-4.0.3.apk' | sha256sum -c -
+      - name: Publish installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create nexomesh-0.11.3 descargas/NexoMesh-0.11.3.apk --target "$GITHUB_SHA" --title "NexoMesh 0.11.3" --notes "Comprueba nuevas versiones cada vez que se abre la app, sin límite diario. Consulta en segundo plano, fallo de red automático silencioso y botón manual conservado. Firma original y actualización compatible."
+          gh release create lumen-4.0.3 descargas/Lumen-4.0.3.apk --target "$GITHUB_SHA" --title "Lumen 4.0.3" --notes "Comprueba nuevas versiones cada vez que se abre la app, sin límite diario. Consulta en segundo plano, fallo de red automático silencioso y botón manual conservado. Firma original y actualización compatible."
