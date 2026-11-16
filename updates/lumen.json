@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "app": "lumen",
   "status": "published",
-  "versionName": "4.0.2",
-  "versionCode": 40002,
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/lumen-4.0.2/Lumen-4.0.2.apk",
-  "sha256": "3bd2da4428fccc798526c7cf5450e253b1703b4a42236a86fcf8a6927c9f4556",
+  "versionName": "4.0.3",
+  "versionCode": 40003,
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/lumen-4.0.3/Lumen-4.0.3.apk",
+  "sha256": "bfc1c600ef62133fdb8dd88b072b89be23ecfc6c6e975c3927c801800e055a3b",
   "mandatory": false,
   "changelog": {
-    "es": "Incorpora UrySoft Updater para consultar nuevas versiones.",
-    "ca": "Incorpora UrySoft Updater per consultar noves versions.",
-    "en": "Adds UrySoft Updater to check for new versions."
+    "es": "Comprueba nuevas versiones cada vez que abres la app, sin esperar 24 horas. Consulta en segundo plano; sin Internet puedes seguir usando la app.",
+    "ca": "Comprova versions noves cada vegada que obres l’app, sense esperar 24 hores. Consulta en segon pla; sense Internet pots continuar fent servir l’app.",
+    "en": "Checks for updates every time you open the app, without waiting 24 hours. Runs in the background; the app remains usable offline."
   }
 }

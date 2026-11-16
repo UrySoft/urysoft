@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "app": "nexomesh",
   "status": "published",
-  "versionName": "0.11.2",
-  "versionCode": 18,
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/nexomesh-0.11.2/NexoMesh-0.11.2.apk",
-  "sha256": "1f8129f115e6d00dda840fd269a4f95e67dc1d254da4093cb62547e72f21de38",
+  "versionName": "0.11.3",
+  "versionCode": 19,
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/nexomesh-0.11.3/NexoMesh-0.11.3.apk",
+  "sha256": "779f813006a6dfc833ddc7e46945c35638de9bbd75278117b7536de1c75ee740",
   "mandatory": false,
   "changelog": {
-    "es": "Corrige el mapa de tres móviles para que los enlaces existentes se vean formando un triángulo. Conserva UrySoft Updater y la firma original.",
-    "ca": "Corregeix el mapa de tres mòbils perquè els enllaços existents es vegin formant un triangle. Conserva UrySoft Updater i la signatura original.",
-    "en": "Fixes the three-phone map so existing links form a visible triangle. Preserves UrySoft Updater and the original signing identity."
+    "es": "Comprueba nuevas versiones cada vez que abres la app, sin esperar 24 horas. Consulta en segundo plano; sin Internet puedes seguir usando la app.",
+    "ca": "Comprova versions noves cada vegada que obres l’app, sense esperar 24 hores. Consulta en segon pla; sense Internet pots continuar fent servir l’app.",
+    "en": "Checks for updates every time you open the app, without waiting 24 hours. Runs in the background; the app remains usable offline."
   }
 }
