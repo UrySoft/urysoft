@@ -1,0 +1,20 @@
+name: Check administration and analytics
+on:
+  push:
+    branches: [main]
+    paths: ['admin/**', 'assets/admin/**', 'assets/site-insights.js', 'server/admin-*.js', 'server/site-analytics.js', 'functions/api/admin/**', 'tests/admin*.mjs', '.github/workflows/check-administration.yml']
+  pull_request:
+    paths: ['admin/**', 'assets/admin/**', 'assets/site-insights.js', 'server/admin-*.js', 'server/site-analytics.js', 'functions/api/admin/**', 'tests/admin*.mjs', '.github/workflows/check-administration.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node tests/admin.test.mjs
+      - run: node tests/admin-evolution.test.mjs
+      - run: node tests/comments.test.mjs

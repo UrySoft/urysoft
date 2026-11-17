@@ -6,7 +6,7 @@
  const timer=setInterval(()=>{const now=Date.now();if(!document.hidden)visible+=Math.min(now-last,1000);last=now;if(visible>=30000&&!engaged){engaged=true;emit('engaged');clearInterval(timer)}},1000);
  document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;let u;try{u=new URL(a.href,location.href)}catch{return}if(!['http:','https:'].includes(u.protocol))return;
   if(/\.apk$/i.test(u.pathname)){
-   const name=u.pathname.toLowerCase(),app=['lumen','foldery','widgery','nexomesh'].find(x=>name.includes(x));if(app)emit('download',app);
+   const name=u.pathname.toLowerCase(),app=['lumen','foldery','widgery','nexomesh','minairo'].find(x=>name.includes(x));if(app)emit('download',app);
   }else emit('click',u.origin+u.pathname);
  },{capture:true});
 })();

@@ -1,5 +1,6 @@
 import {json,authorize,sameOrigin,readBody,batch} from '../../../server/admin-common.js';
 import {analyticsSummary} from '../../../server/site-analytics.js';
+import {operationsSummary} from '../../../server/admin-operations.js';
 import {SEO_REPORT} from '../../../server/seo-report.js';
 const APPS=['lumen','foldery','widgery','nexomesh','minairo'];
 const fields='c.*, (SELECT COUNT(*) FROM comment_reports r WHERE r.comment_id=c.id AND r.status=\'open\') AS reports';
@@ -10,6 +11,12 @@ export async function onRequest({request,env,params}){
  const db=env.COMMENTS_DB,url=new URL(request.url),route=(params.path||[]).join('/');
  try{
   if(route==='analytics'&&request.method==='GET')return json(await analyticsSummary(db,url));
+  if(route==='operations'&&request.method==='GET')return json(await operationsSummary(env));
+  if(route==='audit'&&request.method==='GET'){
+   const before=Number(url.searchParams.get('before'))||Number.MAX_SAFE_INTEGER;
+   const items=(await db.prepare('SELECT a.id,a.comment_id,a.action,a.created_at,c.app,c.name FROM moderation_audit a LEFT JOIN comments c ON c.id=a.comment_id WHERE a.id<? ORDER BY a.id DESC LIMIT 26').bind(before).all()).results;
+   return json({items:items.slice(0,25),next:items.length>25?items[24].id:null});
+  }
   if(route==='seo'&&request.method==='GET')return json(SEO_REPORT);
   if(route==='summary'&&request.method==='GET'){
    return json({comments:(await db.prepare("SELECT status,moderation_state,COUNT(*) AS total FROM comments GROUP BY status,moderation_state").all()).results,reports:(await db.prepare("SELECT COUNT(*) AS total FROM comment_reports WHERE status='open'").first()).total});

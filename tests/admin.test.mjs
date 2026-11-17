@@ -15,7 +15,7 @@ const token=signed+'.'+Buffer.from(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',
 const env={COMMENTS_ADMIN_KEY:'test-salt',COMMENTS_DB:database,GOOGLE_CLIENT_ID:'test-client',COMMENTS_ADMIN_EMAIL:'owner@gmail.com'};
 async function call(handler,path,method='GET',body,options={}){const req=new Request('https://example.com/api/'+path,{method,headers:{Origin:options.origin||'https://example.com','Content-Type':'application/json',Authorization:'Bearer '+(options.token||token),'User-Agent':'Mozilla/5.0 Chrome/130.0 Android Mobile',...options.headers},...(body?{body:JSON.stringify(body)}:{})});Object.defineProperty(req,'cf',{value:{country:'ES',...options.cf}});return handler({request:req,env,params:{path:path.startsWith('admin/')?path.split('?')[0].split('/').slice(1,2):[]}})}
 const api=(path,method='GET',body,opts)=>call(admin,'admin/'+path,method,body,opts);
-assert.equal((await api('summary','GET',null,{token:'invalid'})).status,401);
+for(const route of ['summary','analytics','operations','audit'])assert.equal((await api(route,'GET',null,{token:'invalid'})).status,401);
 assert.equal((await api('comments','PATCH',{}, {origin:'https://evil.example'})).status,403);
 const original={name:'Visitante',message:'Una sugerencia importante y útil',kind:'idea',rating:4,consent:true};
 assert.equal((await call(comments,'comments?app=lumen','POST',original)).status,201);
@@ -35,6 +35,8 @@ await act('reject');assert.deepEqual(await(await call(comments,'comments?app=lum
 await act('trash');assert.equal((await(await api('comments?status=trash')).json()).items.length,1);await act('restore');assert.equal(c.status,'pending');assert.deepEqual(await(await call(comments,'comments?app=lumen')).json(),[]);
 const history=await(await api('comment?id='+c.id)).json();assert.ok(history.history.some(h=>JSON.parse(h.before_json).message===original.message));
 assert.equal(JSON.parse(history.original.before_json).message,original.message);
+const audit=await(await api('audit')).json();assert.ok(audit.items.some(row=>row.comment_id===c.id&&row.action==='edit'));assert.ok(!JSON.stringify(audit).includes('Nota privada del administrador'));
+assert.equal((await api('operations')).status,200);
 assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'ELIMINAR'})).status,409);
 await act('trash');assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'no'})).status,400);
 assert.equal((await api('comments','DELETE',{id:c.id,version:c.updated_at,confirmation:'ELIMINAR'})).status,200);
