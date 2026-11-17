@@ -13,8 +13,8 @@ public final class WidgetCollectionService extends RemoteViewsService {
             public void onCreate() { config = WidgetRenderer.resolveStored(WidgetCollectionService.this, id); }
             public void onDataSetChanged() { config = WidgetRenderer.resolveStored(WidgetCollectionService.this, id); }
             public void onDestroy() {}
-            public int getCount() { return ConfigStore.isDeleted(WidgetCollectionService.this,id)?0:config.apps.size(); }
-            public RemoteViews getViewAt(int p) { return !ConfigStore.isDeleted(WidgetCollectionService.this,id)&&p >= 0 && p < config.apps.size() ? WidgetRenderer.cell(WidgetCollectionService.this, config, p) : null; }
+            public int getCount() { return ConfigStore.isDeleted(WidgetCollectionService.this,id)?0:RowRenderer.count(config); }
+            public RemoteViews getViewAt(int p) { return !ConfigStore.isDeleted(WidgetCollectionService.this,id)&&p >= 0 && p < RowRenderer.count(config) ? WidgetRenderer.row(WidgetCollectionService.this, config, p) : null; }
             public RemoteViews getLoadingView() { return null; }
             public int getViewTypeCount() { return LayoutPolicy.CELL_TYPES; }
             public long getItemId(int p) { return p; }

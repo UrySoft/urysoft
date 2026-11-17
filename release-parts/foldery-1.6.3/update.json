@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "app": "foldery",
+  "status": "published",
+  "versionCode": 26,
+  "versionName": "1.6.3",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.6.3/Foldery-1.6.3.apk",
+  "sha256": "40569545dcd4b13a1195eb481f939928defb15a4975e457957eae4b505d6427a",
+  "changelog": {
+    "es": "Corrige las sombras recortadas por el escritorio mediante composición de filas completas. Conserva alineación, contactos y desplazamiento.",
+    "ca": "Corregeix les ombres retallades per l’escriptori amb composició de files completes. Conserva alineació, contactes i desplaçament.",
+    "en": "Fixes launcher-clipped shadows using composited full-width rows. Preserves alignment, contacts and scrolling."
+  }
+}

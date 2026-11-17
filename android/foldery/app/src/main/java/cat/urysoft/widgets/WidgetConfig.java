@@ -16,6 +16,7 @@ public final class WidgetConfig {
     public int autoIconDp = 64;
     public int alignment = 4; // Nine positions, row-major; center by default.
     public int gridInsetTopPx;
+    public int surfaceWidthDp, shadowOutsetDp;
     public boolean autoSized; // Resolved layout only; not persisted.
     // Recalculated for each widget size; this value is never persisted.
     public float cellWidthDp;

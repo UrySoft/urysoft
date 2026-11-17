@@ -3,9 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'android/foldery/**'
       - 'release-parts/foldery-1.6.2/**'
-      - '.github/workflows/publish-foldery-1.6.2.yml'
 permissions:
   contents: write
 jobs:

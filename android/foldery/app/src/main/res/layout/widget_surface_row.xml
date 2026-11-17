@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:focusable="false" android:descendantFocusability="blocksDescendants">
+<ImageView android:id="@+id/row_surface" android:layout_width="match_parent" android:layout_height="wrap_content" android:adjustViewBounds="true" android:scaleType="fitCenter" android:importantForAccessibility="no" />
+<LinearLayout android:id="@+id/row_actions" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal" android:layoutDirection="ltr">
+<TextView android:id="@+id/row_hit_0" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_1" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_2" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_3" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_4" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_5" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_6" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+<TextView android:id="@+id/row_hit_7" android:layout_width="wrap_content" android:layout_height="match_parent" android:focusable="false" android:background="?android:attr/selectableItemBackground" android:importantForAccessibility="yes" />
+</LinearLayout>
+</FrameLayout>

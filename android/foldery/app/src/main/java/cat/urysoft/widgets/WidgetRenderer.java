@@ -42,10 +42,13 @@ public final class WidgetRenderer {
         value.cellWidthDp=columnPx/c.getResources().getDisplayMetrics().density;
         value.autoSized=stored.columns==0;
         value.iconDp=LayoutPolicy.iconSize((int)Math.floor(value.autoSized?Math.min(value.cellWidthDp,stored.autoIconDp):value.cellWidthDp));
+        value.surfaceWidthDp=width;
+        value.shadowOutsetDp=stored.shadowEnabled&&stored.shadowOpacity>0?(int)Math.ceil(stored.shadowDistance+(100-stored.shadowSharpness)*.16f):0;
         int rows=(stored.apps.size()+value.columns-1)/value.columns;
         CellRenderer.Metrics metrics=CellRenderer.measure(c,value);
         int content=Math.round(rows*metrics.height*c.getResources().getDisplayMetrics().density)+Math.max(0,rows-1)*Ui.dp(c,value.rowGapDp);
         int heading=value.heading?CellRenderer.headingLayout(c,value,Math.max(1,width-value.paddingHorizontalDp*2)).getHeight()+Ui.dp(c,12):0;
+        content+=Ui.dp(c,value.shadowOutsetDp)*2;
         int available=Ui.dp(c,Math.max(0,height-value.paddingVerticalDp*2-(value.editButton?40:0)))-heading;
         value.gridInsetTopPx=AlignmentPolicy.vertical(available-content,stored.alignment);
         return value;
@@ -69,7 +72,9 @@ public final class WidgetRenderer {
         }
         WidgetConfig config = resolve(c, stored, width, height);
         RemoteViews root = new RemoteViews(c.getPackageName(), R.layout.widget);
-        root.setViewPadding(R.id.widget_content,Ui.dp(c,config.paddingHorizontalDp),Ui.dp(c,config.paddingVerticalDp),Ui.dp(c,config.paddingHorizontalDp),Ui.dp(c,config.paddingVerticalDp));
+        root.setViewPadding(R.id.widget_content,0,Ui.dp(c,config.paddingVerticalDp),0,Ui.dp(c,config.paddingVerticalDp));
+        root.setViewPadding(R.id.widget_title,Ui.dp(c,config.paddingHorizontalDp+6),Ui.dp(c,6),Ui.dp(c,config.paddingHorizontalDp+6),Ui.dp(c,6));
+        root.setViewPadding(R.id.widget_edit,Ui.dp(c,config.paddingHorizontalDp+8),0,Ui.dp(c,config.paddingHorizontalDp+10),0);
         if (config.opacity > 0) {
             root.setImageViewBitmap(R.id.widget_background, IconRenderer.background(c, config, width, height));
             root.setViewVisibility(R.id.widget_background, View.VISIBLE);
@@ -81,8 +86,8 @@ public final class WidgetRenderer {
         // GridView sizing setters were not remotely callable on Android 8.
         // Static collection layouts support the same settings on every supported release.
         root.removeAllViews(R.id.widget_collection_container);
-        root.addView(R.id.widget_collection_container, new RemoteViews(c.getPackageName(), WidgetLayouts.grid(config, width)));
-        root.setViewPadding(R.id.widget_grid,config.gridInsetLeftPx,config.gridInsetTopPx,config.gridInsetRightPx,0);
+        root.addView(R.id.widget_collection_container, new RemoteViews(c.getPackageName(), R.layout.grid_columns_1_gap_0));
+        root.setViewPadding(R.id.widget_grid,0,config.gridInsetTopPx,0,0);
         root.setEmptyView(R.id.widget_grid, R.id.widget_empty);
         Intent edit = new Intent(c, ConfigureActivity.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id).setData(Uri.parse("urywidgets://edit/" + id));
         PendingIntent editPending = WidgetPendingIntents.activity(c, id, edit, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -92,13 +97,33 @@ public final class WidgetRenderer {
         root.setPendingIntentTemplate(R.id.widget_grid, WidgetPendingIntents.activity(c, id, launch, flags));
         if (Build.VERSION.SDK_INT >= 31) {
             RemoteViews.RemoteCollectionItems.Builder items = new RemoteViews.RemoteCollectionItems.Builder().setHasStableIds(false).setViewTypeCount(LayoutPolicy.CELL_TYPES);
-            for (int i = 0; i < config.apps.size(); i++) items.addItem(i, cell(c, config, i));
+            for (int i = 0; i < RowRenderer.count(config); i++) items.addItem(i, row(c, config, i));
             root.setRemoteAdapter(R.id.widget_grid, items.build());
         } else {
             Intent adapter = new Intent(c, WidgetCollectionService.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
             adapter.setData(Uri.parse("urywidgets://collection/" + id)); root.setRemoteAdapter(R.id.widget_grid, adapter);
         }
         return root;
+    }
+    public static RemoteViews row(Context c,WidgetConfig config,int index) {
+        c=Language.context(c);RemoteViews row=new RemoteViews(c.getPackageName(),R.layout.widget_surface_row);
+        row.setImageViewBitmap(R.id.row_surface,RowRenderer.render(c,config,index));
+        row.setViewPadding(R.id.row_actions,Ui.dp(c,config.paddingHorizontalDp)+config.gridInsetLeftPx,index==0?Ui.dp(c,config.shadowOutsetDp):0,Ui.dp(c,config.paddingHorizontalDp)+config.gridInsetRightPx,index==RowRenderer.count(config)-1?Ui.dp(c,config.shadowOutsetDp):Ui.dp(c,config.rowGapDp));
+
+        int columns=Math.max(1,config.columns),gap=Ui.dp(c,config.columnGapDp),width=Math.round(config.cellWidthDp*c.getResources().getDisplayMetrics().density);
+        int[] ids={R.id.row_hit_0,R.id.row_hit_1,R.id.row_hit_2,R.id.row_hit_3,R.id.row_hit_4,R.id.row_hit_5,R.id.row_hit_6,R.id.row_hit_7};
+        for(int col=0;col<8;col++){
+            int id=ids[col];if(col>=columns){row.setViewVisibility(id,View.GONE);continue;}
+            int position=index*columns+col;
+            row.setInt(id,"setWidth",width+(col==columns-1?0:gap));
+            if(position<config.apps.size()){
+                String component=config.apps.get(position),label=AppCatalog.label(c,component);int count=config.badges?BadgeState.get(c,component):0;
+                row.setViewVisibility(id,View.VISIBLE);
+                row.setContentDescription(id,count>0?c.getResources().getQuantityString(R.plurals.notification_count,count,label,count):label);
+                row.setOnClickFillInIntent(id,new Intent().putExtra("component",component));
+            }else row.setViewVisibility(id,View.INVISIBLE);
+        }
+        return row;
     }
     public static RemoteViews cell(Context c, WidgetConfig config, int position) {
         c=Language.context(c);

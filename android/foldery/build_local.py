@@ -12,7 +12,7 @@ def run(args, **kwargs):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--sdk', default=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT'))
-    parser.add_argument('--output', default=str(ROOT / 'build' / 'UrySoft-Foldery.2.AI-1.6.2.apk'))
+    parser.add_argument('--output', default=str(ROOT / 'build' / 'UrySoft-Foldery.2.AI-1.6.3.apk'))
     args = parser.parse_args()
     if not args.sdk:
         raise SystemExit('Set ANDROID_HOME or pass --sdk /path/to/android-sdk')
@@ -31,7 +31,7 @@ def main():
     manifest = build / 'AndroidManifest.xml'
     manifest.write_text((source / 'AndroidManifest.xml').read_text().replace('<manifest ', '<manifest package="cat.urysoft.widgets" ', 1))
     run([tools / 'aapt2', 'link', '-I', android, '--manifest', manifest, '--java', generated,
-         '--min-sdk-version', '26', '--target-sdk-version', '36', '--version-code', '25', '--version-name', '1.6.2',
+         '--min-sdk-version', '26', '--target-sdk-version', '36', '--version-code', '26', '--version-name', '1.6.3',
          '-o', build / 'resources.apk', build / 'resources.zip'])
     sources = sorted((source / 'java').rglob('*.java')) + sorted(generated.rglob('*.java'))
     run(['java', 'com.sun.tools.javac.Main', '-source', '8', '-target', '8', '-encoding', 'UTF-8', '-classpath', android, '-d', classes, *sources])

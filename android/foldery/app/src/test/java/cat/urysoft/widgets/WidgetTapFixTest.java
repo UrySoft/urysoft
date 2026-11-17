@@ -33,10 +33,11 @@ public final class WidgetTapFixTest {
         try(ActivityController<android.app.Activity> window=Robolectric.buildActivity(android.app.Activity.class).setup().visible()){
         AppWidgetHostView host=new AppWidgetHostView(window.get());View root=WidgetRenderer.build(c,730,v,360,240).apply(c,host);host.addView(root);window.get().setContentView(host);GridView grid=root.findViewById(R.id.widget_grid);
         measure(root,360,240);Shadows.shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(200));measure(root,360,240);
-        assertNotNull(grid.getAdapter());assertEquals(2,grid.getAdapter().getCount());
+        assertNotNull(grid.getAdapter());assertEquals(1,grid.getAdapter().getCount());
         for(int index=0;index<2;index++){
-            View cell=grid.getChildAt(index);assertNotNull(cell);assertFalse(cell.hasFocusable());
-            long now=SystemClock.uptimeMillis();float x=cell.getLeft()+cell.getWidth()/2f,y=cell.getTop()+20;
+            View cell=grid.getChildAt(0);assertNotNull(cell);assertFalse(cell.hasFocusable());
+            View target=cell.findViewById(index==0?R.id.row_hit_0:R.id.row_hit_1);int[] point=new int[2],origin=new int[2];target.getLocationOnScreen(point);grid.getLocationOnScreen(origin);
+            long now=SystemClock.uptimeMillis();float x=point[0]-origin[0]+target.getWidth()/2f,y=point[1]-origin[1]+target.getHeight()/2f;
             MotionEvent down=MotionEvent.obtain(now,now,MotionEvent.ACTION_DOWN,x,y,0),up=MotionEvent.obtain(now,now+80,MotionEvent.ACTION_UP,x,y,0);
             grid.dispatchTouchEvent(down);grid.dispatchTouchEvent(up);down.recycle();up.recycle();Shadows.shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(500));
             Intent intent=Shadows.shadowOf(RuntimeEnvironment.getApplication()).getNextStartedActivity();assertNotNull("A desktop tap must launch an activity",intent);assertEquals(730,intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,-1));assertEquals(v.apps.get(index),intent.getStringExtra("component"));

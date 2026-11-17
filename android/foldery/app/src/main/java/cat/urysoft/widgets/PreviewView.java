@@ -16,6 +16,7 @@ public final class PreviewView extends View {
     public interface Listener { void onAppsChanged(List<String> apps, String removed, int previousPosition); }
     private WidgetConfig config = new WidgetConfig(), resolved = new WidgetConfig(), beforeDrag;
     private final Map<String, Bitmap> icons = new HashMap<>();
+    private final Map<Integer,Bitmap> rowImages=new HashMap<>();
     private final Map<String, String> names = new HashMap<>();
     private final ArrayList<Cell> cells = new ArrayList<>();
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -43,16 +44,17 @@ public final class PreviewView extends View {
     public int resolvedIconSize(){return Math.round(CellRenderer.measure(getContext(),resolved).icon);}
     public int resolvedColumns(){return columns;}
     public void setListener(Listener value) { listener=value; calculate(); invalidate(); }
-    public void refreshImages() { icons.clear();names.clear();loadIcons();invalidate(); }
+    public void refreshImages() { icons.clear();rowImages.clear();names.clear();loadIcons();invalidate(); }
     public void setWidgetBounds(int widthDp,int heightDp) { logicalWidth=Math.max(0,widthDp);logicalHeight=Math.max(40,heightDp);calculate();loadIcons();invalidate(); }
     public void configure(WidgetConfig value) {
         if (dragIndex>=0) return;
         String previous = config.toJson(); config=WidgetConfig.fromJson(value.toJson());
         boolean changed=!previous.equals(config.toJson());
-        if(changed) { icons.clear(); names.clear(); }
+        if(changed) { icons.clear();rowImages.clear(); names.clear(); }
         calculate(); loadIcons(); invalidate();
     }
     private void loadIcons() {
+        for(int row=0;row<RowRenderer.count(resolved);row++)if(!rowImages.containsKey(row))rowImages.put(row,RowRenderer.render(getContext(),resolved,row));
         for(String flat:config.apps) {
             if(!icons.containsKey(flat))icons.put(flat,CellRenderer.app(getContext(),flat,resolved,config.badges?BadgeState.get(getContext(),flat):0));
             if(!names.containsKey(flat))names.put(flat,AppCatalog.label(getContext(),flat));
@@ -69,13 +71,13 @@ public final class PreviewView extends View {
     @Override protected void onSizeChanged(int w,int h,int oldw,int oldh) {
         super.onSizeChanged(w,h,oldw,oldh);
         wallpaper=new LinearGradient(0,0,w,h,new int[]{0xff111e3b,0xff324878,0xff627a9d},null,Shader.TileMode.CLAMP);
-        int oldSize=resolved.iconDp;calculate();if(oldSize!=resolved.iconDp)icons.clear();loadIcons();
+        int oldSize=resolved.iconDp;calculate();if(oldSize!=resolved.iconDp)icons.clear();rowImages.clear();loadIcons();
     }
     private void calculate() {
         float d=getResources().getDisplayMetrics().density;
         int width=Math.max(40,logicalWidth>0?logicalWidth:Math.round(Math.max(getWidth(),Ui.dp(getContext(),280))/d)-24);
         int previousSize=resolved.iconDp;float previousWidth=resolved.cellWidthDp;resolved=WidgetRenderer.resolve(getContext(),config,width,logicalHeight);columns=resolved.columns;
-        if(previousSize!=resolved.iconDp||previousWidth!=resolved.cellWidthDp)icons.clear();
+        if(previousSize!=resolved.iconDp||previousWidth!=resolved.cellWidthDp)icons.clear();rowImages.clear();
         float nativeWidth=Ui.dp(getContext(),width);
         scale=Math.min(1f,Math.max(1,getWidth()-Ui.dp(getContext(),24))/nativeWidth);
         float gridWidth=nativeWidth*scale,left=(getWidth()-gridWidth)/2,outer=Ui.dp(getContext(),12);
@@ -87,7 +89,7 @@ public final class PreviewView extends View {
         viewport.set(widget);body.set(widget.left+(px+resolved.gridInsetLeftPx)*scale,top,widget.right-(px+resolved.gridInsetRightPx)*scale,Math.max(top+1,widget.bottom-(py+(resolved.editButton?Ui.dp(getContext(),40):0))*scale));
         cellMetrics=CellRenderer.measure(getContext(),resolved);
         cellWidth=Math.max(1,(cellMetrics.width*d+(int)(resolved.columnGapDp*d))*scale);cellHeight=(cellMetrics.height*d+Ui.dp(getContext(),resolved.rowGapDp))*scale;
-        int rows=(config.apps.size()+columns-1)/columns;contentHeight=rows*cellHeight-(rows>0?Ui.dp(getContext(),resolved.rowGapDp)*scale:0);
+        int rows=(config.apps.size()+columns-1)/columns;contentHeight=rows*cellHeight-(rows>0?Ui.dp(getContext(),resolved.rowGapDp)*scale:0)+Ui.dp(getContext(),resolved.shadowOutsetDp)*2*scale;
         scrollOffset=Math.max(0,Math.min(scrollOffset,Math.max(0,contentHeight-body.height())));
         while(cells.size()<config.apps.size())cells.add(new Cell());while(cells.size()>config.apps.size())cells.remove(cells.size()-1);
         updateCells();trash.set(widget.left+6*d,Math.max(widget.top,widget.bottom-44*d),widget.right-6*d,widget.bottom-3*d);
@@ -95,7 +97,7 @@ public final class PreviewView extends View {
     private void updateCells() {
         float d=getResources().getDisplayMetrics().density,unit=d*scale;
         for(int i=0;i<cells.size();i++) {
-            Cell c=cells.get(i);float x=body.left+cellWidth*(i%columns),y=body.top+resolved.gridInsetTopPx*scale+(i/columns)*cellHeight-scrollOffset;
+            Cell c=cells.get(i);float x=body.left+cellWidth*(i%columns),y=body.top+(resolved.gridInsetTopPx+Ui.dp(getContext(),resolved.shadowOutsetDp))*scale+(i/columns)*cellHeight-scrollOffset;
             float contentLeft=x,contentTop=y;
             boolean last=i/columns==(config.apps.size()-1)/columns;
             c.bounds.set(x,y,x+cellMetrics.width*unit,y+cellMetrics.height*unit+(last?0:Ui.dp(getContext(),resolved.rowGapDp)*scale));
@@ -118,10 +120,15 @@ public final class PreviewView extends View {
             int saved=canvas.save();canvas.translate(widget.left+(Ui.dp(getContext(),resolved.paddingHorizontalDp)+Ui.dp(getContext(),6))*scale,widget.top+(Ui.dp(getContext(),resolved.paddingVerticalDp)+Ui.dp(getContext(),6))*scale);canvas.scale(scale,scale);if(headingLayout!=null)headingLayout.draw(canvas);canvas.restoreToCount(saved);
         }
         int saved=canvas.save();canvas.clipRect(viewport);iconPaint.setAlpha(255);
+        if(dragIndex<0)for(int row=0;row<RowRenderer.count(resolved);row++){
+            Bitmap image=rowImages.get(row);if(image==null)continue;
+            float y=body.top+(resolved.gridInsetTopPx+Ui.dp(getContext(),resolved.shadowOutsetDp))*scale+RowRenderer.top(getContext(),resolved,row)*d*scale-scrollOffset;
+            canvas.drawBitmap(image,null,new RectF(widget.left,y,widget.right,y+RowRenderer.height(getContext(),resolved,row)*d*scale),iconPaint);
+        }
         for(int i=0;i<cells.size();i++) {
             Cell c=cells.get(i);if(!RectF.intersects(c.bounds,body))continue;
             String flat=config.apps.get(i);Bitmap bitmap=icons.get(flat);
-            if(bitmap!=null) { iconPaint.setAlpha(i==dragIndex?65:255);canvas.drawBitmap(bitmap,null,c.image,iconPaint);iconPaint.setAlpha(255); }
+            if(bitmap!=null&&dragIndex>=0) { iconPaint.setAlpha(i==dragIndex?65:255);canvas.drawBitmap(bitmap,null,c.image,iconPaint);iconPaint.setAlpha(255); }
             if(listener!=null&&i!=dragIndex)drawRemove(canvas,c.remove);
             if(i==focused) { paint.setColor(0xffa4bdff);paint.setStyle(Paint.Style.STROKE);paint.setStrokeWidth(2*d);canvas.drawRoundRect(c.bounds,8*d,8*d,paint);paint.setStyle(Paint.Style.FILL); }
         }
