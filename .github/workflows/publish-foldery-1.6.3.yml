@@ -25,7 +25,7 @@ jobs:
         run: |
           chmod +x android/foldery/gradlew
           cd android/foldery
-          ./gradlew testDebugUnitTest --tests '*ShadowBoundsAlignmentTest' --tests '*WidgetRowSurfaceTest' --no-daemon
+          ./gradlew testDebugUnitTest --tests '*ShadowBoundsAlignmentTest' --tests '*WidgetRowSurfaceTest' --tests '*WidgetTapFixTest.realCollectionItemsSendAppAndContactReferencesThroughTheWidgetTemplate' --no-daemon
           python3 tests/verify_locales.py
       - uses: actions/upload-artifact@v4
         if: always()
