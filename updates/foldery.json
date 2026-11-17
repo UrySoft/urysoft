@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "foldery",
   "status": "published",
-  "versionCode": 24,
-  "versionName": "1.6.1",
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.6.1/Foldery-1.6.1.apk",
-  "sha256": "040237713fa48f987a34c068169765dfafa0dff9d623deebe41ee72045a63758",
+  "versionCode": 25,
+  "versionName": "1.6.2",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.6.2/Foldery-1.6.2.apk",
+  "sha256": "c61eeb20d48183d91fc5a04d4ffac951228fad690cb6d5c96a2fa19fefbaefb2",
   "changelog": {
-    "es": "Comprueba nuevas versiones al abrir la app, sin esperar 24 horas. Conserva las funciones Gratis y Premium anteriores.",
-    "ca": "Comprova versions noves en obrir l’app, sense esperar 24 hores. Conserva les funcions Gratis i Premium anteriors.",
-    "en": "Checks for updates when opening the app without waiting 24 hours. Preserves existing Free and Premium features."
+    "es": "Corrige el recorte de las sombras y añade alineación de iconos en nueve posiciones, centrada por defecto.",
+    "ca": "Corregeix el retall de les ombres i afegeix alineació de les icones en nou posicions, centrada per defecte.",
+    "en": "Fixes clipped shadows and adds nine-position icon alignment, centered by default."
   }
 }
