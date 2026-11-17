@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Foldery.2.AI"</string>
+    <string name="widget_description">"Your apps and contacts, with custom icons and shadows."</string>
+    <string name="notification_service_name">"Foldery.2.AI notification badges"</string>
+    <string name="widget_empty">"Tap here to add apps and contacts"</string>
+    <string name="edit">"Edit"</string>
+    <string name="default_widget_name">"My shortcuts"</string>
+    <string name="launch_unavailable">"This app is no longer available. Edit the widget to replace it."</string>
+    <string name="contact_unavailable">"Cannot open this contact. Add it again from the app."</string>
+    <string name="ui_by_4" formatted="false">"by "</string>
+    <string name="ui_your_spaces_5" formatted="false">"Your spaces"</string>
+    <string name="ui_apps_and_people_one_tap_away_on_your_home__6" formatted="false">"Apps and people one tap away on your home screen."</string>
+    <string name="ui_my_widgets_7" formatted="false">"My widgets"</string>
+    <string name="ui_your_space_starts_here_9" formatted="false">"Your space starts here"</string>
+    <string name="ui_create_your_first_widget_with_your_everyda_10" formatted="false">"Create your first widget with your everyday apps and people. Each group keeps its own settings."</string>
+    <string name="ui_shortcut_11" formatted="false">" shortcut · "</string>
+    <string name="ui_shortcuts_12" formatted="false">" shortcuts · "</string>
+    <string name="ui_transparent_background_13" formatted="false">"Transparent background"</string>
+    <string name="ui_custom_background_14" formatted="false">"Custom background"</string>
+    <string name="ui_with_shadow_15" formatted="false">" · With shadow"</string>
+    <string name="ui_customize_widget_16" formatted="false">"Edit"</string>
+    <string name="ui_chief_executive_officer_17" formatted="false">"Chief executive officer"</string>
+    <string name="ui_no_account_offline_no_ads_18" formatted="false">"No account · Offline · No ads"</string>
+    <string name="ui_create_widget_19" formatted="false">"+  Create widget"</string>
+    <string name="ui_back_21" formatted="false">"Back"</string>
+    <string name="ui_options_22" formatted="false">"Options"</string>
+    <string name="ui_help_24" formatted="false">"Help"</string>
+    <string name="ui_app_appearance_26" formatted="false">"App appearance"</string>
+    <string name="ui_choose_a_theme_or_follow_your_device_setti_27" formatted="false">"Choose a theme or follow your device settings."</string>
+    <string name="ui_notification_badges_29" formatted="false">"Notification badges"</string>
+    <string name="ui_access_enabled_active_notifications_are_co_30" formatted="false">"Access enabled. Active notifications are counted."</string>
+    <string name="ui_optional_access_to_show_notification_count_31" formatted="false">"Optional access to show notification counts on app icons."</string>
+    <string name="ui_manage_access_32" formatted="false">"Manage access"</string>
+    <string name="ui_enable_notification_badges_33" formatted="false">"Enable notification badges"</string>
+    <string name="ui_you_can_enable_or_disable_badges_in_each_w_34" formatted="false">"You can enable or disable badges in each widget’s Options. Counts do not necessarily represent unread messages."</string>
+    <string name="ui_about_foldery_2_ai_and_urysoft_35" formatted="false">"About Foldery.2.AI and UrySoft"</string>
+    <string name="ui_original_37" formatted="false">"Original"</string>
+    <string name="ui_circle_38" formatted="false">"Circle"</string>
+    <string name="ui_rounded_square_39" formatted="false">"Rounded square"</string>
+    <string name="ui_square_40" formatted="false">"Square"</string>
+    <string name="ui_hexagon_41" formatted="false">"Hexagon"</string>
+    <string name="ui_diamond_42" formatted="false">"Diamond"</string>
+    <string name="ui_original_colors_43" formatted="false">"Original colors"</string>
+    <string name="ui_monochrome_44" formatted="false">"Monochrome"</string>
+    <string name="ui_tinted_45" formatted="false">"Tinted"</string>
+    <string name="ui_framed_46" formatted="false">"Framed"</string>
+    <string name="ui_chief_executive_officer_of_urysoft_open_li_52" formatted="false">", chief executive officer of UrySoft. Open LinkedIn profile"</string>
+    <string name="ui_no_app_is_available_to_open_this_link_53" formatted="false">"No app is available to open this link"</string>
+    <string name="ui_an_app_by_54" formatted="false">"An app by "</string>
+    <string name="ui_version_55" formatted="false">" · Version "</string>
+    <string name="ui_your_home_screen_your_way_independent_widg_56" formatted="false">"Your home screen, your way. Independent widgets with custom icons and shadows."</string>
+    <string name="ui_works_offline_without_an_account_the_linke_57" formatted="false">"Works offline without an account. The LinkedIn link opens in an external app."</string>
+    <string name="ui_close_58" formatted="false">"Close"</string>
+    <string name="ui_my_shortcuts_61" formatted="false">"My shortcuts"</string>
+    <string name="ui_contact_open_details_91" formatted="false">"Contact · Open details"</string>
+    <string name="ui_contact_unavailable_92" formatted="false">"Contact unavailable"</string>
+    <string name="ui_app_unavailable_93" formatted="false">"App unavailable"</string>
+    <string name="ui_unavailable_94" formatted="false">" · unavailable"</string>
+    <string name="ui_right_95" formatted="false">"Right"</string>
+    <string name="ui_bottom_right_96" formatted="false">"Bottom right"</string>
+    <string name="ui_down_97" formatted="false">"Down"</string>
+    <string name="ui_bottom_left_98" formatted="false">"Bottom left"</string>
+    <string name="ui_left_99" formatted="false">"Left"</string>
+    <string name="ui_top_left_100" formatted="false">"Top left"</string>
+    <string name="ui_up_101" formatted="false">"Up"</string>
+    <string name="ui_top_right_102" formatted="false">"Top right"</string>
+    <string name="ui_widget_preview_with_apps_and_contacts_103" formatted="false">"Widget preview with apps and contacts"</string>
+    <string name="ui_choose_apps_or_contacts_104" formatted="false">"Choose apps or contacts"</string>
+    <string name="ui_edit_105" formatted="false">"Edit"</string>
+    <string name="ui_drop_here_to_remove_106" formatted="false">"Drop here to remove"</string>
+    <string name="ui_move_earlier_107" formatted="false">"Move earlier"</string>
+    <string name="ui_move_later_108" formatted="false">"Move later"</string>
+    <string name="ui_remove_from_widget_109" formatted="false">"Remove from widget"</string>
+    <string name="ui_cancel_110" formatted="false">"Cancel"</string>
+    <string name="ui_of_113" formatted="false">" of "</string>
+    <string name="ui_contact_121" formatted="false">"Contact"</string>
+    <string name="ui_new_widget_151" formatted="false">"New widget"</string>
+    <string name="ui_apps_152" formatted="false">"Apps"</string>
+    <string name="ui_icons_153" formatted="false">"Icons"</string>
+    <string name="ui_background_154" formatted="false">"Background"</string>
+    <string name="ui_preview_155" formatted="false">"PREVIEW"</string>
+    <string name="ui_live_156" formatted="false">"●  Live"</string>
+    <string name="ui_undo_157" formatted="false">"Undo: "</string>
+    <string name="ui_hold_and_drag_to_reorder_to_remove_158" formatted="false">"Hold and drag to reorder · × to remove"</string>
+    <string name="ui_undo_159" formatted="false">"Undo"</string>
+    <string name="ui_apps_and_contacts_160" formatted="false">"Apps and contacts"</string>
+    <string name="ui_combine_your_apps_with_shortcuts_to_the_pe_161" formatted="false">"Combine your apps with shortcuts to the people you choose."</string>
+    <string name="ui_loading_apps_162" formatted="false">"Loading apps…"</string>
+    <string name="ui_add_contact_163" formatted="false">"+  Add contact"</string>
+    <string name="ui_refresh_photos_164" formatted="false">"Refresh photos"</string>
+    <string name="ui_uses_the_contact_s_photo_as_its_icon_tap_t_165" formatted="false">"Uses the contact’s photo as its icon. Tap to open their details; initials appear if no photo is available."</string>
+    <string name="ui_android_may_ask_for_permission_to_read_pho_166" formatted="false">"Android may ask for permission to read photos. Only contacts you add are saved."</string>
+    <string name="ui_widget_name_167" formatted="false">"Widget name"</string>
+    <string name="ui_for_example_every_day_168" formatted="false">"For example: Every day"</string>
+    <string name="ui_columns_and_size_169" formatted="false">"Columns and size"</string>
+    <string name="ui_icons_fill_the_usable_width_of_each_column_170" formatted="false">"Icons fill the usable width of each column."</string>
+    <string name="ui_columns_171" formatted="false">"Columns"</string>
+    <string name="ui_automatic_172" formatted="false">"Automatic"</string>
+    <string name="ui_1_column_173" formatted="false">"1 column"</string>
+    <string name="ui_2_columns_174" formatted="false">"2 columns"</string>
+    <string name="ui_3_columns_175" formatted="false">"3 columns"</string>
+    <string name="ui_4_columns_176" formatted="false">"4 columns"</string>
+    <string name="ui_5_columns_177" formatted="false">"5 columns"</string>
+    <string name="ui_6_columns_178" formatted="false">"6 columns"</string>
+    <string name="ui_7_columns_179" formatted="false">"7 columns"</string>
+    <string name="ui_8_columns_180" formatted="false">"8 columns"</string>
+    <string name="ui_icon_size_181" formatted="false">"Icon size"</string>
+    <string name="ui_the_column_count_adapts_to_your_chosen_siz_182" formatted="false">"The column count adapts to your chosen size. If the widget is narrower, the icon shrinks to fit."</string>
+    <string name="ui_size_follows_the_widget_width_and_your_mar_183" formatted="false">"Size follows the widget width and your margins. Scroll to reach rows that do not fit vertically."</string>
+    <string name="ui_titles_184" formatted="false">"Titles"</string>
+    <string name="ui_show_titles_185" formatted="false">"Show titles"</string>
+    <string name="ui_the_name_of_each_app_or_contact_186" formatted="false">"The name of each app or contact."</string>
+    <string name="ui_text_size_187" formatted="false">"Text size"</string>
+    <string name="ui_white_188" formatted="false">"White"</string>
+    <string name="ui_dark_189" formatted="false">"Dark"</string>
+    <string name="ui_text_shadows_share_the_icon_s_color_sharpn_190" formatted="false">"Text shadows share the icon’s color, sharpness, opacity, distance and direction settings."</string>
+    <string name="ui_margins_and_spacing_191" formatted="false">"Margins and spacing"</string>
+    <string name="ui_adjust_the_space_used_by_each_shortcut_192" formatted="false">"Adjust the space used by each shortcut."</string>
+    <string name="ui_icon_to_title_193" formatted="false">"Icon to title"</string>
+    <string name="ui_horizontal_spacing_194" formatted="false">"Horizontal spacing"</string>
+    <string name="ui_row_spacing_195" formatted="false">"Row spacing"</string>
+    <string name="ui_widget_side_margins_196" formatted="false">"Widget side margins"</string>
+    <string name="ui_top_and_bottom_margins_197" formatted="false">"Top and bottom margins"</string>
+    <string name="ui_reset_spacing_198" formatted="false">"Reset spacing"</string>
+    <string name="ui_shape_and_style_199" formatted="false">"Shape and style"</string>
+    <string name="ui_icon_shape_200" formatted="false">"Icon shape"</string>
+    <string name="ui_style_201" formatted="false">"Style"</string>
+    <string name="ui_tint_and_frame_color_202" formatted="false">"Tint and frame color"</string>
+    <string name="ui_icon_and_title_shadow_203" formatted="false">"Icon and title shadow"</string>
+    <string name="ui_both_elements_share_the_same_effect_204" formatted="false">"Both elements share the same effect."</string>
+    <string name="ui_enable_shadow_205" formatted="false">"Enable shadow"</string>
+    <string name="ui_independent_settings_for_this_widget_206" formatted="false">"Independent settings for this widget."</string>
+    <string name="ui_opacity_207" formatted="false">"Opacity"</string>
+    <string name="ui_sharpness_208" formatted="false">"Sharpness"</string>
+    <string name="ui_0_soft_100_sharp_edge_209" formatted="false">"0 %: soft · 100 %: sharp edge"</string>
+    <string name="ui_distance_from_icon_210" formatted="false">"Distance from icon"</string>
+    <string name="ui_attached_211" formatted="false">"Attached"</string>
+    <string name="ui_shadows_do_not_change_the_layout_very_smal_212" formatted="false">"Shadows do not change the layout. Very small outer margins may clip the shadow at the widget edge."</string>
+    <string name="ui_reset_shadow_213" formatted="false">"Reset shadow"</string>
+    <string name="ui_widget_background_214" formatted="false">"Widget background"</string>
+    <string name="ui_transparent_by_default_icons_always_remain_215" formatted="false">"Transparent by default. Icons always remain visible."</string>
+    <string name="ui_navy_216" formatted="false">"Navy"</string>
+    <string name="ui_black_217" formatted="false">"Black"</string>
+    <string name="ui_blue_218" formatted="false">"Blue"</string>
+    <string name="ui_lavender_219" formatted="false">"Lavender"</string>
+    <string name="ui_green_220" formatted="false">"Green"</string>
+    <string name="ui_choose_another_color_221" formatted="false">"Choose another color"</string>
+    <string name="ui_opacity_222" formatted="false">"Opacity"</string>
+    <string name="ui_background_opacity_percentage_223" formatted="false">"Background opacity percentage"</string>
+    <string name="ui_corner_rounding_224" formatted="false">"Corner rounding"</string>
+    <string name="ui_widget_shortcuts_225" formatted="false">"Widget shortcuts"</string>
+    <string name="ui_show_widget_name_226" formatted="false">"Show widget name"</string>
+    <string name="ui_edit_button_227" formatted="false">"Edit button"</string>
+    <string name="ui_you_can_also_edit_from_228" formatted="false">"You can also edit from "</string>
+    <string name="ui_notifications_229" formatted="false">"Notifications"</string>
+    <string name="ui_show_badges_230" formatted="false">"Show badges"</string>
+    <string name="ui_only_on_apps_in_this_widget_231" formatted="false">"Only on apps in this widget."</string>
+    <string name="ui_manage_notification_access_in_the_app_s_op_232" formatted="false">"Manage notification access in the app’s Options, in the top bar."</string>
+    <string name="ui_notification_badge_options_233" formatted="false">"Notification badge options"</string>
+    <string name="ui_active_notifications_are_counted_counts_ma_234" formatted="false">"Active notifications are counted. Counts may differ from unread messages."</string>
+    <string name="ui_add_to_home_screen_237" formatted="false">"Add"</string>
+    <string name="ui_save_changes_238" formatted="false">"Save"</string>
+    <string name="ui_shadow_direction_239" formatted="false">"Shadow direction"</string>
+    <string name="ui_icon_240" formatted="false">"Icon"</string>
+    <string name="ui_shadow_241" formatted="false">"Shadow: "</string>
+    <string name="ui_angle_242" formatted="false">"Angle"</string>
+    <string name="ui_0_right_90_down_180_left_270_up_243" formatted="false">"0°: right · 90°: down · 180°: left · 270°: up"</string>
+    <string name="ui_choose_apps_and_contacts_244" formatted="false">"Choose apps and contacts"</string>
+    <string name="ui_this_widget_supports_up_to_48_shortcuts_re_246" formatted="false">"This widget supports up to 48 shortcuts. Remove one to add another."</string>
+    <string name="ui_no_contact_picker_is_available_on_this_dev_247" formatted="false">"No contact picker is available on this device"</string>
+    <string name="ui_adding_contact_248" formatted="false">"Adding contact…"</string>
+    <string name="ui_could_not_read_the_contact_select_it_again_249" formatted="false">"Could not read the contact. Select it again to grant access."</string>
+    <string name="ui_this_widget_is_full_remove_a_shortcut_and__250" formatted="false">"This widget is full. Remove a shortcut and select the contact again."</string>
+    <string name="ui_contact_added_with_photo_251" formatted="false">"Contact added with photo"</string>
+    <string name="ui_contact_added_photo_unavailable_showing_in_252" formatted="false">"Contact added. Photo unavailable: showing initials."</string>
+    <string name="ui_you_can_keep_using_contacts_with_initials__255" formatted="false">"You can keep using contacts with initials. To load photos, allow Contacts access in Android Settings."</string>
+    <string name="ui_contact_photos_refreshed_256" formatted="false">"Contact photos refreshed"</string>
+    <string name="ui_no_available_photos_found_your_shortcuts_a_257" formatted="false">"No available photos found. Your shortcuts are kept."</string>
+    <string name="ui_shadow_color_259" formatted="false">"Shadow color   "</string>
+    <string name="ui_leave_without_saving_261" formatted="false">"Leave without saving?"</string>
+    <string name="ui_changes_to_this_widget_have_not_been_appli_262" formatted="false">"Changes to this widget have not been applied yet."</string>
+    <string name="ui_keep_editing_263" formatted="false">"Keep editing"</string>
+    <string name="ui_discard_changes_264" formatted="false">"Discard changes"</string>
+    <string name="ui_column_265" formatted="false">" column"</string>
+    <string name="ui_columns_266" formatted="false">" columns"</string>
+    <string name="ui_icon_width_267" formatted="false">" · Icon width: "</string>
+    <string name="ui_text_color_268" formatted="false">"Text color   "</string>
+    <string name="ui_rrggbb_269" formatted="false">"#RRGGBB"</string>
+    <string name="ui_hexadecimal_color_270" formatted="false">"Hexadecimal color"</string>
+    <string name="ui_choose_color_06x_271" formatted="false">"Choose color #%06X"</string>
+    <string name="ui_enter_a_color_or_select_a_sample_272" formatted="false">"Enter a color or select a sample."</string>
+    <string name="ui_title_color_273" formatted="false">"Title color"</string>
+    <string name="ui_shadow_color_274" formatted="false">"Shadow color"</string>
+    <string name="ui_style_color_275" formatted="false">"Style color"</string>
+    <string name="ui_background_color_276" formatted="false">"Background color"</string>
+    <string name="ui_apply_277" formatted="false">"Apply"</string>
+    <string name="ui_enter_six_characters_for_example_3159de_279" formatted="false">"Enter six characters, for example #3159DE"</string>
+    <string name="ui_app_280" formatted="false">" app · "</string>
+    <string name="ui_apps_281" formatted="false">" apps · "</string>
+    <string name="ui_contact_maximum_282" formatted="false">" contact · Maximum "</string>
+    <string name="ui_contacts_maximum_283" formatted="false">" contacts · Maximum "</string>
+    <string name="ui_refreshing_photos_284" formatted="false">"Refreshing photos…"</string>
+    <string name="ui_personal_profile_apps_and_added_contacts_m_286" formatted="false">"Personal profile apps and added contacts · Maximum 48"</string>
+    <string name="ui_search_by_name_287" formatted="false">"Search by name"</string>
+    <string name="ui_search_apps_288" formatted="false">"Search apps"</string>
+    <string name="ui_selected_289" formatted="false">" selected"</string>
+    <string name="ui_selected_290" formatted="false">", selected"</string>
+    <string name="ui_not_selected_291" formatted="false">", not selected"</string>
+    <string name="ui_you_can_add_up_to_48_shortcuts_per_widget_292" formatted="false">"You can add up to 48 shortcuts per widget"</string>
+    <string name="ui_apply_selection_293" formatted="false">"Apply selection"</string>
+    <string name="ui_choose_at_least_one_app_or_contact_294" formatted="false">"Choose at least one app or contact"</string>
+    <string name="ui_could_not_save_changes_please_try_again_295" formatted="false">"Could not save changes. Please try again."</string>
+    <string name="ui_confirm_the_widget_placement_on_your_home__297" formatted="false">"Confirm the widget placement on your home screen"</string>
+    <string name="ui_add_it_from_the_home_screen_298" formatted="false">"Add it from the home screen"</string>
+    <string name="ui_your_home_screen_does_not_support_adding_w_299" formatted="false">"Your home screen does not support adding widgets from the app. Touch and hold an empty area on your home screen, open Widgets and find Foldery.2.AI.\n\nYour settings have been kept for the next widget you add from that picker."</string>
+    <string name="ui_got_it_300" formatted="false">"Got it"</string>
+    <string name="ui_app_theme_303" formatted="false">"App theme"</string>
+    <string name="ui_follow_device_settings_304" formatted="false">"Follow device settings"</string>
+    <string name="ui_light_mode_305" formatted="false">"Light mode"</string>
+    <string name="ui_dark_mode_306" formatted="false">"Dark mode"</string>
+    <string name="ui_app_options_307" formatted="false">"App options"</string>
+    <string name="ui_expanded_collapse_309" formatted="false">"expanded. Collapse"</string>
+    <string name="ui_collapsed_expand_310" formatted="false">"collapsed. Expand"</string>
+    <string name="ui_expanded_311" formatted="false">"Expanded"</string>
+    <string name="ui_collapsed_312" formatted="false">"Collapsed"</string>
+    <string name="ui_android_will_ask_for_notification_access_f_313" formatted="false">"Android will ask for notification access. Foldery.2.AI only uses the source app and notification status to count active notifications for your widgets. It does not read notification text, store messages or send data.\n\nYou can revoke access at any time. Badge counts do not necessarily represent unread messages."</string>
+    <string name="ui_not_now_314" formatted="false">"Not now"</string>
+    <string name="ui_continue_315" formatted="false">"Continue"</string>
+    <string name="ui_your_widget_in_three_steps_316" formatted="false">"Your widget in three steps"</string>
+    <string name="ui_1_select_your_apps_or_add_contacts_if_you__317" formatted="false">"1. Select your apps or add contacts. If you have no widgets yet, the creator opens automatically.\n\n2. Adjust icons, shadows, titles and background. Tap “Add to home screen” and confirm in Android.\n\n3. Tap an app to open it, or a contact to view their details and call them from there. Touch and hold the widget on your home screen to resize it.\n\nIn the preview, drag to reorder or tap × to remove a shortcut.\n\nThe app theme and notification access are in Options in the top bar. Each widget keeps its own settings.\n\nContacts: use “Refresh photos” to reload images for contacts you have added. Android may ask for read access to their photos. You can use initials without that permission.\n\nYou can also add widgets from the Android widget picker: find “Foldery.2.AI”. To remove a widget, remove it from your home screen.\n\nOnly personal profile apps are included. Some apps or manufacturers limit notifications. Badges are optional and may differ from unread messages."</string>
+    <string name="ui_app_information_318" formatted="false">"App information"</string>
+    <plurals name="notification_count">
+        <item quantity="one">"%1$s. %2$d active notification."</item>
+        <item quantity="other">"%1$s. %2$d active notifications."</item>
+    </plurals>
+    <string name="language_title">"App language"</string>
+    <string name="language_device">"Device language (default)"</string>
+    <string name="language_detail">"Choose a language for the app and its widgets. Follow your device by default; English is used when no supported language is available."</string>
+    <string name="delete_widget">"Delete"</string>
+    <string name="delete_widget_named">"Delete “%1$s”?"</string>
+    <string name="delete_widget_confirmation">"This will permanently delete this widget’s settings and remove it from My widgets. Your other widgets will not change.\n\nIf it is on your home screen, Android requires you to touch and hold its remaining tile and choose Remove."</string>
+    <string name="delete_widget_confirm">"Delete"</string>
+    <string name="widget_deleted">"Widget deleted"</string>
+    <string name="widget_deleted_desktop">"Widget deleted.\nTouch and hold this tile and choose Remove on your home screen."</string>
+    <string name="delete_widget_failed">"Could not delete the widget. Please try again."</string>
+    <string name="add_named_to_desktop">"Add “%1$s” to home screen"</string>
+    <string name="add_widget_copy_hint">"Adds a new, independent widget with these settings."</string>
+    <string name="shape_triangle">"Triangle"</string>
+    <string name="shape_octagon">"Octagon"</string>
+    <string name="shape_star">"Star"</string>
+    <string name="shape_squircle">"Squircle"</string>
+    <string name="shape_shield">"Shield"</string>
+    <string name="shape_heart">"Heart"</string>
+    <string name="style_sepia">"Sepia"</string>
+    <string name="style_vivid">"Vivid"</string>
+    <string name="style_soft">"Soft"</string>
+    <string name="style_negative">"Negative"</string>
+    <string name="choose_background_image">"Choose background image"</string>
+    <string name="remove_background_image">"Remove background image"</string>
+    <string name="background_image_mode">"Image layout"</string>
+    <string name="bg_crop">"Fill and crop"</string>
+    <string name="bg_fit">"Fit"</string>
+    <string name="bg_stretch">"Stretch"</string>
+    <string name="bg_tile">"Tile"</string>
+    <string name="bg_center">"Center"</string>
+    <string name="background_image_error">"Could not load this image. Choose another image."</string>
+    <string name="update_title">"Updates"</string>
+    <string name="update_detail">"Checks for new versions once a day while the app is open. Widgets continue to work offline."</string>
+    <string name="update_check">"Check for updates"</string>
+    <string name="update_error">"Could not check for updates. Please try again later."</string>
+    <string name="update_none">"No updates available."</string>
+    <string name="update_available">"New version available"</string>
+    <string name="update_browser">"Your browser will open the official download. Android will ask you to confirm installation."</string>
+    <string name="update_later">"Later"</string>
+    <string name="update_download">"Download"</string>
+    <string name="update_open_error">"Could not open the download."</string>
+    <string name="premium_badge">"Premium"</string>
+    <string name="premium_title">"Foldery Premium"</string>
+    <string name="premium_intro">"Your support helps me keep improving Foldery. Premium includes more customization."</string>
+    <string name="premium_reason_widgets">"Create another widget with Premium."</string>
+    <string name="premium_reason_shortcuts">"Add more than eight shortcuts with Premium."</string>
+    <string name="premium_reason_styles">"Preview this design. Premium unlocks saving it."</string>
+    <string name="premium_reason_background">"Preview your photo background. Premium unlocks saving it."</string>
+    <string name="premium_reason_shadows">"Preview advanced shadows. Premium unlocks saving them."</string>
+    <string name="premium_heading">"Your space, your way"</string>
+    <string name="premium_coffee">"For less than a coffee a month."</string>
+    <string name="premium_monthly">"€0.50/month"</string>
+    <string name="premium_annual">"€6 billed once a year"</string>
+    <string name="premium_renewal">"Automatic annual renewal"</string>
+    <string name="premium_benefit_widgets">"Multiple widgets for your home screen"</string>
+    <string name="premium_benefit_shortcuts">"Up to 48 app and contact shortcuts per widget"</string>
+    <string name="premium_benefit_designs">"All 12 icon shapes and 8 finishes"</string>
+    <string name="premium_benefit_background">"Photo backgrounds and advanced shadows"</string>
+    <string name="premium_subscribe">"Continue with PayPal · €6/year"</string>
+    <string name="premium_later">"Not now, continue free"</string>
+    <string name="premium_restore">"Already Premium? Recover access"</string>
+    <string name="premium_cancel">"Cancel renewal in PayPal. Premium stays active until the paid period ends."</string>
+    <string name="premium_existing">"Existing widgets and designs are kept. Your unfinished changes remain in the editor."</string>
+    <string name="premium_checkout_pending">"Payment and access recovery are being connected. No payment can be made in this preview build."</string>
+    <string name="premium_view">"View Premium and recover access"</string>
+    <string name="premium_sandbox">"Test version · No real money is charged"</string>
+    <string name="premium_connecting">"Connecting securely…"</string>
+    <string name="premium_connection_error">"Unable to check your subscription. Check your connection and try again. Existing verified access is kept until its offline expiry."</string>
+    <string name="premium_active">"Premium is active on this device."</string>
+    <string name="premium_manage">"Manage renewal in PayPal"</string>
+    <string name="premium_refresh">"Check subscription now"</string>
+    <string name="premium_offline">"Sign in with the same Google account to recover Premium. Verified access can work offline for up to 30 days, always within your paid period."</string>
+    <string name="premium_waiting_payment">"Waiting for PayPal to confirm payment. If you have already approved it, check again in a minute. Do not subscribe again."</string>
+<string name="widget_alignment">Icon alignment</string>
+    <string name="align_top_left">Top left</string>
+    <string name="align_top">Top</string>
+    <string name="align_top_right">Top right</string>
+    <string name="align_left">Left</string>
+    <string name="align_center">Center (default)</string>
+    <string name="align_right">Right</string>
+    <string name="align_bottom_left">Bottom left</string>
+    <string name="align_bottom">Bottom</string>
+    <string name="align_bottom_right">Bottom right</string>
+</resources>

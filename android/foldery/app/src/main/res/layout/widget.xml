@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@android:id/background"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:clipChildren="false" android:clipToPadding="false">
+    <ImageView android:id="@+id/widget_background" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:scaleType="fitXY" android:importantForAccessibility="no" />
+    <LinearLayout android:id="@+id/widget_content" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="0dp" android:clipChildren="false" android:clipToPadding="false">
+        <TextView android:id="@+id/widget_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textSize="14sp" android:textStyle="bold" android:padding="6dp" android:maxLines="2" android:ellipsize="end" android:includeFontPadding="true" android:breakStrategy="simple" android:hyphenationFrequency="none" android:visibility="gone" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:clipChildren="false" android:clipToPadding="false">
+            <FrameLayout android:id="@+id/widget_collection_container" android:layout_width="match_parent" android:layout_height="match_parent" android:clipChildren="false" android:clipToPadding="false" />
+            <TextView android:id="@+id/widget_empty" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:text="@string/widget_empty" android:textSize="15sp" android:gravity="center" android:padding="0dp" android:visibility="gone" />
+        </FrameLayout>
+        <TextView android:id="@+id/widget_edit" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:minHeight="40dp" android:gravity="end|center_vertical" android:text="@string/edit" android:textSize="12sp"
+            android:paddingStart="8dp" android:paddingEnd="10dp" android:background="?android:attr/selectableItemBackground" />
+    </LinearLayout>
+</FrameLayout>

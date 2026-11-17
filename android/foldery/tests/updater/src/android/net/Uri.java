@@ -1,0 +1,1 @@
+package android.net;public class Uri {java.net.URI u;public static Uri parse(String s){Uri a=new Uri();a.u=java.net.URI.create(s);return a;}public String getScheme(){return u.getScheme();}public String getHost(){return u.getHost();}public String getPath(){return u.getPath();}}

@@ -1,0 +1,1 @@
+package android.content.res;public class Configuration {public Locales getLocales(){return new Locales();}public static class Locales{public java.util.Locale get(int i){return java.util.Locale.ENGLISH;}}}

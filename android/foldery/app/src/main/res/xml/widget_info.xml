@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="40dp" android:minHeight="40dp" android:minResizeWidth="40dp" android:minResizeHeight="40dp"
+    android:targetCellWidth="1" android:targetCellHeight="1" android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0" android:initialLayout="@layout/widget" android:previewLayout="@layout/widget_preview"
+    android:previewImage="@drawable/widget_preview_image" android:configure="cat.urysoft.widgets.ConfigureActivity"
+    android:widgetFeatures="reconfigurable" android:description="@string/widget_description" android:widgetCategory="home_screen" />

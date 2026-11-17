@@ -1,0 +1,3 @@
+package cat.urysoft.widgets;
+/** Public live key only. */
+final class PremiumPublicKey {static final String SPKI="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzQVrkQ3RVPvj1Bo934s2kS7cetsGahG8hFnmHlw5qsl3Lx9p6Pzc+FJzU5thlQO3o7/GV2l3ZhdAtZ+jSA836pExICaA0C2FA1Pv2ZVxbUQZn8xn/4/XcxmZWV00GqovA4JQVEkPAG3BBNjkAEVb2olIlRyE5yLw+kr7SW4OIB/SlCm10FaY69t3wXLyrMrDNO7hh3GTdajvkL8UhPydM+pWZaxL5l6+ldOUFW+gh91wmNIVgBHwvikggHhAPTdrE4dDiJdL1WTFRxLsVd6hp/R/TVysTWSEuVNbKoTkJarP4xHjOF+HHeU5dz4ikmzHZ6JwIJfljRHfMD0wjx+RQIDAQAB";}

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Foldery.2.AI"</string>
+    <string name="widget_description">"Tus apps y contactos, con iconos y sombras a tu medida."</string>
+    <string name="notification_service_name">"Contadores de Foldery.2.AI"</string>
+    <string name="widget_empty">"Toca aquí para añadir apps y contactos"</string>
+    <string name="edit">"Editar"</string>
+    <string name="default_widget_name">"Mis accesos"</string>
+    <string name="launch_unavailable">"Esta aplicación ya no está disponible. Edita el widget para sustituirla."</string>
+    <string name="contact_unavailable">"No se puede abrir este contacto. Vuelve a añadirlo desde la aplicación."</string>
+    <string name="ui_by_4" formatted="false">"by "</string>
+    <string name="ui_your_spaces_5" formatted="false">"Tus espacios"</string>
+    <string name="ui_apps_and_people_one_tap_away_on_your_home__6" formatted="false">"Apps y personas a un toque desde tu escritorio."</string>
+    <string name="ui_my_widgets_7" formatted="false">"Mis widgets"</string>
+    <string name="ui_your_space_starts_here_9" formatted="false">"Aquí empieza tu espacio"</string>
+    <string name="ui_create_your_first_widget_with_your_everyda_10" formatted="false">"Crea tu primer widget con las apps y personas de tu día a día. Cada grupo conserva sus propios ajustes."</string>
+    <string name="ui_shortcut_11" formatted="false">" acceso · "</string>
+    <string name="ui_shortcuts_12" formatted="false">" accesos · "</string>
+    <string name="ui_transparent_background_13" formatted="false">"Fondo transparente"</string>
+    <string name="ui_custom_background_14" formatted="false">"Fondo personalizado"</string>
+    <string name="ui_with_shadow_15" formatted="false">" · Con sombra"</string>
+    <string name="ui_customize_widget_16" formatted="false">"Editar"</string>
+    <string name="ui_chief_executive_officer_17" formatted="false">"CEO · Director ejecutivo"</string>
+    <string name="ui_no_account_offline_no_ads_18" formatted="false">"Sin cuenta · Sin conexión · Sin anuncios"</string>
+    <string name="ui_create_widget_19" formatted="false">"+  Crear widget"</string>
+    <string name="ui_back_21" formatted="false">"Volver"</string>
+    <string name="ui_options_22" formatted="false">"Opciones"</string>
+    <string name="ui_help_24" formatted="false">"Ayuda"</string>
+    <string name="ui_app_appearance_26" formatted="false">"Apariencia de la app"</string>
+    <string name="ui_choose_a_theme_or_follow_your_device_setti_27" formatted="false">"Elige un tema o utiliza el de tu dispositivo."</string>
+    <string name="ui_notification_badges_29" formatted="false">"Contadores de avisos"</string>
+    <string name="ui_access_enabled_active_notifications_are_co_30" formatted="false">"Acceso activado. Se cuentan las notificaciones activas."</string>
+    <string name="ui_optional_access_to_show_notification_count_31" formatted="false">"Acceso opcional para mostrar los avisos junto a los iconos de las apps."</string>
+    <string name="ui_manage_access_32" formatted="false">"Gestionar acceso"</string>
+    <string name="ui_enable_notification_badges_33" formatted="false">"Activar contadores"</string>
+    <string name="ui_you_can_enable_or_disable_badges_in_each_w_34" formatted="false">"Puedes activar o desactivar los números en Opciones de cada widget. No equivalen necesariamente a mensajes sin leer."</string>
+    <string name="ui_about_foldery_2_ai_and_urysoft_35" formatted="false">"Acerca de Foldery.2.AI y UrySoft"</string>
+    <string name="ui_original_37" formatted="false">"Original"</string>
+    <string name="ui_circle_38" formatted="false">"Círculo"</string>
+    <string name="ui_rounded_square_39" formatted="false">"Cuadrado redondeado"</string>
+    <string name="ui_square_40" formatted="false">"Cuadrado"</string>
+    <string name="ui_hexagon_41" formatted="false">"Hexágono"</string>
+    <string name="ui_diamond_42" formatted="false">"Rombo"</string>
+    <string name="ui_original_colors_43" formatted="false">"Colores originales"</string>
+    <string name="ui_monochrome_44" formatted="false">"Monocromo"</string>
+    <string name="ui_tinted_45" formatted="false">"Tintado"</string>
+    <string name="ui_framed_46" formatted="false">"Con marco"</string>
+    <string name="ui_chief_executive_officer_of_urysoft_open_li_52" formatted="false">", director ejecutivo de UrySoft. Abrir perfil de LinkedIn"</string>
+    <string name="ui_no_app_is_available_to_open_this_link_53" formatted="false">"No hay una aplicación para abrir el enlace"</string>
+    <string name="ui_an_app_by_54" formatted="false">"Una app de "</string>
+    <string name="ui_version_55" formatted="false">" · Versión "</string>
+    <string name="ui_your_home_screen_your_way_independent_widg_56" formatted="false">"Tu escritorio, a tu manera. Widgets independientes con iconos y sombras a tu medida."</string>
+    <string name="ui_works_offline_without_an_account_the_linke_57" formatted="false">"Funciona sin cuenta y sin conexión. El enlace de LinkedIn se abre en una aplicación externa."</string>
+    <string name="ui_close_58" formatted="false">"Cerrar"</string>
+    <string name="ui_my_shortcuts_61" formatted="false">"Mis accesos"</string>
+    <string name="ui_contact_open_details_91" formatted="false">"Contacto · Abrir ficha"</string>
+    <string name="ui_contact_unavailable_92" formatted="false">"Contacto no disponible"</string>
+    <string name="ui_app_unavailable_93" formatted="false">"Aplicación no disponible"</string>
+    <string name="ui_unavailable_94" formatted="false">" · no disponible"</string>
+    <string name="ui_right_95" formatted="false">"Derecha"</string>
+    <string name="ui_bottom_right_96" formatted="false">"Abajo a la derecha"</string>
+    <string name="ui_down_97" formatted="false">"Abajo"</string>
+    <string name="ui_bottom_left_98" formatted="false">"Abajo a la izquierda"</string>
+    <string name="ui_left_99" formatted="false">"Izquierda"</string>
+    <string name="ui_top_left_100" formatted="false">"Arriba a la izquierda"</string>
+    <string name="ui_up_101" formatted="false">"Arriba"</string>
+    <string name="ui_top_right_102" formatted="false">"Arriba a la derecha"</string>
+    <string name="ui_widget_preview_with_apps_and_contacts_103" formatted="false">"Vista previa de aplicaciones y contactos del widget"</string>
+    <string name="ui_choose_apps_or_contacts_104" formatted="false">"Elige apps o contactos"</string>
+    <string name="ui_edit_105" formatted="false">"Editar"</string>
+    <string name="ui_drop_here_to_remove_106" formatted="false">"Suelta aquí para quitar"</string>
+    <string name="ui_move_earlier_107" formatted="false">"Mover antes"</string>
+    <string name="ui_move_later_108" formatted="false">"Mover después"</string>
+    <string name="ui_remove_from_widget_109" formatted="false">"Quitar del widget"</string>
+    <string name="ui_cancel_110" formatted="false">"Cancelar"</string>
+    <string name="ui_of_113" formatted="false">" de "</string>
+    <string name="ui_contact_121" formatted="false">"Contacto"</string>
+    <string name="ui_new_widget_151" formatted="false">"Nuevo widget"</string>
+    <string name="ui_apps_152" formatted="false">"Apps"</string>
+    <string name="ui_icons_153" formatted="false">"Iconos"</string>
+    <string name="ui_background_154" formatted="false">"Fondo"</string>
+    <string name="ui_preview_155" formatted="false">"VISTA PREVIA"</string>
+    <string name="ui_live_156" formatted="false">"●  En directo"</string>
+    <string name="ui_undo_157" formatted="false">"Deshacer: "</string>
+    <string name="ui_hold_and_drag_to_reorder_to_remove_158" formatted="false">"Mantén y arrastra para ordenar · × para quitar"</string>
+    <string name="ui_undo_159" formatted="false">"Deshacer"</string>
+    <string name="ui_apps_and_contacts_160" formatted="false">"Aplicaciones y contactos"</string>
+    <string name="ui_combine_your_apps_with_shortcuts_to_the_pe_161" formatted="false">"Combina tus apps con accesos a las personas que elijas."</string>
+    <string name="ui_loading_apps_162" formatted="false">"Cargando aplicaciones…"</string>
+    <string name="ui_add_contact_163" formatted="false">"+  Añadir contacto"</string>
+    <string name="ui_refresh_photos_164" formatted="false">"Actualizar fotos"</string>
+    <string name="ui_uses_the_contact_s_photo_as_its_icon_tap_t_165" formatted="false">"Usa su foto como icono. Al pulsarlo se abre su ficha; si no tiene foto, se muestran sus iniciales."</string>
+    <string name="ui_android_may_ask_for_permission_to_read_pho_166" formatted="false">"Android puede pedir permiso de lectura para acceder a las fotos. Solo se guardan los contactos que añadas."</string>
+    <string name="ui_widget_name_167" formatted="false">"Nombre del widget"</string>
+    <string name="ui_for_example_every_day_168" formatted="false">"Por ejemplo: Día a día"</string>
+    <string name="ui_columns_and_size_169" formatted="false">"Columnas y tamaño"</string>
+    <string name="ui_icons_fill_the_usable_width_of_each_column_170" formatted="false">"Los iconos ocupan el ancho útil de cada columna."</string>
+    <string name="ui_columns_171" formatted="false">"Columnas"</string>
+    <string name="ui_automatic_172" formatted="false">"Automáticas"</string>
+    <string name="ui_1_column_173" formatted="false">"1 columna"</string>
+    <string name="ui_2_columns_174" formatted="false">"2 columnas"</string>
+    <string name="ui_3_columns_175" formatted="false">"3 columnas"</string>
+    <string name="ui_4_columns_176" formatted="false">"4 columnas"</string>
+    <string name="ui_5_columns_177" formatted="false">"5 columnas"</string>
+    <string name="ui_6_columns_178" formatted="false">"6 columnas"</string>
+    <string name="ui_7_columns_179" formatted="false">"7 columnas"</string>
+    <string name="ui_8_columns_180" formatted="false">"8 columnas"</string>
+    <string name="ui_icon_size_181" formatted="false">"Tamaño del icono"</string>
+    <string name="ui_the_column_count_adapts_to_your_chosen_siz_182" formatted="false">"El número de columnas se adapta al tamaño elegido. Si el widget es más estrecho, el icono se reduce para caber."</string>
+    <string name="ui_size_follows_the_widget_width_and_your_mar_183" formatted="false">"El tamaño se ajusta al ancho del widget y a tus márgenes. Si las filas no caben en altura, se desplazan."</string>
+    <string name="ui_titles_184" formatted="false">"Títulos"</string>
+    <string name="ui_show_titles_185" formatted="false">"Mostrar títulos"</string>
+    <string name="ui_the_name_of_each_app_or_contact_186" formatted="false">"El nombre de cada aplicación o contacto."</string>
+    <string name="ui_text_size_187" formatted="false">"Tamaño del texto"</string>
+    <string name="ui_white_188" formatted="false">"Blanco"</string>
+    <string name="ui_dark_189" formatted="false">"Oscuro"</string>
+    <string name="ui_text_shadows_share_the_icon_s_color_sharpn_190" formatted="false">"La sombra del texto usa el mismo color, nitidez, intensidad, distancia y dirección que la del icono."</string>
+    <string name="ui_margins_and_spacing_191" formatted="false">"Márgenes y separación"</string>
+    <string name="ui_adjust_the_space_used_by_each_shortcut_192" formatted="false">"Ajusta cuánto espacio ocupa cada acceso."</string>
+    <string name="ui_icon_to_title_193" formatted="false">"Icono y título"</string>
+    <string name="ui_horizontal_spacing_194" formatted="false">"Separación horizontal"</string>
+    <string name="ui_row_spacing_195" formatted="false">"Separación entre filas"</string>
+    <string name="ui_widget_side_margins_196" formatted="false">"Margen lateral del widget"</string>
+    <string name="ui_top_and_bottom_margins_197" formatted="false">"Margen superior e inferior"</string>
+    <string name="ui_reset_spacing_198" formatted="false">"Restablecer espaciado"</string>
+    <string name="ui_shape_and_style_199" formatted="false">"Forma y estilo"</string>
+    <string name="ui_icon_shape_200" formatted="false">"Forma del icono"</string>
+    <string name="ui_style_201" formatted="false">"Acabado"</string>
+    <string name="ui_tint_and_frame_color_202" formatted="false">"Color de tintado y marco"</string>
+    <string name="ui_icon_and_title_shadow_203" formatted="false">"Sombra de iconos y títulos"</string>
+    <string name="ui_both_elements_share_the_same_effect_204" formatted="false">"Los dos elementos comparten el mismo efecto."</string>
+    <string name="ui_enable_shadow_205" formatted="false">"Activar sombra"</string>
+    <string name="ui_independent_settings_for_this_widget_206" formatted="false">"Personalización independiente para este widget."</string>
+    <string name="ui_opacity_207" formatted="false">"Intensidad"</string>
+    <string name="ui_sharpness_208" formatted="false">"Nitidez"</string>
+    <string name="ui_0_soft_100_sharp_edge_209" formatted="false">"0 %: difusa · 100 %: borde definido"</string>
+    <string name="ui_distance_from_icon_210" formatted="false">"Distancia al icono"</string>
+    <string name="ui_attached_211" formatted="false">"Pegada"</string>
+    <string name="ui_shadows_do_not_change_the_layout_very_smal_212" formatted="false">"La sombra no cambia la distribución. Un margen exterior muy pequeño puede recortarla en el borde del widget."</string>
+    <string name="ui_reset_shadow_213" formatted="false">"Restablecer sombra"</string>
+    <string name="ui_widget_background_214" formatted="false">"Fondo del widget"</string>
+    <string name="ui_transparent_by_default_icons_always_remain_215" formatted="false">"Transparente por defecto. Los iconos conservan siempre su visibilidad."</string>
+    <string name="ui_navy_216" formatted="false">"Marino"</string>
+    <string name="ui_black_217" formatted="false">"Negro"</string>
+    <string name="ui_blue_218" formatted="false">"Azul"</string>
+    <string name="ui_lavender_219" formatted="false">"Lavanda"</string>
+    <string name="ui_green_220" formatted="false">"Verde"</string>
+    <string name="ui_choose_another_color_221" formatted="false">"Elegir otro color"</string>
+    <string name="ui_opacity_222" formatted="false">"Opacidad"</string>
+    <string name="ui_background_opacity_percentage_223" formatted="false">"Opacidad del fondo en porcentaje"</string>
+    <string name="ui_corner_rounding_224" formatted="false">"Redondeado de esquinas"</string>
+    <string name="ui_widget_shortcuts_225" formatted="false">"Accesos del widget"</string>
+    <string name="ui_show_widget_name_226" formatted="false">"Mostrar nombre del widget"</string>
+    <string name="ui_edit_button_227" formatted="false">"Botón de edición"</string>
+    <string name="ui_you_can_also_edit_from_228" formatted="false">"También puedes editar desde "</string>
+    <string name="ui_notifications_229" formatted="false">"Notificaciones"</string>
+    <string name="ui_show_badges_230" formatted="false">"Mostrar contadores"</string>
+    <string name="ui_only_on_apps_in_this_widget_231" formatted="false">"Solo en las aplicaciones de este widget."</string>
+    <string name="ui_manage_notification_access_in_the_app_s_op_232" formatted="false">"El acceso a los contadores se gestiona en Opciones de la app, en la barra superior."</string>
+    <string name="ui_notification_badge_options_233" formatted="false">"Opciones de contadores"</string>
+    <string name="ui_active_notifications_are_counted_counts_ma_234" formatted="false">"Se cuentan avisos activos. Pueden no coincidir con mensajes sin leer."</string>
+    <string name="ui_add_to_home_screen_237" formatted="false">"Añadir"</string>
+    <string name="ui_save_changes_238" formatted="false">"Guardar"</string>
+    <string name="ui_shadow_direction_239" formatted="false">"Dirección de la sombra"</string>
+    <string name="ui_icon_240" formatted="false">"Icono"</string>
+    <string name="ui_shadow_241" formatted="false">"Sombra: "</string>
+    <string name="ui_angle_242" formatted="false">"Ángulo"</string>
+    <string name="ui_0_right_90_down_180_left_270_up_243" formatted="false">"0°: derecha · 90°: abajo · 180°: izquierda · 270°: arriba"</string>
+    <string name="ui_choose_apps_and_contacts_244" formatted="false">"Elegir aplicaciones y contactos"</string>
+    <string name="ui_this_widget_supports_up_to_48_shortcuts_re_246" formatted="false">"El widget admite hasta 48 accesos. Quita uno para añadir otro."</string>
+    <string name="ui_no_contact_picker_is_available_on_this_dev_247" formatted="false">"No hay un selector de contactos disponible en este dispositivo"</string>
+    <string name="ui_adding_contact_248" formatted="false">"Añadiendo contacto…"</string>
+    <string name="ui_could_not_read_the_contact_select_it_again_249" formatted="false">"No se pudo leer el contacto. Vuelve a seleccionarlo para conceder acceso."</string>
+    <string name="ui_this_widget_is_full_remove_a_shortcut_and__250" formatted="false">"No queda espacio en este widget. Quita un acceso y vuelve a seleccionar el contacto."</string>
+    <string name="ui_contact_added_with_photo_251" formatted="false">"Contacto añadido con su foto"</string>
+    <string name="ui_contact_added_photo_unavailable_showing_in_252" formatted="false">"Contacto añadido. Foto no disponible: se muestran sus iniciales."</string>
+    <string name="ui_you_can_keep_using_contacts_with_initials__255" formatted="false">"Puedes seguir usando los contactos con sus iniciales. Para cargar sus fotos, permite Contactos en Ajustes de Android."</string>
+    <string name="ui_contact_photos_refreshed_256" formatted="false">"Fotos de contactos actualizadas"</string>
+    <string name="ui_no_available_photos_found_your_shortcuts_a_257" formatted="false">"No se han encontrado fotos disponibles. Se conservan los accesos."</string>
+    <string name="ui_shadow_color_259" formatted="false">"Color de sombra   "</string>
+    <string name="ui_leave_without_saving_261" formatted="false">"¿Salir sin guardar?"</string>
+    <string name="ui_changes_to_this_widget_have_not_been_appli_262" formatted="false">"Los cambios de este widget todavía no se han aplicado."</string>
+    <string name="ui_keep_editing_263" formatted="false">"Seguir editando"</string>
+    <string name="ui_discard_changes_264" formatted="false">"Descartar cambios"</string>
+    <string name="ui_column_265" formatted="false">" columna"</string>
+    <string name="ui_columns_266" formatted="false">" columnas"</string>
+    <string name="ui_icon_width_267" formatted="false">" · Ancho de icono: "</string>
+    <string name="ui_text_color_268" formatted="false">"Color del texto   "</string>
+    <string name="ui_rrggbb_269" formatted="false">"#RRGGBB"</string>
+    <string name="ui_hexadecimal_color_270" formatted="false">"Color en formato hexadecimal"</string>
+    <string name="ui_choose_color_06x_271" formatted="false">"Elegir color #%06X"</string>
+    <string name="ui_enter_a_color_or_select_a_sample_272" formatted="false">"Escribe un color o selecciona una muestra."</string>
+    <string name="ui_title_color_273" formatted="false">"Color de los títulos"</string>
+    <string name="ui_shadow_color_274" formatted="false">"Color de la sombra"</string>
+    <string name="ui_style_color_275" formatted="false">"Color del estilo"</string>
+    <string name="ui_background_color_276" formatted="false">"Color del fondo"</string>
+    <string name="ui_apply_277" formatted="false">"Aplicar"</string>
+    <string name="ui_enter_six_characters_for_example_3159de_279" formatted="false">"Escribe seis caracteres, por ejemplo #3159DE"</string>
+    <string name="ui_app_280" formatted="false">" app · "</string>
+    <string name="ui_apps_281" formatted="false">" apps · "</string>
+    <string name="ui_contact_maximum_282" formatted="false">" contacto · Máximo "</string>
+    <string name="ui_contacts_maximum_283" formatted="false">" contactos · Máximo "</string>
+    <string name="ui_refreshing_photos_284" formatted="false">"Actualizando fotos…"</string>
+    <string name="ui_personal_profile_apps_and_added_contacts_m_286" formatted="false">"Apps del perfil personal y contactos añadidos · Máximo 48"</string>
+    <string name="ui_search_by_name_287" formatted="false">"Buscar por nombre"</string>
+    <string name="ui_search_apps_288" formatted="false">"Buscar aplicaciones"</string>
+    <string name="ui_selected_289" formatted="false">" seleccionadas"</string>
+    <string name="ui_selected_290" formatted="false">", seleccionada"</string>
+    <string name="ui_not_selected_291" formatted="false">", sin seleccionar"</string>
+    <string name="ui_you_can_add_up_to_48_shortcuts_per_widget_292" formatted="false">"Puedes añadir hasta 48 accesos por widget"</string>
+    <string name="ui_apply_selection_293" formatted="false">"Aplicar selección"</string>
+    <string name="ui_choose_at_least_one_app_or_contact_294" formatted="false">"Elige al menos una aplicación o un contacto"</string>
+    <string name="ui_could_not_save_changes_please_try_again_295" formatted="false">"No se han podido guardar los cambios. Inténtalo de nuevo."</string>
+    <string name="ui_confirm_the_widget_placement_on_your_home__297" formatted="false">"Confirma la colocación del widget en tu escritorio"</string>
+    <string name="ui_add_it_from_the_home_screen_298" formatted="false">"Añádelo desde el escritorio"</string>
+    <string name="ui_your_home_screen_does_not_support_adding_w_299" formatted="false">"Tu escritorio no admite la colocación desde la app. Mantén pulsada una zona libre del escritorio, entra en Widgets y busca Foldery.2.AI.\n\nHemos conservado tus ajustes para el próximo widget que añadas desde ese selector."</string>
+    <string name="ui_got_it_300" formatted="false">"Entendido"</string>
+    <string name="ui_app_theme_303" formatted="false">"Tema de la aplicación"</string>
+    <string name="ui_follow_device_settings_304" formatted="false">"Según el dispositivo"</string>
+    <string name="ui_light_mode_305" formatted="false">"Modo claro"</string>
+    <string name="ui_dark_mode_306" formatted="false">"Modo oscuro"</string>
+    <string name="ui_app_options_307" formatted="false">"Opciones de la app"</string>
+    <string name="ui_expanded_collapse_309" formatted="false">"expandido. Colapsar"</string>
+    <string name="ui_collapsed_expand_310" formatted="false">"colapsado. Expandir"</string>
+    <string name="ui_expanded_311" formatted="false">"Expandido"</string>
+    <string name="ui_collapsed_312" formatted="false">"Colapsado"</string>
+    <string name="ui_android_will_ask_for_notification_access_f_313" formatted="false">"Android te pedirá acceso a las notificaciones. Foldery.2.AI solo utiliza la aplicación de origen y el estado del aviso para contar los avisos activos de tus widgets. No lee el texto, no guarda mensajes y no envía datos.\n\nPuedes revocar el acceso en cualquier momento. Los contadores no equivalen necesariamente a mensajes sin leer."</string>
+    <string name="ui_not_now_314" formatted="false">"Ahora no"</string>
+    <string name="ui_continue_315" formatted="false">"Continuar"</string>
+    <string name="ui_your_widget_in_three_steps_316" formatted="false">"Tu widget en tres pasos"</string>
+    <string name="ui_1_select_your_apps_or_add_contacts_if_you__317" formatted="false">"1. Selecciona tus aplicaciones o añade contactos. Si aún no tienes widgets, el creador se abre automáticamente.\n\n2. Ajusta iconos, sombras, títulos y fondo. Pulsa «Añadir al escritorio» y confirma en Android.\n\n3. Toca una app para abrirla o un contacto para ver su ficha y llamarle desde ella. Mantén pulsado el widget en el escritorio para redimensionarlo.\n\nEn la vista previa puedes arrastrar para ordenar o tocar × para quitar un acceso.\n\nEl tema de la app y el acceso a contadores están en el botón Opciones de la barra superior. Cada widget conserva sus propios ajustes.\n\nContactos: usa «Actualizar fotos» para volver a cargar las imágenes de los contactos que hayas añadido. Android puede pedir permiso de lectura para acceder a sus fotos. Sin ese permiso puedes usar los accesos con iniciales.\n\nTambién puedes añadir widgets desde el selector de Android: busca «Foldery.2.AI». Para quitar un widget, elimínalo desde el escritorio.\n\nSolo se incluyen las apps del perfil personal. Algunas apps o fabricantes limitan sus notificaciones. Los contadores son opcionales y pueden no coincidir con los mensajes sin leer."</string>
+    <string name="ui_app_information_318" formatted="false">"Información de la app"</string>
+    <plurals name="notification_count">
+        <item quantity="one">"%1$s. %2$d notificación activa."</item>
+        <item quantity="other">"%1$s. %2$d notificaciones activas."</item>
+    </plurals>
+    <string name="language_title">"Idioma de la app"</string>
+    <string name="language_device">"Idioma del dispositivo (predeterminado)"</string>
+    <string name="language_detail">"Elige el idioma de la app y sus widgets. Por defecto se sigue el dispositivo; si no hay ningún idioma compatible, se utiliza inglés."</string>
+    <string name="delete_widget">"Eliminar"</string>
+    <string name="delete_widget_named">"¿Eliminar «%1$s»?"</string>
+    <string name="delete_widget_confirmation">"Se borrará definitivamente la configuración de este widget y se retirará de Mis widgets. Los demás widgets no cambiarán.\n\nSi está en el escritorio, Android requiere que mantengas pulsado el recuadro restante y elijas Quitar."</string>
+    <string name="delete_widget_confirm">"Eliminar"</string>
+    <string name="widget_deleted">"Widget eliminado"</string>
+    <string name="widget_deleted_desktop">"Widget eliminado.\nMantén pulsado este recuadro y elige Quitar en el escritorio."</string>
+    <string name="delete_widget_failed">"No se ha podido eliminar el widget. Inténtalo de nuevo."</string>
+    <string name="add_named_to_desktop">"Añadir «%1$s» al escritorio"</string>
+    <string name="add_widget_copy_hint">"Añade un widget nuevo e independiente con estos ajustes."</string>
+    <string name="shape_triangle">"Triángulo"</string>
+    <string name="shape_octagon">"Octógono"</string>
+    <string name="shape_star">"Estrella"</string>
+    <string name="shape_squircle">"Cuadrado suave"</string>
+    <string name="shape_shield">"Escudo"</string>
+    <string name="shape_heart">"Corazón"</string>
+    <string name="style_sepia">"Sepia"</string>
+    <string name="style_vivid">"Vivo"</string>
+    <string name="style_soft">"Suave"</string>
+    <string name="style_negative">"Negativo"</string>
+    <string name="choose_background_image">"Elegir imagen de fondo"</string>
+    <string name="remove_background_image">"Quitar imagen de fondo"</string>
+    <string name="background_image_mode">"Ajuste de imagen"</string>
+    <string name="bg_crop">"Rellenar y recortar"</string>
+    <string name="bg_fit">"Encajar"</string>
+    <string name="bg_stretch">"Estirar"</string>
+    <string name="bg_tile">"Mosaico"</string>
+    <string name="bg_center">"Centrar"</string>
+    <string name="background_image_error">"No se ha podido cargar la imagen. Elige otra."</string>
+    <string name="update_title">"Actualizaciones"</string>
+    <string name="update_detail">"Busca nuevas versiones una vez al día con la app abierta. Los widgets siguen funcionando sin conexión."</string>
+    <string name="update_check">"Buscar actualizaciones"</string>
+    <string name="update_error">"No se pudieron comprobar las actualizaciones. Inténtalo más tarde."</string>
+    <string name="update_none">"No hay actualizaciones disponibles."</string>
+    <string name="update_available">"Nueva versión disponible"</string>
+    <string name="update_browser">"El navegador abrirá la descarga oficial. Android te pedirá confirmar la instalación."</string>
+    <string name="update_later">"Más tarde"</string>
+    <string name="update_download">"Descargar"</string>
+    <string name="update_open_error">"No se pudo abrir la descarga."</string>
+    <string name="premium_badge">"Premium"</string>
+    <string name="premium_title">"Foldery Premium"</string>
+    <string name="premium_intro">"Tu apoyo me ayuda a seguir mejorando Foldery. Premium incluye más personalización."</string>
+    <string name="premium_reason_widgets">"Crea otro widget con Premium."</string>
+    <string name="premium_reason_shortcuts">"Añade más de ocho accesos con Premium."</string>
+    <string name="premium_reason_styles">"Prueba este diseño. Premium permite guardarlo."</string>
+    <string name="premium_reason_background">"Prueba tu foto de fondo. Premium permite guardarla."</string>
+    <string name="premium_reason_shadows">"Prueba las sombras avanzadas. Premium permite guardarlas."</string>
+    <string name="premium_heading">"Tu espacio, a tu manera"</string>
+    <string name="premium_coffee">"Por menos de un café al mes."</string>
+    <string name="premium_monthly">"0,50 €/mes"</string>
+    <string name="premium_annual">"6 € al año en un único cobro"</string>
+    <string name="premium_renewal">"Renovación anual automática"</string>
+    <string name="premium_benefit_widgets">"Varios widgets para organizar tu móvil"</string>
+    <string name="premium_benefit_shortcuts">"Hasta 48 accesos a apps y contactos por widget"</string>
+    <string name="premium_benefit_designs">"Las 12 formas y los 8 acabados de iconos"</string>
+    <string name="premium_benefit_background">"Fotos de fondo y sombras avanzadas"</string>
+    <string name="premium_subscribe">"Continuar con PayPal · 6 €/año"</string>
+    <string name="premium_later">"Ahora no, seguir gratis"</string>
+    <string name="premium_restore">"Ya tengo Premium · Recuperar acceso"</string>
+    <string name="premium_cancel">"Cancela la renovación en PayPal. Premium sigue activo hasta finalizar el período pagado."</string>
+    <string name="premium_existing">"Tus widgets y diseños ya creados se conservan. Los cambios pendientes siguen en el editor."</string>
+    <string name="premium_checkout_pending">"Estamos conectando el pago y la recuperación de acceso. Esta versión de prueba todavía no permite pagar."</string>
+    <string name="premium_view">"Ver Premium y recuperar acceso"</string>
+    <string name="premium_sandbox">"Versión de prueba · No se cobra dinero real"</string>
+    <string name="premium_connecting">"Conectando de forma segura…"</string>
+    <string name="premium_connection_error">"No se ha podido comprobar la suscripción. Revisa tu conexión e inténtalo de nuevo. Se conserva el acceso ya verificado hasta su vencimiento sin conexión."</string>
+    <string name="premium_active">"Premium está activo en este dispositivo."</string>
+    <string name="premium_manage">"Gestionar renovación en PayPal"</string>
+    <string name="premium_refresh">"Comprobar suscripción ahora"</string>
+    <string name="premium_offline">"Entra con la misma cuenta de Google para recuperar Premium. El acceso verificado puede funcionar sin conexión hasta 30 días, siempre dentro del periodo pagado."</string>
+    <string name="premium_waiting_payment">"Esperando la confirmación de PayPal. Si ya has aprobado el pago, comprueba de nuevo en un minuto. No te suscribas otra vez."</string>
+<string name="widget_alignment">Alineación de iconos</string>
+    <string name="align_top_left">Arriba a la izquierda</string>
+    <string name="align_top">Arriba</string>
+    <string name="align_top_right">Arriba a la derecha</string>
+    <string name="align_left">Izquierda</string>
+    <string name="align_center">Centro (predeterminado)</string>
+    <string name="align_right">Derecha</string>
+    <string name="align_bottom_left">Abajo a la izquierda</string>
+    <string name="align_bottom">Abajo</string>
+    <string name="align_bottom_right">Abajo a la derecha</string>
+</resources>

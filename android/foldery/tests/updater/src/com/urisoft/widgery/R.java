@@ -1,0 +1,1 @@
+package com.urisoft.widgery;public class R {public static class string {public static int update_error=1,update_none=2,update_available=3,update_browser=4,update_later=5,update_download=6,update_open_error=7;}}

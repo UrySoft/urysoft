@@ -1,0 +1,29 @@
+package cat.urysoft.widgets;
+
+/** Compiled grid spacings support configurable margins on every supported Android version. */
+public final class WidgetLayouts {
+    private static final int[][] GRIDS={
+        {R.layout.grid_columns_1_gap_0, R.layout.grid_columns_2_gap_0, R.layout.grid_columns_3_gap_0, R.layout.grid_columns_4_gap_0, R.layout.grid_columns_5_gap_0, R.layout.grid_columns_6_gap_0, R.layout.grid_columns_7_gap_0, R.layout.grid_columns_8_gap_0},
+        {R.layout.grid_columns_1_gap_2, R.layout.grid_columns_2_gap_2, R.layout.grid_columns_3_gap_2, R.layout.grid_columns_4_gap_2, R.layout.grid_columns_5_gap_2, R.layout.grid_columns_6_gap_2, R.layout.grid_columns_7_gap_2, R.layout.grid_columns_8_gap_2},
+        {R.layout.grid_columns_1_gap_4, R.layout.grid_columns_2_gap_4, R.layout.grid_columns_3_gap_4, R.layout.grid_columns_4_gap_4, R.layout.grid_columns_5_gap_4, R.layout.grid_columns_6_gap_4, R.layout.grid_columns_7_gap_4, R.layout.grid_columns_8_gap_4},
+        {R.layout.grid_columns_1_gap_6, R.layout.grid_columns_2_gap_6, R.layout.grid_columns_3_gap_6, R.layout.grid_columns_4_gap_6, R.layout.grid_columns_5_gap_6, R.layout.grid_columns_6_gap_6, R.layout.grid_columns_7_gap_6, R.layout.grid_columns_8_gap_6},
+        {R.layout.grid_columns_1_gap_8, R.layout.grid_columns_2_gap_8, R.layout.grid_columns_3_gap_8, R.layout.grid_columns_4_gap_8, R.layout.grid_columns_5_gap_8, R.layout.grid_columns_6_gap_8, R.layout.grid_columns_7_gap_8, R.layout.grid_columns_8_gap_8},
+        {R.layout.grid_columns_1_gap_10, R.layout.grid_columns_2_gap_10, R.layout.grid_columns_3_gap_10, R.layout.grid_columns_4_gap_10, R.layout.grid_columns_5_gap_10, R.layout.grid_columns_6_gap_10, R.layout.grid_columns_7_gap_10, R.layout.grid_columns_8_gap_10},
+        {R.layout.grid_columns_1_gap_12, R.layout.grid_columns_2_gap_12, R.layout.grid_columns_3_gap_12, R.layout.grid_columns_4_gap_12, R.layout.grid_columns_5_gap_12, R.layout.grid_columns_6_gap_12, R.layout.grid_columns_7_gap_12, R.layout.grid_columns_8_gap_12},
+        {R.layout.grid_columns_1_gap_14, R.layout.grid_columns_2_gap_14, R.layout.grid_columns_3_gap_14, R.layout.grid_columns_4_gap_14, R.layout.grid_columns_5_gap_14, R.layout.grid_columns_6_gap_14, R.layout.grid_columns_7_gap_14, R.layout.grid_columns_8_gap_14},
+        {R.layout.grid_columns_1_gap_16, R.layout.grid_columns_2_gap_16, R.layout.grid_columns_3_gap_16, R.layout.grid_columns_4_gap_16, R.layout.grid_columns_5_gap_16, R.layout.grid_columns_6_gap_16, R.layout.grid_columns_7_gap_16, R.layout.grid_columns_8_gap_16},
+        {R.layout.grid_columns_1_gap_18, R.layout.grid_columns_2_gap_18, R.layout.grid_columns_3_gap_18, R.layout.grid_columns_4_gap_18, R.layout.grid_columns_5_gap_18, R.layout.grid_columns_6_gap_18, R.layout.grid_columns_7_gap_18, R.layout.grid_columns_8_gap_18},
+        {R.layout.grid_columns_1_gap_20, R.layout.grid_columns_2_gap_20, R.layout.grid_columns_3_gap_20, R.layout.grid_columns_4_gap_20, R.layout.grid_columns_5_gap_20, R.layout.grid_columns_6_gap_20, R.layout.grid_columns_7_gap_20, R.layout.grid_columns_8_gap_20},
+        {R.layout.grid_columns_1_gap_22, R.layout.grid_columns_2_gap_22, R.layout.grid_columns_3_gap_22, R.layout.grid_columns_4_gap_22, R.layout.grid_columns_5_gap_22, R.layout.grid_columns_6_gap_22, R.layout.grid_columns_7_gap_22, R.layout.grid_columns_8_gap_22},
+        {R.layout.grid_columns_1_gap_24, R.layout.grid_columns_2_gap_24, R.layout.grid_columns_3_gap_24, R.layout.grid_columns_4_gap_24, R.layout.grid_columns_5_gap_24, R.layout.grid_columns_6_gap_24, R.layout.grid_columns_7_gap_24, R.layout.grid_columns_8_gap_24},
+        {R.layout.grid_columns_1_gap_26, R.layout.grid_columns_2_gap_26, R.layout.grid_columns_3_gap_26, R.layout.grid_columns_4_gap_26, R.layout.grid_columns_5_gap_26, R.layout.grid_columns_6_gap_26, R.layout.grid_columns_7_gap_26, R.layout.grid_columns_8_gap_26},
+        {R.layout.grid_columns_1_gap_28, R.layout.grid_columns_2_gap_28, R.layout.grid_columns_3_gap_28, R.layout.grid_columns_4_gap_28, R.layout.grid_columns_5_gap_28, R.layout.grid_columns_6_gap_28, R.layout.grid_columns_7_gap_28, R.layout.grid_columns_8_gap_28},
+        {R.layout.grid_columns_1_gap_30, R.layout.grid_columns_2_gap_30, R.layout.grid_columns_3_gap_30, R.layout.grid_columns_4_gap_30, R.layout.grid_columns_5_gap_30, R.layout.grid_columns_6_gap_30, R.layout.grid_columns_7_gap_30, R.layout.grid_columns_8_gap_30},
+        {R.layout.grid_columns_1_gap_32, R.layout.grid_columns_2_gap_32, R.layout.grid_columns_3_gap_32, R.layout.grid_columns_4_gap_32, R.layout.grid_columns_5_gap_32, R.layout.grid_columns_6_gap_32, R.layout.grid_columns_7_gap_32, R.layout.grid_columns_8_gap_32},
+        {R.layout.grid_columns_1_gap_34, R.layout.grid_columns_2_gap_34, R.layout.grid_columns_3_gap_34, R.layout.grid_columns_4_gap_34, R.layout.grid_columns_5_gap_34, R.layout.grid_columns_6_gap_34, R.layout.grid_columns_7_gap_34, R.layout.grid_columns_8_gap_34},
+        {R.layout.grid_columns_1_gap_36, R.layout.grid_columns_2_gap_36, R.layout.grid_columns_3_gap_36, R.layout.grid_columns_4_gap_36, R.layout.grid_columns_5_gap_36, R.layout.grid_columns_6_gap_36, R.layout.grid_columns_7_gap_36, R.layout.grid_columns_8_gap_36},
+        {R.layout.grid_columns_1_gap_38, R.layout.grid_columns_2_gap_38, R.layout.grid_columns_3_gap_38, R.layout.grid_columns_4_gap_38, R.layout.grid_columns_5_gap_38, R.layout.grid_columns_6_gap_38, R.layout.grid_columns_7_gap_38, R.layout.grid_columns_8_gap_38},
+        {R.layout.grid_columns_1_gap_40, R.layout.grid_columns_2_gap_40, R.layout.grid_columns_3_gap_40, R.layout.grid_columns_4_gap_40, R.layout.grid_columns_5_gap_40, R.layout.grid_columns_6_gap_40, R.layout.grid_columns_7_gap_40, R.layout.grid_columns_8_gap_40}
+    };
+    public static int grid(WidgetConfig resolved,int width){return GRIDS[Math.max(0,Math.min(20,resolved.columnGapDp/2))][Math.max(1,Math.min(8,resolved.columns))-1];}
+}

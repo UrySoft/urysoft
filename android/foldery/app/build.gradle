@@ -1,0 +1,45 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'cat.urysoft.widgets'
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+    defaultConfig {
+        applicationId 'cat.urysoft.widgets'
+        minSdk 26
+        targetSdk 36
+        versionCode 25
+        versionName '1.6.2'
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { outputFileName = "UrySoft-Foldery.2.AI-${variant.versionName}.apk" }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            maxHeapSize = '2g'
+            systemProperty 'ury.qa.dir', layout.buildDirectory.dir('qa').get().asFile.absolutePath
+            systemProperty 'robolectric.dependency.repo.url', 'https://repo.maven.apache.org/maven2'
+            ['http.proxyHost', 'http.proxyPort', 'http.proxyUser', 'http.proxyPassword',
+             'https.proxyHost', 'https.proxyPort', 'https.proxyUser', 'https.proxyPassword'].each { name ->
+                if (System.getProperty(name)) systemProperty name, System.getProperty(name)
+            }
+        }
+    }
+    def signingFile = rootProject.file('signing/signing.properties')
+    if (signingFile.exists()) {
+        def props = new Properties()
+        signingFile.withInputStream { props.load(it) }
+        signingConfigs { localRelease {
+            storeFile rootProject.file('signing/ury-widgets.jks')
+            storePassword props['storePassword']
+            keyAlias 'urywidgets'
+            keyPassword props['keyPassword']
+        } }
+        buildTypes { release { signingConfig signingConfigs.localRelease } }
+    }
+}
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+}

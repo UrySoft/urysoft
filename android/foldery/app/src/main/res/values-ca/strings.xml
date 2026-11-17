@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Foldery.2.AI"</string>
+    <string name="widget_description">"Les teves apps i contactes, amb icones i ombres a mida."</string>
+    <string name="notification_service_name">"Comptadors de Foldery.2.AI"</string>
+    <string name="widget_empty">"Toca aquí per afegir apps i contactes"</string>
+    <string name="edit">"Edita"</string>
+    <string name="default_widget_name">"Els meus accessos"</string>
+    <string name="launch_unavailable">"Aquesta aplicació ja no està disponible. Edita el widget per substituir-la."</string>
+    <string name="contact_unavailable">"No es pot obrir aquest contacte. Torna’l a afegir des de l’aplicació."</string>
+    <string name="ui_by_4" formatted="false">"de "</string>
+    <string name="ui_your_spaces_5" formatted="false">"Els teus espais"</string>
+    <string name="ui_apps_and_people_one_tap_away_on_your_home__6" formatted="false">"Apps i persones a un toc des de la pantalla d’inici."</string>
+    <string name="ui_my_widgets_7" formatted="false">"Els meus widgets"</string>
+    <string name="ui_your_space_starts_here_9" formatted="false">"El teu espai comença aquí"</string>
+    <string name="ui_create_your_first_widget_with_your_everyda_10" formatted="false">"Crea el teu primer widget amb les apps i persones del teu dia a dia. Cada grup conserva els seus ajustos."</string>
+    <string name="ui_shortcut_11" formatted="false">" accés · "</string>
+    <string name="ui_shortcuts_12" formatted="false">" accessos · "</string>
+    <string name="ui_transparent_background_13" formatted="false">"Fons transparent"</string>
+    <string name="ui_custom_background_14" formatted="false">"Fons personalitzat"</string>
+    <string name="ui_with_shadow_15" formatted="false">" · Amb ombra"</string>
+    <string name="ui_customize_widget_16" formatted="false">"Edita"</string>
+    <string name="ui_chief_executive_officer_17" formatted="false">"Director executiu"</string>
+    <string name="ui_no_account_offline_no_ads_18" formatted="false">"Sense compte · Sense connexió · Sense anuncis"</string>
+    <string name="ui_create_widget_19" formatted="false">"+  Crea un widget"</string>
+    <string name="ui_back_21" formatted="false">"Enrere"</string>
+    <string name="ui_options_22" formatted="false">"Opcions"</string>
+    <string name="ui_help_24" formatted="false">"Ajuda"</string>
+    <string name="ui_app_appearance_26" formatted="false">"Aparença de l’app"</string>
+    <string name="ui_choose_a_theme_or_follow_your_device_setti_27" formatted="false">"Tria un tema o utilitza el del dispositiu."</string>
+    <string name="ui_notification_badges_29" formatted="false">"Comptadors de notificacions"</string>
+    <string name="ui_access_enabled_active_notifications_are_co_30" formatted="false">"Accés activat. Es compten les notificacions actives."</string>
+    <string name="ui_optional_access_to_show_notification_count_31" formatted="false">"Accés opcional per mostrar els avisos a les icones de les apps."</string>
+    <string name="ui_manage_access_32" formatted="false">"Gestiona l’accés"</string>
+    <string name="ui_enable_notification_badges_33" formatted="false">"Activa els comptadors"</string>
+    <string name="ui_you_can_enable_or_disable_badges_in_each_w_34" formatted="false">"Pots activar o desactivar els números a Opcions de cada widget. No equivalen necessàriament a missatges sense llegir."</string>
+    <string name="ui_about_foldery_2_ai_and_urysoft_35" formatted="false">"Quant a Foldery.2.AI i UrySoft"</string>
+    <string name="ui_original_37" formatted="false">"Original"</string>
+    <string name="ui_circle_38" formatted="false">"Cercle"</string>
+    <string name="ui_rounded_square_39" formatted="false">"Quadrat arrodonit"</string>
+    <string name="ui_square_40" formatted="false">"Quadrat"</string>
+    <string name="ui_hexagon_41" formatted="false">"Hexàgon"</string>
+    <string name="ui_diamond_42" formatted="false">"Rombe"</string>
+    <string name="ui_original_colors_43" formatted="false">"Colors originals"</string>
+    <string name="ui_monochrome_44" formatted="false">"Monocrom"</string>
+    <string name="ui_tinted_45" formatted="false">"Tintat"</string>
+    <string name="ui_framed_46" formatted="false">"Amb marc"</string>
+    <string name="ui_chief_executive_officer_of_urysoft_open_li_52" formatted="false">", director executiu d’UrySoft. Obre el perfil de LinkedIn"</string>
+    <string name="ui_no_app_is_available_to_open_this_link_53" formatted="false">"No hi ha cap aplicació per obrir l’enllaç"</string>
+    <string name="ui_an_app_by_54" formatted="false">"Una app d’"</string>
+    <string name="ui_version_55" formatted="false">" · Versió "</string>
+    <string name="ui_your_home_screen_your_way_independent_widg_56" formatted="false">"La pantalla d’inici, al teu gust. Widgets independents amb icones i ombres a mida."</string>
+    <string name="ui_works_offline_without_an_account_the_linke_57" formatted="false">"Funciona sense compte i sense connexió. L’enllaç de LinkedIn s’obre en una aplicació externa."</string>
+    <string name="ui_close_58" formatted="false">"Tanca"</string>
+    <string name="ui_my_shortcuts_61" formatted="false">"Els meus accessos"</string>
+    <string name="ui_contact_open_details_91" formatted="false">"Contacte · Obre la fitxa"</string>
+    <string name="ui_contact_unavailable_92" formatted="false">"Contacte no disponible"</string>
+    <string name="ui_app_unavailable_93" formatted="false">"Aplicació no disponible"</string>
+    <string name="ui_unavailable_94" formatted="false">" · no disponible"</string>
+    <string name="ui_right_95" formatted="false">"Dreta"</string>
+    <string name="ui_bottom_right_96" formatted="false">"Avall a la dreta"</string>
+    <string name="ui_down_97" formatted="false">"Avall"</string>
+    <string name="ui_bottom_left_98" formatted="false">"Avall a l’esquerra"</string>
+    <string name="ui_left_99" formatted="false">"Esquerra"</string>
+    <string name="ui_top_left_100" formatted="false">"Amunt a l’esquerra"</string>
+    <string name="ui_up_101" formatted="false">"Amunt"</string>
+    <string name="ui_top_right_102" formatted="false">"Amunt a la dreta"</string>
+    <string name="ui_widget_preview_with_apps_and_contacts_103" formatted="false">"Vista prèvia d’aplicacions i contactes del widget"</string>
+    <string name="ui_choose_apps_or_contacts_104" formatted="false">"Tria apps o contactes"</string>
+    <string name="ui_edit_105" formatted="false">"Edita"</string>
+    <string name="ui_drop_here_to_remove_106" formatted="false">"Deixa-ho anar aquí per treure-ho"</string>
+    <string name="ui_move_earlier_107" formatted="false">"Mou abans"</string>
+    <string name="ui_move_later_108" formatted="false">"Mou després"</string>
+    <string name="ui_remove_from_widget_109" formatted="false">"Treu del widget"</string>
+    <string name="ui_cancel_110" formatted="false">"Cancel·la"</string>
+    <string name="ui_of_113" formatted="false">" de "</string>
+    <string name="ui_contact_121" formatted="false">"Contacte"</string>
+    <string name="ui_new_widget_151" formatted="false">"Widget nou"</string>
+    <string name="ui_apps_152" formatted="false">"Apps"</string>
+    <string name="ui_icons_153" formatted="false">"Icones"</string>
+    <string name="ui_background_154" formatted="false">"Fons"</string>
+    <string name="ui_preview_155" formatted="false">"VISTA PRÈVIA"</string>
+    <string name="ui_live_156" formatted="false">"●  En directe"</string>
+    <string name="ui_undo_157" formatted="false">"Desfés: "</string>
+    <string name="ui_hold_and_drag_to_reorder_to_remove_158" formatted="false">"Mantén premut i arrossega per ordenar · × per treure"</string>
+    <string name="ui_undo_159" formatted="false">"Desfés"</string>
+    <string name="ui_apps_and_contacts_160" formatted="false">"Aplicacions i contactes"</string>
+    <string name="ui_combine_your_apps_with_shortcuts_to_the_pe_161" formatted="false">"Combina les teves apps amb accessos a les persones que triïs."</string>
+    <string name="ui_loading_apps_162" formatted="false">"S’estan carregant les aplicacions…"</string>
+    <string name="ui_add_contact_163" formatted="false">"+  Afegeix un contacte"</string>
+    <string name="ui_refresh_photos_164" formatted="false">"Actualitza les fotos"</string>
+    <string name="ui_uses_the_contact_s_photo_as_its_icon_tap_t_165" formatted="false">"Utilitza la seva foto com a icona. En tocar-la s’obre la fitxa; si no té foto, es mostren les inicials."</string>
+    <string name="ui_android_may_ask_for_permission_to_read_pho_166" formatted="false">"Android pot demanar permís de lectura per accedir a les fotos. Només es desen els contactes que afegeixis."</string>
+    <string name="ui_widget_name_167" formatted="false">"Nom del widget"</string>
+    <string name="ui_for_example_every_day_168" formatted="false">"Per exemple: Dia a dia"</string>
+    <string name="ui_columns_and_size_169" formatted="false">"Columnes i mida"</string>
+    <string name="ui_icons_fill_the_usable_width_of_each_column_170" formatted="false">"Les icones ocupen l’amplada útil de cada columna."</string>
+    <string name="ui_columns_171" formatted="false">"Columnes"</string>
+    <string name="ui_automatic_172" formatted="false">"Automàtiques"</string>
+    <string name="ui_1_column_173" formatted="false">"1 columna"</string>
+    <string name="ui_2_columns_174" formatted="false">"2 columnes"</string>
+    <string name="ui_3_columns_175" formatted="false">"3 columnes"</string>
+    <string name="ui_4_columns_176" formatted="false">"4 columnes"</string>
+    <string name="ui_5_columns_177" formatted="false">"5 columnes"</string>
+    <string name="ui_6_columns_178" formatted="false">"6 columnes"</string>
+    <string name="ui_7_columns_179" formatted="false">"7 columnes"</string>
+    <string name="ui_8_columns_180" formatted="false">"8 columnes"</string>
+    <string name="ui_icon_size_181" formatted="false">"Mida de la icona"</string>
+    <string name="ui_the_column_count_adapts_to_your_chosen_siz_182" formatted="false">"El nombre de columnes s’adapta a la mida triada. Si el widget és més estret, la icona es redueix perquè hi càpiga."</string>
+    <string name="ui_size_follows_the_widget_width_and_your_mar_183" formatted="false">"La mida s’ajusta a l’amplada del widget i als marges. Si les files no hi caben en alçada, es desplacen."</string>
+    <string name="ui_titles_184" formatted="false">"Títols"</string>
+    <string name="ui_show_titles_185" formatted="false">"Mostra els títols"</string>
+    <string name="ui_the_name_of_each_app_or_contact_186" formatted="false">"El nom de cada aplicació o contacte."</string>
+    <string name="ui_text_size_187" formatted="false">"Mida del text"</string>
+    <string name="ui_white_188" formatted="false">"Blanc"</string>
+    <string name="ui_dark_189" formatted="false">"Fosc"</string>
+    <string name="ui_text_shadows_share_the_icon_s_color_sharpn_190" formatted="false">"L’ombra del text utilitza el mateix color, nitidesa, intensitat, distància i direcció que la de la icona."</string>
+    <string name="ui_margins_and_spacing_191" formatted="false">"Marges i separació"</string>
+    <string name="ui_adjust_the_space_used_by_each_shortcut_192" formatted="false">"Ajusta l’espai que ocupa cada accés."</string>
+    <string name="ui_icon_to_title_193" formatted="false">"Icona i títol"</string>
+    <string name="ui_horizontal_spacing_194" formatted="false">"Separació horitzontal"</string>
+    <string name="ui_row_spacing_195" formatted="false">"Separació entre files"</string>
+    <string name="ui_widget_side_margins_196" formatted="false">"Marge lateral del widget"</string>
+    <string name="ui_top_and_bottom_margins_197" formatted="false">"Marge superior i inferior"</string>
+    <string name="ui_reset_spacing_198" formatted="false">"Restableix l’espaiat"</string>
+    <string name="ui_shape_and_style_199" formatted="false">"Forma i estil"</string>
+    <string name="ui_icon_shape_200" formatted="false">"Forma de la icona"</string>
+    <string name="ui_style_201" formatted="false">"Acabat"</string>
+    <string name="ui_tint_and_frame_color_202" formatted="false">"Color del tintat i del marc"</string>
+    <string name="ui_icon_and_title_shadow_203" formatted="false">"Ombra d’icones i títols"</string>
+    <string name="ui_both_elements_share_the_same_effect_204" formatted="false">"Tots dos elements comparteixen el mateix efecte."</string>
+    <string name="ui_enable_shadow_205" formatted="false">"Activa l’ombra"</string>
+    <string name="ui_independent_settings_for_this_widget_206" formatted="false">"Personalització independent per a aquest widget."</string>
+    <string name="ui_opacity_207" formatted="false">"Intensitat"</string>
+    <string name="ui_sharpness_208" formatted="false">"Nitidesa"</string>
+    <string name="ui_0_soft_100_sharp_edge_209" formatted="false">"0 %: difusa · 100 %: vora definida"</string>
+    <string name="ui_distance_from_icon_210" formatted="false">"Distància a la icona"</string>
+    <string name="ui_attached_211" formatted="false">"Enganxada"</string>
+    <string name="ui_shadows_do_not_change_the_layout_very_smal_212" formatted="false">"L’ombra no canvia la distribució. Un marge exterior molt petit pot retallar-la a la vora del widget."</string>
+    <string name="ui_reset_shadow_213" formatted="false">"Restableix l’ombra"</string>
+    <string name="ui_widget_background_214" formatted="false">"Fons del widget"</string>
+    <string name="ui_transparent_by_default_icons_always_remain_215" formatted="false">"Transparent per defecte. Les icones sempre es mantenen visibles."</string>
+    <string name="ui_navy_216" formatted="false">"Blau marí"</string>
+    <string name="ui_black_217" formatted="false">"Negre"</string>
+    <string name="ui_blue_218" formatted="false">"Blau"</string>
+    <string name="ui_lavender_219" formatted="false">"Lavanda"</string>
+    <string name="ui_green_220" formatted="false">"Verd"</string>
+    <string name="ui_choose_another_color_221" formatted="false">"Tria un altre color"</string>
+    <string name="ui_opacity_222" formatted="false">"Opacitat"</string>
+    <string name="ui_background_opacity_percentage_223" formatted="false">"Opacitat del fons en percentatge"</string>
+    <string name="ui_corner_rounding_224" formatted="false">"Arrodoniment de les cantonades"</string>
+    <string name="ui_widget_shortcuts_225" formatted="false">"Accessos del widget"</string>
+    <string name="ui_show_widget_name_226" formatted="false">"Mostra el nom del widget"</string>
+    <string name="ui_edit_button_227" formatted="false">"Botó d’edició"</string>
+    <string name="ui_you_can_also_edit_from_228" formatted="false">"També pots editar des de "</string>
+    <string name="ui_notifications_229" formatted="false">"Notificacions"</string>
+    <string name="ui_show_badges_230" formatted="false">"Mostra els comptadors"</string>
+    <string name="ui_only_on_apps_in_this_widget_231" formatted="false">"Només a les aplicacions d’aquest widget."</string>
+    <string name="ui_manage_notification_access_in_the_app_s_op_232" formatted="false">"L’accés als comptadors es gestiona a Opcions de l’app, a la barra superior."</string>
+    <string name="ui_notification_badge_options_233" formatted="false">"Opcions dels comptadors"</string>
+    <string name="ui_active_notifications_are_counted_counts_ma_234" formatted="false">"Es compten els avisos actius. Poden no coincidir amb els missatges sense llegir."</string>
+    <string name="ui_add_to_home_screen_237" formatted="false">"Afegeix"</string>
+    <string name="ui_save_changes_238" formatted="false">"Desa"</string>
+    <string name="ui_shadow_direction_239" formatted="false">"Direcció de l’ombra"</string>
+    <string name="ui_icon_240" formatted="false">"Icona"</string>
+    <string name="ui_shadow_241" formatted="false">"Ombra: "</string>
+    <string name="ui_angle_242" formatted="false">"Angle"</string>
+    <string name="ui_0_right_90_down_180_left_270_up_243" formatted="false">"0°: dreta · 90°: avall · 180°: esquerra · 270°: amunt"</string>
+    <string name="ui_choose_apps_and_contacts_244" formatted="false">"Tria aplicacions i contactes"</string>
+    <string name="ui_this_widget_supports_up_to_48_shortcuts_re_246" formatted="false">"El widget admet fins a 48 accessos. Treu-ne un per afegir-ne un altre."</string>
+    <string name="ui_no_contact_picker_is_available_on_this_dev_247" formatted="false">"Aquest dispositiu no té cap selector de contactes disponible"</string>
+    <string name="ui_adding_contact_248" formatted="false">"S’està afegint el contacte…"</string>
+    <string name="ui_could_not_read_the_contact_select_it_again_249" formatted="false">"No s’ha pogut llegir el contacte. Torna’l a seleccionar per concedir-hi accés."</string>
+    <string name="ui_this_widget_is_full_remove_a_shortcut_and__250" formatted="false">"No queda espai en aquest widget. Treu un accés i torna a seleccionar el contacte."</string>
+    <string name="ui_contact_added_with_photo_251" formatted="false">"Contacte afegit amb la seva foto"</string>
+    <string name="ui_contact_added_photo_unavailable_showing_in_252" formatted="false">"Contacte afegit. Foto no disponible: es mostren les inicials."</string>
+    <string name="ui_you_can_keep_using_contacts_with_initials__255" formatted="false">"Pots continuar utilitzant els contactes amb les inicials. Per carregar les fotos, permet l’accés a Contactes als ajustos d’Android."</string>
+    <string name="ui_contact_photos_refreshed_256" formatted="false">"Fotos dels contactes actualitzades"</string>
+    <string name="ui_no_available_photos_found_your_shortcuts_a_257" formatted="false">"No s’han trobat fotos disponibles. Es conserven els accessos."</string>
+    <string name="ui_shadow_color_259" formatted="false">"Color de l’ombra   "</string>
+    <string name="ui_leave_without_saving_261" formatted="false">"Vols sortir sense desar?"</string>
+    <string name="ui_changes_to_this_widget_have_not_been_appli_262" formatted="false">"Els canvis d’aquest widget encara no s’han aplicat."</string>
+    <string name="ui_keep_editing_263" formatted="false">"Continua editant"</string>
+    <string name="ui_discard_changes_264" formatted="false">"Descarta els canvis"</string>
+    <string name="ui_column_265" formatted="false">" columna"</string>
+    <string name="ui_columns_266" formatted="false">" columnes"</string>
+    <string name="ui_icon_width_267" formatted="false">" · Amplada de la icona: "</string>
+    <string name="ui_text_color_268" formatted="false">"Color del text   "</string>
+    <string name="ui_rrggbb_269" formatted="false">"#RRGGBB"</string>
+    <string name="ui_hexadecimal_color_270" formatted="false">"Color en format hexadecimal"</string>
+    <string name="ui_choose_color_06x_271" formatted="false">"Tria el color #%06X"</string>
+    <string name="ui_enter_a_color_or_select_a_sample_272" formatted="false">"Escriu un color o selecciona una mostra."</string>
+    <string name="ui_title_color_273" formatted="false">"Color dels títols"</string>
+    <string name="ui_shadow_color_274" formatted="false">"Color de l’ombra"</string>
+    <string name="ui_style_color_275" formatted="false">"Color de l’estil"</string>
+    <string name="ui_background_color_276" formatted="false">"Color del fons"</string>
+    <string name="ui_apply_277" formatted="false">"Aplica"</string>
+    <string name="ui_enter_six_characters_for_example_3159de_279" formatted="false">"Escriu sis caràcters, per exemple #3159DE"</string>
+    <string name="ui_app_280" formatted="false">" app · "</string>
+    <string name="ui_apps_281" formatted="false">" apps · "</string>
+    <string name="ui_contact_maximum_282" formatted="false">" contacte · Màxim "</string>
+    <string name="ui_contacts_maximum_283" formatted="false">" contactes · Màxim "</string>
+    <string name="ui_refreshing_photos_284" formatted="false">"S’estan actualitzant les fotos…"</string>
+    <string name="ui_personal_profile_apps_and_added_contacts_m_286" formatted="false">"Apps del perfil personal i contactes afegits · Màxim 48"</string>
+    <string name="ui_search_by_name_287" formatted="false">"Cerca per nom"</string>
+    <string name="ui_search_apps_288" formatted="false">"Cerca aplicacions"</string>
+    <string name="ui_selected_289" formatted="false">" seleccionades"</string>
+    <string name="ui_selected_290" formatted="false">", seleccionada"</string>
+    <string name="ui_not_selected_291" formatted="false">", sense seleccionar"</string>
+    <string name="ui_you_can_add_up_to_48_shortcuts_per_widget_292" formatted="false">"Pots afegir fins a 48 accessos per widget"</string>
+    <string name="ui_apply_selection_293" formatted="false">"Aplica la selecció"</string>
+    <string name="ui_choose_at_least_one_app_or_contact_294" formatted="false">"Tria com a mínim una aplicació o un contacte"</string>
+    <string name="ui_could_not_save_changes_please_try_again_295" formatted="false">"No s’han pogut desar els canvis. Torna-ho a provar."</string>
+    <string name="ui_confirm_the_widget_placement_on_your_home__297" formatted="false">"Confirma la col·locació del widget a la pantalla d’inici"</string>
+    <string name="ui_add_it_from_the_home_screen_298" formatted="false">"Afegeix-lo des de la pantalla d’inici"</string>
+    <string name="ui_your_home_screen_does_not_support_adding_w_299" formatted="false">"La pantalla d’inici no permet afegir widgets des de l’app. Mantén premuda una zona lliure de la pantalla d’inici, entra a Widgets i cerca Foldery.2.AI.\n\nHem conservat els ajustos per al pròxim widget que afegeixis des d’aquest selector."</string>
+    <string name="ui_got_it_300" formatted="false">"Entesos"</string>
+    <string name="ui_app_theme_303" formatted="false">"Tema de l’aplicació"</string>
+    <string name="ui_follow_device_settings_304" formatted="false">"Segons el dispositiu"</string>
+    <string name="ui_light_mode_305" formatted="false">"Mode clar"</string>
+    <string name="ui_dark_mode_306" formatted="false">"Mode fosc"</string>
+    <string name="ui_app_options_307" formatted="false">"Opcions de l’app"</string>
+    <string name="ui_expanded_collapse_309" formatted="false">"expandit. Col·lapsa"</string>
+    <string name="ui_collapsed_expand_310" formatted="false">"col·lapsat. Expandeix"</string>
+    <string name="ui_expanded_311" formatted="false">"Expandit"</string>
+    <string name="ui_collapsed_312" formatted="false">"Col·lapsat"</string>
+    <string name="ui_android_will_ask_for_notification_access_f_313" formatted="false">"Android et demanarà accés a les notificacions. Foldery.2.AI només utilitza l’aplicació d’origen i l’estat de l’avís per comptar els avisos actius dels widgets. No llegeix el text, no desa missatges ni envia dades.\n\nPots revocar l’accés en qualsevol moment. Els comptadors no equivalen necessàriament a missatges sense llegir."</string>
+    <string name="ui_not_now_314" formatted="false">"Ara no"</string>
+    <string name="ui_continue_315" formatted="false">"Continua"</string>
+    <string name="ui_your_widget_in_three_steps_316" formatted="false">"El teu widget en tres passos"</string>
+    <string name="ui_1_select_your_apps_or_add_contacts_if_you__317" formatted="false">"1. Selecciona les aplicacions o afegeix contactes. Si encara no tens cap widget, el creador s’obre automàticament.\n\n2. Ajusta les icones, les ombres, els títols i el fons. Prem «Afegeix a la pantalla d’inici» i confirma a Android.\n\n3. Toca una app per obrir-la o un contacte per veure’n la fitxa i trucar-li des d’allà. Mantén premut el widget a la pantalla d’inici per canviar-ne la mida.\n\nA la vista prèvia pots arrossegar per ordenar o tocar × per treure un accés.\n\nEl tema de l’app i l’accés als comptadors són a Opcions, a la barra superior. Cada widget conserva els seus ajustos.\n\nContactes: utilitza «Actualitza les fotos» per tornar a carregar les imatges dels contactes afegits. Android pot demanar permís de lectura per accedir-hi. Sense aquest permís pots utilitzar les inicials.\n\nTambé pots afegir widgets des del selector d’Android: cerca «Foldery.2.AI». Per treure un widget, elimina’l de la pantalla d’inici.\n\nNomés s’inclouen les apps del perfil personal. Algunes apps o fabricants limiten les notificacions. Els comptadors són opcionals i poden no coincidir amb els missatges sense llegir."</string>
+    <string name="ui_app_information_318" formatted="false">"Informació de l’app"</string>
+    <plurals name="notification_count">
+        <item quantity="one">"%1$s. %2$d notificació activa."</item>
+        <item quantity="other">"%1$s. %2$d notificacions actives."</item>
+    </plurals>
+    <string name="language_title">"Idioma de l’app"</string>
+    <string name="language_device">"Idioma del dispositiu (per defecte)"</string>
+    <string name="language_detail">"Tria l’idioma de l’app i dels widgets. Per defecte se segueix el dispositiu; si no hi ha cap idioma compatible, s’utilitza l’anglès."</string>
+    <string name="delete_widget">"Elimina"</string>
+    <string name="delete_widget_named">"Vols eliminar «%1$s»?"</string>
+    <string name="delete_widget_confirmation">"S’eliminarà definitivament la configuració d’aquest widget i es retirarà d’Els meus widgets. Els altres widgets no canviaran.\n\nSi és a la pantalla d’inici, Android requereix que mantinguis premut el requadre restant i triïs Treu."</string>
+    <string name="delete_widget_confirm">"Elimina"</string>
+    <string name="widget_deleted">"Widget eliminat"</string>
+    <string name="widget_deleted_desktop">"Widget eliminat.\nMantén premut aquest requadre i tria Treu a la pantalla d’inici."</string>
+    <string name="delete_widget_failed">"No s’ha pogut eliminar el widget. Torna-ho a provar."</string>
+    <string name="add_named_to_desktop">"Afegeix «%1$s» a la pantalla d’inici"</string>
+    <string name="add_widget_copy_hint">"Afegeix un widget nou i independent amb aquests ajustos."</string>
+    <string name="shape_triangle">"Triangle"</string>
+    <string name="shape_octagon">"Octàgon"</string>
+    <string name="shape_star">"Estrella"</string>
+    <string name="shape_squircle">"Quadrat suau"</string>
+    <string name="shape_shield">"Escut"</string>
+    <string name="shape_heart">"Cor"</string>
+    <string name="style_sepia">"Sèpia"</string>
+    <string name="style_vivid">"Viu"</string>
+    <string name="style_soft">"Suau"</string>
+    <string name="style_negative">"Negatiu"</string>
+    <string name="choose_background_image">"Tria una imatge de fons"</string>
+    <string name="remove_background_image">"Treu la imatge de fons"</string>
+    <string name="background_image_mode">"Ajust de la imatge"</string>
+    <string name="bg_crop">"Omple i retalla"</string>
+    <string name="bg_fit">"Encaixa"</string>
+    <string name="bg_stretch">"Estira"</string>
+    <string name="bg_tile">"Mosaic"</string>
+    <string name="bg_center">"Centra"</string>
+    <string name="background_image_error">"No s’ha pogut carregar la imatge. Tria’n una altra."</string>
+    <string name="update_title">"Actualitzacions"</string>
+    <string name="update_detail">"Cerca versions noves un cop al dia amb l’aplicació oberta. Els ginys continuen funcionant sense connexió."</string>
+    <string name="update_check">"Cercar actualitzacions"</string>
+    <string name="update_error">"No s’han pogut comprovar les actualitzacions. Torna-ho a provar més tard."</string>
+    <string name="update_none">"No hi ha actualitzacions disponibles."</string>
+    <string name="update_available">"Nova versió disponible"</string>
+    <string name="update_browser">"El navegador obrirà la descàrrega oficial. Android et demanarà confirmar la instal·lació."</string>
+    <string name="update_later">"Més tard"</string>
+    <string name="update_download">"Descarregar"</string>
+    <string name="update_open_error">"No s’ha pogut obrir la descàrrega."</string>
+    <string name="premium_badge">"Premium"</string>
+    <string name="premium_title">"Foldery Premium"</string>
+    <string name="premium_intro">"El teu suport m’ajuda a continuar millorant Foldery. Premium inclou més personalització."</string>
+    <string name="premium_reason_widgets">"Crea un altre giny amb Premium."</string>
+    <string name="premium_reason_shortcuts">"Afegeix més de vuit accessos amb Premium."</string>
+    <string name="premium_reason_styles">"Prova aquest disseny. Premium permet desar-lo."</string>
+    <string name="premium_reason_background">"Prova la teva foto de fons. Premium permet desar-la."</string>
+    <string name="premium_reason_shadows">"Prova les ombres avançades. Premium permet desar-les."</string>
+    <string name="premium_heading">"El teu espai, a la teva manera"</string>
+    <string name="premium_coffee">"Per menys d’un cafè al mes."</string>
+    <string name="premium_monthly">"0,50 €/mes"</string>
+    <string name="premium_annual">"6 € l’any en un únic cobrament"</string>
+    <string name="premium_renewal">"Renovació anual automàtica"</string>
+    <string name="premium_benefit_widgets">"Diversos ginys per organitzar el mòbil"</string>
+    <string name="premium_benefit_shortcuts">"Fins a 48 accessos a apps i contactes per giny"</string>
+    <string name="premium_benefit_designs">"Les 12 formes i els 8 acabats d’icones"</string>
+    <string name="premium_benefit_background">"Fotos de fons i ombres avançades"</string>
+    <string name="premium_subscribe">"Continuar amb PayPal · 6 €/any"</string>
+    <string name="premium_later">"Ara no, continuar gratis"</string>
+    <string name="premium_restore">"Ja tinc Premium · Recuperar accés"</string>
+    <string name="premium_cancel">"Cancel·la la renovació a PayPal. Premium continua actiu fins que acaba el període pagat."</string>
+    <string name="premium_existing">"Els ginys i dissenys ja creats es conserven. Els canvis pendents continuen a l’editor."</string>
+    <string name="premium_checkout_pending">"Estem connectant el pagament i la recuperació d’accés. Aquesta versió de prova encara no permet pagar."</string>
+    <string name="premium_view">"Veure Premium i recuperar accés"</string>
+    <string name="premium_sandbox">"Versió de prova · No es cobren diners reals"</string>
+    <string name="premium_connecting">"Connectant de manera segura…"</string>
+    <string name="premium_connection_error">"No s’ha pogut comprovar la subscripció. Revisa la connexió i torna-ho a provar. Es conserva l’accés ja verificat fins al venciment sense connexió."</string>
+    <string name="premium_active">"Premium està actiu en aquest dispositiu."</string>
+    <string name="premium_manage">"Gestiona la renovació a PayPal"</string>
+    <string name="premium_refresh">"Comprova la subscripció ara"</string>
+    <string name="premium_offline">"Entra amb el mateix compte de Google per recuperar Premium. L’accés verificat pot funcionar sense connexió fins a 30 dies, sempre dins del període pagat."</string>
+    <string name="premium_waiting_payment">"Esperant la confirmació de PayPal. Si ja has aprovat el pagament, torna a comprovar-ho en un minut. No et subscriguis una altra vegada."</string>
+<string name="widget_alignment">Alineació de les icones</string>
+    <string name="align_top_left">A dalt a l’esquerra</string>
+    <string name="align_top">A dalt</string>
+    <string name="align_top_right">A dalt a la dreta</string>
+    <string name="align_left">Esquerra</string>
+    <string name="align_center">Centre (predeterminat)</string>
+    <string name="align_right">Dreta</string>
+    <string name="align_bottom_left">A baix a l’esquerra</string>
+    <string name="align_bottom">A baix</string>
+    <string name="align_bottom_right">A baix a la dreta</string>
+</resources>

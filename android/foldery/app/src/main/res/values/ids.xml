@@ -1,0 +1,54 @@
+<resources>
+ <item name="preview_remove" type="id" />
+ <item name="preview_move_before" type="id" />
+ <item name="preview_move_after" type="id" />
+ <item name="editor_root" type="id" />
+ <item name="preview_dock" type="id" />
+ <item name="inline_preview" type="id" />
+ <item name="settings_scroll" type="id" />
+ <item name="editor_preview" type="id" />
+ <item name="expand_control" type="id" />
+ <item name="app_theme" type="id" />
+ <item name="tab_apps" type="id" />
+ <item name="tab_icons" type="id" />
+ <item name="tab_background" type="id" />
+ <item name="tab_settings" type="id" />
+ <item name="panel_apps" type="id" />
+ <item name="panel_icons" type="id" />
+ <item name="panel_background" type="id" />
+ <item name="panel_settings" type="id" />
+ <item name="shadow_toggle" type="id" />
+ <item name="shadow_controls" type="id" />
+ <item name="shadow_color" type="id" />
+ <item name="shadow_color_preview" type="id" />
+ <item name="shadow_opacity" type="id" />
+ <item name="shadow_sharpness" type="id" />
+ <item name="shadow_distance" type="id" />
+ <item name="brand_link" type="id" />
+ <item name="about_button" type="id" />
+ <item name="add_contact" type="id" />
+ <item name="shadow_angle" type="id" />
+ <item name="help_button" type="id" />
+ <item name="options_button" type="id" />
+ <item name="notification_options" type="id" />
+ <item name="refresh_contact_photos" type="id" />
+ <item name="cell_icon_slot" type="id" />
+ <item name="layout_summary" type="id" />
+ <item name="title_controls" type="id" />
+ <item name="label_size" type="id" />
+ <item name="label_color" type="id" />
+ <item name="spacing_controls" type="id" />
+ <item name="label_gap" type="id" />
+ <item name="column_gap" type="id" />
+ <item name="row_gap" type="id" />
+ <item name="widget_padding_horizontal" type="id" />
+ <item name="widget_padding_vertical" type="id" />
+    <item type="id" name="auto_icon_size"/>
+    <item type="id" name="app_language"/>
+    <item type="id" name="delete_widget"/>
+    <item type="id" name="add_to_desktop"/>
+    <item name="check_updates" type="id" />
+    <item name="premium_subscribe" type="id" />
+    <item name="premium_later" type="id" />
+    <item name="premium_restore" type="id" />
+</resources>
