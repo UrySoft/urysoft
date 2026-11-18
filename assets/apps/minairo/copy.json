@@ -176,7 +176,10 @@
     "shot1": "Personalitat i Caràcter",
     "shot2": "Tria una acció",
     "shot3": "Ajusta i executa",
-    "shot4": "Revisa la resposta"
+    "shot4": "Revisa la resposta",
+    "releaseTitle": "Nou a 6.37.0",
+    "releaseBody": "Deu poders integrats a l’avatar: un toc per executar i pulsació llarga per ajustar paràmetres. Avatar i assistent en vertical i horitzontal, amb marges corregits. Signatura i marca a totes les accions, incloses imatge i vídeo; només Premium permet treure-les.",
+    "releaseGestures": "Un toc a l’avatar invoca els poders. Un toc a una esfera fa servir els valors per defecte; mantén-la premuda per obrir-ne els paràmetres. Mantén premut l’avatar per obrir l’assistent."
   },
   "es": {
     "status": "Android · Disponible",
@@ -355,7 +358,10 @@
     "shot1": "Personalidad y Carácter",
     "shot2": "Elige una acción",
     "shot3": "Ajusta y ejecuta",
-    "shot4": "Revisa la respuesta"
+    "shot4": "Revisa la respuesta",
+    "releaseTitle": "Nuevo en 6.37.0",
+    "releaseBody": "Diez poderes integrados en el avatar: toque para ejecutar y pulsación prolongada para ajustar parámetros. Avatar y asistente en vertical y horizontal, con márgenes corregidos. Firma y marca en todas las acciones, incluidas imagen y vídeo; solo Premium permite quitarlas.",
+    "releaseGestures": "Un toque en el avatar invoca los poderes. Un toque en una esfera usa los valores por defecto; mantenla pulsada para abrir sus parámetros. Mantén pulsado el avatar para abrir el asistente."
   },
   "en": {
     "status": "Android · Available",
@@ -534,6 +540,9 @@
     "shot1": "Personality and Character",
     "shot2": "Choose an action",
     "shot3": "Adjust and run",
-    "shot4": "Review the response"
+    "shot4": "Review the response",
+    "releaseTitle": "New in 6.37.0",
+    "releaseBody": "Ten powers integrated into the avatar: tap to run and long-press to adjust parameters. Avatar and assistant work in portrait and landscape with corrected spacing. Signature and watermark in all actions, including image and video; removal requires Premium.",
+    "releaseGestures": "Tap the avatar to invoke its powers. Tap a sphere to use defaults; hold it to open its parameters. Hold the avatar to open the assistant."
   }
 }

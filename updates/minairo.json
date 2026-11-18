@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "app": "minairo",
   "status": "published",
-  "versionName": "6.35.1",
-  "versionCode": 76,
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/minairo-6.35.1/Minairo-6.35.1.apk",
-  "sha256": "c723bced486abacc2209a0c51cc5b3819cad2a458764d3cd1137f404d9136b09",
+  "versionName": "6.37.0",
+  "versionCode": 82,
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/minairo-6.37.0/Minairo-6.37.0.apk",
+  "sha256": "e658664735730510ef07c4008414749226aa059c0dfa987ee09d6d14ace84ffa",
   "mandatory": false,
   "changelog": {
-    "es": "Premium por 1 €/mes, con un único cobro anual de 12 €. Formulario y ficha renovados. Comprobación de actualizaciones al abrir la app. Las suscripciones dependen de activar el servicio de pago.",
-    "ca": "Premium per 1 €/mes, amb un únic cobrament anual de 12 €. Formulari i fitxa renovats. Actualitzacions en obrir l’app. Les subscripcions depenen de l’activació del servei de pagament.",
-    "en": "Premium for €1/month, billed once a year at €12. Refreshed form and listing. Checks for updates when opening the app. Subscriptions require payment-service activation."
+    "es": "Diez poderes integrados en el avatar: toque para ejecutar y pulsación prolongada para ajustar parámetros. Avatar y asistente en vertical y horizontal, con márgenes corregidos. Firma y marca en todas las acciones, incluidas imagen y vídeo; solo Premium permite quitarlas.",
+    "ca": "Deu poders integrats a l’avatar: un toc per executar i pulsació llarga per ajustar paràmetres. Avatar i assistent en vertical i horitzontal, amb marges corregits. Signatura i marca a totes les accions, incloses imatge i vídeo; només Premium permet treure-les.",
+    "en": "Ten powers integrated into the avatar: tap to run and long-press to adjust parameters. Avatar and assistant work in portrait and landscape with corrected spacing. Signature and watermark in all actions, including image and video; removal requires Premium."
   }
 }
