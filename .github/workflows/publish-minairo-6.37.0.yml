@@ -1,0 +1,27 @@
+name: Publish Minairo 6.37.0
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'release-parts/minairo-6.37.0/**'
+      - '.github/workflows/publish-minairo-6.37.0.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble and verify signed installer
+        run: |
+          cat release-parts/minairo-6.37.0/*.part > "$RUNNER_TEMP/Minairo-6.37.0.apk"
+          echo 'e658664735730510ef07c4008414749226aa059c0dfa987ee09d6d14ace84ffa  '"$RUNNER_TEMP/Minairo-6.37.0.apk" | sha256sum -c -
+      - name: Publish signed installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view minairo-6.37.0 >/dev/null 2>&1; then
+            gh release upload minairo-6.37.0 "$RUNNER_TEMP/Minairo-6.37.0.apk"
+          else
+            gh release create minairo-6.37.0 "$RUNNER_TEMP/Minairo-6.37.0.apk" --target "$GITHUB_SHA" --title "Minairó 6.37.0" --notes "Diez poderes integrados en el avatar, toque para ejecutar y pulsación prolongada para parámetros. Vertical y horizontal con controles ajustados. Firma y marca uniformes en todas las acciones; solo Premium permite quitarlas. Vídeo con marca y audio conservado. versionCode 82, firma original. Instalador validado por el propietario, sin recompilar."
+          fi
