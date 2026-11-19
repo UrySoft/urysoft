@@ -25,7 +25,16 @@ jobs:
         run: |
           chmod +x android/foldery/gradlew
           cd android/foldery
-          ./gradlew testDebugUnitTest --tests '*TitlePositionTest' --tests '*ShadowBoundsAlignmentTest' --tests '*WidgetRowSurfaceTest' --tests '*WidgetTapFixTest.realCollectionItemsSendAppAndContactReferencesThroughTheWidgetTemplate' --no-daemon
+          cat > "$RUNNER_TEMP/foldery-deps.gradle" <<'GRADLE'
+          beforeSettings { settings ->
+              settings.pluginManagement.resolutionStrategy.eachPlugin { }
+          }
+          allprojects {
+              buildscript.configurations.configureEach { resolutionStrategy.force 'com.google.errorprone:error_prone_annotations:2.28.0' }
+              configurations.configureEach { resolutionStrategy.force 'com.google.errorprone:error_prone_annotations:2.28.0' }
+          }
+          GRADLE
+          ./gradlew -I "$RUNNER_TEMP/foldery-deps.gradle" testDebugUnitTest --tests '*TitlePositionTest' --tests '*ShadowBoundsAlignmentTest' --tests '*WidgetRowSurfaceTest' --tests '*WidgetTapFixTest.realCollectionItemsSendAppAndContactReferencesThroughTheWidgetTemplate' --no-daemon
           python3 tests/verify_locales.py
       - uses: actions/upload-artifact@v4
         if: always()
