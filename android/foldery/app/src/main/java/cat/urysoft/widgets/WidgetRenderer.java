@@ -28,12 +28,12 @@ public final class WidgetRenderer {
         WidgetConfig value = WidgetConfig.fromJson(stored.toJson());
         if(width<112||height<100){stored=WidgetConfig.fromJson(stored.toJson());stored.paddingHorizontalDp=Math.min(stored.paddingHorizontalDp,Math.max(0,(width-28)/2));stored.paddingVerticalDp=Math.min(stored.paddingVerticalDp,4);value.paddingHorizontalDp=stored.paddingHorizontalDp;value.paddingVerticalDp=stored.paddingVerticalDp;value.editButton=false;value.heading=false;}
 
-        value.columns=LayoutPolicy.responsiveColumns(width,stored.paddingHorizontalDp,stored.columnGapDp,stored.columns,stored.apps.size(),stored.autoIconDp);
+        value.columns=LayoutPolicy.responsiveColumns(width,stored.paddingHorizontalDp,stored.columnGapDp,stored.columns,stored.apps.size(),stored.labels && stored.labelPosition>=WidgetConfig.LEFT?stored.autoIconDp*2:stored.autoIconDp);
         value.columnGapDp=LayoutPolicy.effectiveGap(width,stored.paddingHorizontalDp,value.columns,stored.columnGapDp);
         int innerPx=Ui.dp(c,width)-Ui.dp(c,stored.paddingHorizontalDp)*2;
         int gapPx=(int)(value.columnGapDp*c.getResources().getDisplayMetrics().density);
         int columnPx=Math.max(1,(innerPx-gapPx*(value.columns-1))/value.columns);
-        if(stored.columns==0)columnPx=LayoutPolicy.automaticColumnPixels(columnPx,Ui.dp(c,stored.autoIconDp));
+        if(stored.columns==0 && !(stored.labels && stored.labelPosition>=WidgetConfig.LEFT))columnPx=LayoutPolicy.automaticColumnPixels(columnPx,Ui.dp(c,stored.autoIconDp));
         value.columns=Math.min(value.columns,Math.max(1,stored.apps.size()));
         int surplus=Math.max(0,innerPx-columnPx*value.columns-gapPx*(value.columns-1));
         // Put unused automatic width at the outer edges, never between icons.

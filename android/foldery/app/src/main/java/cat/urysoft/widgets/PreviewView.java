@@ -104,7 +104,7 @@ public final class PreviewView extends View {
             float halo=Ui.dp(getContext(),CellRenderer.HALO)*scale;
             c.image.set(contentLeft-halo,contentTop-halo,contentLeft+cellMetrics.width*unit+halo,contentTop+cellMetrics.height*unit+halo);
             float diameter=Math.min(cellWidth*.55f,Math.max(14*d,20*d*scale));
-            float iconLeft=contentLeft+(cellMetrics.width-cellMetrics.icon)/2*unit,iconTop=contentTop;
+            float iconLeft=contentLeft+cellMetrics.iconLeft*unit,iconTop=contentTop+cellMetrics.iconTop*unit;
             float removeLeft=iconLeft-diameter*.35f,removeTop=iconTop-diameter*.35f;
             c.remove.set(removeLeft,removeTop,removeLeft+diameter,removeTop+diameter);
         }

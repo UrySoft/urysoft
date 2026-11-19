@@ -7,8 +7,8 @@ android {
         applicationId 'cat.urysoft.widgets'
         minSdk 26
         targetSdk 36
-        versionCode 26
-        versionName '1.6.3'
+        versionCode 27
+        versionName '1.7.0'
     }
     applicationVariants.all { variant ->
         variant.outputs.all { outputFileName = "UrySoft-Foldery.2.AI-${variant.versionName}.apk" }

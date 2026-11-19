@@ -1,0 +1,6 @@
+<resources>
+<string name="label_position">Posició del títol</string>
+<string name="label_font">Tipus de lletra</string>
+<string-array name="label_positions"><item>A sota</item><item>A sobre</item><item>A l’esquerra</item><item>A la dreta</item></string-array>
+<string-array name="label_fonts"><item>Sense serifa</item><item>Amb serifa</item><item>Monoespaiada</item><item>Condensada</item><item>Negreta</item></string-array>
+</resources>

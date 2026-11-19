@@ -134,6 +134,8 @@ public final class ConfigureActivity extends LanguageActivity {
         Ui.add(appearance,Ui.text(this,getString(R.string.ui_size_follows_the_widget_width_and_your_mar_183),13,Ui.MUTED,false),8);
         LinearLayout titles=Ui.card(panels[1]);titles.setId(R.id.title_controls);Ui.heading(titles,"icons",getString(R.string.ui_titles_184),null);
         Ui.toggle(titles,getString(R.string.ui_show_titles_185),getString(R.string.ui_the_name_of_each_app_or_contact_186),config.labels,value->{config.labels=value;updatePreview();});
+        addChoice(titles,getString(R.string.label_position),getResources().getStringArray(R.array.label_positions),config.labelPosition,value->{config.labelPosition=value;updatePreview();});
+        addChoice(titles,getString(R.string.label_font),getResources().getStringArray(R.array.label_fonts),config.labelFont,value->{config.labelFont=value;updatePreview();});
         slider(titles,getString(R.string.ui_text_size_187),8,32,config.labelSizeSp,value->{config.labelSizeSp=value;updatePreview();return Integer.toString(value);},R.id.label_size);
         titleColorButton=Ui.button(this,"",false,v->customColor(3));titleColorButton.setId(R.id.label_color);Ui.add(titles,titleColorButton,10);updateTitleColorLabel();
         LinearLayout labelColors=Ui.row(this);LinearLayout.LayoutParams half=new LinearLayout.LayoutParams(0,-2,1);half.setMarginEnd(Ui.dp(this,8));

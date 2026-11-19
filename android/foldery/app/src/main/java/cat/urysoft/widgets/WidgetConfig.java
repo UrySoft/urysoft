@@ -11,6 +11,8 @@ public final class WidgetConfig {
     public final ArrayList<String> apps = new ArrayList<>();
     public int iconDp = 48, background = 0xff18233e, opacity = 0, labelColor = Color.WHITE, columns = 0, cornerDp = 24;
     public int iconShape = 0, iconStyle = 0, iconAccent = 0xff3159de;
+    public static final int BELOW=0, ABOVE=1, LEFT=2, RIGHT=3;
+    public int labelPosition=BELOW, labelFont=0;
     public int labelSizeSp = 12, labelGapDp = 6, paddingHorizontalDp = 12, paddingVerticalDp = 12;
     public int columnGapDp = 12, rowGapDp = 12;
     public int autoIconDp = 64;
@@ -37,6 +39,7 @@ public final class WidgetConfig {
             j.put("alignment",alignment);j.put("autoIconDp",autoIconDp);j.put("backgroundImage",backgroundImage);j.put("backgroundMode",backgroundMode);j.put("name", name); j.put("apps", new JSONArray(apps)); j.put("iconDp", iconDp);
             j.put("background", background); j.put("opacity", opacity); j.put("labelColor", labelColor);
             j.put("columns", columns); j.put("cornerDp", cornerDp); j.put("labels", labels);
+            j.put("labelPosition",labelPosition); j.put("labelFont",labelFont);
             j.put("labelSizeSp",labelSizeSp);j.put("labelGapDp",labelGapDp);j.put("paddingHorizontalDp",paddingHorizontalDp);j.put("paddingVerticalDp",paddingVerticalDp);j.put("columnGapDp",columnGapDp);j.put("rowGapDp",rowGapDp);
             j.put("badges", badges); j.put("heading", heading); j.put("editButton", editButton);
             j.put("expandIcons", expandIcons); j.put("iconShape", iconShape); j.put("iconStyle", iconStyle); j.put("iconAccent", iconAccent);
@@ -57,6 +60,8 @@ public final class WidgetConfig {
             c.name = j.optString("name", c.name); c.iconDp = LayoutPolicy.iconSize(j.optInt("iconDp", 48));
             c.background = j.optInt("background", c.background); c.opacity = Math.max(0, Math.min(100, j.optInt("opacity", 0)));
             c.labelColor = j.optInt("labelColor", c.labelColor); c.columns = Math.max(0, Math.min(8, j.optInt("columns", 0)));
+            c.labelPosition=bound(j.optInt("labelPosition",BELOW),BELOW,RIGHT);
+            c.labelFont=bound(j.optInt("labelFont",0),0,4);
             c.labelSizeSp=bound(j.optInt("labelSizeSp",12),8,32);c.labelGapDp=bound(j.optInt("labelGapDp",6),0,32);
             c.paddingHorizontalDp=bound(j.optInt("paddingHorizontalDp",12),0,40);c.paddingVerticalDp=bound(j.optInt("paddingVerticalDp",12),0,40);
             c.columnGapDp=evenGap(j.optInt("columnGapDp",12));c.rowGapDp=evenGap(j.optInt("rowGapDp",12));

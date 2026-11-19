@@ -26,6 +26,17 @@ for lang,strings in maps.items():
    expect(bool(b.strip('" ')),'nonempty '+str(key))
    expect(re.findall(format_pattern,a)==re.findall(format_pattern,b),'format arguments '+str(key))
 known={name for typ,name in base if typ=='string'}
+# Icon-title choices live in a dedicated resource file.
+def title_resources(folder):
+ result={}
+ for e in ET.parse(res/folder/'icon_titles.xml').getroot():
+  items=[child.text for child in e] if e.tag=='string-array' else [e.text]
+  expect(all(value and value.strip() for value in items),'empty title choice')
+  result[(e.tag,e.attrib['name'])]=len(items)
+ return result
+titles=title_resources('values')
+for lang in ['ca','es']:expect(title_resources('values-'+lang)==titles,'title choice parity '+lang)
+known.update(name for (tag,name) in titles if tag=='string')
 for p in (root/'app/src/main/java').rglob('*.java'):
  for name in re.findall(r'(?<!android\.)R\.string\.(\w+)',p.read_text(encoding='utf-8')):expect(name in known,'resource reference '+name)
 # All view labels must be resources rather than inline XML text.

@@ -1,0 +1,6 @@
+<resources>
+<string name="label_position">Posición del título</string>
+<string name="label_font">Tipo de letra</string>
+<string-array name="label_positions"><item>Debajo</item><item>Arriba</item><item>Izquierda</item><item>Derecha</item></string-array>
+<string-array name="label_fonts"><item>Sin remates</item><item>Con remates</item><item>Monoespaciada</item><item>Condensada</item><item>Negrita</item></string-array>
+</resources>

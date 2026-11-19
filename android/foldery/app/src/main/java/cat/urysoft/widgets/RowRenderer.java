@@ -26,7 +26,7 @@ public final class RowRenderer {
         if(v.badges)for(int i=0;i<v.apps.size();i++){
             int count=BadgeState.get(c,v.apps.get(i));if(count<=0)continue;
             float x=left+(i%Math.max(1,v.columns))*(m.width+v.columnGapDp),y=(i/Math.max(1,v.columns))*(m.height+v.rowGapDp);
-            canvas.save();canvas.translate((x+halo)*unit,(y-top+halo)*unit);IconRenderer.drawBadge(canvas,m.icon,0,unit,count);canvas.restore();
+            canvas.save();canvas.translate((x+halo+m.iconLeft)*unit,(y-top+halo+m.iconTop)*unit);IconRenderer.drawBadge(canvas,m.icon,0,unit,count);canvas.restore();
         }
         int x=Math.round(halo*unit),y=Math.round(halo*unit),w=Math.min(fullW-x,Math.max(1,Math.round(width*unit))),h=Math.min(fullH-y,Math.max(1,Math.round(height*unit)));
         Bitmap result=Bitmap.createBitmap(plane,x,y,w,h);if(result!=plane)plane.recycle();result.setDensity(dm.densityDpi);return result;
