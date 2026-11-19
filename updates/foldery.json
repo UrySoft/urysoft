@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "foldery",
   "status": "published",
-  "versionCode": 26,
-  "versionName": "1.6.3",
-  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.6.3/Foldery-1.6.3.apk",
-  "sha256": "40569545dcd4b13a1195eb481f939928defb15a4975e457957eae4b505d6427a",
+  "versionCode": 27,
+  "versionName": "1.7.0",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/foldery-1.7.0/Foldery-1.7.0.apk",
+  "sha256": "ac12a5c97b1bd21e2ba3922bebe29bea9b0f95363566b9644f7d3dcd2f368b40",
   "changelog": {
-    "es": "Corrige las sombras recortadas por el escritorio mediante composición de filas completas. Conserva alineación, contactos y desplazamiento.",
-    "ca": "Corregeix les ombres retallades per l’escriptori amb composició de files completes. Conserva alineació, contactes i desplaçament.",
-    "en": "Fixes launcher-clipped shadows using composited full-width rows. Preserves alignment, contacts and scrolling."
+    "es": "Títulos arriba, abajo, a la izquierda o a la derecha en listas y rejillas, con cinco estilos de letra, color y sombra.",
+    "ca": "Títols a sobre, a sota, a la dreta o a l’esquerra en llistes i graelles, amb cinc estils de lletra, color i ombra.",
+    "en": "Place titles above, below, left or right in lists and grids, with five font styles, colour and shadow."
   }
 }
