@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "app": "storagey",
+  "status": "published",
+  "versionCode": 35,
+  "versionName": "4.1.2",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/storagey-4.1.2/Storagey-4.1.2.apk",
+  "sha256": "68ed75133ca0f5a41c1a1c0dfd8b672b7e4c6ac00548454dd8241e6eeecf6e7f",
+  "changelog": {
+    "es": "Corrige la vista de mapa y mosaico en las tarjetas de Mis widgets.",
+    "ca": "Corregeix la vista de mapa i mosaic a les targetes d’Els meus ginys.",
+    "en": "Fixes map and grid previews on My Widgets cards."
+  }
+}

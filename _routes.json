@@ -7,7 +7,8 @@
     "/api/widgery/*",
     "/api/admin/*",
     "/api/analytics",
-    "/api/minairo/*"
+    "/api/minairo/*",
+    "/api/storagey/*"
   ],
   "exclude": []
 }

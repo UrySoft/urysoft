@@ -1,0 +1,47 @@
+name: Publish Storagey 4.1.2
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-storagey
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: android-actions/setup-android@v3
+      - name: Verify checkout availability and installer
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 3 https://urysoft.pages.dev/api/storagey/live/status | jq -e '.available == true'
+          sdkmanager 'build-tools;36.0.0'
+          install -m 0644 release-parts/storagey-4.1.2/Storagey-4.1.2.apk "$RUNNER_TEMP/Storagey-4.1.2.apk"
+          expected="$(jq -er '.sha256' release-parts/storagey-4.1.2/update.json)"
+          echo "$expected  $RUNNER_TEMP/Storagey-4.1.2.apk" | sha256sum --check
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "$RUNNER_TEMP/Storagey-4.1.2.apk" | grep -F 'Signer #1 certificate SHA-256 digest: 69cf3896bbdd726c131892aced6bf196e3f4ac9f95b2cabbe328ee1ced01964e'
+      - name: Publish and verify download before enabling the update feed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! gh release view storagey-4.1.2 >/dev/null 2>&1; then
+            gh release create storagey-4.1.2 "$RUNNER_TEMP/Storagey-4.1.2.apk" --target "$GITHUB_SHA" --title 'Storagey 4.1.2' --notes 'Corrige la previsualización de mapa y mosaico en Mis widgets.'
+          fi
+          feed=release-parts/storagey-4.1.2/update.json
+          curl --fail --silent --show-error --location --retry 3 "$(jq -er '.downloadUrl' "$feed")" -o "$RUNNER_TEMP/storagey-download.apk"
+          echo "$(jq -er '.sha256' "$feed")  $RUNNER_TEMP/storagey-download.apk" | sha256sum --check
+          git pull --ff-only origin main
+          cp "$feed" updates/storagey.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add updates/storagey.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish Storagey 4.1.2 update feed'
+            git push origin HEAD:main
+          fi
