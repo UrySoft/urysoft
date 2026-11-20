@@ -1,1 +1,14 @@
-{"schemaVersion":1,"app":"storagey","status":"unpublished"}
+{
+  "schemaVersion": 1,
+  "app": "storagey",
+  "status": "published",
+  "versionCode": 36,
+  "versionName": "4.1.3",
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/storagey-4.1.3/Storagey-4.1.3.apk",
+  "sha256": "ca77c37c20802a510087b6b908556a62ffac2407220c6ae8ef23b15b2f76d391",
+  "changelog": {
+    "es": "Activa Storagey Premium con PayPal y recupera tu suscripción con Google.",
+    "ca": "Activa Storagey Premium amb PayPal i recupera la subscripció amb Google.",
+    "en": "Activate Storagey Premium with PayPal and restore your subscription through Google."
+  }
+}
