@@ -83,6 +83,7 @@ export async function liveRequest({request,env,params}){
       if(!token)bad('DEVICE_TOKEN_REQUIRED',401);
       const device=await sha256(token);
       if(path==='device/start'){
+        if(data.licenseFormat!==2)bad('UPDATE_REQUIRED',426);
         const code=randomToken(),hash=await sha256(code),mode=data.mode==='restore'?'restore':'subscribe',lang=['ca','en'].includes(data.lang)?data.lang:'es';
         await db.prepare('DELETE FROM premium_challenges WHERE expires_at<?').bind(now).run();
         await db.prepare('INSERT OR IGNORE INTO premium_devices(device_id,created_at) VALUES(?,?)').bind(device,now).run();
