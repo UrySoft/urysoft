@@ -39,3 +39,6 @@
 /updates/*
   Cache-Control: no-store
   X-Content-Type-Options: nosniff
+
+/storagey/premium-real/*
+  Cache-Control: no-store
