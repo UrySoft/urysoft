@@ -21,6 +21,12 @@
 .panel-3{background-position:left bottom}.panel-4{background-position:right bottom}
 .product-identity .product-icon{background:var(--panel);padding:10px;border:1px solid var(--line)}
 @media(max-width:600px){.comic-grid.storagey-comic{grid-template-columns:1fr;gap:15px}}
+.storagey-gallery-hint{margin:0 0 14px}
+#gallery .storagey-screens img{aspect-ratio:945/2048}
+@media(min-width:900px){
+  #gallery .storagey-screens{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}
+  .storagey-gallery-hint{display:none}
+}
 </style>
 <link rel="stylesheet" href="/assets/apps/app-page.css">
 <link rel="stylesheet" href="/assets/brand/site-header.css?v=20261116e">
@@ -63,6 +69,42 @@
       <p class="small"><a href="/legal/storagey/condiciones/2026-11-14.2/" data-t="terms">Condiciones de Premium</a> · <a href="/legal/storagey/privacidad/2026-11-14/" data-t="privacy">Política de privacidad</a></p>
     </section>
   </div>
+  <section id="gallery" aria-labelledby="gallery-title">
+    <h2 id="gallery-title" data-t="galleryTitle">Storagey en imágenes</h2>
+    <p class="small storagey-gallery-hint" data-t="galleryHint">Desliza para ver todas las capturas.</p>
+    <div class="screens storagey-screens">
+      <figure>
+        <a href="./screen-widget-home.jpg" aria-labelledby="screen-caption-0">
+          <img src="./screen-widget-home.jpg" alt="" width="945" height="2048" loading="lazy" decoding="async">
+        </a>
+        <figcaption id="screen-caption-0" data-t="screen0">Widget en la pantalla de inicio</figcaption>
+      </figure>
+      <figure>
+        <a href="./screen-my-widgets.jpg" aria-labelledby="screen-caption-1">
+          <img src="./screen-my-widgets.jpg" alt="" width="945" height="2048" loading="lazy" decoding="async">
+        </a>
+        <figcaption id="screen-caption-1" data-t="screen1">Mis widgets</figcaption>
+      </figure>
+      <figure>
+        <a href="./screen-widget-content.jpg" aria-labelledby="screen-caption-2">
+          <img src="./screen-widget-content.jpg" alt="" width="945" height="2048" loading="lazy" decoding="async">
+        </a>
+        <figcaption id="screen-caption-2" data-t="screen2">Configuración del contenido</figcaption>
+      </figure>
+      <figure>
+        <a href="./screen-widget-appearance.jpg" aria-labelledby="screen-caption-3">
+          <img src="./screen-widget-appearance.jpg" alt="" width="945" height="2048" loading="lazy" decoding="async">
+        </a>
+        <figcaption id="screen-caption-3" data-t="screen3">Aspecto del widget</figcaption>
+      </figure>
+      <figure>
+        <a href="./screen-settings.jpg" aria-labelledby="screen-caption-4">
+          <img src="./screen-settings.jpg" alt="" width="945" height="2048" loading="lazy" decoding="async">
+        </a>
+        <figcaption id="screen-caption-4" data-t="screen4">Configuración general</figcaption>
+      </figure>
+    </div>
+  </section>
   <section id="comic" aria-labelledby="comic-title">
     <h2 id="comic-title" data-t="comicTitle">El salto que casi se pierde</h2>
     <div class="comic-grid storagey-comic">
@@ -110,7 +152,14 @@ const copy = {
     "terms": "Condiciones de Premium",
     "privacy": "Política de privacidad",
     "requirements": "Android 11 o posterior. Los controles interactivos del widget están disponibles desde Android 12.",
-    "credit": "Dirigido por Oriol Badia Campanera"
+    "credit": "Dirigido por Oriol Badia Campanera",
+    "galleryTitle": "Storagey en imágenes",
+    "galleryHint": "Desliza para ver todas las capturas.",
+    "screen0": "Widget en la pantalla de inicio",
+    "screen1": "Mis widgets",
+    "screen2": "Configuración del contenido",
+    "screen3": "Aspecto del widget",
+    "screen4": "Configuración general"
   },
   "ca": {
     "back": "Totes les aplicacions",
@@ -134,7 +183,14 @@ const copy = {
     "terms": "Condicions de Premium",
     "privacy": "Política de privadesa",
     "requirements": "Android 11 o posterior. Els controls interactius del giny estan disponibles a partir d’Android 12.",
-    "credit": "Dirigit per Oriol Badia Campanera"
+    "credit": "Dirigit per Oriol Badia Campanera",
+    "galleryTitle": "Storagey en imatges",
+    "galleryHint": "Fes lliscar per veure totes les captures.",
+    "screen0": "Giny a la pantalla d’inici",
+    "screen1": "Els meus ginys",
+    "screen2": "Configuració del contingut",
+    "screen3": "Aspecte del giny",
+    "screen4": "Configuració general"
   },
   "en": {
     "back": "All apps",
@@ -158,7 +214,14 @@ const copy = {
     "terms": "Premium terms",
     "privacy": "Privacy policy",
     "requirements": "Android 11 or later. Interactive widget controls are available on Android 12 or later.",
-    "credit": "Led by Oriol Badia Campanera"
+    "credit": "Led by Oriol Badia Campanera",
+    "galleryTitle": "Storagey screenshots",
+    "galleryHint": "Swipe to see all screenshots.",
+    "screen0": "Widget on the home screen",
+    "screen1": "My widgets",
+    "screen2": "Widget content settings",
+    "screen3": "Widget appearance",
+    "screen4": "General settings"
   }
 };
 const lang = document.querySelector("#lang");
