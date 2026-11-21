@@ -1,0 +1,27 @@
+name: Publish Storagey 4.1.5
+on:
+  push:
+    branches: ['release/storagey-4.1.5']
+    paths:
+      - 'release-parts/storagey-4.1.5/**'
+      - '.github/workflows/publish-storagey-4.1.5.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble and verify signed installer
+        run: |
+          cp release-parts/storagey-4.1.5/Storagey-4.1.5.apk "$RUNNER_TEMP/Storagey-4.1.5.apk"
+          echo 'd54954bb00f57d302bda60064cee2143d145a75b6fad76a457022efbf9b26f38  '"$RUNNER_TEMP/Storagey-4.1.5.apk" | sha256sum -c -
+      - name: Publish signed installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view storagey-4.1.5 >/dev/null 2>&1; then
+            gh release upload storagey-4.1.5 "$RUNNER_TEMP/Storagey-4.1.5.apk"
+          else
+            gh release create storagey-4.1.5 "$RUNNER_TEMP/Storagey-4.1.5.apk" --target "$GITHUB_SHA" --title "Storagey 4.1.5" --notes "Al visualizar una foto del widget, el visor de Android abre el archivo original."
+          fi
