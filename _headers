@@ -42,3 +42,6 @@
 
 /storagey/premium-real/*
   Cache-Control: no-store
+
+/teclairc/premium-real/*
+  Cache-Control: no-store

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "app": "teclairc",
+  "status": "published",
+  "versionCode": 16,
+  "versionName": "2.2.0",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.2.0.apk",
+  "sha256": "a4293cdac88fd59990a0db1bf024cc62168e4dd73ffb4652ad98177dab70fc81",
+  "changelog": {
+    "es": "Miniaturas nítidas y modo IA por chat con Premium. Nuevo sistema de actualizaciones de UrySoft.",
+    "ca": "Miniatures nítides i mode IA per xat amb Premium. Nou sistema d’actualitzacions d’UrySoft.",
+    "en": "Clear previews and per-chat AI mode with Premium. New UrySoft update channel."
+  }
+}
