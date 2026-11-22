@@ -2,7 +2,7 @@ import {json,authorize,sameOrigin,readBody,batch} from '../../../server/admin-co
 import {analyticsSummary} from '../../../server/site-analytics.js';
 import {operationsSummary} from '../../../server/admin-operations.js';
 import {SEO_REPORT} from '../../../server/seo-report.js';
-const APPS=['lumen','foldery','widgery','nexomesh','minairo'];
+const APPS=['lumen','foldery','widgery','nexomesh','minairo','teclairc'];
 const fields='c.*, (SELECT COUNT(*) FROM comment_reports r WHERE r.comment_id=c.id AND r.status=\'open\') AS reports';
 export async function onRequest({request,env,params}){
  if(!env.COMMENTS_DB)return json({error:'Administración no disponible'},503);

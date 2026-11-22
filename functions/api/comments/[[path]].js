@@ -1,5 +1,5 @@
 import {googleAdmin} from '../../../server/google-auth.js';
-const APPS = new Set(['lumen','nexomesh','foldery','widgery','minairo']);
+const APPS = new Set(['lumen','nexomesh','foldery','widgery','minairo','teclairc']);
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const digest=async s=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))).map(x=>x.toString(16).padStart(2,'0')).join('');
 export async function onRequest({request,env,params}){

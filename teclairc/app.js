@@ -1,18 +1,40 @@
 'use strict';
-async function updateDownload(){
-  const r=await fetch('/updates/teclairc.json',{cache:'no-store'});if(!r.ok)return;
-  const data=await r.json(),name=data.versionName;
-  if(data.app!=='teclairc'||data.status!=='published'||typeof name!=='string'||!/^\d+(?:\.\d+){1,3}$/.test(name))return;
-  const url=new URL(data.downloadUrl);
-  const own=url.href===location.origin+'/descargas/teclairc/TeclaIRC-'+name+'.apk';
-  const release=url.href==='https://github.com/UrySoft/urysoft/releases/download/teclairc-'+name+'/TeclaIRC-'+name+'.apk';
-  if(!own&&!release)return;
-  document.querySelector('#download').href=url.href;
-  document.querySelector('#version').textContent='Versión '+name+' · Android 8 o posterior';
+let publishedVersion = document.body.dataset.version;
+let subscriptionsAvailable;
+
+function renderRelease() {
+  const copy = COPY[document.documentElement.lang];
+  document.querySelector('[data-t="version"]').textContent = copy.version.replace('{version}', publishedVersion);
+  const availability = subscriptionsAvailable === undefined ? 'unknown' : subscriptionsAvailable ? 'subscribe' : 'standby';
+  document.querySelector('#availability').textContent = copy[availability];
 }
-async function updateStatus(){
-  const r=await fetch('/api/teclairc/live/status',{cache:'no-store'});if(!r.ok)return;
-  const status=await r.json();
-  document.querySelector('#availability').textContent=status.available===true?'Para suscribirte o restaurar tu compra, abre Ajustes → TeclaIRC Premium en la aplicación.':'El alta de nuevas suscripciones está pendiente de activación.';
+
+async function updateDownload() {
+  const response = await fetch('/updates/teclairc.json', {cache: 'no-store'});
+  if (!response.ok) return;
+  const data = await response.json();
+  const version = data.versionName;
+  if (data.app !== 'teclairc' || data.status !== 'published' || typeof version !== 'string' || !/^\d+(?:\.\d+){1,3}$/.test(version)) return;
+  const path = '/descargas/teclairc/TeclaIRC-' + version + '.apk';
+  const url = new URL(data.downloadUrl);
+  const official = url.href === 'https://urysoft.pages.dev' + path || url.href === location.origin + path;
+  const release = url.href === 'https://github.com/UrySoft/urysoft/releases/download/teclairc-' + version + '/TeclaIRC-' + version + '.apk';
+  if (!official && !release) return;
+  document.querySelectorAll('.tecla-download').forEach(link => { link.href = official ? path : url.href; });
+  publishedVersion = version;
+  renderRelease();
 }
-updateDownload().catch(()=>{});updateStatus().catch(()=>{});
+
+async function updateStatus() {
+  const response = await fetch('/api/teclairc/live/status', {cache: 'no-store'});
+  if (!response.ok) return;
+  const data = await response.json();
+  if (typeof data.available !== 'boolean') return;
+  subscriptionsAvailable = data.available;
+  renderRelease();
+}
+
+document.querySelector('#lang').addEventListener('change', renderRelease);
+renderRelease();
+updateDownload().catch(() => {});
+updateStatus().catch(() => {});

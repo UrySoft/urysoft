@@ -1,7 +1,7 @@
 import {metrics,aggregate,renderChart} from './charts.js';
 const $=s=>document.querySelector(s),make=(tag,value,cls)=>{const el=document.createElement(tag);if(value!==undefined)el.textContent=value;if(cls)el.className=cls;return el};
 let token='',expiryTimer,analytics=null,currentComment=null,commentCursor=null,reportCursor=null,commentGeneration=0,reportGeneration=0,analyticsGeneration=0,operationsGeneration=0,auditGeneration=0,auditCursor=null;
-const names={lumen:'Lumen',foldery:'Foldery',widgery:'Widgery',nexomesh:'NexoMesh',minairo:'Minairó'},kinds={review:'Opinión',idea:'Idea',bug:'Problema'},reasons={spam:'Spam o publicidad',abuse:'Contenido ofensivo',privacy:'Datos personales',other:'Otro motivo'};
+const names={lumen:'Lumen',foldery:'Foldery',widgery:'Widgery',nexomesh:'NexoMesh',minairo:'Minairó',teclairc:'TeclaIRC'},kinds={review:'Opinión',idea:'Idea',bug:'Problema'},reasons={spam:'Spam o publicidad',abuse:'Contenido ofensivo',privacy:'Datos personales',other:'Otro motivo'};
 const number=n=>new Intl.NumberFormat('es').format(n||0),date=s=>s?new Date(s).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'}):'—';
 const countryNames=new Intl.DisplayNames(['es'],{type:'region'}),country=c=>c==='XX'?'País desconocido':(()=>{try{return countryNames.of(c)}catch{return c}})();
 async function request(path,method='GET',body){
