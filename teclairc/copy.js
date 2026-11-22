@@ -52,7 +52,9 @@ const COPY = {
     "unavailable": "Los comentarios aún no están disponibles. Inténtalo más tarde.",
     "unknown": "Consulta la disponibilidad en Ajustes → TeclaIRC Premium.",
     "version": "Versión {version} · Android 8 o posterior",
-    "webPrivacy": "Privacidad web"
+    "webPrivacy": "Privacidad web",
+    "comingSoon": "Próximamente en Android",
+    "comingSoonNote": "La descarga estará disponible cuando TeclaIRC esté listo."
   },
   "ca": {
     "back": "Totes les aplicacions",
@@ -107,7 +109,9 @@ const COPY = {
     "unavailable": "Els comentaris encara no estan disponibles. Torna-ho a provar més tard.",
     "unknown": "Consulta la disponibilitat a Configuració → TeclaIRC Premium.",
     "version": "Versió {version} · Android 8 o posterior",
-    "webPrivacy": "Privacitat web"
+    "webPrivacy": "Privacitat web",
+    "comingSoon": "Properament a Android",
+    "comingSoonNote": "La descàrrega estarà disponible quan TeclaIRC estigui a punt."
   },
   "en": {
     "back": "All apps",
@@ -162,6 +166,8 @@ const COPY = {
     "unavailable": "Comments are not available yet. Please try again later.",
     "unknown": "Check availability in Settings → TeclaIRC Premium.",
     "version": "Version {version} · Android 8 or later",
-    "webPrivacy": "Website privacy"
+    "webPrivacy": "Website privacy",
+    "comingSoon": "Coming soon to Android",
+    "comingSoonNote": "The download will be available when TeclaIRC is ready."
   }
 };
