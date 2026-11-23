@@ -20,7 +20,8 @@ const COPY = {
     "items": [
       "Previsualiza los enlaces que comparten otros usuarios. Las miniaturas aparecen en la conversación para que puedas ver de qué se trata antes de abrir el enlace.",
       "Abre Galería desde un canal o un privado para ver las miniaturas juntas, por fecha o por usuario, sin buscar entre mensajes.",
-      "Conecta tu cuenta de ChatGPT para generar automáticamente una propuesta a partir de la conversación al tocar «Sugerir respuesta». Puedes revisarla y editarla antes de enviarla."
+      "Conecta tu cuenta de ChatGPT para generar automáticamente una propuesta a partir de la conversación al tocar «Sugerir respuesta». Puedes revisarla y editarla antes de enviarla.",
+      "Al conectarte al mismo servidor, recupera tus privados abiertos y vuelve a entrar en tus canales. Puedes desactivarlo en Ajustes."
     ],
     "kind": "Tipo de mensaje",
     "legalNotice": "Aviso legal",
@@ -30,7 +31,7 @@ const COPY = {
     "message": "Tu mensaje",
     "name": "Nombre público o alias",
     "none": "Sin valoración",
-    "planInfo": "Premium desbloquea las miniaturas nítidas en el chat y la galería. En la versión gratuita se muestran pixeladas. También permite pedir propuestas a tu cuenta de ChatGPT en los chats con el modo de inteligencia artificial activado.",
+    "planInfo": "Las miniaturas se ven nítidas al entrar en la galería o en un chat con miniaturas activadas. Al tocar una miniatura, o su enlace en el chat, se comprueba Premium. El plan mantiene las miniaturas nítidas y permite pedir sugerencias a ChatGPT.",
     "plans": "Premium opcional",
     "price": "0,50 € al mes, con un cobro anual de 6 € por PayPal.",
     "rating": "Valoración (opcional)",
@@ -78,7 +79,8 @@ const COPY = {
     "items": [
       "Previsualitza els enllaços que comparteixen altres usuaris. Les miniatures apareixen a la conversa perquè puguis veure de què es tracta abans d’obrir l’enllaç.",
       "Obre Galeria des d’un canal o un xat privat per veure totes les miniatures juntes, per data o per usuari, sense cercar entre els missatges.",
-      "Connecta el teu compte de ChatGPT per generar automàticament una proposta a partir de la conversa quan toquis «Sugerir respuesta». La pots revisar i editar abans d’enviar-la."
+      "Connecta el teu compte de ChatGPT per generar automàticament una proposta a partir de la conversa quan toquis «Sugerir respuesta». La pots revisar i editar abans d’enviar-la.",
+      "Quan et connectis al mateix servidor, recupera els xats privats oberts i torna a entrar als canals. Ho pots desactivar a Configuració."
     ],
     "kind": "Tipus de missatge",
     "legalNotice": "Avís legal",
@@ -88,7 +90,7 @@ const COPY = {
     "message": "El teu missatge",
     "name": "Nom públic o àlies",
     "none": "Sense valoració",
-    "planInfo": "El Prèmium desbloqueja les miniatures nítides al xat i a la galeria. A la versió gratuïta es mostren pixelades. També permet demanar propostes al teu compte de ChatGPT als xats amb el mode d’intel·ligència artificial activat.",
+    "planInfo": "Les miniatures es veuen nítides quan obres la galeria o un xat amb miniatures activades. Quan toques una miniatura o el seu enllaç al xat, es comprova el Prèmium. El pla manté les miniatures nítides i permet demanar suggeriments a ChatGPT.",
     "plans": "Prèmium opcional",
     "price": "0,50 € al mes, amb un cobrament anual de 6 € per PayPal.",
     "rating": "Valoració (opcional)",
@@ -136,7 +138,8 @@ const COPY = {
     "items": [
       "Preview links other users share. Thumbnails appear in the conversation so you can see what a link contains before opening it.",
       "Open Gallery from a channel or private chat to browse thumbnails by date or user without scrolling through messages.",
-      "Connect your ChatGPT account to automatically generate a reply based on the conversation when you tap “Sugerir respuesta”. You can review and edit it before sending."
+      "Connect your ChatGPT account to automatically generate a reply based on the conversation when you tap “Sugerir respuesta”. You can review and edit it before sending.",
+      "When you connect to the same server, restore open private chats and rejoin channels. You can turn this off in Settings."
     ],
     "kind": "Message type",
     "legalNotice": "Legal notice",
@@ -146,7 +149,7 @@ const COPY = {
     "message": "Your message",
     "name": "Public name or nickname",
     "none": "No rating",
-    "planInfo": "Premium unlocks sharp thumbnails in chat and in the gallery. The free version shows pixelated previews. Premium also lets you request reply suggestions from your ChatGPT account in chats with AI mode enabled.",
+    "planInfo": "Thumbnails appear sharp when you open the gallery or a chat with previews enabled. Tapping a thumbnail or its link in chat checks Premium. The plan keeps thumbnails sharp and lets you request suggestions from ChatGPT.",
     "plans": "Optional Premium",
     "price": "€0.50 a month, billed annually at €6 via PayPal.",
     "rating": "Rating (optional)",

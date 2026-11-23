@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "teclairc",
   "status": "published",
-  "versionCode": 19,
-  "versionName": "2.4.1",
-  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.1.apk",
-  "sha256": "86e1d836226820e7fa5cbb401c1510574578ee10425311fff42604b4d51ff2d7",
+  "versionCode": 21,
+  "versionName": "2.4.3",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.3.apk",
+  "sha256": "3881a5bbdd215abd5d2175dea48aafbf258fe938f8df3dc2da889c2caec8ed1f",
   "changelog": {
-    "es": "Haz capturas de pantalla y borra el historial local de un chat, de un canal o de todo el perfil.",
-    "ca": "Fes captures de pantalla i esborra l’historial local d’un xat, d’un canal o de tot el perfil.",
-    "en": "Take screenshots and clear local history for one chat, one channel, or your entire profile."
+    "es": "Recupera los chats abiertos y vuelve a entrar en los canales al conectarte al mismo servidor. Galería con búsqueda y páginas de 100 resultados.",
+    "ca": "Recupera els xats oberts i torna a entrar als canals quan et connectis al mateix servidor. Galeria amb cerca i pàgines de 100 resultats.",
+    "en": "Restore open chats and rejoin channels when connecting to the same server. The gallery supports search and shows 100 results per page."
   }
 }
