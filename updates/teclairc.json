@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "teclairc",
   "status": "published",
-  "versionCode": 18,
-  "versionName": "2.4.0",
-  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.0.apk",
-  "sha256": "32848712a1004e27637f96ef4a13124dbb27da36c5d0566bca0122a6d72712df",
+  "versionCode": 19,
+  "versionName": "2.4.1",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.1.apk",
+  "sha256": "86e1d836226820e7fa5cbb401c1510574578ee10425311fff42604b4d51ff2d7",
   "changelog": {
-    "es": "Galería por fecha o usuario con navegación por gestos. Gestión de imágenes compartidas y enlaces sin prefijo por defecto. Puedes desactivar y reactivar Premium en el dispositivo.",
-    "ca": "Galeria per data o usuari amb navegació per gestos. Gestió de les imatges compartides i enllaços sense prefix per defecte. Pots desactivar i reactivar Premium al dispositiu.",
-    "en": "Gallery sorted by date or user with swipe navigation. Manage shared images and share links without the prefix by default. Turn Premium off and back on on your device."
+    "es": "Haz capturas de pantalla y borra el historial local de un chat, de un canal o de todo el perfil.",
+    "ca": "Fes captures de pantalla i esborra l’historial local d’un xat, d’un canal o de tot el perfil.",
+    "en": "Take screenshots and clear local history for one chat, one channel, or your entire profile."
   }
 }

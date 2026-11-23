@@ -22,3 +22,26 @@
   font-weight: 650;
 }
 .tecla-plans p { margin: 0 0 12px; }
+
+.tecla-screens {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+}
+.tecla-screens figure { margin: 0; }
+.tecla-screens a { display: block; border-radius: 15px; }
+.tecla-screens img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: inherit;
+}
+.tecla-screens figcaption {
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: .9375rem;
+}
+@media (max-width: 680px) {
+  .tecla-screens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -14,14 +14,13 @@ const COPY = {
     "error": "No se pudo enviar. Tu texto se conserva para que puedas reintentarlo.",
     "features": "Qué puedes hacer",
     "gallery": "Capturas de la app",
-    "galleryPending": "Las capturas oficiales se añadirán aquí.",
     "idea": "Propuesta de mejora",
     "installHelp": "¿Problemas al instalar? Guía Android",
-    "intro": "Entra en un canal, participa en la conversación y pasa a un privado cuando quieras.",
+    "intro": "TeclaIRC es un cliente IRC para Android preconfigurado para conectarte al servidor público ChatHispano. Elige un alias, entra en un canal o abre un chat privado.",
     "items": [
-      "Explora los canales de ChatHispano y conversa en privado.",
-      "Salta entre canales y privados con pestañas.",
-      "Comparte imágenes y encuentra las que aparecen en tus conversaciones en la galería."
+      "Previsualiza los enlaces que comparten otros usuarios. Las miniaturas aparecen en la conversación para que puedas ver de qué se trata antes de abrir el enlace.",
+      "Abre Galería desde un canal o un privado para ver las miniaturas juntas, por fecha o por usuario, sin buscar entre mensajes.",
+      "Conecta tu cuenta de ChatGPT para generar automáticamente una propuesta a partir de la conversación al tocar «Sugerir respuesta». Puedes revisarla y editarla antes de enviarla."
     ],
     "kind": "Tipo de mensaje",
     "legalNotice": "Aviso legal",
@@ -31,7 +30,7 @@ const COPY = {
     "message": "Tu mensaje",
     "name": "Nombre público o alias",
     "none": "Sin valoración",
-    "planInfo": "Vistas previas nítidas y sugerencias bajo petición en chats con el modo de inteligencia artificial activado.",
+    "planInfo": "Premium desbloquea las miniaturas nítidas en el chat y la galería. En la versión gratuita se muestran pixeladas. También permite pedir propuestas a tu cuenta de ChatGPT en los chats con el modo de inteligencia artificial activado.",
     "plans": "Premium opcional",
     "price": "0,50 € al mes, con un cobro anual de 6 € por PayPal.",
     "rating": "Valoración (opcional)",
@@ -48,11 +47,15 @@ const COPY = {
     "steps": "Empieza a chatear",
     "subscribe": "Para suscribirte, abre Ajustes → TeclaIRC Premium en la app.",
     "support": "Ayuda y contacto",
-    "title": "ChatHispano, en tu Android",
+    "title": "Tu cliente IRC para ChatHispano",
     "unavailable": "Los comentarios aún no están disponibles. Inténtalo más tarde.",
     "unknown": "Consulta la disponibilidad en Ajustes → TeclaIRC Premium.",
     "version": "Versión {version} · Android 8 o posterior",
-    "webPrivacy": "Privacidad web"
+    "webPrivacy": "Privacidad web",
+    "screenChat": "Canal con una vista previa y acceso a Galería",
+    "screenServidor": "Conectado a ChatHispano",
+    "screenCanales": "Buscador de canales públicos",
+    "screenConexion": "Ajustes de conexión"
   },
   "ca": {
     "back": "Totes les aplicacions",
@@ -69,14 +72,13 @@ const COPY = {
     "error": "No s’ha pogut enviar. El text es conserva perquè ho puguis tornar a provar.",
     "features": "Què hi pots fer",
     "gallery": "Captures de l’aplicació",
-    "galleryPending": "Les captures oficials s’afegiran aquí.",
     "idea": "Proposta de millora",
     "installHelp": "Problemes per instal·lar? Guia Android",
-    "intro": "Entra en un canal, participa en la conversa i continua en privat quan vulguis.",
+    "intro": "TeclaIRC és un client IRC per a Android preconfigurat per connectar-te al servidor públic ChatHispano. Tria un àlies, entra en un canal o obre un xat privat.",
     "items": [
-      "Explora els canals de ChatHispano i conversa en privat.",
-      "Canvia de canal o de conversa privada amb pestanyes.",
-      "Comparteix imatges i troba a la galeria les que apareixen a les converses."
+      "Previsualitza els enllaços que comparteixen altres usuaris. Les miniatures apareixen a la conversa perquè puguis veure de què es tracta abans d’obrir l’enllaç.",
+      "Obre Galeria des d’un canal o un xat privat per veure totes les miniatures juntes, per data o per usuari, sense cercar entre els missatges.",
+      "Connecta el teu compte de ChatGPT per generar automàticament una proposta a partir de la conversa quan toquis «Sugerir respuesta». La pots revisar i editar abans d’enviar-la."
     ],
     "kind": "Tipus de missatge",
     "legalNotice": "Avís legal",
@@ -86,7 +88,7 @@ const COPY = {
     "message": "El teu missatge",
     "name": "Nom públic o àlies",
     "none": "Sense valoració",
-    "planInfo": "Previsualitzacions nítides i suggeriments a petició als xats amb el mode d’intel·ligència artificial activat.",
+    "planInfo": "El Prèmium desbloqueja les miniatures nítides al xat i a la galeria. A la versió gratuïta es mostren pixelades. També permet demanar propostes al teu compte de ChatGPT als xats amb el mode d’intel·ligència artificial activat.",
     "plans": "Prèmium opcional",
     "price": "0,50 € al mes, amb un cobrament anual de 6 € per PayPal.",
     "rating": "Valoració (opcional)",
@@ -103,11 +105,15 @@ const COPY = {
     "steps": "Comença a xatejar",
     "subscribe": "Per subscriure-t’hi, obre Configuració → TeclaIRC Premium a l’aplicació.",
     "support": "Ajuda i contacte",
-    "title": "ChatHispano, al teu Android",
+    "title": "El teu client IRC per a ChatHispano",
     "unavailable": "Els comentaris encara no estan disponibles. Torna-ho a provar més tard.",
     "unknown": "Consulta la disponibilitat a Configuració → TeclaIRC Premium.",
     "version": "Versió {version} · Android 8 o posterior",
-    "webPrivacy": "Privacitat web"
+    "webPrivacy": "Privacitat web",
+    "screenChat": "Canal amb una previsualització i accés a Galeria",
+    "screenServidor": "Connectat a ChatHispano",
+    "screenCanales": "Cercador de canals públics",
+    "screenConexion": "Configuració de la connexió"
   },
   "en": {
     "back": "All apps",
@@ -124,14 +130,13 @@ const COPY = {
     "error": "Could not submit. Your text has been kept so you can retry.",
     "features": "What you can do",
     "gallery": "App screenshots",
-    "galleryPending": "Official screenshots will be added here.",
     "idea": "Improvement idea",
     "installHelp": "Trouble installing? Android guide",
-    "intro": "Join a channel, get into the conversation, and switch to a private chat whenever you like.",
+    "intro": "TeclaIRC is an Android IRC client preconfigured for the public ChatHispano server. Pick a nickname, join a channel, or start a private chat.",
     "items": [
-      "Explore ChatHispano channels and chat privately.",
-      "Switch between channels and private chats with tabs.",
-      "Share pictures and find images from your conversations in the gallery."
+      "Preview links other users share. Thumbnails appear in the conversation so you can see what a link contains before opening it.",
+      "Open Gallery from a channel or private chat to browse thumbnails by date or user without scrolling through messages.",
+      "Connect your ChatGPT account to automatically generate a reply based on the conversation when you tap “Sugerir respuesta”. You can review and edit it before sending."
     ],
     "kind": "Message type",
     "legalNotice": "Legal notice",
@@ -141,7 +146,7 @@ const COPY = {
     "message": "Your message",
     "name": "Public name or nickname",
     "none": "No rating",
-    "planInfo": "Clear previews and on-demand reply suggestions in chats with artificial intelligence mode enabled.",
+    "planInfo": "Premium unlocks sharp thumbnails in chat and in the gallery. The free version shows pixelated previews. Premium also lets you request reply suggestions from your ChatGPT account in chats with AI mode enabled.",
     "plans": "Optional Premium",
     "price": "€0.50 a month, billed annually at €6 via PayPal.",
     "rating": "Rating (optional)",
@@ -158,10 +163,14 @@ const COPY = {
     "steps": "Start chatting",
     "subscribe": "To subscribe, open Settings → TeclaIRC Premium in the app.",
     "support": "Help and contact",
-    "title": "ChatHispano on your Android phone",
+    "title": "Your IRC client for ChatHispano",
     "unavailable": "Comments are not available yet. Please try again later.",
     "unknown": "Check availability in Settings → TeclaIRC Premium.",
     "version": "Version {version} · Android 8 or later",
-    "webPrivacy": "Website privacy"
+    "webPrivacy": "Website privacy",
+    "screenChat": "Channel with a link preview and Gallery access",
+    "screenServidor": "Connected to ChatHispano",
+    "screenCanales": "Public channel search",
+    "screenConexion": "Connection settings"
   }
 };
