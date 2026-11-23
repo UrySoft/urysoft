@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "teclairc",
   "status": "published",
-  "versionCode": 21,
-  "versionName": "2.4.3",
-  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.3.apk",
-  "sha256": "3881a5bbdd215abd5d2175dea48aafbf258fe938f8df3dc2da889c2caec8ed1f",
+  "versionCode": 24,
+  "versionName": "2.4.6",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.6.apk",
+  "sha256": "b1a4b6c08c4f542fe16baf95d029734ad875c7eb147d2b2305b9d4d3ea4964d5",
   "changelog": {
-    "es": "Recupera los chats abiertos y vuelve a entrar en los canales al conectarte al mismo servidor. Galería con búsqueda y páginas de 100 resultados.",
-    "ca": "Recupera els xats oberts i torna a entrar als canals quan et connectis al mateix servidor. Galeria amb cerca i pàgines de 100 resultats.",
-    "en": "Restore open chats and rejoin channels when connecting to the same server. The gallery supports search and shows 100 results per page."
+    "es": "La galería usa menos memoria al cargar miniaturas. Al cambiar de página se cancelan las cargas que ya no ves. Si falla una vista previa, puedes seguir navegando.",
+    "ca": "La galeria fa servir menys memòria en carregar miniatures. En canviar de pàgina es cancel·len les càrregues que ja no veus. Si falla una previsualització, pots continuar navegant.",
+    "en": "The gallery uses less memory when loading thumbnails. Moving to another page cancels loads for thumbnails you can no longer see. If a preview fails, you can keep browsing."
   }
 }

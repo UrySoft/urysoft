@@ -19,7 +19,7 @@ const COPY = {
     "intro": "TeclaIRC es un cliente IRC para Android preconfigurado para conectarte al servidor público ChatHispano. Elige un alias, entra en un canal o abre un chat privado.",
     "items": [
       "Previsualiza los enlaces que comparten otros usuarios. Las miniaturas aparecen en la conversación para que puedas ver de qué se trata antes de abrir el enlace.",
-      "Abre Galería desde un canal o un privado para ver las miniaturas juntas, por fecha o por usuario, sin buscar entre mensajes.",
+      "En Galería puedes buscar las miniaturas de un canal o privado y recorrerlas por fecha o usuario en páginas de 100. Si una vista previa falla, puedes seguir viendo las demás.",
       "Conecta tu cuenta de ChatGPT para generar automáticamente una propuesta a partir de la conversación al tocar «Sugerir respuesta». Puedes revisarla y editarla antes de enviarla.",
       "Al conectarte al mismo servidor, recupera tus privados abiertos y vuelve a entrar en tus canales. Puedes desactivarlo en Ajustes."
     ],
@@ -78,7 +78,7 @@ const COPY = {
     "intro": "TeclaIRC és un client IRC per a Android preconfigurat per connectar-te al servidor públic ChatHispano. Tria un àlies, entra en un canal o obre un xat privat.",
     "items": [
       "Previsualitza els enllaços que comparteixen altres usuaris. Les miniatures apareixen a la conversa perquè puguis veure de què es tracta abans d’obrir l’enllaç.",
-      "Obre Galeria des d’un canal o un xat privat per veure totes les miniatures juntes, per data o per usuari, sense cercar entre els missatges.",
+      "A Galeria pots cercar les miniatures d’un canal o un xat privat i veure-les per data o per usuari en pàgines de 100. Si falla una previsualització, pots continuar veient les altres.",
       "Connecta el teu compte de ChatGPT per generar automàticament una proposta a partir de la conversa quan toquis «Sugerir respuesta». La pots revisar i editar abans d’enviar-la.",
       "Quan et connectis al mateix servidor, recupera els xats privats oberts i torna a entrar als canals. Ho pots desactivar a Configuració."
     ],
@@ -137,7 +137,7 @@ const COPY = {
     "intro": "TeclaIRC is an Android IRC client preconfigured for the public ChatHispano server. Pick a nickname, join a channel, or start a private chat.",
     "items": [
       "Preview links other users share. Thumbnails appear in the conversation so you can see what a link contains before opening it.",
-      "Open Gallery from a channel or private chat to browse thumbnails by date or user without scrolling through messages.",
+      "In Gallery, search thumbnails from a channel or private chat and browse them by date or user, 100 per page. If a preview fails, you can keep browsing the others.",
       "Connect your ChatGPT account to automatically generate a reply based on the conversation when you tap “Sugerir respuesta”. You can review and edit it before sending.",
       "When you connect to the same server, restore open private chats and rejoin channels. You can turn this off in Settings."
     ],
