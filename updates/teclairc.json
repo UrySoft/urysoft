@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "teclairc",
   "status": "published",
-  "versionCode": 16,
-  "versionName": "2.2.0",
-  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.2.0.apk",
-  "sha256": "a4293cdac88fd59990a0db1bf024cc62168e4dd73ffb4652ad98177dab70fc81",
+  "versionCode": 18,
+  "versionName": "2.4.0",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.0.apk",
+  "sha256": "32848712a1004e27637f96ef4a13124dbb27da36c5d0566bca0122a6d72712df",
   "changelog": {
-    "es": "Miniaturas nítidas y modo IA por chat con Premium. Nuevo sistema de actualizaciones de UrySoft.",
-    "ca": "Miniatures nítides i mode IA per xat amb Premium. Nou sistema d’actualitzacions d’UrySoft.",
-    "en": "Clear previews and per-chat AI mode with Premium. New UrySoft update channel."
+    "es": "Galería por fecha o usuario con navegación por gestos. Gestión de imágenes compartidas y enlaces sin prefijo por defecto. Puedes desactivar y reactivar Premium en el dispositivo.",
+    "ca": "Galeria per data o usuari amb navegació per gestos. Gestió de les imatges compartides i enllaços sense prefix per defecte. Pots desactivar i reactivar Premium al dispositiu.",
+    "en": "Gallery sorted by date or user with swipe navigation. Manage shared images and share links without the prefix by default. Turn Premium off and back on on your device."
   }
 }
