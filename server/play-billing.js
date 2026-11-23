@@ -1,13 +1,17 @@
 import { issueStorageyLicense } from './storagey-live-license.js';
 import { issueTeclaIRCLicense } from './teclairc-live-license.js';
 import { issueMinairoLicense } from './minairo-live-license.js';
+import { issueFolderyLicense } from './foldery-live-license.js';
+import { issueWidgeryLicense } from './widgery-live-license.js';
 
 export const catalog = Object.freeze({
   storagey: { app: 'com.urysoft.storagey', prefix: 'sp_', env: 'STORAGEY', issue: issueStorageyLicense },
   teclairc: { app: 'com.urysoft.uryirc', prefix: 'ti_', env: 'TECLAIRC', issue: issueTeclaIRCLicense },
   minairo: { app: 'com.urysoft.minairo', prefix: 'mp_', env: 'MINAIRO', issue: issueMinairoLicense },
+  foldery: { app: 'cat.urysoft.widgets', prefix: 'fp_', env: 'FOLDERY', product: 'foldery_premium', issue: issueFolderyLicense },
+  widgery: { app: 'com.urisoft.widgery', prefix: 'wp_', env: 'WIDGERY', product: 'widgery_premium', issue: issueWidgeryLicense },
 });
-const product = 'premium';
+const defaultProduct = 'premium';
 const plan = 'annual';
 const oauthUrl = 'https://oauth2.googleapis.com/token';
 const publisher = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/';
@@ -18,7 +22,7 @@ const hash = async input => Array.from(new Uint8Array(await crypto.subtle.digest
 const encodeJson = value => b64(encoder.encode(JSON.stringify(value)));
 const response = (value, status = 200) => Response.json(value, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
 
-export function evaluatePurchase(purchase, boundAccount, now, allowTestPurchases = false) {
+export function evaluatePurchase(purchase, boundAccount, now, allowTestPurchases = false, product = defaultProduct) {
   if (purchase?.externalAccountIdentifiers?.obfuscatedExternalAccountId !== boundAccount) return { state: 'owner_mismatch' };
   if (purchase.testPurchase && !allowTestPurchases) return { state: 'test_purchase' };
   if (purchase.subscriptionState === 'SUBSCRIPTION_STATE_PENDING') return { state: 'pending_payment' };
@@ -73,6 +77,7 @@ function serviceAccount(env) {
 export async function playRequest({ request, env, params }, fetcher = fetch, now = Date.now()) {
   const entry = Object.hasOwn(catalog, params.app) ? catalog[params.app] : null;
   if (!entry) return response({ error: 'UNKNOWN_APP' }, 404);
+  const product = entry.product ?? defaultProduct;
   const signer = env[entry.env + '_LIVE_LICENSE_PRIVATE_KEY'];
   const google = serviceAccount(env);
   const db = env[entry.env + '_LIVE_DB'];
@@ -110,7 +115,8 @@ export async function playRequest({ request, env, params }, fetcher = fetch, now
     const verified = await lookup();
     if ([404, 410].includes(verified.status)) return response({ state: 'free' });
     if (!verified.ok) throw new Error('Verification unavailable');
-    const entitlement = evaluatePurchase(await verified.json(), device, now, env.GOOGLE_PLAY_ALLOW_TEST_PURCHASES === 'yes');
+    const allowTestPurchases = env.GOOGLE_PLAY_ALLOW_TEST_PURCHASES === 'yes';
+    const entitlement = evaluatePurchase(await verified.json(), device, now, allowTestPurchases, product);
     if (entitlement.state !== 'premium') return response({ state: entitlement.state });
     const account = await hash('google-play:' + entry.app + ':' + device);
     const signing = { PAYPAL_ENVIRONMENT: 'live', [entry.env + '_LICENSE_PRIVATE_KEY']: signer };
@@ -123,7 +129,7 @@ export async function playRequest({ request, env, params }, fetcher = fetch, now
       if (!acknowledgement.ok) {
         const retried = await lookup();
         if (!retried.ok) throw new Error('Acknowledgement unavailable');
-        const verifiedAgain = evaluatePurchase(await retried.json(), device, now, env.GOOGLE_PLAY_ALLOW_TEST_PURCHASES === 'yes');
+        const verifiedAgain = evaluatePurchase(await retried.json(), device, now, allowTestPurchases, product);
         if (verifiedAgain.state !== 'premium' || verifiedAgain.needsAcknowledgement
           || verifiedAgain.expires !== entitlement.expires || verifiedAgain.renewing !== entitlement.renewing) throw new Error('Acknowledgement unavailable');
       }

@@ -10,7 +10,8 @@
     "/api/minairo/*",
     "/api/storagey/*",
     "/api/teclairc/*",
-    "/api/play-billing/*"
+    "/api/play-billing/*",
+    "/api/review-access/*"
   ],
   "exclude": []
 }
