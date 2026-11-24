@@ -1,4 +1,4 @@
-"""Preparar la cuenta de Google Play de Foldery o Widgery y conectar una credencial al servidor."""
+"""Configurar la validación de suscripciones de una aplicación UrySoft mediante su cuenta de Google Play."""
 import argparse
 import json
 import os
@@ -22,7 +22,11 @@ class BillingApp:
 
     @property
     def name(self):
-        return self.slug.capitalize()
+        return "TeclaIRC" if self.slug == "teclairc" else self.slug.capitalize()
+
+    @property
+    def product(self):
+        return self.slug + "_premium" if self.slug in ("foldery", "widgery") else "premium"
 
     @property
     def service_secret(self):
@@ -66,9 +70,18 @@ def prepare_account(project, app=FOLDERY):
     expected = f"{account_id}@{project}.iam.gserviceaccount.com"
     gcloud("services", "enable", "iam.googleapis.com", "androidpublisher.googleapis.com", scope)
     existing = gcloud("iam", "service-accounts", "list", scope, "--format=value(email)")
-    if expected not in existing.splitlines():
+    newly_created = expected not in existing.splitlines()
+    if newly_created:
         gcloud("iam", "service-accounts", "create", account_id, scope, f"--display-name={app.name} - Google Play Billing")
-    account = json.loads(gcloud("iam", "service-accounts", "describe", expected, scope, "--format=json"))
+    for attempt in range(8):
+        described = subprocess.run(["gcloud", "iam", "service-accounts", "describe", expected, scope, "--format=json"],
+                                   capture_output=True, text=True)
+        if described.returncode == 0:
+            break
+        if not newly_created or "NOT_FOUND" not in described.stderr or attempt == 7:
+            raise ValueError(f"Google no ha podido consultar {expected}. {described.stderr.strip()}")
+        time.sleep(3)
+    account = json.loads(described.stdout)
     if account.get("disabled") or account.get("email") != expected:
         raise ValueError("Google no ha confirmado que la cuenta de servicio esté activa.")
     print("Envía a quien gestiona Play Console únicamente este correo:")
@@ -95,8 +108,8 @@ def connect_credential(project, filename, app=FOLDERY):
         raise ValueError("Se necesita Wrangler, la herramienta oficial de Cloudflare, con acceso al proyecto urysoft.")
     signing = read_credential(project, filename)
     owner = signing["client_email"]
-    if app.slug == "widgery" and owner != f"{app.slug}-play-billing@{project}.iam.gserviceaccount.com":
-        raise ValueError("Widgery requiere su propia cuenta de servicio.")
+    if app.slug != "foldery" and owner != f"{app.slug}-play-billing@{project}.iam.gserviceaccount.com":
+        raise ValueError(f"{app.name} requiere su propia cuenta de servicio.")
     projects = subprocess.run(["wrangler", "pages", "project", "list"], check=True, capture_output=True, text=True)
     if not re.search(r"(?<![a-z0-9.-])urysoft\.pages\.dev(?![a-z0-9.-])", projects.stdout, re.I):
         raise ValueError("La sesión de Cloudflare no muestra el proyecto que sirve urysoft.pages.dev.")
@@ -120,7 +133,7 @@ def billing_available(app=FOLDERY):
                       headers={"Cache-Control": "no-cache", "User-Agent": "UrySoft-Play/1.0"})
     with urlopen(request, timeout=15) as response:
         status = json.load(response)
-    if status.get("product") != app.slug + "_premium" or status.get("plan") != "annual":
+    if status.get("product") != app.product or status.get("plan") != "annual":
         raise ValueError(f"El servidor no ha identificado el plan anual de {app.name}.")
     return status.get("available") is True
 
@@ -261,7 +274,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("paso", nargs="?", choices=["cuenta", "conectar", "activar"], default="cuenta",
                         help="cuenta prepara la identidad, conectar importa una credencial, activar configura Cloudflare y despliega")
-    parser.add_argument("--app", choices=["foldery", "widgery"], default="foldery", help="aplicación que se va a configurar")
+    parser.add_argument("--app", choices=["foldery", "widgery", "storagey", "teclairc"], default="foldery", help="aplicación que se va a configurar")
     parser.add_argument("--proyecto", help="identificador del proyecto de Google Cloud de UrySoft")
     parser.add_argument("--credencial", type=Path, help="archivo local de la cuenta autorizada, solo para conectar")
     args = parser.parse_args()
