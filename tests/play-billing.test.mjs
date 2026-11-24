@@ -107,3 +107,22 @@ test('Fails closed when disabled or acknowledgement fails and recognises an idem
   }, now);
   assert.equal((await concurrent.json()).state, 'premium');
 });
+
+test('Foldery credentials enable only Foldery and an explicit app setting takes priority', async () => {
+  const settings = {
+    FOLDERY_LIVE_DB: db, FOLDERY_LIVE_LICENSE_PRIVATE_KEY: pk,
+    WIDGERY_LIVE_DB: db, WIDGERY_LIVE_LICENSE_PRIVATE_KEY: pk,
+    FOLDERY_PLAY_SERVICE_ACCOUNT: serviceAccount, FOLDERY_PLAY_BILLING_ENABLED: 'yes',
+  };
+  async function available(slug, environment) {
+    const request = new Request('https://example.invalid/api/play-billing/' + slug);
+    return (await (await playRequest({ request, env: environment, params: { app: slug } })).json()).available;
+  }
+  assert.equal(await available('foldery', settings), true);
+  assert.equal(await available('widgery', settings), false);
+  const shared = { ...settings, GOOGLE_PLAY_SERVICE_ACCOUNT: serviceAccount, GOOGLE_PLAY_BILLING_ENABLED: 'yes' };
+  assert.equal(await available('foldery', { ...shared, FOLDERY_PLAY_BILLING_ENABLED: 'no' }), false);
+  assert.equal(await available('foldery', { ...shared, FOLDERY_PLAY_SERVICE_ACCOUNT: '' }), false);
+  assert.equal(await available('foldery', { ...shared, FOLDERY_PLAY_BILLING_ENABLED: undefined }), false);
+  assert.equal(await available('foldery', { ...shared, FOLDERY_PLAY_SERVICE_ACCOUNT: undefined }), false);
+});

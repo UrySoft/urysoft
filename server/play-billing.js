@@ -66,9 +66,9 @@ async function accessToken(serviceAccount, now, fetcher) {
   return grant.access_token;
 }
 
-function serviceAccount(env) {
+function serviceAccount(raw) {
   try {
-    const value = JSON.parse(env.GOOGLE_PLAY_SERVICE_ACCOUNT);
+    const value = JSON.parse(raw);
     if (value.type === 'service_account' && value.client_email && value.private_key_id && value.private_key) return value;
   } catch {}
   return null;
@@ -79,9 +79,13 @@ export async function playRequest({ request, env, params }, fetcher = fetch, now
   if (!entry) return response({ error: 'UNKNOWN_APP' }, 404);
   const product = entry.product ?? defaultProduct;
   const signer = env[entry.env + '_LIVE_LICENSE_PRIVATE_KEY'];
-  const google = serviceAccount(env);
+  const appAccount = env[entry.env + '_PLAY_SERVICE_ACCOUNT'];
+  const appEnabled = env[entry.env + '_PLAY_BILLING_ENABLED'];
+  const appConfigured = appAccount !== undefined || appEnabled !== undefined;
+  const google = serviceAccount(appConfigured ? appAccount : env.GOOGLE_PLAY_SERVICE_ACCOUNT);
+  const enabled = appConfigured ? appEnabled : env.GOOGLE_PLAY_BILLING_ENABLED;
   const db = env[entry.env + '_LIVE_DB'];
-  const ready = env.GOOGLE_PLAY_BILLING_ENABLED === 'yes' && !!google && !!signer && !!db;
+  const ready = enabled === 'yes' && !!google && !!signer && !!db;
   if (request.method === 'GET') return response({ available: ready, product, plan });
   if (!ready) return response({ error: 'BILLING_UNAVAILABLE' }, 503);
   if (request.method !== 'POST') return response({ error: 'METHOD_NOT_ALLOWED' }, 405);
