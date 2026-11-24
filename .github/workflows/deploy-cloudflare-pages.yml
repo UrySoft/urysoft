@@ -1,0 +1,59 @@
+name: Deploy UrySoft to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: urysoft-pages-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate administration and Pages Functions
+        run: |
+          node tests/admin.test.mjs
+          node tests/admin-evolution.test.mjs
+          node tests/comments.test.mjs
+      - name: Prepare public site
+        run: |
+          mkdir -p "$RUNNER_TEMP/urysoft-pages"
+          git archive HEAD _headers _redirects _routes.json admin apps assets ayuda calaix descargas foldery googlefbc0563638bb9d4d.html index.html legal minairo robots.txt sitemap.xml storagey teclairc tienda updates |
+            tar -x -C "$RUNNER_TEMP/urysoft-pages"
+      - name: Publish production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -z "$CLOUDFLARE_API_TOKEN" || -z "$CLOUDFLARE_ACCOUNT_ID" ]]; then
+            echo "::error::Set CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in GitHub Actions secrets."
+            exit 1
+          fi
+          # Run from the checkout so Wrangler can bundle functions/ and its imports from server/.
+          npx --yes wrangler@4.167.0 pages deploy "$RUNNER_TEMP/urysoft-pages" \
+            --project-name=urysoft --branch=main --commit-hash="$GITHUB_SHA"
+      - name: Verify production administration
+        run: |
+          revision=$(sed -nE 's/.*(\/assets\/admin\/admin\.js\?v=[^"]+).*/\1/p' admin/index.html)
+          test -n "$revision"
+          for attempt in {1..12}; do
+            if curl -fsSL --max-time 10 "https://www.urysoft.com/admin/?deployment=$GITHUB_SHA-$attempt" |
+                grep -F "$revision" >/dev/null; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::The production admin page is not serving the expected revision."
+          exit 1
