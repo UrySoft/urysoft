@@ -1,6 +1,7 @@
+import { liveFlag } from './live-flag.js';
 // Explicit, isolated live configuration. There is no fallback to test credentials.
 export function liveProfile(env){
-  if(env.STORAGEY_LIVE_PAYMENTS!=='enabled'||env.STORAGEY_LIVE_SELLER_READY!=='yes'||env.STORAGEY_LIVE_GOOGLE_PUBLIC!=='yes')return null;
+  if(env.STORAGEY_LIVE_PAYMENTS!=='enabled'||!liveFlag(env, 'STORAGEY', 'SELLER_READY')||!liveFlag(env, 'STORAGEY', 'GOOGLE_PUBLIC'))return null;
   const names=['STORAGEY_LIVE_DB','STORAGEY_LIVE_PAYPAL_CLIENT_ID','STORAGEY_LIVE_PAYPAL_CLIENT_SECRET','STORAGEY_LIVE_PAYPAL_PLAN_ID','STORAGEY_LIVE_PAYPAL_WEBHOOK_ID','STORAGEY_LIVE_GOOGLE_CLIENT_ID','STORAGEY_LIVE_LICENSE_PRIVATE_KEY'];
   if(names.some(name=>!env[name]))return null;
   if(env.STORAGEY_LIVE_DB===env.FOLDERY_LIVE_DB

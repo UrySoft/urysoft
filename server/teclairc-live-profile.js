@@ -1,6 +1,7 @@
+import { liveFlag } from './live-flag.js';
 // Explicit, isolated live configuration. There is no fallback to test credentials.
 export function liveProfile(env){
-  if(env.TECLAIRC_LIVE_PAYMENTS!=='enabled'||env.TECLAIRC_LIVE_SELLER_READY!=='yes'||env.TECLAIRC_LIVE_GOOGLE_PUBLIC!=='yes')return null;
+  if(env.TECLAIRC_LIVE_PAYMENTS!=='enabled'||!liveFlag(env, 'TECLAIRC', 'SELLER_READY')||!liveFlag(env, 'TECLAIRC', 'GOOGLE_PUBLIC'))return null;
   const names=['TECLAIRC_LIVE_DB','TECLAIRC_LIVE_PAYPAL_CLIENT_ID','TECLAIRC_LIVE_PAYPAL_CLIENT_SECRET','TECLAIRC_LIVE_PAYPAL_PLAN_ID','TECLAIRC_LIVE_PAYPAL_WEBHOOK_ID','TECLAIRC_LIVE_GOOGLE_CLIENT_ID','TECLAIRC_LIVE_LICENSE_PRIVATE_KEY'];
   if(names.some(name=>!env[name]))return null;
   const isolatedFields=['DB','PAYPAL_PLAN_ID','LICENSE_PRIVATE_KEY'];

@@ -1,6 +1,7 @@
+import { liveFlag } from './live-flag.js';
 // Explicit, isolated live configuration. There is no fallback to test credentials.
 export function liveProfile(env){
-  if(env.FOLDERY_LIVE_PAYMENTS!=='enabled'||env.FOLDERY_LIVE_SELLER_READY!=='yes'||env.FOLDERY_LIVE_GOOGLE_PUBLIC!=='yes')return null;
+  if(env.FOLDERY_LIVE_PAYMENTS!=='enabled'||!liveFlag(env, 'FOLDERY', 'SELLER_READY')||!liveFlag(env, 'FOLDERY', 'GOOGLE_PUBLIC'))return null;
   const names=['FOLDERY_LIVE_DB','FOLDERY_LIVE_PAYPAL_CLIENT_ID','FOLDERY_LIVE_PAYPAL_CLIENT_SECRET','FOLDERY_LIVE_PAYPAL_PLAN_ID','FOLDERY_LIVE_PAYPAL_WEBHOOK_ID','FOLDERY_LIVE_GOOGLE_CLIENT_ID','FOLDERY_LIVE_LICENSE_PRIVATE_KEY'];
   if(names.some(name=>!env[name]))return null;
   if(env.FOLDERY_LIVE_DB===env.PREMIUM_DB||env.FOLDERY_LIVE_LICENSE_PRIVATE_KEY===env.FOLDERY_LICENSE_PRIVATE_KEY||env.FOLDERY_LIVE_PAYPAL_CLIENT_ID===env.PAYPAL_CLIENT_ID||env.FOLDERY_LIVE_PAYPAL_CLIENT_SECRET===env.PAYPAL_CLIENT_SECRET||[env.GOOGLE_CLIENT_ID,env.FOLDERY_GOOGLE_CLIENT_ID].includes(env.FOLDERY_LIVE_GOOGLE_CLIENT_ID))return null;
