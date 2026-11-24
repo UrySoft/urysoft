@@ -42,6 +42,7 @@ class BillingApp:
 
 
 FOLDERY = BillingApp("foldery")
+WRANGLER = ["npm", "exec", "--yes", "--package=node@22", "--package=wrangler@4.167.0", "--", "wrangler"]
 
 
 def gcloud(*arguments):
@@ -206,6 +207,44 @@ def has_secret(project, name):
     return (variables.get(name) or {}).get("type") == "secret_text"
 
 
+def current_source_commit():
+    request = Request("https://api.github.com/repos/UrySoft/urysoft/git/ref/heads/main",
+                      headers={"User-Agent": "UrySoft-Play/1.0", "Cache-Control": "no-cache"})
+    with urlopen(request, timeout=15) as response:
+        return json.load(response)["object"]["sha"]
+
+
+def deployment_failure(token, path, deployment):
+    stage = deployment.get("latest_stage") or {}
+    known_stages = {"queued", "initialize", "clone_repo", "build", "deploy"}
+    name = stage.get("name")
+    deployment_id = deployment["id"]
+    message = f"Cloudflare ha detenido el despliegue {deployment_id}"
+    if name in known_stages:
+        message += f" en la fase {name}"
+    # Los registros completos pueden contener datos de la cuenta. Solo se muestran causas conocidas.
+    try:
+        log = cloudflare(token, path + "/deployments/" + deployment_id + "/history/logs")
+        lines = " ".join(str(entry.get("line", "")) for entry in log.get("data", [])).lower()
+        errors = (
+            (r"too many (?:environment variables|bindings)|exceed.{0,50}(?:binding|variable) limit|maximum.{0,30}(?:environment variables|bindings)", "límite de variables o bindings"),
+            (r"file.{0,60}(?:exceeds|over|larger than).{0,30}(?:mib|mb)|too many files", "límite de archivos"),
+            (r"exceeded.{0,70}(?:cpu|memory)|out of memory|heap limit", "límite de CPU o memoria"),
+            (r"could not resolve|module not found|cannot find module", "dependencia no encontrada"),
+            (r"failed to clone|failed to fetch.{0,40}(?:repo|git)", "descarga del repositorio"),
+            (r"internal (?:server )?error|internal platform error", "error interno de Cloudflare"),
+        )
+        for pattern, description in errors:
+            if re.search(pattern, lines):
+                message += f" ({description})"
+                break
+    except (OSError, TypeError, ValueError):
+        pass
+    account = path.split("/")[2]
+    return (message + ". Los secretos se han conservado. Registro: "
+            f"https://dash.cloudflare.com/{account}/pages/view/urysoft/{deployment_id}")
+
+
 def deploy_and_check(token, path, app=FOLDERY):
     # Reutiliza una compilación en curso y nunca vuelve a publicar una revisión anterior.
     latest = cloudflare(token, path + "/deployments?env=production&per_page=1")
@@ -223,16 +262,33 @@ def deploy_and_check(token, path, app=FOLDERY):
             print(f"El servidor de {app.name} ya admite la validación de compras del plan anual.")
             return
         stage = deployment.get("latest_stage") or {}
-        if stage.get("status") in ("failure", "canceled", "cancelled"):
-            raise ValueError("El despliegue de Cloudflare ha fallado. Los secretos se han conservado.")
         deployment_id = deployment.get("id", "")
         if not re.fullmatch(r"[a-fA-F0-9-]+", deployment_id):
             raise ValueError("Cloudflare no ha confirmado el identificador del despliegue.")
-        if not restarted and stage.get("name") == "deploy" and stage.get("status") == "success":
-            canonical = cloudflare(token, path).get("canonical_deployment") or {}
+        failed = stage.get("status") == "failure"
+        finished = stage.get("name") == "deploy" and stage.get("status") == "success"
+        if stage.get("status") in ("canceled", "cancelled"):
+            raise ValueError(deployment_failure(token, path, deployment))
+        if failed and restarted:
+            raise ValueError(deployment_failure(token, path, deployment))
+        if not restarted and (failed or finished):
             latest = cloudflare(token, path + "/deployments?env=production&per_page=1")
-            if canonical.get("id") != deployment_id or not latest or latest[0].get("id") != deployment_id:
-                raise ValueError("Hay otro despliegue en curso. Vuelve a ejecutar el comando cuando termine.")
+            if not latest or latest[0].get("environment") != "production":
+                raise ValueError("Cloudflare no ha confirmado el último despliegue de producción.")
+            if latest[0].get("id") != deployment_id:
+                deployment = latest[0]
+                continue
+            if failed:
+                metadata = (deployment.get("deployment_trigger") or {}).get("metadata") or {}
+                revision = metadata.get("commit_hash", "")
+                if metadata.get("branch") != "main" or metadata.get("commit_dirty") or not re.fullmatch(r"[0-9a-f]{40}", revision):
+                    raise ValueError(deployment_failure(token, path, deployment))
+                if revision != current_source_commit():
+                    raise ValueError(deployment_failure(token, path, deployment) + " La rama main ya tiene otra revisión.")
+            else:
+                canonical = cloudflare(token, path).get("canonical_deployment") or {}
+                if canonical.get("id") != deployment_id:
+                    raise ValueError("Cloudflare aún no ha confirmado la revisión publicada. Repite la activación.")
             deployment = cloudflare(token, path + "/deployments/" + deployment_id + "/retry", method="POST")
             restarted = True
             continue
@@ -249,7 +305,7 @@ def activate(project, app=FOLDERY):
     if not shutil.which("npm"):
         raise ValueError("El paso activar necesita npm en Google Cloud Shell.")
     # El paquete de Node permite utilizar Wrangler también con la versión anterior de Node de Cloud Shell.
-    wrangler = ["npm", "exec", "--yes", "--package=node@22", "--package=wrangler@4.167.0", "--", "wrangler"]
+    wrangler = WRANGLER
     os.umask(0o077)
     directory = Path.home() / ".config" / "urysoft" / (app.slug + "-play") / project
     directory.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -270,20 +326,36 @@ def activate(project, app=FOLDERY):
         deploy_and_check(token, path, app)
 
 
+def diagnose(app):
+    token, _, path, project = pages_session(WRANGLER)
+    secrets_present = all(has_secret(project, name) for name in (app.service_secret, app.enabled_secret))
+    print(f"{app.name}: ajustes cifrados {'confirmados' if secrets_present else 'incompletos'}.")
+    print(f"Validación del plan anual: {'disponible' if billing_available(app) else 'pendiente'}.")
+    production = cloudflare(token, path + "/deployments?env=production&per_page=1")
+    if production and production[0].get("environment") == "production":
+        deployment = production[0]
+        stage = deployment.get("latest_stage") or {}
+        if stage.get("status") in ("failure", "canceled", "cancelled") and re.fullmatch(r"[a-fA-F0-9-]+", deployment.get("id", "")):
+            print(deployment_failure(token, path, deployment))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("paso", nargs="?", choices=["cuenta", "conectar", "activar"], default="cuenta",
-                        help="cuenta prepara la identidad, conectar importa una credencial, activar configura Cloudflare y despliega")
+    parser.add_argument("paso", nargs="?", choices=["cuenta", "conectar", "activar", "diagnostico"], default="cuenta",
+                        help="cuenta prepara la identidad, conectar importa una credencial, activar configura y despliega, diagnostico consulta el estado")
     parser.add_argument("--app", choices=["foldery", "widgery", "storagey", "teclairc"], default="foldery", help="aplicación que se va a configurar")
     parser.add_argument("--proyecto", help="identificador del proyecto de Google Cloud de UrySoft")
     parser.add_argument("--credencial", type=Path, help="archivo local de la cuenta autorizada, solo para conectar")
     args = parser.parse_args()
     if bool(args.credencial) != (args.paso == "conectar"):
         parser.error("El paso conectar necesita --credencial. El paso cuenta no utiliza claves.")
+    app = BillingApp(args.app)
+    if args.paso == "diagnostico":
+        diagnose(app)
+        return
     if not shutil.which("gcloud"):
         parser.error("Ejecuta el programa en Google Cloud Shell o en un equipo con gcloud y tu sesión de UrySoft.")
     project = select_project(args.proyecto)
-    app = BillingApp(args.app)
     if args.paso == "cuenta":
         prepare_account(project, app)
     elif args.paso == "conectar":
