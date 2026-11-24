@@ -11,7 +11,9 @@
     "/api/storagey/*",
     "/api/teclairc/*",
     "/api/play-billing/foldery",
-    "/api/review-access/foldery"
+    "/api/review-access/foldery",
+    "/api/play-billing/widgery",
+    "/api/review-access/widgery"
   ],
   "exclude": []
 }
