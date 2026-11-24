@@ -1,11 +1,20 @@
 """Preparar la cuenta de Google Play de Foldery y conectar una credencial al servidor."""
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
+import time
+from urllib.error import HTTPError
+from urllib.request import build_opener, HTTPRedirectHandler, Request, urlopen
+
+
+SITE = "urysoft.pages.dev"
+SERVICE_SECRET = "FOLDERY_PLAY_SERVICE_ACCOUNT"
+ENABLED_SECRET = "FOLDERY_PLAY_BILLING_ENABLED"
 
 
 def gcloud(*arguments):
@@ -43,9 +52,7 @@ def prepare_account(project):
     print(account["email"])
 
 
-def connect_credential(project, filename):
-    if not shutil.which("wrangler"):
-        raise ValueError("Se necesita Wrangler, la herramienta oficial de Cloudflare, con acceso al proyecto urysoft.")
+def read_credential(project, filename):
     credential = json.loads(filename.read_text(encoding="utf-8"))
     if not isinstance(credential, dict):
         raise ValueError("La credencial de Google debe ser un objeto.")
@@ -57,6 +64,14 @@ def connect_credential(project, filename):
     account = json.loads(gcloud("iam", "service-accounts", "describe", owner, "--project=" + project, "--format=json"))
     if account.get("disabled") or account.get("email") != owner or (credential.get("client_id") and credential["client_id"] != account.get("uniqueId")):
         raise ValueError("Google no ha confirmado la identidad de la cuenta.")
+    return {field: credential[field] for field in ("type", "client_email", "private_key_id", "private_key")}
+
+
+def connect_credential(project, filename):
+    if not shutil.which("wrangler"):
+        raise ValueError("Se necesita Wrangler, la herramienta oficial de Cloudflare, con acceso al proyecto urysoft.")
+    signing = read_credential(project, filename)
+    owner = signing["client_email"]
     projects = subprocess.run(["wrangler", "pages", "project", "list"], check=True, capture_output=True, text=True)
     if not re.search(r"(?<![a-z0-9.-])urysoft\.pages\.dev(?![a-z0-9.-])", projects.stdout, re.I):
         raise ValueError("La sesión de Cloudflare no muestra el proyecto que sirve urysoft.pages.dev.")
@@ -64,8 +79,7 @@ def connect_credential(project, filename):
     print("Comprueba en Play Console que esta cuenta ya tiene los permisos de Foldery para consultar compras y gestionar suscripciones.")
     if input("Para guardar su credencial cifrada y activar la facturación, escribe ACTIVAR FOLDERY: ").strip() != "ACTIVAR FOLDERY":
         raise ValueError("Se ha cancelado la activación.")
-    signing = {field: credential[field] for field in ("type", "client_email", "private_key_id", "private_key")}
-    for name, value in (("FOLDERY_PLAY_SERVICE_ACCOUNT", json.dumps(signing)), ("FOLDERY_PLAY_BILLING_ENABLED", "yes")):
+    for name, value in ((SERVICE_SECRET, json.dumps(signing)), (ENABLED_SECRET, "yes")):
         result = subprocess.run(
             ["wrangler", "pages", "secret", "put", name, "--project-name", "urysoft", "--env", "production"],
             input=value, text=True, capture_output=True)
@@ -75,10 +89,152 @@ def connect_credential(project, filename):
     print("Después, comprueba https://urysoft.pages.dev/api/play-billing/foldery y verifica una compra con un usuario de pruebas de Play.")
 
 
+def billing_available():
+    request = Request(f"https://{SITE}/api/play-billing/foldery",
+                      headers={"Cache-Control": "no-cache", "User-Agent": "UrySoft-Foldery/1.0"})
+    with urlopen(request, timeout=15) as response:
+        status = json.load(response)
+    if status.get("product") != "foldery_premium" or status.get("plan") != "annual":
+        raise ValueError("El servidor no ha identificado el plan anual de Foldery.")
+    return status.get("available") is True
+
+
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, *args):
+        return None
+
+
+def cloudflare(token, path, method="GET", find_project=False):
+    request = Request("https://api.cloudflare.com/client/v4" + path, method=method,
+                      headers={"Authorization": "Bearer " + token, "User-Agent": "UrySoft-Foldery/1.0"})
+    try:
+        with build_opener(NoRedirect).open(request, timeout=30) as response:
+            data = json.load(response)
+    except HTTPError as error:
+        if find_project and error.code in (403, 404):
+            return None
+        raise ValueError(f"Cloudflare ha devuelto {error.code} al consultar o desplegar el proyecto.") from None
+    if not data.get("success"):
+        raise ValueError("Cloudflare no ha confirmado la operación.")
+    return data["result"]
+
+
+def pages_session(wrangler):
+    command = [*wrangler, "whoami", "--json"]
+    session = subprocess.run(command, capture_output=True, text=True)
+    if session.returncode:
+        print("Autoriza en Cloudflare el código que muestra Wrangler para la cuenta de UrySoft.", flush=True)
+        subprocess.run([*wrangler, "login", "--device", "--browser=false", "--scopes",
+                        "account:read", "user:read", "pages:write"], check=True)
+        session = subprocess.run(command, check=True, capture_output=True, text=True)
+    identity = json.loads(session.stdout)
+    # El token solo se usa en memoria con api.cloudflare.com, nunca en argumentos ni en la salida.
+    result = subprocess.run([*wrangler, "auth", "token", "--json"], check=True, capture_output=True, text=True)
+    token = json.loads(result.stdout).get("token")
+    if not token:
+        raise ValueError("Autoriza Wrangler con una sesión de Cloudflare para UrySoft.")
+    for account in identity.get("accounts", []):
+        account_id = account.get("id", "")
+        if re.fullmatch(r"[a-f0-9]{32}", account_id):
+            path = f"/accounts/{account_id}/pages/projects/urysoft"
+            project = cloudflare(token, path, find_project=True)
+            if project and project.get("name") == "urysoft" and project.get("subdomain") == SITE:
+                return token, account_id, path, project
+    raise ValueError("Esta sesión de Cloudflare no tiene acceso al proyecto urysoft.pages.dev.")
+
+
+def install_secrets(project, account_id, wrangler, keyfile):
+    values = {ENABLED_SECRET: "yes"}
+    if keyfile is not None:
+        owner = f"foldery-play-billing@{project}.iam.gserviceaccount.com"
+        if not keyfile.exists():
+            gcloud("iam", "service-accounts", "keys", "create", str(keyfile),
+                   "--iam-account=" + owner, "--project=" + project)
+        signing = read_credential(project, keyfile)
+        if signing["client_email"] != owner:
+            raise ValueError("La credencial local no corresponde a la cuenta de servicio de Foldery.")
+        values[SERVICE_SECRET] = json.dumps(signing)
+    result = subprocess.run(
+        [*wrangler, "pages", "secret", "bulk", "--project-name", "urysoft", "--env", "production"],
+        input=json.dumps(values), text=True,
+        capture_output=True, env={**os.environ, "CLOUDFLARE_ACCOUNT_ID": account_id})
+    if result.returncode:
+        raise ValueError("Cloudflare no ha guardado los dos secretos. Repite el comando para reutilizar la misma clave.")
+
+
+def has_secret(project, name):
+    variables = project["deployment_configs"]["production"].get("env_vars") or {}
+    return (variables.get(name) or {}).get("type") == "secret_text"
+
+
+def deploy_and_check(token, path):
+    # Reutiliza una compilación en curso y nunca vuelve a publicar una revisión anterior.
+    latest = cloudflare(token, path + "/deployments?env=production&per_page=1")
+    if not latest or latest[0].get("environment") != "production":
+        raise ValueError("No se ha encontrado un despliegue de producción de UrySoft.")
+    deployment = latest[0]
+    restarted = False
+    print("Cloudflare está aplicando la configuración de producción.", flush=True)
+    for _ in range(40):
+        try:
+            available = billing_available()
+        except (OSError, ValueError):
+            available = False
+        if available:
+            print("El servidor de Foldery ya admite la validación de compras del plan anual.")
+            return
+        stage = deployment.get("latest_stage") or {}
+        if stage.get("status") in ("failure", "canceled", "cancelled"):
+            raise ValueError("El despliegue de Cloudflare ha fallado. Los secretos se han conservado.")
+        deployment_id = deployment.get("id", "")
+        if not re.fullmatch(r"[a-fA-F0-9-]+", deployment_id):
+            raise ValueError("Cloudflare no ha confirmado el identificador del despliegue.")
+        if not restarted and stage.get("name") == "deploy" and stage.get("status") == "success":
+            canonical = cloudflare(token, path).get("canonical_deployment") or {}
+            latest = cloudflare(token, path + "/deployments?env=production&per_page=1")
+            if canonical.get("id") != deployment_id or not latest or latest[0].get("id") != deployment_id:
+                raise ValueError("Hay otro despliegue en curso. Vuelve a ejecutar el comando cuando termine.")
+            deployment = cloudflare(token, path + "/deployments/" + deployment_id + "/retry", method="POST")
+            restarted = True
+            continue
+        time.sleep(8)
+        deployment = cloudflare(token, path + "/deployments/" + deployment_id)
+    raise ValueError("Los secretos están guardados. Comprueba el despliegue y https://urysoft.pages.dev/api/play-billing/foldery.")
+
+
+def activate(project):
+    import fcntl  # Cloud Shell ejecuta Linux.
+    if billing_available():
+        print("El servidor de Foldery ya admite la validación de compras del plan anual.")
+        return
+    if not shutil.which("npm"):
+        raise ValueError("El paso activar necesita npm en Google Cloud Shell.")
+    # El paquete de Node permite utilizar Wrangler también con la versión anterior de Node de Cloud Shell.
+    wrangler = ["npm", "exec", "--yes", "--package=node@22", "--package=wrangler@4.167.0", "--", "wrangler"]
+    os.umask(0o077)
+    directory = Path.home() / ".config" / "urysoft" / "foldery-play" / project
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / "activar.lock").open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise ValueError("Ya hay una activación de Foldery en curso en esta terminal de Cloud Shell.") from None
+        token, account_id, path, pages = pages_session(wrangler)
+        keyfile = None if has_secret(pages, SERVICE_SECRET) else directory / "credencial-pendiente.json"
+        install_secrets(project, account_id, wrangler, keyfile)
+        confirmed = cloudflare(token, path)
+        if not all(has_secret(confirmed, name) for name in (SERVICE_SECRET, ENABLED_SECRET)):
+            raise ValueError("Cloudflare aún no confirma los dos secretos. Puedes repetir el comando.")
+        if keyfile is not None:
+            keyfile.unlink()
+        print("Cloudflare confirma los dos ajustes cifrados de Foldery en producción.", flush=True)
+        deploy_and_check(token, path)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("paso", nargs="?", choices=["cuenta", "conectar"], default="cuenta",
-                        help="cuenta crea o recupera la identidad técnica sin generar claves")
+    parser.add_argument("paso", nargs="?", choices=["cuenta", "conectar", "activar"], default="cuenta",
+                        help="cuenta prepara la identidad, conectar importa una credencial, activar configura Cloudflare y despliega")
     parser.add_argument("--proyecto", help="identificador del proyecto de Google Cloud de UrySoft")
     parser.add_argument("--credencial", type=Path, help="archivo local de la cuenta autorizada, solo para conectar")
     args = parser.parse_args()
@@ -89,8 +245,10 @@ def main():
     project = select_project(args.proyecto)
     if args.paso == "cuenta":
         prepare_account(project)
-    else:
+    elif args.paso == "conectar":
         connect_credential(project, args.credencial)
+    else:
+        activate(project)
 
 
 if __name__ == "__main__":
