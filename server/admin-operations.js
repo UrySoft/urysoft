@@ -1,13 +1,16 @@
 import {liveProfile as foldery} from './foldery-live-profile.js';
 import {liveProfile as widgery} from './widgery-live-profile.js';
 import {liveProfile as minairo} from './minairo-live-profile.js';
+import {liveProfile as storagey} from './storagey-live-profile.js';
+import {liveProfile as teclairc} from './teclairc-live-profile.js';
+
 export async function operationsSummary(env){
  const services=[];
  try{
   const latest=await env.COMMENTS_DB.prepare('SELECT MAX(day) AS day,SUM(hits) AS hits FROM analytics_counts').first();
   services.push({name:'Estadísticas y comunidad',ok:true,detail:'Base de datos accesible. Último día con actividad: '+(latest?.day||'sin eventos')+'.'});
  }catch{services.push({name:'Estadísticas y comunidad',ok:false,detail:'No se han podido consultar los contadores. Revisa tablas y conexión.'})}
- for(const [name,profile] of [['Foldery',foldery],['Widgery',widgery],['Minairó',minairo]]){
+ for(const [name,profile] of [['Foldery',foldery],['Widgery',widgery],['Minairó',minairo],['Storagey',storagey],['TeclaIRC',teclairc]]){
   const configured=profile(env);
   if(!configured){services.push({name:name+' Premium',ok:false,detail:'Configuración de producción incompleta o aislamiento no válido. Revisa el servicio en el proveedor.'});continue}
   try{

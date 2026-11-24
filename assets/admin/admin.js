@@ -1,8 +1,9 @@
+import {apps,pages} from '../catalog-admin.js';
 import { appReportQueue } from './app-reports.js';
 import {metrics,aggregate,renderChart} from './charts.js';
 const $=s=>document.querySelector(s),make=(tag,value,cls)=>{const el=document.createElement(tag);if(value!==undefined)el.textContent=value;if(cls)el.className=cls;return el};
 let token='',expiryTimer,analytics=null,currentComment=null,commentCursor=null,reportCursor=null,commentGeneration=0,reportGeneration=0,analyticsGeneration=0,operationsGeneration=0,auditGeneration=0,auditCursor=null;
-const names={lumen:'Lumen',foldery:'Foldery',widgery:'Widgery',nexomesh:'NexoMesh',minairo:'Minairó',teclairc:'TeclaIRC'},kinds={review:'Opinión',idea:'Idea',bug:'Problema'},reasons={spam:'Spam o publicidad',abuse:'Contenido ofensivo',privacy:'Datos personales',other:'Otro motivo'};
+const names=Object.fromEntries(apps.map(({id,name})=>[id,name])),kinds={review:'Opinión',idea:'Idea',bug:'Problema'},reasons={spam:'Spam o publicidad',abuse:'Contenido ofensivo',privacy:'Datos personales',other:'Otro motivo'};
 const number=n=>new Intl.NumberFormat('es').format(n||0),date=s=>s?new Date(s).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'}):'—';
 const countryNames=new Intl.DisplayNames(['es'],{type:'region'}),country=c=>c==='XX'?'País desconocido':(()=>{try{return countryNames.of(c)}catch{return c}})();
 async function request(path,method='GET',body){
@@ -17,11 +18,39 @@ for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>view(b.dat
 function kpi(label,value){const el=make('div',undefined,'kpi');el.append(make('strong',number(value)),make('span',label));return el}
 function rows(title,items,format=x=>x){const panel=make('section',undefined,'panel');panel.append(make('h2',title));if(!items.length)panel.append(make('p','Todavía no hay datos en este periodo.','note'));const max=Math.max(1,...items.map(i=>i.value));for(const row of items){const el=make('div',undefined,'metric-row'),bar=make('span',undefined,'bar'),fill=make('i');fill.style.width=(row.value/max*100)+'%';bar.append(fill);el.append(make('span',format(row.label)||'Sin campaña'),make('strong',number(row.value)),bar);panel.append(el)}return panel}
 function setRange(days){$('#to').value=new Date().toISOString().slice(0,10);$('#from').value=new Date(Date.now()-(days-1)*86400000).toISOString().slice(0,10)}setRange(30);
+const pageFilter=$('#analytics-path');
+for(const page of pages)pageFilter.add(new Option(page.name,page.path));
+
+async function renderCatalogDestinations(data,generation){
+ const box=$('#catalog-destinations');
+ box.textContent='Cargando catálogo…';
+ try{
+  const response=await fetch('/assets/playground/catalog.json');
+  if(!response.ok)throw Error();
+  const catalog=await response.json();
+  if(generation!==analyticsGeneration)return;
+  const counts=new Map(data.destinations.map(row=>[row.label,row.value]));
+  const entries=[{name:'Web de experimentos',url:catalog.original},...catalog.items];
+  box.replaceChildren(table(['Destino','Clics registrados'],entries.map(({name,url})=>{
+   const destination=new URL(url);
+   const link=make('a',name);
+   if(destination.protocol==='https:'){
+    link.href=destination.href;link.target='_blank';link.rel='noopener noreferrer';
+   }
+   const count=counts.get(destination.origin+destination.pathname);
+   return [link,count===undefined?'Sin clics registrados':number(count)];
+  })));
+ }catch{
+  if(generation===analyticsGeneration)box.textContent='No se ha podido cargar el catálogo de webs.';
+ }
+}
+
 async function loadAnalytics(){
  const generation=++analyticsGeneration,params=new URLSearchParams({from:$('#from').value,to:$('#to').value,path:$('#analytics-path').value,country:$('#analytics-country').value});const result=await request('analytics?'+params);if(generation!==analyticsGeneration)return;analytics=result;
  const a=analytics,t=a.totals;$('#kpis').replaceChildren(kpi('Entradas estimadas',t.visit),kpi('Páginas vistas',t.page),kpi('Clics de descarga',t.download),kpi('Páginas con 30 s de atención',t.engaged));
  $('#range-caption').textContent=a.from+' → '+a.to+' · UTC';$('#started').textContent='Medición activada: '+date(a.started)+'. No se han importado estadísticas anteriores.';
  renderAnalytics();
+ void renderCatalogDestinations(a,generation);
  const tables=$('#analytics-tables');tables.replaceChildren(rows('Páginas más vistas',a.pages),rows('Clics de descarga por app',a.downloads,x=>names[x]||x),rows('Países · páginas vistas',a.countries,country),rows('De dónde llegan · entradas',a.referrers),rows('Dispositivos · páginas vistas',a.devices),rows('Navegadores · páginas vistas',a.browsers),rows('Idiomas · páginas vistas',a.languages,x=>({es:'Castellano',ca:'Catalán',en:'Inglés',otro:'Otro'}[x]||x)),rows('Campañas · entradas',a.sources),rows('Destinos de clics',a.clicks));
  const selected=$('#analytics-country').value;if(!selected){const select=$('#analytics-country');select.replaceChildren(new Option('Todos',''));for(const c of a.countries)select.append(new Option(country(c.label),c.label))}
  const insights=$('#insights');insights.replaceChildren();if(!t.page)insights.append(make('p','Aún no hay visitas registradas. Los primeros datos aparecerán cuando se navegue por la web.'));
@@ -32,7 +61,7 @@ async function refresh(){message('Actualizando…');try{await Promise.all([loadA
 $('#refresh').onclick=refresh;$('#date-filter').onsubmit=e=>{e.preventDefault();refresh()};$('#last-7').onclick=()=>{setRange(7);refresh()};$('#last-30').onclick=()=>{setRange(30);refresh()};for(const b of document.querySelectorAll('[data-days]'))b.onclick=()=>{setRange(Number(b.dataset.days));refresh()};
 function csvCell(s){s=String(s??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"'}
 function downloadCSV(data,filename){const blob=new Blob(['\ufeff'+data.map(r=>r.map(csvCell).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=make('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-$('#export-analytics').onclick=()=>{if(!analytics)return;const a=analytics,data=[['Periodo',a.from,a.to],['Página',a.filters.path],['País',a.filters.country],['Medición desde',a.availableFrom],['Grupo','Valor','Cantidad']];for(const key of ['pages','countries','referrers','devices','browsers','languages','sources','downloads','clicks'])for(const r of a[key])data.push([key,r.label,r.value]);data.push([],['Día','Medición disponible',...metrics.map(m=>m[1])]);for(const r of a.daily)data.push([r.day,r.available?'Sí':'No',...metrics.map(([k])=>r[k])]);data.push([],['Periodo anterior',a.previous.from,a.previous.to],['Comparación completa',a.previous.complete?'Sí':'No']);for(const [,label,,key] of metrics)data.push([label,a.previous.totals[key]||0]);downloadCSV(data,'urysoft-'+a.from+'-'+a.to+'.csv')};
+$('#export-analytics').onclick=()=>{if(!analytics)return;const a=analytics,data=[['Periodo',a.from,a.to],['Página',a.filters.path],['País',a.filters.country],['Medición desde',a.availableFrom],['Grupo','Valor','Cantidad']];for(const key of ['pages','countries','referrers','devices','browsers','languages','sources','downloads','clicks','destinations'])for(const r of a[key])data.push([key,r.label,r.value]);data.push([],['Día','Medición disponible',...metrics.map(m=>m[1])]);for(const r of a.daily)data.push([r.day,r.available?'Sí':'No',...metrics.map(([k])=>r[k])]);data.push([],['Periodo anterior',a.previous.from,a.previous.to],['Comparación completa',a.previous.complete?'Sí':'No']);for(const [,label,,key] of metrics)data.push([label,a.previous.totals[key]||0]);downloadCSV(data,'urysoft-'+a.from+'-'+a.to+'.csv')};
 const selectedMetrics=new Set(['pages','visits','downloads']);
 for(const [key,label,color] of metrics){const wrap=make('label',undefined,'metric-toggle'),input=make('input');input.type='checkbox';input.checked=selectedMetrics.has(key);input.onchange=()=>{input.checked?selectedMetrics.add(key):selectedMetrics.delete(key);renderAnalytics()};const dot=make('span',undefined,'metric-dot');dot.style.background=color;wrap.append(input,dot,make('span',label));$('#chart-metrics').append(wrap)}
 $('#chart-group').onchange=renderAnalytics;

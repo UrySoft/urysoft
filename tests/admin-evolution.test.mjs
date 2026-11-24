@@ -28,3 +28,18 @@ ops=await operationsSummary(env);assert.equal(ops.services[1].ok,false);assert.o
 sql.exec(readFileSync('migrations/0002-foldery-premium.sql','utf8'));
 ops=await operationsSummary(env);assert.equal(ops.services[1].ok,true);assert.equal(ops.services[1].entitlements,0);assert.deepEqual(ops.services[1].counts,[]);
 console.log('Passed: date bounds, missing history vs zero, previous period, filters, all daily indicators, week/month boundaries, Minairó downloads, service isolation, missing tables and secret redaction.');
+
+const browserRequest=new Request('https://www.urysoft.com/api/analytics',{headers:{'User-Agent':'Mozilla/5.0'}});
+for(const [path,target] of [['/apps/storagey/','storagey'],['/teclairc/','teclairc']]){
+ const event=normalizeEvent({id:crypto.randomUUID(),event:'download',path,target},browserRequest);
+ assert.equal(event.target,target);
+}
+assert.ok(normalizeEvent({id:crypto.randomUUID(),event:'page',path:'/tienda/'},browserRequest));
+const catalog=JSON.parse(readFileSync('assets/playground/catalog.json','utf8'));
+const destination=new URL(catalog.items[0].url);
+const target=normalizeEvent({id:crypto.randomUUID(),event:'click',path:'/calaix/',target:destination.href+'?private=ignored#fragment'},browserRequest).target;
+assert.equal(target,destination.origin+destination.pathname);
+sql.prepare("INSERT INTO analytics_counts(day,path,event,target,country,referrer,device,browser,language,source,hits) VALUES(?,'/calaix/','click',?,'ES','Interno','Móvil','Chrome','es','',3)").run(today,target);
+assert.deepEqual((await summary(today,today,'&path=/calaix/')).destinations.map(row=>({...row})),[{label:target,value:3}]);
+assert.ok(ops.services.some(service=>service.name==='Storagey Premium'));
+assert.ok(ops.services.some(service=>service.name==='TeclaIRC Premium'));
