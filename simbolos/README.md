@@ -1,8 +1,8 @@
 # UrySoft Símbolos
 
-Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1** y la aplicación Android es la **0.1.0**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
+Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1** y la aplicación Android es la **0.1.1**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
 
-[Aplicación web](https://www.urysoft.com/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](./android/UrySoft-Simbolos-0.1.0.apk) · [Especificación binaria](./FORMATO.md)
+[Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.1.1.apk) · [Especificación binaria](./FORMATO.md)
 
 ## Primer uso
 
@@ -23,7 +23,7 @@ El nivel 3 admite 128 parejas ordenadas de colores. La paleta se divide en dos g
 
 ## API HTTP v1
 
-Dirección del servicio UrySoft: `https://www.urysoft.com/api/simbolos/v1`. Para ejecutar el mismo servicio en tu equipo, instala Node.js 22 o superior y ejecuta desde la raíz del repositorio:
+Dirección del servicio UrySoft: `https://urysoft.pages.dev/api/simbolos/v1`. Para ejecutar el mismo servicio en tu equipo, instala Node.js 22 o superior y ejecuta desde la raíz del repositorio:
 
 ```sh
 node simbolos/server.mjs

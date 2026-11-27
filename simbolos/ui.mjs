@@ -1,7 +1,7 @@
 import {render,readImage,limits} from './v1/codec.mjs';
 import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
-const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://www.urysoft.com/api/simbolos/v1';
+const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
 let output=null,filename='',image=null,points=null,busy=false;
 function reset(){output=null;image=null;points=null;el('save').hidden=true;el('manual').hidden=true;canvas.hidden=true;out.textContent=''}
 function setResult(blob,name){output=blob;filename=name;el('save').hidden=false;el('save').textContent='Guardar '+name}
