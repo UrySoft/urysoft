@@ -12,13 +12,13 @@ for(let i=0,v=1;i<255;i++){exp[i]=exp[i+255]=v;log[v]=i;v<<=1;if(v&256)v^=285;}
 const mul=(a,b)=>a&&b?exp[log[a]+log[b]]:0;
 const div=(a,b)=>{if(!b)throw Error('Bloque ilegible');return a?exp[log[a]+255-log[b]]:0};
 function evaluate(poly,x){let v=0;for(const p of poly)v=mul(v,x)^p;return v;}
-function rsEncode(data,n){
+export function rsEncode(data,n){
  let g=[1];for(let i=0;i<n;i++){const t=new Uint8Array(g.length+1);g.forEach((v,j)=>{t[j]^=v;t[j+1]^=mul(v,exp[i])});g=t}
  const out=new Uint8Array(data.length+n);out.set(data);
  for(let i=0;i<data.length;i++){const f=out[i];for(let j=0;j<g.length;j++)out[i+j]^=mul(f,g[j])}
  out.set(data);return out;
 }
-function rsRepair(block,n){
+export function rsRepair(block,n){
  const s=Array.from({length:n},(_,i)=>evaluate(block,exp[i]));if(s.every(v=>!v))return 0;
  let c=[1],b=[1],degree=0,delay=1,last=1;
  for(let k=0;k<n;k++){

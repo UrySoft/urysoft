@@ -1,4 +1,5 @@
 import {render,readImage,limits,gridSize,planText} from './v1/codec.mjs?v=capacity1';
+import {encodeMicro,readMicro,microLevel,microLimit} from './v1/micro.mjs?v=micro1';
 import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
 const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
@@ -33,12 +34,24 @@ async function uploadPNG(){
  if(sourcePNG)return sourcePNG;
  const rgb=new Uint8Array(image.width*image.height*3);
  for(let i=0,j=0;i<image.pixels.length;i+=4,j+=3)rgb.set(image.pixels.subarray(i,i+3),j);
- const {toPNG}=await import('./v1/png.mjs');
+ const {toPNG}=await import('./v1/png.mjs?v=micro1');
  return new Blob([await toPNG({...image,pixels:rgb})],{type:'image/png'});
 }
 async function create(text){
  reset();const file=text?new Blob([el('message').value],{type:'text/plain'}):el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
  if(text&&!file.size)throw Error('Escribe un texto o un enlace.');
+ if(l===microLevel){
+  if(file.size>microLimit)throw Error('Este modo admite hasta 524.288 bytes.');
+  const blob=el('mode').value==='web'
+   ? await(await call('encode?level='+l,file,text?'text/plain;charset=utf-8':'application/octet-stream')).blob()
+   : new Blob([await encodeMicro(new Uint8Array(await file.arrayBuffer()),text)],{type:'image/png'});
+  await draw(blob);
+  canvas.classList.add('compact');
+  canvas.style.setProperty('--print-side','20mm');
+  setResult(blob,'urysoft-512kib'+(text?'-texto':'')+'.png');
+  out.textContent=file.size.toLocaleString('es-ES')+' bytes guardados · 1.536 × 1.536 píxeles · 2 × 2 cm.';
+  return;
+ }
  if(!text&&file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
  const axis=el('axis').value,value=el('fixed').valueAsNumber;
  const grid=text?planText(new Uint8Array(await file.arrayBuffer()),l,axis,value):gridSize(file.size,l,false,axis,value);
@@ -47,7 +60,7 @@ async function create(text){
  let blob;if(el('mode').value==='web'){blob=await(await call('encode?level='+l+query,file,text?'text/plain;charset=utf-8':'application/octet-stream')).blob();await draw(blob)}
  else{const img=render(new Uint8Array(await file.arrayBuffer()),l,text,axis,value,marks);canvas.width=img.width;canvas.height=img.height;const d=ctx.createImageData(img.width,img.height);
  for(let i=0,j=0;i<img.pixels.length;i+=3,j+=4){d.data[j]=img.pixels[i];d.data[j+1]=img.pixels[i+1];d.data[j+2]=img.pixels[i+2];d.data[j+3]=255}ctx.putImageData(d,0,0);canvas.hidden=false;
- const {toPNG}=await import('./v1/png.mjs');blob=new Blob([await toPNG(img)],{type:'image/png'});}
+ const {toPNG}=await import('./v1/png.mjs?v=micro1');blob=new Blob([await toPNG(img)],{type:'image/png'});}
  canvas.classList.toggle('compact',!marks||text||axis!=='auto');canvas.style.setProperty('--print-side',canvas.width/4+'mm');
  setResult(blob,'urysoft-'+(text?'texto-':'')+'nivel-'+l+'.png');out.textContent=grid.columns+' columnas × '+grid.rows+' filas de datos · '+file.size+' bytes originales · '+(text?grid.packed.bytes.length+' bytes de contenido codificado · ':'')+canvas.width+' × '+canvas.height+' píxeles.';
 }
@@ -56,8 +69,17 @@ async function recover(markers){
  if(el('mode').value==='web'){
  const suffix=markers?'?corners='+encodeURIComponent(JSON.stringify(markers)):'';
  const res=await call('decode'+suffix,await uploadPNG(),'image/png');data=await res.arrayBuffer();kind=res.headers.get('X-UrySoft-Kind');level=res.headers.get('X-UrySoft-Level');corrected=res.headers.get('X-UrySoft-Corrected');
- }else{let result;try{result=readImage(image,markers)}catch(e){if(markers)throw e;for(const compact of [false,true]){const auto=findCorners(image,compact);if(auto){try{result=readImage(image,auto);break}catch{/* Try the other finder geometry. */}}}if(!result)throw e}
- ({data,level,corrected,kind}=result)}
+ }else{
+  let result=readMicro(image);
+  if(!result){
+   try{result=readImage(image,markers)}catch(e){if(markers)throw e;for(const compact of [false,true]){const auto=findCorners(image,compact);if(auto){try{result=readImage(image,auto);break}catch{/* Try the other finder geometry. */}}}if(!result)throw e}
+  }
+  ({data,level,corrected,kind}=result);
+ }
+ if(Number(level)===microLevel){
+  canvas.classList.add('compact');
+  canvas.style.setProperty('--print-side','20mm');
+ }
  if(kind==='text')showText(data);
  else setResult(new Blob([data],{type:'application/octet-stream'}),'recuperado.bin');
  el('manual').hidden=true;out.textContent='Nivel '+level+' · '+data.byteLength+' bytes verificados · '+corrected+' bytes corregidos.';
@@ -68,7 +90,7 @@ async function loadPhoto(){
  if(file.size<=12000000){
   const header=new Uint8Array(await file.slice(0,8).arrayBuffer());
   if(header.join(',')==='137,80,78,71,13,10,26,10'){
-   const {fromPNG}=await import('./v1/png.mjs');
+   const {fromPNG}=await import('./v1/png.mjs?v=micro1');
    try{
     const original=await fromPNG(new Uint8Array(await file.arrayBuffer()));
     if(original.width===canvas.width && original.height===canvas.height){image=original;sourcePNG=file}
@@ -91,17 +113,26 @@ for(const id of ['source','photo','level','mode'])el(id).onchange=reset;
 function previewGrid(){
  reset();
  const axis=el('axis').value;
- el('fixedBox').hidden=axis==='auto';
- el('fixedLabel').textContent=axis==='rows'?'Número de filas':'Número de columnas';
  const level=Number(el('level').value),fixed=el('fixed').valueAsNumber;
+ const micro=level===microLevel;
+ el('fixedBox').hidden=micro||axis==='auto';
+ el('fixedLabel').textContent=axis==='rows'?'Número de filas':'Número de columnas';
  el('capacityHint').hidden=level!==4;
+ el('microHint').hidden=!micro;
+ for(const id of ['axisBox','marksBox','marksHint'])el(id).hidden=micro;
+ const message=el('message').value,file=el('source').files[0];
+ if(micro){
+  const describe=bytes=>bytes>microLimit?'El contenido supera los 524.288 bytes.':bytes.toLocaleString('es-ES')+' bytes · 2 × 2 cm';
+  el('textGrid').textContent=message?describe(new TextEncoder().encode(message).length):'';
+  el('fileGrid').textContent=file?describe(file.size):'';
+  return;
+ }
  function describe(bytes,text){
   try{
    const g=gridSize(bytes,level,text,axis,fixed);
    return g.columns+' columnas × '+g.rows+' filas de datos';
   }catch(error){return error.message}
  }
- const message=el('message').value,file=el('source').files[0];
  try{
   const input=new TextEncoder().encode(message);
   const g=message?planText(input,level,axis,fixed):null;

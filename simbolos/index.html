@@ -4,11 +4,12 @@
 .entrada{padding:12px 0}.entrada+.entrada{border-top:1px solid #bac9c4}.entrada label{font-weight:650;margin:0 0 6px}.entrada button{display:block;margin-top:8px}textarea{display:block;width:100%;padding:8px;font:inherit}canvas.compact{width:auto;max-width:100%;height:auto}@media print{body{background:white}main{padding:0;max-width:none}main>*:not(canvas){display:none}canvas{width:210mm;height:297mm;margin:0}canvas.compact{width:var(--print-side);height:auto}@page{size:A4;margin:0}}
 </style><main><header><small>UrySoft</small><h1>Símbolos</h1></header>
 <label>Procesamiento <select id="mode"><option value="local">En este dispositivo</option><option value="web">Enviar al servicio web de UrySoft</option></select></label>
-<fieldset><legend>Codificar</legend><label>Nivel <select id="level"><option value="1">1 · Blanco y negro · 469 bytes de contenido</option><option value="2">2 · Trazo de color · 790 bytes de contenido</option><option value="3" selected>3 · Trazo y fondo de color · 1.024 bytes de contenido</option><option value="4">4 · Alta capacidad · 2.676 bytes de contenido</option></select></label>
+<fieldset><legend>Codificar</legend><label>Nivel <select id="level"><option value="1">1 · Blanco y negro · 469 bytes de contenido</option><option value="2">2 · Trazo de color · 790 bytes de contenido</option><option value="3" selected>3 · Trazo y fondo de color · 1.024 bytes de contenido</option><option value="4">4 · Alta capacidad · 2.676 bytes de contenido</option><option value="5">5 · 512 KiB · 2 × 2 cm</option></select></label>
 <small id="capacityHint" hidden>Guarda y lee la imagen original para conservar los colores de este nivel.</small>
-<label>Forma de la imagen <select id="axis"><option value="auto">Automática</option><option value="columns">Fijar columnas</option><option value="rows">Fijar filas</option></select></label>
-<label><input id="marks" type="checkbox" checked> Incluir márgenes y marcas de lectura</label>
-<small>Para leer una fotografía, conserva las marcas. Para compartir solo las casillas, desactívalas y guarda la imagen a su tamaño original.</small>
+<small id="microHint" hidden>Imagen original de 1.536 × 1.536 píxeles. Guarda el PNG y vuelve a cargarlo a su tamaño original.</small>
+<label id="axisBox">Forma de la imagen <select id="axis"><option value="auto">Automática</option><option value="columns">Fijar columnas</option><option value="rows">Fijar filas</option></select></label>
+<label id="marksBox"><input id="marks" type="checkbox" checked> Incluir márgenes y marcas de lectura</label>
+<small id="marksHint">Para leer una fotografía, conserva las marcas. Para compartir solo las casillas, desactívalas y guarda la imagen a su tamaño original.</small>
 <label id="fixedBox" hidden><span id="fixedLabel">Número de columnas</span> <input id="fixed" type="number" value="8" min="1" max="60" step="1"></label>
 <div class="entrada"><label for="message">Escribir texto o pegar un enlace</label><textarea id="message" rows="3" placeholder="https://urysoft.com"></textarea><small id="textGrid" aria-live="polite"></small><button id="encodeText">Crear icono de texto</button></div>
 <div class="entrada"><label for="source">Subir archivo</label><input id="source" type="file"><small id="fileGrid" aria-live="polite"></small><button id="encode">Crear página de archivo</button></div></fieldset>
@@ -17,4 +18,4 @@
 <output id="status" aria-live="polite"></output><button id="save" hidden>Guardar</button>
 <section id="resultText" hidden><label>Texto recuperado <textarea id="restored" readonly rows="3"></textarea></label><button id="copy">Copiar texto</button> <a id="open" hidden rel="noopener noreferrer">Abrir enlace</a></section>
 <canvas id="view" hidden></canvas><p><a href="https://github.com/UrySoft/urysoft/tree/main/simbolos" target="_blank" rel="noopener">Documentación y código de la API</a></p></main>
-<script type="module" src="ui.mjs?v=capacity1"></script></html>
+<script type="module" src="ui.mjs?v=micro1"></script></html>

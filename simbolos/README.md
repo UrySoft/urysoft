@@ -11,6 +11,10 @@ El nuevo formato identifica la cuadrícula mediante la etiqueta superior 0xE40 y
 
 El cliente puede enviar el texto directamente a `POST /encode?level=1` con `Content-Type: text/plain; charset=utf-8`. Los niveles 2 y 3 funcionan del mismo modo. Al descodificar, la cabecera `X-UrySoft-Kind` distingue `text` de `file`. Los lectores anteriores requieren actualización para interpretar las cuadrículas compactas.
 
+## Nivel 5 · 512 KiB en 2 × 2 cm
+
+Selecciona el **Nivel 5**, sube un archivo o escribe el texto y guarda la imagen. Cada píxel guarda dos bits en su color. El archivo PNG mide 1.536 × 1.536 píxeles y declara un tamaño físico de 2 × 2 cm. Admite hasta 524.288 bytes de contenido original y añade corrección de errores y control de integridad. Para recuperarlo, vuelve a cargar el PNG original. La geometría y la marca identificadora son fijas. La lectura desde fotografías o impresiones queda pendiente de validación.
+
 ## Imagen sin marcas
 Desactiva **Incluir márgenes y marcas de lectura** para exportar exclusivamente las casillas. El lector web recupera los datos desde el fichero digital original: mide las filas y columnas con las dimensiones en píxeles y usa la paleta conocida. Para fotos, impresiones y capturas redimensionadas se recomienda mantener las marcas de posición y color. El cuadrado del pie de la página A4 abre el lector web y también desaparece en el modo sin marcas. El servicio usa `marks=0` para omitirlas y `marks=1` por defecto.
 
@@ -62,7 +66,7 @@ curl --fail-with-body -H "Content-Type: application/octet-stream" --data-binary 
 curl --fail-with-body -D cabeceras.txt -H "Content-Type: image/png" --data-binary @pagina.png "http://127.0.0.1:8787/api/simbolos/v1/decode" -o recuperado.txt
 ```
 
-Para usar el alojamiento de UrySoft, cambia el origen local por el del servicio. Se admiten llamadas desde otros orígenes sin credenciales. En descodificación, las cabeceras `X-UrySoft-Level` y `X-UrySoft-Corrected` indican nivel detectado y número de bytes reparados. La ruta de decodificación admite PNG de 8 bits RGB/RGBA sin entrelazar, hasta 4 millones de píxeles y 12.000.000 bytes de entrada. Usa una imagen opaca. La aplicación web convierte las fotografías que el navegador puede abrir y limita su lado mayor a 1.800 píxeles.
+Para usar el alojamiento de UrySoft, cambia el origen local por el del servicio. Se admiten llamadas desde otros orígenes sin credenciales. En descodificación, las cabeceras `X-UrySoft-Level` y `X-UrySoft-Corrected` indican nivel detectado y número de bytes reparados. La ruta de decodificación admite PNG de 8 bits RGB/RGBA o de color indexado de 2 bits, sin entrelazar, hasta 4 millones de píxeles y 12.000.000 bytes de entrada. Usa una imagen opaca. La aplicación web convierte las fotografías que el navegador puede abrir y limita su lado mayor a 1.800 píxeles.
 
 **Cuatro puntos opcionales.** Añade el parámetro `corners` con una matriz JSON codificada para URL. Sus cuatro pares son coordenadas de los **centros de los marcadores**, en píxeles de la imagen enviada y en orden alrededor del perímetro. Para una página original vertical de 840 × 1.188 píxeles: `[[36,48],[804,48],[804,1040],[36,1040]]`. El lector prueba los cuatro giros. Una foto necesita sus propias coordenadas.
 

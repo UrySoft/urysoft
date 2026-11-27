@@ -22,3 +22,13 @@ Para imágenes digitales. La página automática conserva las 690 posiciones út
 Se mantiene la cabecera de archivo de 12 bytes con nivel 4. Se distribuyen los bytes del canal entre tantos bloques como sean necesarios para no superar 230 bytes por bloque. Se conservan el entrelazado y la comprobación de integridad. La página automática tiene 12 bloques de 230 bytes y 6 bytes de paridad en cada uno, de modo que caben 2.676 bytes de archivo. Cada bloque completo repara hasta tres errores de byte de posición desconocida.
 
 En cuadrículas compactas de texto de nivel 4, la cabecera contiene un byte de modo, dos bytes de longitud comprimida y cuatro bytes de comprobación de integridad del texto original. Los enteros multibyte se escriben en orden de byte más significativo primero. Los bloques cortos conservan los cuatro bytes de paridad del modo de texto. Los niveles anteriores mantienen su representación.
+
+## Nivel 5 · 512 KiB en 2 × 2 cm
+
+Formato para el archivo digital original. El PNG usa una paleta opaca de cuatro colores con los mismos índices del nivel 4. El raster mide 1.536 × 1.536 píxeles y declara 76.800 píxeles por metro en cada eje. Cada grupo de cuatro píxeles consecutivos contiene un byte, del par más significativo al menos significativo. Se recorren las filas de arriba abajo y de izquierda a derecha.
+
+Las ocho primeras filas se reservan para identificar el formato. Sus primeros 16 píxeles repiten los índices `0, 2, 1, 3, 1, 2, 0, 3, 2, 3, 0, 1, 3, 1, 2, 0`. El resto de cada fila se rellena con el índice cero. A partir de la novena fila se escriben los datos.
+
+La trama tiene una cabecera de 16 bytes. Los bytes 0–3 contienen `URY5`, los bytes 4–7 contienen la longitud original y los bytes 8–11 contienen la suma de integridad CRC-32. El byte 12 vale 0 para archivo o 1 para texto. Los tres siguientes están reservados y a cero. Los enteros multibyte usan primero el byte más significativo. El contenido de hasta 524.288 bytes se almacena directamente y se rellena con ceros.
+
+La trama se distribuye en 2.270 bloques de 231 bytes útiles y 24 bytes de paridad Reed–Solomon por bloque. Se escribe el primer byte de todos los bloques, luego el segundo y así sucesivamente. El espacio restante se rellena con el índice cero. Cada bloque puede corregir hasta 12 bytes erróneos de posición desconocida. La lectura requiere verificar la cabecera y la suma de integridad antes de devolver el contenido.

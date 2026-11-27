@@ -119,3 +119,38 @@ const repairedDense=readImage(damagedDense);
 assert(repairedDense.corrected>0);
 assert.deepEqual(Buffer.from(repairedDense.data),denseFile);
 console.log('OK: alta capacidad de 2.676 bytes en 690 casillas, formatos con y sin marcas, ejes fijos, texto largo y reparación de una casilla dañada.');
+
+const {microLimit,microSide,readMicro}=await import('./v1/micro.mjs');
+const microFile=randomBytes(microLimit);
+const microResponse=await req('encode?level=5','application/octet-stream',microFile);
+assert.equal(microResponse.status,200);
+const microPNG=new Uint8Array(await microResponse.arrayBuffer());
+const microView=new DataView(microPNG.buffer);
+assert.equal(microView.getUint8(24),2); // Two bits per indexed pixel.
+assert.equal(microView.getUint32(41),76800); // Horizontal pixels per metre.
+assert.equal(microView.getUint32(45),76800);
+assert.equal(microView.getUint8(49),1); // Metre is the physical unit.
+const microImage=await fromPNG(microPNG);
+assert.deepEqual([microImage.width,microImage.height],[microSide,microSide]);
+assert.equal(microSide/76800,.02);
+const microDecoded=await req('decode','image/png',microPNG);
+assert.equal(microDecoded.status,200);
+assert.equal(microDecoded.headers.get('X-UrySoft-Level'),'5');
+assert.equal(microDecoded.headers.get('X-UrySoft-Kind'),'file');
+assert.deepEqual(Buffer.from(await microDecoded.arrayBuffer()),microFile);
+
+for(let y=8;y<11;y++)for(let x=0;x<microSide;x++){
+ microImage.pixels.fill(17,(y*microSide+x)*3,(y*microSide+x)*3+3);
+}
+const repairedMicro=readMicro(microImage);
+assert(repairedMicro.corrected>0);
+assert.deepEqual(Buffer.from(repairedMicro.data),microFile);
+const microText='Text exacte amb accents i emoji 🚀\n';
+const microTextResponse=await req('encode?level=5','text/plain',microText);
+assert.equal(microTextResponse.status,200);
+const decodedMicroText=await req('decode','image/png',await microTextResponse.arrayBuffer());
+assert.equal(decodedMicroText.headers.get('X-UrySoft-Kind'),'text');
+assert.equal(await decodedMicroText.text(),microText);
+assert.equal((await req('encode?level=5','application/octet-stream',new Uint8Array(microLimit+1))).status,413);
+assert.equal((await req('encode?level=5&rows=2','text/plain','x')).status,400);
+console.log('OK: 512 KiB en 2 × 2 cm, densidad física, recuperación exacta, texto y corrección de daño localizado.');
