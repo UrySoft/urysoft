@@ -11,6 +11,9 @@ El nuevo formato identifica la cuadrícula mediante la etiqueta superior 0xE40 y
 
 El cliente puede enviar el texto directamente a `POST /encode?level=1` con `Content-Type: text/plain; charset=utf-8`. Los niveles 2 y 3 funcionan del mismo modo. Al descodificar, la cabecera `X-UrySoft-Kind` distingue `text` de `file`. Los lectores anteriores requieren actualización para interpretar las cuadrículas compactas.
 
+## Imagen sin marcas
+Desactiva **Incluir márgenes y marcas de lectura** para exportar exclusivamente las casillas. El lector web recupera los datos desde el fichero digital original: mide las filas y columnas con las dimensiones en píxeles y usa la paleta conocida. Para fotos, impresiones y capturas redimensionadas se recomienda mantener las marcas de posición y color. El cuadrado del pie de la página A4 abre el lector web y también desaparece en el modo sin marcas. El servicio usa `marks=0` para omitirlas y `marks=1` por defecto.
+
 ## Filas y columnas
 En **Forma de la imagen** elige **Fijar columnas** o **Fijar filas**. Introduce de 1 a 60 casillas de datos. La web calcula la menor dimensión complementaria que admite el contenido, la cabecera y la corrección de errores. La vista previa se actualiza al cambiar el contenido, el nivel o el número. Si rebasa 60 en el otro eje, la web pide aumentar el valor fijo. El borde y los márgenes se añaden al exportar. El lector web identifica ambas dimensiones a partir de las marcas. En modo automático se conserva la página A4 para archivos y el rectángulo compacto de menor superficie para texto.
 

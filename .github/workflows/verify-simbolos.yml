@@ -35,10 +35,10 @@ jobs:
             if curl -fsS --max-time 20 -H 'Content-Type: application/octet-stream' --data-binary @"$work/original.bin" "$base/api/simbolos/v1/encode?level=3" -o "$work/page.png" &&
                curl -fsS --max-time 20 -H 'Content-Type: image/png' --data-binary @"$work/page.png" "$base/api/simbolos/v1/decode" -o "$work/recovered.bin" &&
                cmp -s "$work/original.bin" "$work/recovered.bin" &&
-               curl -fsS "$base/simbolos/" -o "$work/index" && grep -q 'v=text2' "$work/index" && ! grep -qi '\.apk' "$work/index" &&
+               curl -fsS "$base/simbolos/" -o "$work/index" && grep -q 'v=marks1' "$work/index" && ! grep -qi '\.apk' "$work/index" &&
                check_old_downloads &&
-               curl -fsS -H 'Content-Type: text/plain' --data-binary 'https://urysoft.com' "$base/api/simbolos/v1/encode?level=3&columns=10" -o "$work/text.png" &&
-               test "$(od -An -tu4 --endian=big -j16 -N8 "$work/text.png" | xargs)" = '416 160' &&
+               curl -fsS -H 'Content-Type: text/plain' --data-binary 'https://urysoft.com' "$base/api/simbolos/v1/encode?level=3&columns=10&marks=0" -o "$work/text.png" &&
+               test "$(od -An -tu4 --endian=big -j16 -N8 "$work/text.png" | xargs)" = '320 64' &&
                curl -fsS -H 'Content-Type: image/png' --data-binary @"$work/text.png" "$base/api/simbolos/v1/decode" | grep -Fxq 'https://urysoft.com'; then
               echo 'Verified web-only distribution and rectangular encoding'
               exit 0

@@ -23,7 +23,9 @@ export async function handle(request){
    if(axes.length>1)return json({error:'Fija solo filas o columnas.'},400);
    const axis=axes[0]||'auto',value=Number(u.searchParams.get(axis));
    if(axes.length&&(!Number.isInteger(value)||value<1||value>60))return json({error:'Dimensión entre 1 y 60.'},400);
-   const png=await toPNG(render(data,level,text,axis,value));return new Response(png,{headers:{...headers,'Content-Type':'image/png'}});
+   const marks=u.searchParams.get('marks')??'1';
+   if(!['0','1'].includes(marks))return json({error:'marks debe ser 0 o 1.'},400);
+   const png=await toPNG(render(data,level,text,axis,value,marks==='1'));return new Response(png,{headers:{...headers,'Content-Type':'image/png'}});
   }
   const img=await fromPNG(await readBounded(request.body,12000000));
   const corners=u.searchParams.get('corners');let points;

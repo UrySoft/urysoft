@@ -143,21 +143,24 @@ export function planText(input,level,axis='auto',value){
 }
 // Dimension tags occupy the central half of the distance between corner markers.
 function tagPosition(i,span){return 32+span*(.25+i/24)}
-export function render(input,level=3,text=false,axis='auto',value){
- const fixed=text||axis!=='auto',compact=fixed;
+export function render(input,level=3,text=false,axis='auto',value,marks=true){
+ const fixed=text||axis!=='auto'||!marks,compact=fixed;
  const grid=text?planText(input,level,axis,value):gridSize(input.length,level,false,axis,value);
  const side=compact?grid.columns:0,cols=grid.columns+2,rows=grid.rows+2;
- const width=compact?(cols+1)*32:840,height=compact?(rows+1)*32:1188;
- const left=compact?16:20,top=compact?16:32;
+ const width=!marks?grid.columns*32:compact?(cols+1)*32:840;
+ const height=!marks?grid.rows*32:compact?(rows+1)*32:1188;
+ const left=!marks?-32:compact?16:20,top=!marks?-32:compact?16:32;
  const cells=encodeCells(input,level,side,grid.rows,fixed&&!text,grid.packed),pixels=new Uint8Array(width*height*3).fill(255);
  function rect(x,y,w,h,color){for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++){const k=3*(j*width+i);pixels[k]=color[0];pixels[k+1]=color[1];pixels[k+2]=color[2]}}
- for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+ const inset=marks?0:1;
+ for(let r=inset;r<rows-inset;r++)for(let c=inset;c<cols-inset;c++){
   const x=left+c*32,y=top+r*32;
   if((r===0||r===rows-1)&&(c===0||c===cols-1)){for(const [s,v] of [[28,black],[20,white],[12,black]])rect(x+(32-s)/2,y+(32-s)/2,s,s,v);continue}
   if(!r||r===rows-1||!c||c===cols-1){if(compact)continue;rect(x+3,y+3,26,26,level===1?((r+c)%2?black:white):palette[(r+c-1+16)%16]);continue}
   const [mask,ink,bg]=unpack(cells[(r-1)*(cols-2)+c-1],level);rect(x+1,y+1,30,30,bg);
   for(let j=0;j<16;j++)if(mask>>j&1)rect(x+4+6*(j%4),y+4+6*(j>>2),6,6,ink);
  }
+ if(!marks)return {width,height,pixels};
  if(compact){
   // Fixed strips between the finders carry the dimension and colour references.
   const tag=0xA80|side,span=side*32;
@@ -188,20 +191,20 @@ function projector(quad,left=36,top=48,dxRef=768,dyRef=992){
 }
 export function readImage(img,points){
  const {width:w,height:h,pixels}=img,stride=pixels.length/(w*h);if(![3,4].includes(stride))throw Error('Formato de píxel inválido');
- function scan(side,rows=side,rectQuad=null,packed=false){
+ function scan(side,rows=side,rectQuad=null,packed=false,bare=false){
  const compact=side>0,span=(side+1)*32,extent=(side+3)*32;
  const quad=rectQuad||points||(compact?[[32,32],[32+span,32],[32+span,32+span],[32,32+span]].map(([x,y])=>[x*w/extent,y*h/extent]):corners.map(([x,y])=>[x*w/width,y*h/height]));
  if(quad.length!==4||quad.some(p=>!Array.isArray(p)||p.length!==2||p.some(k=>!Number.isFinite(k))))throw Error('Se requieren cuatro centros');
- for(let rotation=0;rotation<(rectQuad?1:4);rotation++){
+ for(let rotation=0;rotation<(rectQuad||bare?1:4);rotation++){
  const rotated=quad.map((_,i)=>quad[(i+rotation)%4]);
- const project=compact?projector(rotated,32,32,span,(rows+1)*32):projector(rotated);
+ const project=bare?((x,y)=>[x-48,y-48]):compact?projector(rotated,32,32,span,(rows+1)*32):projector(rotated);
  function sample(x,y){const [px,py]=project(x,y);if(px<0||px>=w||py<0||py>=h)throw Error('Esquina fuera de imagen');const k=(py*w+px)*stride;return [pixels[k],pixels[k+1],pixels[k+2]]}
- if(compact&&!rectQuad){
+ if(compact&&!rectQuad&&!bare){
   let tag=0;
   for(let i=0;i<12;i++)tag=tag*2+Number(sample(48+(i+.5)*side*32/12,32).reduce((a,b)=>a+b,0)<384);
   if(tag!==(0xA80|side))continue;
  }
- const ref=compact?Array.from({length:16},(_,i)=>sample(48+(i+.5)*side*2,32+(rows+1)*32)):Array.from({length:16},(_,i)=>sample(20+(i+1)*32+16,48));
+ const ref=bare?palette:compact?Array.from({length:16},(_,i)=>sample(48+(i+.5)*side*2,32+(rows+1)*32)):Array.from({length:16},(_,i)=>sample(20+(i+1)*32+16,48));
  for(const level of [1,2,3]){
   try{
   const cells=[];
@@ -228,6 +231,13 @@ export function readImage(img,points){
   return decodeCells(cells,level,side,rows,packed);
   }catch(e){/* The verified frame selects the rotation and profile. */}
  }}
+ }
+ // A native digital grid has exactly 32 pixels per cell and uses the known palette.
+ if(!points&&w%32===0&&h%32===0&&w<=60*32&&h<=60*32){
+  for(const packed of [true,false]){
+   const result=scan(w/32,h/32,null,packed,true);
+   if(result)return result;
+  }
  }
  // The original export has a one-cell inset to each marker centre.
  const frame=points||[[32,32],[w-32,32],[w-32,h-32],[32,h-32]];

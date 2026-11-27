@@ -73,3 +73,17 @@ for(const value of ['https://urysoft.com','https://','http://www.example.org/à'
  }
 }
 assert.throws(()=>packText(new Uint8Array(65537)));
+for(const level of [1,2,3])for(const type of ['text/plain','application/octet-stream']){
+ const url='https://urysoft.com';
+ for(const shape of ['','&rows=1','&columns=9']){
+  const encoded=await req('encode?marks=0&level='+level+shape,type,url);
+  assert.equal(encoded.status,200);
+  const png=new Uint8Array(await encoded.arrayBuffer());
+  const image=await fromPNG(png);
+  if(level===3&&type==='text/plain'&&!shape)assert.deepEqual([image.width,image.height],[96,128]);
+  if(shape==='&rows=1')assert.equal(image.height,32);
+  const decoded=await req('decode','image/png',png);
+  assert.equal(decoded.headers.get('X-UrySoft-Kind'),type==='text/plain'?'text':'file');
+  assert.equal(await decoded.text(),url);
+ }
+}
