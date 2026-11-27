@@ -1,0 +1,34 @@
+name: Publish Roulette Analytics 1.1.26
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-roulette-analytics-1.1.26.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      APK: descargas/roulette-analytics/Roulette-Analytics-1.1.26.apk
+      TAG: roulette-analytics-1.1.26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify the signed installer digest
+        run: echo "f8be08477bb92b0daa0d37837f33698eb3aac3353c97c8d7ec31b7c5ad4aa85c  $APK" | sha256sum -c -
+      - name: Publish the Android download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK"
+          else
+            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --latest=false \
+              --title "Roulette Analytics 1.1.26" \
+              --notes "Descarga directa para Android. Tras iniciar sesión, configura la mesa y vincula ChatGPT antes de abrir el tapete."
+          fi
