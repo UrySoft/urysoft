@@ -1,4 +1,4 @@
-import {render,readImage,limits,gridSize} from './v1/codec.mjs';
+import {render,readImage,limits,gridSize,planText} from './v1/codec.mjs';
 import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
 const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
@@ -39,16 +39,16 @@ async function uploadPNG(){
 async function create(text){
  reset();const file=text?new Blob([el('message').value],{type:'text/plain'}):el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
  if(text&&!file.size)throw Error('Escribe un texto o un enlace.');
- if(file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
+ if(!text&&file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
  const axis=el('axis').value,value=el('fixed').valueAsNumber;
- const grid=gridSize(file.size,l,text,axis,value);
+ const grid=text?planText(new Uint8Array(await file.arrayBuffer()),l,axis,value):gridSize(file.size,l,false,axis,value);
  const query=axis==='auto'?'':'&'+axis+'='+value;
  let blob;if(el('mode').value==='web'){blob=await(await call('encode?level='+l+query,file,text?'text/plain;charset=utf-8':'application/octet-stream')).blob();await draw(blob)}
  else{const img=render(new Uint8Array(await file.arrayBuffer()),l,text,axis,value);canvas.width=img.width;canvas.height=img.height;const d=ctx.createImageData(img.width,img.height);
  for(let i=0,j=0;i<img.pixels.length;i+=3,j+=4){d.data[j]=img.pixels[i];d.data[j+1]=img.pixels[i+1];d.data[j+2]=img.pixels[i+2];d.data[j+3]=255}ctx.putImageData(d,0,0);canvas.hidden=false;
  const {toPNG}=await import('./v1/png.mjs');blob=new Blob([await toPNG(img)],{type:'image/png'});}
  canvas.classList.toggle('compact',text||axis!=='auto');canvas.style.setProperty('--print-side',canvas.width/4+'mm');
- setResult(blob,'urysoft-'+(text?'texto-':'')+'nivel-'+l+'.png');out.textContent=grid.columns+' columnas × '+grid.rows+' filas de datos · '+file.size+' bytes · '+canvas.width+' × '+canvas.height+' píxeles.';
+ setResult(blob,'urysoft-'+(text?'texto-':'')+'nivel-'+l+'.png');out.textContent=grid.columns+' columnas × '+grid.rows+' filas de datos · '+file.size+' bytes originales · '+(text?grid.packed.bytes.length+' bytes de contenido codificado · ':'')+canvas.width+' × '+canvas.height+' píxeles.';
 }
 async function recover(markers){
  let data,level,corrected,kind;
@@ -100,7 +100,11 @@ function previewGrid(){
   }catch(error){return error.message}
  }
  const message=el('message').value,file=el('source').files[0];
- el('textGrid').textContent=message?describe(new Blob([message]).size,true):'';
+ try{
+  const input=new TextEncoder().encode(message);
+  const g=message?planText(input,level,axis,fixed):null;
+  el('textGrid').textContent=g?input.length+' bytes originales → '+g.packed.bytes.length+' bytes de contenido · '+g.columns+' × '+g.rows+' casillas de datos':'';
+ }catch(error){el('textGrid').textContent=error.message}
  el('fileGrid').textContent=file?describe(file.size,false):'';
 }
 for(const id of ['axis','level','source'])el(id).onchange=previewGrid;

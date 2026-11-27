@@ -1,3 +1,4 @@
+import {packText,unpackText} from './text.mjs';
 // UrySoft Símbolos v1. Pure transforms shared by HTTP, browser and Android.
 export const glyphs=[25715,4623,13405,14601,21395,23788,49932,54128,24113,11730,62516,40839,64018,57240,7190,30605];
 export const palette=['111111','341520','192d13','13253b','35163a','163130','3a260b','2c2245','c35b67','b07613','73822b','238e64','208bb2','7872bd','aa69a0','9e7967'].map(h=>[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)));
@@ -47,24 +48,33 @@ function layout(level,count=690,compact=false){
 }
 function readBits(bytes,start,n){let v=0;for(let i=start;i<start+n;i++)v=v*2+((bytes[i>>3]>>(7-i%8))&1);return v}
 function writeBits(bytes,start,n,v){for(let i=0;i<n;i++){const k=start+i;bytes[k>>3]|=((v>>(n-1-i))&1)<<(7-k%8)}}
-export function encodeCells(input,level=3,side=0,rows=side,fileGrid=false){
+export function encodeCells(input,level=3,side=0,rows=side,fileGrid=false,packed=null){
  const count=side?side*rows:690;
- const lengths=layout(level,count,!!side),p=parity[level];if(!(input instanceof Uint8Array)||input.length>limits[level])throw Error('Fichero demasiado grande o inválido');
+ const lengths=layout(level,count,!!side),p=packed?textParity(lengths,level):parity[level];if(!(input instanceof Uint8Array)||(packed?packed.bytes.length:input.length)>limits[level])throw Error('Fichero demasiado grande o inválido');
  const frame=new Uint8Array(lengths.reduce((a,b)=>a+b-p,0));
- frame.set([85,83,89,49,level,fileGrid?3:(side?2:1),input.length>>8,input.length&255]);new DataView(frame.buffer).setUint32(8,crc32(input));frame.set(input,12);
+ if(packed){
+  const view=new DataView(frame.buffer);view.setUint16(0,(packed.mode<<11)|packed.bytes.length);view.setUint32(2,crc32(input));frame.set(packed.bytes,6);
+ }else{frame.set([85,83,89,49,level,fileGrid?3:(side?2:1),input.length>>8,input.length&255]);new DataView(frame.buffer).setUint32(8,crc32(input));frame.set(input,12)}
  let off=0;const blocks=lengths.map(n=>{const a=rsEncode(frame.subarray(off,off+n-p),p);off+=n-p;return a});
  const stream=[];for(let j=0;j<lengths[0];j++)for(const b of blocks)if(j<b.length)stream.push(b[j]);
  return Uint16Array.from({length:count},(_,i)=>readBits(stream,i*bits[level],bits[level]));
 }
-export function decodeCells(cells,level,side=0,rows=side){
+export function decodeCells(cells,level,side=0,rows=side,packed=false){
  const count=side?side*rows:690;
- const lengths=layout(level,count,!!side),p=parity[level];if(cells.length!==count)throw Error('Cuadrícula incorrecta');
+ const lengths=layout(level,count,!!side),p=packed?textParity(lengths,level):parity[level];if(cells.length!==count)throw Error('Cuadrícula incorrecta');
  const stream=new Uint8Array(Math.ceil(count*bits[level]/8));
  cells.forEach((v,i)=>writeBits(stream,i*bits[level],bits[level],v));
  let off=0,corrected=0;const blocks=lengths.map(n=>new Uint8Array(n));
  for(let j=0;j<lengths[0];j++)for(const b of blocks)if(j<b.length)b[j]=stream[off++];
  const bytes=[];for(const b of blocks){corrected+=rsRepair(b,p);bytes.push(...b.subarray(0,b.length-p))}
  const frame=Uint8Array.from(bytes),len=frame[6]*256+frame[7];
+ if(packed){
+  const view=new DataView(frame.buffer),tag=view.getUint16(0),length=tag&2047;
+  if(length>frame.length-6||length>limits[level])throw Error('Longitud inválida');
+  const data=unpackText(tag>>>11,frame.subarray(6,6+length));
+  if(crc32(data)!==view.getUint32(2))throw Error('Texto dañado');
+  return {data,level,corrected,kind:'text'};
+ }
  if(frame.slice(0,6).join()!==[85,83,89,49,level,side?(frame[5]===3?3:2):1].join()||len>frame.length-12||len>limits[level])throw Error('Cabecera inválida');
  const data=frame.slice(12,12+len);if(crc32(data)!==new DataView(frame.buffer).getUint32(8))throw Error('Integridad incorrecta');
  return {data,level,corrected,kind:frame[5]===2?"text":"file"};
@@ -101,15 +111,45 @@ export function gridSize(bytes,level,text,axis='auto',value){
  }
  throw Error('El contenido necesita más de 60 casillas en la otra dimensión. Aumenta la dimensión fija o el nivel.');
 }
+function textParity(lengths,level){
+ // Short blocks retain four repair bytes, longer ones use the existing level budget.
+ return lengths[0]<=40?4:parity[level];
+}
+export function planText(input,level,axis='auto',value){
+ const packed=packText(input);
+ if(packed.bytes.length>limits[level])throw Error('El texto comprimido supera los '+limits[level]+' bytes de este nivel.');
+ if(axis!=='auto'&&(!['columns','rows'].includes(axis)||!Number.isInteger(value)||value<1||value>60))throw Error('Elige un número entero entre 1 y 60.');
+ let best,area=Infinity;
+ for(let columns=1;columns<=60;columns++){
+  if(axis==='columns'&&columns!==value)continue;
+  for(let rows=axis==='rows'?value:1;rows<=60;rows++){
+   const candidate=(columns+3)*(rows+3);
+   if(candidate>area)break;
+   const count=columns*rows,size=Math.floor(count*bits[level]/8);
+   if(size>=packed.bytes.length+10){
+    const lengths=layout(level,count,true);
+    if(size-lengths.length*textParity(lengths,level)>=packed.bytes.length+6){
+     if(candidate<area||Math.abs(rows-columns)<Math.abs(best.rows-best.columns)){
+      best={columns,rows,packed};area=candidate;
+     }
+     break;
+    }
+   }
+   if(axis==='rows')break;
+  }
+ }
+ if(!best)throw Error('Aumenta la dimensión fija o el nivel.');
+ return best;
+}
 // Dimension tags occupy the central half of the distance between corner markers.
 function tagPosition(i,span){return 32+span*(.25+i/24)}
 export function render(input,level=3,text=false,axis='auto',value){
- const fixed=axis!=='auto',compact=text||fixed;
- const grid=gridSize(input.length,level,text,axis,value);
+ const fixed=text||axis!=='auto',compact=fixed;
+ const grid=text?planText(input,level,axis,value):gridSize(input.length,level,false,axis,value);
  const side=compact?grid.columns:0,cols=grid.columns+2,rows=grid.rows+2;
  const width=compact?(cols+1)*32:840,height=compact?(rows+1)*32:1188;
  const left=compact?16:20,top=compact?16:32;
- const cells=encodeCells(input,level,side,grid.rows,fixed&&!text),pixels=new Uint8Array(width*height*3).fill(255);
+ const cells=encodeCells(input,level,side,grid.rows,fixed&&!text,grid.packed),pixels=new Uint8Array(width*height*3).fill(255);
  function rect(x,y,w,h,color){for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++){const k=3*(j*width+i);pixels[k]=color[0];pixels[k+1]=color[1];pixels[k+2]=color[2]}}
  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
   const x=left+c*32,y=top+r*32;
@@ -126,7 +166,7 @@ export function render(input,level=3,text=false,axis='auto',value){
    for(let i=0;i<12;i++){
     const mask=1<<(11-i);
     const x=Math.round(tagPosition(i,sx)),y=Math.round(tagPosition(i,sy));
-    if((0xD40|grid.columns)&mask)rect(x,26,Math.round(tagPosition(i+1,sx))-x,12,black);
+    if(((text?0xE40:0xD40)|grid.columns)&mask)rect(x,26,Math.round(tagPosition(i+1,sx))-x,12,black);
     if((0xB40|grid.rows)&mask)rect(26,y,12,Math.round(tagPosition(i+1,sy))-y,black);
    }
   }else for(let i=0;i<12;i++)if(tag & (1<<(11-i)))rect(48+Math.floor(i*span/12),26,Math.floor((i+1)*span/12)-Math.floor(i*span/12),12,black);
@@ -148,7 +188,7 @@ function projector(quad,left=36,top=48,dxRef=768,dyRef=992){
 }
 export function readImage(img,points){
  const {width:w,height:h,pixels}=img,stride=pixels.length/(w*h);if(![3,4].includes(stride))throw Error('Formato de píxel inválido');
- function scan(side,rows=side,rectQuad=null){
+ function scan(side,rows=side,rectQuad=null,packed=false){
  const compact=side>0,span=(side+1)*32,extent=(side+3)*32;
  const quad=rectQuad||points||(compact?[[32,32],[32+span,32],[32+span,32+span],[32,32+span]].map(([x,y])=>[x*w/extent,y*h/extent]):corners.map(([x,y])=>[x*w/width,y*h/height]));
  if(quad.length!==4||quad.some(p=>!Array.isArray(p)||p.length!==2||p.some(k=>!Number.isFinite(k))))throw Error('Se requieren cuatro centros');
@@ -177,10 +217,15 @@ export function readImage(img,points){
    let mask=0;for(let i=0;i<16;i++)if(distance(samples[i],ink)<distance(samples[i],bg))mask|=1<<i;
    let shape=0,minimum=17;
    for(let i=0;i<64;i++){let z=mask^shapes[i],n=0;while(z){z&=z-1;n++}if(n<minimum){shape=i;minimum=n}}
-   const fg=level===1?0:nearest(ink,ref),back=level===3?nearest(bg,ref):0;
+   function glyphColor(on,fallback){
+    const colors=samples.filter((_,index)=>((shapes[shape]>>index)&1)===on);
+    if(!colors.length)return fallback;
+    return [0,1,2].map(ch=>colors.map(rgb=>rgb[ch]).sort((a,b)=>a-b)[colors.length>>1]);
+   }
+   const fg=level===1?0:nearest(packed?glyphColor(1,ink):ink,ref),back=level===3?nearest(packed?glyphColor(0,bg):bg,ref):0;
    cells.push(shape+(fg<<6)+(level===3?(back%8)<<10:0));
   }
-  return decodeCells(cells,level,side,rows);
+  return decodeCells(cells,level,side,rows,packed);
   }catch(e){/* The verified frame selects the rotation and profile. */}
  }}
  }
@@ -202,8 +247,9 @@ export function readImage(img,points){
     return value;
    }
    const top=tag(false),left=tag(true),cols=top&63,rows=left&63;
-   if((top&0xFC0)===0xD40&&(left&0xFC0)===0xB40&&cols>=1&&cols<=60&&rows>=1&&rows<=60){
-    const result=scan(cols,rows,quad);if(result)return result;
+   const packed=(top&0xFC0)===0xE40;
+   if((packed||(top&0xFC0)===0xD40)&&(left&0xFC0)===0xB40&&cols>=1&&cols<=60&&rows>=1&&rows<=60){
+    const result=scan(cols,rows,quad,packed);if(result)return result;
    }
   }catch{/* Try the next orientation or the legacy page geometry. */}
  }

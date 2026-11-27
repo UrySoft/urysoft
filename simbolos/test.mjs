@@ -33,7 +33,7 @@ for(const level of [1,2,3]){
   assert.equal(encoded.status,200);
   const png=new Uint8Array(await encoded.arrayBuffer());
   const image=await fromPNG(png);
-  assert.equal(image.width,image.height);
+  assert(image.width>0&&image.height>0);
   const decoded=await req('decode','image/png',png);
   assert.equal(decoded.headers.get('X-UrySoft-Kind'),'text');
   assert.equal(await decoded.text(),value);
@@ -57,3 +57,19 @@ for(const level of [1,2,3]){
 for(const query of ['rows=0','rows=2.5','columns=61','rows=3&columns=4']){
  assert.equal((await req('encode?'+query,'text/plain','hola')).status,400);
 }
+const {packText,unpackText}=await import('./v1/text.mjs');
+const {planText}=await import('./v1/codec.mjs');
+for(const value of ['https://urysoft.com','https://','http://www.example.org/à','\uFEFFÀé\n🚀  ','Un mensaje que se repite. '.repeat(300),'x'.repeat(65536)]){
+ const original=new TextEncoder().encode(value),packed=packText(original);
+ assert.deepEqual(unpackText(packed.mode,packed.bytes),original);
+ if(value.includes('urysoft')){
+  assert.equal(packed.bytes.length,7);
+  const {columns,rows}=planText(original,3);
+  assert.equal(columns*rows,12);
+ }
+ if(value.length<20000){
+  const image=render(original,3,true);
+  assert.deepEqual(readImage(image).data,original);
+ }
+}
+assert.throws(()=>packText(new Uint8Array(65537)));

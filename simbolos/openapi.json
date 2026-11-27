@@ -80,7 +80,8 @@
             },
             "text/plain": {
               "schema": {
-                "type": "string"
+                "type": "string",
+                "description": "Texto UTF-8, de 1 a 65.536 bytes antes de comprimir. La representación reversible debe caber en el nivel elegido."
               },
               "example": "https://urysoft.com"
             }

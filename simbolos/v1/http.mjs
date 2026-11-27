@@ -1,3 +1,4 @@
+import {maxTextBytes} from './text.mjs';
 import {render,readImage,limits} from './codec.mjs';
 import {toPNG,fromPNG,readBounded} from './png.mjs';
 import {findCorners} from './finders.mjs';
@@ -16,7 +17,7 @@ export async function handle(request){
  try{
   if(action==='encode'){
    const level=Number(u.searchParams.get('level')??3);if(![1,2,3].includes(level))return json({error:'Nivel entre 1 y 3'},400);
-   const data=request.body?await readBounded(request.body,limits[level]):new Uint8Array();
+   const data=request.body?await readBounded(request.body,text?maxTextBytes:limits[level]):new Uint8Array();
    if(text)new TextDecoder('utf-8',{fatal:true}).decode(data);
    const axes=['columns','rows'].filter(key=>u.searchParams.has(key));
    if(axes.length>1)return json({error:'Fija solo filas o columnas.'},400);
