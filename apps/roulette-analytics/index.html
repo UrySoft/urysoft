@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/assets/apps/app-page.css">
   <link rel="stylesheet" href="./page.css?v=3">
   <link rel="stylesheet" href="/assets/brand/site-header.css">
-  <script src="./copy.js?v=4" defer></script>
+  <script src="./copy.js?v=5" defer></script>
   <script type="module" src="/assets/site-insights.js?v=20261124"></script>
 </head>
 <body data-app="roulette-analytics" data-version="1.1.29">
@@ -56,21 +56,27 @@
         <span id="copy-status" role="status"></span>
       </div>
     </section>
-    <div class="content-columns">
-      <section class="panel" id="novedades" aria-labelledby="release-title">
-        <h2 id="release-title" data-copy="releaseTitle">Novedad en la versión 1.1.29</h2>
-        <p data-copy="releaseBody">La aplicación ya comprueba si hay nuevas versiones a través del canal de actualizaciones de UrySoft al abrirse. También puedes comprobarlo desde Ajustes.</p>
-        <p data-copy="reinstall">Si tienes instalada una versión anterior a la 1.1.29, desinstálala una vez, descarga esta versión y vuelve a entrar con la misma cuenta. Las siguientes versiones se anunciarán desde la aplicación.</p>
-      </section>
-      <section class="panel" aria-labelledby="features-title">
-        <h2 id="features-title" data-copy="featuresTitle">Qué puedes hacer</h2>
-        <ul>
-          <li data-copy="board">Registrar cada tirada tocando su número en el tapete.</li>
-          <li data-copy="stats">Consultar el historial, las frecuencias y las rachas, o usar una foto para cargar las estadísticas iniciales.</li>
-          <li data-copy="simulation">Simular jugadas y ajustar las fichas virtuales.</li>
-        </ul>
-      </section>
-    </div>
+    <section id="funcionamiento" aria-labelledby="features-title">
+      <h2 id="features-title" data-copy="featuresTitle">Cómo funciona</h2>
+      <div class="content-columns">
+        <article class="panel">
+          <h3 data-copy="setupTitle">Configura el tapete</h3>
+          <p data-copy="setupBody">Elige ruleta europea (0) o americana (0 y 00). Indica cuántas fichas virtuales quieres usar, cuánto vale cada una y qué tipos de jugada quieres incluir. Puedes introducir resultados anteriores a mano.</p>
+        </article>
+        <article class="panel">
+          <h3 data-copy="photoTitle">Importa estadísticas desde una foto</h3>
+          <p data-copy="photoBody">Si tienes una captura o una foto de una pantalla de estadísticas de ruleta, puedes adjuntarla como punto de partida. Con ChatGPT conectado, la app analiza la imagen una vez al abrir el tapete. Usa las tiradas o frecuencias que logra identificar para formar una base inicial, que puede ser aproximada. La foto es opcional.</p>
+        </article>
+        <article class="panel">
+          <h3 data-copy="statsTitle">Registra tiradas y consulta las frecuencias</h3>
+          <p data-copy="statsBody">Toca en el tapete el número que haya salido en cada tirada. Puedes deshacer la última entrada si te equivocas. La vista de estadísticas muestra una rueda con las frecuencias por número, los resultados recientes y los números más y menos frecuentes de la muestra.</p>
+        </article>
+        <article class="panel">
+          <h3 data-copy="simTitle">Compara jugadas simuladas</h3>
+          <p data-copy="simBody">Ajusta el nivel de riesgo y recalcula para ver cómo se distribuyen las fichas virtuales. El resumen muestra estimaciones de obtener beneficio, recuperar el importe virtual o perderlo, junto con el posible beneficio y la pérdida máxima. En Detalles puedes revisar la jugada.</p>
+        </article>
+      </div>
+    </section>
     <section class="panel usage-notice" id="aviso" aria-labelledby="notice-title">
       <h2 id="notice-title" data-copy="noticeTitle">Aviso de uso</h2>
       <p data-copy="notice">Roulette Analytics es un experimento de simulación e investigación estadística. Los resultados históricos no predicen la siguiente tirada. Las simulaciones no garantizan ganancias ni constituyen una recomendación para apostar. El cómic es una historia de ficción.</p>
