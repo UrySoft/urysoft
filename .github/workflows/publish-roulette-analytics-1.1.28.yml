@@ -1,0 +1,34 @@
+name: Publish Roulette Analytics 1.1.28
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-roulette-analytics-1.1.28.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      APK: descargas/roulette-analytics/Roulette-Analytics-1.1.28.apk
+      TAG: roulette-analytics-1.1.28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify the signed installer digest
+        run: echo "50009e5b413f70930a449efbf30400c8dba4ecbc3ab9b9d65351c6a2aeff392b  $APK" | sha256sum -c -
+      - name: Publish the Android download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK"
+          else
+            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --latest=false \
+              --title "Roulette Analytics 1.1.28" \
+              --notes "Descarga directa para Android. Programa de invitaciones con 50 créditos por alta directa y cinco por alta de segundo nivel."
+          fi
