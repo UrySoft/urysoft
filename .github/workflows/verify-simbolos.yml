@@ -52,10 +52,18 @@ jobs:
           export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           sdkmanager 'system-images;android-35;google_apis;x86_64' 'platform-tools' 'emulator' >/dev/null
           echo no | avdmanager create avd --force -n urysoft -k 'system-images;android-35;google_apis;x86_64' >/dev/null
-          emulator -avd urysoft -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect > "$RUNNER_TEMP/emu.log" 2>&1 &
+          emulator -list-avds
+          df -h "$HOME"
+          emulator -avd urysoft -memory 2048 -cores 2 -partition-size 1024 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect > "$RUNNER_TEMP/emu.log" 2>&1 &
           emulator_pid=$!
           trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
-          adb wait-for-device
+          for i in {1..60}; do
+            if ! kill -0 "$emulator_pid" 2>/dev/null; then cat "$RUNNER_TEMP/emu.log"; exit 1; fi
+            if adb devices | grep -q '^emulator-'; then break; fi
+            sleep 2
+          done
+          tail -45 "$RUNNER_TEMP/emu.log"
+          timeout 120 adb wait-for-device
           for i in {1..120}; do
             [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1 ]] && break
             sleep 3
