@@ -47,17 +47,17 @@ function layout(level,count=690,compact=false){
 }
 function readBits(bytes,start,n){let v=0;for(let i=start;i<start+n;i++)v=v*2+((bytes[i>>3]>>(7-i%8))&1);return v}
 function writeBits(bytes,start,n,v){for(let i=0;i<n;i++){const k=start+i;bytes[k>>3]|=((v>>(n-1-i))&1)<<(7-k%8)}}
-export function encodeCells(input,level=3,side=0){
- const count=side?side**2:690;
+export function encodeCells(input,level=3,side=0,rows=side,fileGrid=false){
+ const count=side?side*rows:690;
  const lengths=layout(level,count,!!side),p=parity[level];if(!(input instanceof Uint8Array)||input.length>limits[level])throw Error('Fichero demasiado grande o inválido');
  const frame=new Uint8Array(lengths.reduce((a,b)=>a+b-p,0));
- frame.set([85,83,89,49,level,side?2:1,input.length>>8,input.length&255]);new DataView(frame.buffer).setUint32(8,crc32(input));frame.set(input,12);
+ frame.set([85,83,89,49,level,fileGrid?3:(side?2:1),input.length>>8,input.length&255]);new DataView(frame.buffer).setUint32(8,crc32(input));frame.set(input,12);
  let off=0;const blocks=lengths.map(n=>{const a=rsEncode(frame.subarray(off,off+n-p),p);off+=n-p;return a});
  const stream=[];for(let j=0;j<lengths[0];j++)for(const b of blocks)if(j<b.length)stream.push(b[j]);
  return Uint16Array.from({length:count},(_,i)=>readBits(stream,i*bits[level],bits[level]));
 }
-export function decodeCells(cells,level,side=0){
- const count=side?side**2:690;
+export function decodeCells(cells,level,side=0,rows=side){
+ const count=side?side*rows:690;
  const lengths=layout(level,count,!!side),p=parity[level];if(cells.length!==count)throw Error('Cuadrícula incorrecta');
  const stream=new Uint8Array(Math.ceil(count*bits[level]/8));
  cells.forEach((v,i)=>writeBits(stream,i*bits[level],bits[level],v));
@@ -65,9 +65,9 @@ export function decodeCells(cells,level,side=0){
  for(let j=0;j<lengths[0];j++)for(const b of blocks)if(j<b.length)b[j]=stream[off++];
  const bytes=[];for(const b of blocks){corrected+=rsRepair(b,p);bytes.push(...b.subarray(0,b.length-p))}
  const frame=Uint8Array.from(bytes),len=frame[6]*256+frame[7];
- if(frame.slice(0,6).join()!==[85,83,89,49,level,side?2:1].join()||len>frame.length-12||len>limits[level])throw Error('Cabecera inválida');
+ if(frame.slice(0,6).join()!==[85,83,89,49,level,side?(frame[5]===3?3:2):1].join()||len>frame.length-12||len>limits[level])throw Error('Cabecera inválida');
  const data=frame.slice(12,12+len);if(crc32(data)!==new DataView(frame.buffer).getUint32(8))throw Error('Integridad incorrecta');
- return {data,level,corrected,kind:side?"text":"file"};
+ return {data,level,corrected,kind:frame[5]===2?"text":"file"};
 }
 function rotate(m){let t=0;for(let y=0;y<4;y++)for(let x=0;x<4;x++)t|=((m>>(4*y+x))&1)<<(4*(3-x)+y);return t}
 const shapes=glyphs.flatMap(m=>[m,rotate(m),rotate(rotate(m)),rotate(rotate(rotate(m)))]);
@@ -87,12 +87,29 @@ export function textSide(bytes,level){
  }
  throw Error('Texto demasiado grande');
 }
-export function render(input,level=3,compact=false){
- const side=compact?textSide(input.length,level):0;
- const cols=compact?side+2:25,rows=compact?side+2:32;
- const width=compact?(cols+1)*32:840,height=compact?width:1188;
+export function gridSize(bytes,level,text,axis='auto',value){
+ if(!Number.isInteger(bytes)||bytes<0||bytes>limits[level])throw Error('Contenido fuera del límite del nivel.');
+ if(axis==='auto'){
+  if(!text)return {columns:23,rows:30};
+  const side=textSide(bytes,level);return {columns:side,rows:side};
+ }
+ if(!['columns','rows'].includes(axis)||!Number.isInteger(value)||value<1||value>60)throw Error('Elige un número entero entre 1 y 60.');
+ for(let other=1;other<=60;other++){
+  const blocks=layout(level,value*other,true);
+  if(blocks.reduce((sum,n)=>sum+n-parity[level],0)>=12+bytes)
+   return axis==='columns'?{columns:value,rows:other}:{columns:other,rows:value};
+ }
+ throw Error('El contenido necesita más de 60 casillas en la otra dimensión. Aumenta la dimensión fija o el nivel.');
+}
+// Dimension tags occupy the central half of the distance between corner markers.
+function tagPosition(i,span){return 32+span*(.25+i/24)}
+export function render(input,level=3,text=false,axis='auto',value){
+ const fixed=axis!=='auto',compact=text||fixed;
+ const grid=gridSize(input.length,level,text,axis,value);
+ const side=compact?grid.columns:0,cols=grid.columns+2,rows=grid.rows+2;
+ const width=compact?(cols+1)*32:840,height=compact?(rows+1)*32:1188;
  const left=compact?16:20,top=compact?16:32;
- const cells=encodeCells(input,level,side),pixels=new Uint8Array(width*height*3).fill(255);
+ const cells=encodeCells(input,level,side,grid.rows,fixed&&!text),pixels=new Uint8Array(width*height*3).fill(255);
  function rect(x,y,w,h,color){for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++){const k=3*(j*width+i);pixels[k]=color[0];pixels[k+1]=color[1];pixels[k+2]=color[2]}}
  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
   const x=left+c*32,y=top+r*32;
@@ -104,7 +121,15 @@ export function render(input,level=3,compact=false){
  if(compact){
   // Fixed strips between the finders carry the dimension and colour references.
   const tag=0xA80|side,span=side*32;
-  for(let i=0;i<12;i++)if(tag & (1<<(11-i)))rect(48+Math.floor(i*span/12),26,Math.floor((i+1)*span/12)-Math.floor(i*span/12),12,black);
+  if(fixed){
+   const sx=(grid.columns+1)*32,sy=(grid.rows+1)*32;
+   for(let i=0;i<12;i++){
+    const mask=1<<(11-i);
+    const x=Math.round(tagPosition(i,sx)),y=Math.round(tagPosition(i,sy));
+    if((0xD40|grid.columns)&mask)rect(x,26,Math.round(tagPosition(i+1,sx))-x,12,black);
+    if((0xB40|grid.rows)&mask)rect(26,y,12,Math.round(tagPosition(i+1,sy))-y,black);
+   }
+  }else for(let i=0;i<12;i++)if(tag & (1<<(11-i)))rect(48+Math.floor(i*span/12),26,Math.floor((i+1)*span/12)-Math.floor(i*span/12),12,black);
   if(level>1)for(let i=0;i<16;i++)rect(48+i*span/16,top+(rows-1)*32+8,span/16,16,palette[i]);
   return {width,height,pixels};
  }
@@ -123,24 +148,24 @@ function projector(quad,left=36,top=48,dxRef=768,dyRef=992){
 }
 export function readImage(img,points){
  const {width:w,height:h,pixels}=img,stride=pixels.length/(w*h);if(![3,4].includes(stride))throw Error('Formato de píxel inválido');
- function scan(side){
+ function scan(side,rows=side,rectQuad=null){
  const compact=side>0,span=(side+1)*32,extent=(side+3)*32;
- const quad=points||(compact?[[32,32],[32+span,32],[32+span,32+span],[32,32+span]].map(([x,y])=>[x*w/extent,y*h/extent]):corners.map(([x,y])=>[x*w/width,y*h/height]));
+ const quad=rectQuad||points||(compact?[[32,32],[32+span,32],[32+span,32+span],[32,32+span]].map(([x,y])=>[x*w/extent,y*h/extent]):corners.map(([x,y])=>[x*w/width,y*h/height]));
  if(quad.length!==4||quad.some(p=>!Array.isArray(p)||p.length!==2||p.some(k=>!Number.isFinite(k))))throw Error('Se requieren cuatro centros');
- for(let rotation=0;rotation<4;rotation++){
+ for(let rotation=0;rotation<(rectQuad?1:4);rotation++){
  const rotated=quad.map((_,i)=>quad[(i+rotation)%4]);
- const project=compact?projector(rotated,32,32,span,span):projector(rotated);
+ const project=compact?projector(rotated,32,32,span,(rows+1)*32):projector(rotated);
  function sample(x,y){const [px,py]=project(x,y);if(px<0||px>=w||py<0||py>=h)throw Error('Esquina fuera de imagen');const k=(py*w+px)*stride;return [pixels[k],pixels[k+1],pixels[k+2]]}
- if(compact){
+ if(compact&&!rectQuad){
   let tag=0;
   for(let i=0;i<12;i++)tag=tag*2+Number(sample(48+(i+.5)*side*32/12,32).reduce((a,b)=>a+b,0)<384);
   if(tag!==(0xA80|side))continue;
  }
- const ref=compact?Array.from({length:16},(_,i)=>sample(48+(i+.5)*side*2,32+span)):Array.from({length:16},(_,i)=>sample(20+(i+1)*32+16,48));
+ const ref=compact?Array.from({length:16},(_,i)=>sample(48+(i+.5)*side*2,32+(rows+1)*32)):Array.from({length:16},(_,i)=>sample(20+(i+1)*32+16,48));
  for(const level of [1,2,3]){
   try{
   const cells=[];
-  for(let r=1;r<=(side||30);r++)for(let c=1;c<=(side||23);c++){
+  for(let r=1;r<=(rows||30);r++)for(let c=1;c<=(side||23);c++){
    const x=(compact?16:20)+32*c,y=(compact?16:32)+32*r,samples=[];
    const background=[[3,3],[29,3],[3,29],[29,29]].map(([dx,dy])=>sample(x+dx,y+dy));
    const bg=background[0].map((_,i)=>{
@@ -155,9 +180,32 @@ export function readImage(img,points){
    const fg=level===1?0:nearest(ink,ref),back=level===3?nearest(bg,ref):0;
    cells.push(shape+(fg<<6)+(level===3?(back%8)<<10:0));
   }
-  return decodeCells(cells,level,side);
+  return decodeCells(cells,level,side,rows);
   }catch(e){/* The verified frame selects the rotation and profile. */}
  }}
+ }
+ // The original export has a one-cell inset to each marker centre.
+ const frame=points||[[32,32],[w-32,32],[w-32,h-32],[32,h-32]];
+ if(frame.length===4)for(let turn=0;turn<4;turn++){
+  const quad=frame.map((_,i)=>frame[(i+turn)%4]);
+  try{
+   const project=projector(quad,0,0,1,1);
+   function tag(vertical){
+    let value=0;
+    for(let i=0;i<12;i++){
+     const t=.25+(i+.5)/24;
+     const [x,y]=project(vertical?0:t,vertical?t:0);
+     if(x<0||y<0||x>=w||y>=h)return 0;
+     const k=(y*w+x)*stride;
+     value=value*2+Number(pixels[k]+pixels[k+1]+pixels[k+2]<384);
+    }
+    return value;
+   }
+   const top=tag(false),left=tag(true),cols=top&63,rows=left&63;
+   if((top&0xFC0)===0xD40&&(left&0xFC0)===0xB40&&cols>=1&&cols<=60&&rows>=1&&rows<=60){
+    const result=scan(cols,rows,quad);if(result)return result;
+   }
+  }catch{/* Try the next orientation or the legacy page geometry. */}
  }
  const order=Array.from({length:29},(_,i)=>i+4).sort((a,b)=>Math.abs((a+3)*32-w)-Math.abs((b+3)*32-w));
  if(!points&&Math.abs(w/h-width/height)<.04)order.unshift(0);else order.push(0);

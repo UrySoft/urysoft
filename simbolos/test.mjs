@@ -39,3 +39,21 @@ for(const level of [1,2,3]){
   assert.equal(await decoded.text(),value);
  }
 }
+for(const level of [1,2,3]){
+ for(const type of ['text/plain','application/octet-stream']){
+  for(const axis of ['rows','columns']){
+   const payload='https://urysoft.com';
+   const res=await req('encode?level='+level+'&'+axis+'=10',type,payload);
+   assert.equal(res.status,200);
+   const png=new Uint8Array(await res.arrayBuffer()),img=await fromPNG(png);
+   assert.equal(axis==='rows'?img.height:img.width,416);
+   assert.notEqual(img.width,img.height);
+   const result=await req('decode','image/png',png);
+   assert.equal(result.headers.get('X-UrySoft-Kind'),type==='text/plain'?'text':'file');
+   assert.equal(await result.text(),payload);
+  }
+ }
+}
+for(const query of ['rows=0','rows=2.5','columns=61','rows=3&columns=4']){
+ assert.equal((await req('encode?'+query,'text/plain','hola')).status,400);
+}

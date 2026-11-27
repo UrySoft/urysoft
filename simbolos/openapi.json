@@ -47,6 +47,26 @@
               ],
               "default": 3
             }
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "Dimensión fija de datos. Especifica solo uno de los dos ejes.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            }
+          },
+          {
+            "in": "query",
+            "name": "rows",
+            "description": "Dimensión fija de datos. Especifica solo uno de los dos ejes.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            }
           }
         ],
         "requestBody": {

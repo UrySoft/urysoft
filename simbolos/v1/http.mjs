@@ -18,7 +18,11 @@ export async function handle(request){
    const level=Number(u.searchParams.get('level')??3);if(![1,2,3].includes(level))return json({error:'Nivel entre 1 y 3'},400);
    const data=request.body?await readBounded(request.body,limits[level]):new Uint8Array();
    if(text)new TextDecoder('utf-8',{fatal:true}).decode(data);
-   const png=await toPNG(render(data,level,text));return new Response(png,{headers:{...headers,'Content-Type':'image/png'}});
+   const axes=['columns','rows'].filter(key=>u.searchParams.has(key));
+   if(axes.length>1)return json({error:'Fija solo filas o columnas.'},400);
+   const axis=axes[0]||'auto',value=Number(u.searchParams.get(axis));
+   if(axes.length&&(!Number.isInteger(value)||value<1||value>60))return json({error:'Dimensión entre 1 y 60.'},400);
+   const png=await toPNG(render(data,level,text,axis,value));return new Response(png,{headers:{...headers,'Content-Type':'image/png'}});
   }
   const img=await fromPNG(await readBounded(request.body,12000000));
   const corners=u.searchParams.get('corners');let points;

@@ -18,74 +18,30 @@ jobs:
         with:
           node-version: '24'
       - run: node simbolos/test.mjs
-      - name: Public round trip and official Android download
+      - name: Public web grid, data recovery and retired downloads
         shell: bash
         run: |
           set -eu
           base=https://urysoft.pages.dev
           work=$(mktemp -d)
           head -c 1024 /dev/urandom > "$work/original.bin"
+          check_old_downloads() {
+            for version in 0.1.0 0.1.1 0.2.0-preview 0.2.1; do
+              target=$(curl -fsSL --max-time 12 -o /dev/null -w '%{url_effective}' "$base/simbolos/android/UrySoft-Simbolos-$version.apk") || return 1
+              [[ "$target" == "$base/simbolos/" ]] || return 1
+            done
+          }
           for attempt in {1..25}; do
             if curl -fsS --max-time 20 -H 'Content-Type: application/octet-stream' --data-binary @"$work/original.bin" "$base/api/simbolos/v1/encode?level=3" -o "$work/page.png" &&
                curl -fsS --max-time 20 -H 'Content-Type: image/png' --data-binary @"$work/page.png" "$base/api/simbolos/v1/decode" -o "$work/recovered.bin" &&
                cmp -s "$work/original.bin" "$work/recovered.bin" &&
-               curl -fsSL --max-time 20 "$base/simbolos/android/UrySoft-Simbolos-0.1.1.apk?revision=$GITHUB_SHA" -o "$work/app.apk" &&
-               cmp -s "$work/app.apk" simbolos/android/UrySoft-Simbolos-0.1.1.apk &&
-               curl -fsSL "$base/simbolos/android/UrySoft-Simbolos-0.2.1.apk?revision=$GITHUB_SHA" | cmp -s - simbolos/android/UrySoft-Simbolos-0.2.1.apk &&
-               curl -fsS -H 'Content-Type: text/plain' --data-binary 'https://urysoft.com' "$base/api/simbolos/v1/encode?level=3" -o "$work/text.png" &&
+               curl -fsS "$base/simbolos/" -o "$work/index" && grep -q 'Fijar columnas' "$work/index" && ! grep -qi '\.apk' "$work/index" &&
+               check_old_downloads &&
+               curl -fsS -H 'Content-Type: text/plain' --data-binary 'https://urysoft.com' "$base/api/simbolos/v1/encode?level=3&columns=10" -o "$work/text.png" &&
                curl -fsS -H 'Content-Type: image/png' --data-binary @"$work/text.png" "$base/api/simbolos/v1/decode" | grep -Fxq 'https://urysoft.com'; then
-              echo 'Confirmed public encode/decode of 1024 bytes and binary-identical APK'
+              echo 'Verified web-only distribution and rectangular encoding'
               exit 0
             fi
             sleep 10
           done
-          exit 1
-  android:
-    runs-on: ubuntu-latest
-    timeout-minutes: 18
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Run the signed application on Android 15
-        shell: bash
-        run: |
-          set -eu
-          sudo chmod a+rw /dev/kvm
-          export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-          sdkmanager 'system-images;android-35;google_apis;x86_64' 'platform-tools' 'emulator' >/dev/null
-          export ANDROID_AVD_HOME="$RUNNER_TEMP/urysoft-avds"
-          export ANDROID_USER_HOME="$RUNNER_TEMP/urysoft-android"
-          mkdir -p "$ANDROID_AVD_HOME" "$ANDROID_USER_HOME"
-          echo no | avdmanager create avd --force -n urysoft -p "$ANDROID_AVD_HOME/urysoft.avd" -k 'system-images;android-35;google_apis;x86_64' >/dev/null
-          test -f "$ANDROID_AVD_HOME/urysoft.avd/config.ini"
-          printf 'avd.ini.encoding=UTF-8\npath=%s\ntarget=android-35\n' "$ANDROID_AVD_HOME/urysoft.avd" > "$ANDROID_AVD_HOME/urysoft.ini"
-          emulator -list-avds
-          df -h "$HOME"
-          emulator -avd urysoft -memory 2048 -cores 2 -partition-size 1024 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect > "$RUNNER_TEMP/emu.log" 2>&1 &
-          emulator_pid=$!
-          trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
-          for i in {1..60}; do
-            if ! kill -0 "$emulator_pid" 2>/dev/null; then cat "$RUNNER_TEMP/emu.log"; exit 1; fi
-            if adb devices | grep -q '^emulator-'; then break; fi
-            sleep 2
-          done
-          tail -45 "$RUNNER_TEMP/emu.log"
-          timeout 120 adb wait-for-device
-          for i in {1..120}; do
-            [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1 ]] && break
-            sleep 3
-          done
-          adb shell input keyevent 82
-          adb install -r simbolos/android/UrySoft-Simbolos-0.2.1.apk
-          adb shell am start -W -n com.urysoft.simbolos.preview/com.urysoft.simbolos.MainActivity
-          for i in {1..20}; do
-            adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || true
-            if adb shell cat /sdcard/ui.xml | grep -q 'Crear icono de texto'; then
-              echo 'Signed APK installed and its local WebView rendered the encoding form'
-              exit 0
-            fi
-            sleep 3
-          done
-          adb logcat -d '*:E' | tail -100
           exit 1

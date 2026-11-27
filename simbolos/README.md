@@ -1,17 +1,22 @@
 # UrySoft Símbolos
 
-Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1** y la aplicación Android es la **0.2.1**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
+Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
 
-[Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.2.1.apk) · [Especificación binaria](./FORMATO.md)
+[Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Especificación binaria](./FORMATO.md)
 
 ## Texto o enlace
-En **Escribir texto o pegar un enlace**, introduce el contenido, elige el nivel y pulsa **Crear icono de texto**. Para codificar un fichero usa **Subir archivo**. Cambiar de nivel conserva el texto. El lector recupera el texto, permite copiarlo y ofrece abrir direcciones http o https. La cuadrícula de datos es el menor cuadrado de al menos cuatro casillas de lado que admite el texto en UTF-8, la cabecera de 12 bytes y la paridad por bloques de hasta 255 bytes. Se añade un borde con marcadores y referencias, y un margen blanco. Cada casilla ocupa 32 × 32 píxeles.
+En **Escribir texto o pegar un enlace**, introduce el contenido, elige el nivel y pulsa **Crear icono de texto**. Para codificar un fichero usa **Subir archivo**. Cambiar de nivel conserva el texto. El lector recupera el texto, permite copiarlo y ofrece abrir direcciones http o https. En modo automático, la cuadrícula de texto es el menor cuadrado de al menos cuatro casillas de lado que admite el texto en UTF-8, la cabecera de 12 bytes y la paridad por bloques de hasta 255 bytes. Se añade un borde con marcadores y referencias, y un margen blanco. Cada casilla ocupa 32 × 32 píxeles.
  
 El cliente puede enviar el texto directamente a `POST /encode?level=1` con `Content-Type: text/plain; charset=utf-8`. Los niveles 2 y 3 funcionan del mismo modo. Al descodificar, la cabecera `X-UrySoft-Kind` distingue `text` de `file`. Los lectores anteriores requieren actualización para interpretar las cuadrículas compactas.
 
+## Filas y columnas
+En **Forma de la imagen** elige **Fijar columnas** o **Fijar filas**. Introduce de 1 a 60 casillas de datos. La web calcula la menor dimensión complementaria que admite el contenido, la cabecera y la corrección de errores. La vista previa se actualiza al cambiar el contenido, el nivel o el número. Si rebasa 60 en el otro eje, la web pide aumentar el valor fijo. El borde y los márgenes se añaden al exportar. El lector web identifica ambas dimensiones a partir de las marcas. En modo automático se conserva la página A4 para archivos y el cuadrado compacto para texto.
+
+El servicio admite un único parámetro adicional en la codificación, por ejemplo `/encode?level=3&columns=10` o `/encode?level=3&rows=5`. Se aplica tanto a texto como a archivos.
+
 ## Primer uso
 
-1. Abre la aplicación web o Android, selecciona un nivel y un archivo dentro del límite de la tabla.
+1. Abre la página web, selecciona un nivel y un archivo dentro del límite de la tabla.
 2. Pulsa **Crear página de archivo** y **Guardar**. Imprime en papel A4, a tamaño real. El documento ocupa 210 × 297 mm. La imagen generada incluye la resolución física y un código en el pie que enlaza a esta documentación.
 3. Para leerla, selecciona la imagen o una foto de la hoja completa y pulsa **Leer imagen**. Si falla la localización automática, pulsa **Marcar los cuatro centros** y toca los marcadores de las esquinas en el orden indicado.
 4. Guarda los bytes verificados como `recuperado.bin`. Puedes devolverles la extensión del archivo original. El formato conserva el contenido y su longitud. El nombre original no se incluye.
@@ -68,15 +73,7 @@ const result = readImage(await fromPNG(png));
 console.log(new TextDecoder().decode(result.data), result.level, result.corrected);
 ```
 
-## Android y comprobaciones
-
-La aplicación incluye el mismo núcleo y la interfaz web como recursos locales. Requiere Android 8 o posterior y un Android System WebView actualizado con módulos JavaScript, createImageBitmap y CompressionStream. Utiliza el selector del sistema para abrir y guardar archivos. La modalidad local no necesita conexión una vez instalada.
-
-Para compilar en Windows instala JDK 17, la plataforma Android 36 y Build Tools 36.0.0. Define `URY_SIGN_PASS` en el entorno y pasa un almacén PKCS12 propio y su alias. Para actualizar la aplicación oficial se necesita su misma clave de firma.
-
-```powershell
-./simbolos/android/build.ps1 -Sdk C:/Android/sdk -Jdk C:/Java/jdk17 -Keystore C:/firma/mi-clave.p12 -Alias mi-alias
-```
+## Comprobaciones
 
 Prueba de los formatos y de los contratos de petición y respuesta:
 
@@ -91,11 +88,9 @@ Se han verificado los tres niveles sobre imágenes digitales y una transformaci�
 | Acrónimo | Descripción | Contexto |
 |---|---|---|
 | API | Application Programming Interface | Interfaz de integración |
-| APK | Android Package | Instalador de Android |
 | HTTP | Hypertext Transfer Protocol | Transporte del servicio |
 | PNG | Portable Network Graphics | Formato de imagen |
 | CRC | Cyclic Redundancy Check | Comprobación de integridad |
 | QR | Quick Response | Acceso a la documentación desde el pie |
 | RGB / RGBA | Red, Green, Blue y canal Alpha | Canales admitidos en el servicio |
 | JSON | JavaScript Object Notation | Respuesta de estado y errores |
-| JDK | Java Development Kit | Compilación de la aplicación |
