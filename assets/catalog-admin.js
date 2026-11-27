@@ -5,7 +5,8 @@ export const apps = [
  {id:'nexomesh', name:'NexoMesh', path:'/apps/nexomesh/'},
  {id:'minairo', name:'Minairó', path:'/apps/minairo/'},
  {id:'storagey', name:'Storagey', path:'/apps/storagey/'},
- {id:'teclairc', name:'TeclaIRC', path:'/teclairc/'}
+ {id:'teclairc', name:'TeclaIRC', path:'/teclairc/'},
+ {id:'roulette-analytics', name:'Roulette Analytics', path:'/apps/roulette-analytics/'}
 ];
 
 export const pages = [

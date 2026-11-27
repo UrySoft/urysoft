@@ -45,3 +45,9 @@
 
 /teclairc/premium-real/*
   Cache-Control: no-store
+
+/descargas/roulette-analytics/Roulette-Analytics-1.1.25.apk
+  Content-Type: application/vnd.android.package-archive
+  Content-Disposition: attachment; filename="Roulette-Analytics-1.1.25.apk"
+  Cache-Control: public, max-age=86400, immutable
+  X-Content-Type-Options: nosniff

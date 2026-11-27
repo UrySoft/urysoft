@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roulette Analytics para Android | UrySoft</title>
+  <meta name="description" content="Registra tiradas, consulta estadísticas y simula jugadas de ruleta en Android. Descarga oficial de Roulette Analytics en UrySoft.">
+  <link rel="canonical" href="https://www.urysoft.com/apps/roulette-analytics/">
+  <link rel="icon" href="/assets/brand/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/assets/brand/site-header.css">
+  <style>
+    :root { color-scheme: dark; --canvas: #0c1715; --line: #2c4840; --fg: #f5f7f1; --muted: #b9cdc2; --panel: #122620; --accent: #edce86; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--fg); font: 16px/1.55 system-ui,sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 1080px; width: calc(100% - 36px); margin: 0 auto; }
+    .hero { padding: clamp(36px, 7vw, 88px) 0 42px; background: radial-gradient(ellipse at 80% 20%, #234b39, transparent 70%); }
+    .identity { display: flex; align-items: center; gap: clamp(13px, 3vw, 25px); }
+    .identity img { width: clamp(66px, 14vw, 106px); height: auto; flex: none; }
+    h1 { margin: 0; font-size: clamp(30px, 7vw, 65px); line-height: 1.06; letter-spacing: -.035em; }
+    h2 { font-size: 1.08rem; margin: 0 0 7px; }
+    .lead { max-width: 620px; font-size: clamp(17px, 2.3vw, 22px); margin: 20px 0; }
+    .downloads { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+    .download { display: inline-flex; min-height: 48px; align-items: center; padding: 8px 17px; text-decoration: none; background: var(--accent); color: #211707; border-radius: 10px; font-weight: 750; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 225px), 1fr)); gap: 12px; padding-block: 12px 34px; }
+    .features article { border: 1px solid var(--line); background: var(--panel); border-radius: 13px; padding: 17px; }
+    .features p, .notice, footer { color: var(--muted); }
+    .features p { margin: 0; }
+    footer { border-top: 1px solid var(--line); padding: 14px 0 24px; font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+    footer a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  </style>
+  <script src="/apps/roulette-analytics/copy.js" defer></script>
+  <script type="module" src="/assets/site-insights.js"></script>
+</head>
+<body data-app="roulette-analytics">
+  <header class="site-header"><div class="bar wrap">
+    <a class="brand" href="/" aria-label="UrySoft"><img class="brand-image" src="/assets/brand/logo-header-approved.svg" alt="UrySoft"></a>
+    <nav><a href="/#apps" data-copy="apps">Aplicaciones</a></nav>
+    <div class="controls"><select id="language" class="control" aria-label="Idioma">
+      <option value="ca">Català</option><option value="es">Español</option><option value="en">English</option>
+    </select></div>
+  </div></header>
+  <main>
+    <section class="hero"><div class="wrap">
+      <div class="identity">
+        <img src="./icon.png" width="192" height="192" alt="">
+        <h1>Roulette Analytics</h1>
+      </div>
+      <p class="lead" data-copy="intro">Registra tiradas, explora las frecuencias y simula jugadas desde el tapete de ruleta.</p>
+      <div class="downloads">
+        <a class="download" href="/descargas/roulette-analytics/Roulette-Analytics-1.1.25.apk" download data-copy="download">Descargar para Android</a>
+        <span>1.1.25 · Android 8+</span>
+      </div>
+      <p><a href="/ayuda/instalar-android/" data-copy="help">Guía de instalación en Android</a></p>
+    </div></section>
+    <div class="wrap">
+      <section class="features" aria-label="Funciones">
+        <article><h2 data-copy="board">Tapete interactivo</h2><p data-copy="boardText">Introduce el número que ha salido tocando su casilla y ajusta las fichas de la simulación.</p></article>
+        <article><h2 data-copy="stats">Historial y estadísticas</h2><p data-copy="statsText">Consulta frecuencias y rachas. Puedes usar una foto para cargar las estadísticas iniciales.</p></article>
+        <article><h2 data-copy="account">Acceso con tu cuenta</h2><p data-copy="accountText">Crea un usuario y una contraseña. Tu cuenta conserva el saldo al cambiar de dispositivo.</p></article>
+      </section>
+      <p class="notice" data-copy="notice">Para simulación e investigación estadística. Los resultados históricos no predicen la siguiente tirada.</p>
+    </div>
+  </main>
+  <footer><div class="wrap">
+    <a href="/" data-copy="back">Volver a UrySoft</a>
+    <a href="https://roulette-analytics-access.uryheavy.chatgpt.site/gestion" rel="nofollow" data-copy="admin">Administración</a>
+  </div></footer>
+</body>
+</html>
