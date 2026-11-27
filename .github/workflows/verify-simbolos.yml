@@ -31,7 +31,7 @@ jobs:
                cmp -s "$work/original.bin" "$work/recovered.bin" &&
                curl -fsSL --max-time 20 "$base/simbolos/android/UrySoft-Simbolos-0.1.1.apk?revision=$GITHUB_SHA" -o "$work/app.apk" &&
                cmp -s "$work/app.apk" simbolos/android/UrySoft-Simbolos-0.1.1.apk &&
-               curl -fsSL "$base/simbolos/android/UrySoft-Simbolos-0.2.0-preview.apk?revision=$GITHUB_SHA" | cmp -s - simbolos/android/UrySoft-Simbolos-0.2.0-preview.apk &&
+               curl -fsSL "$base/simbolos/android/UrySoft-Simbolos-0.2.1.apk?revision=$GITHUB_SHA" | cmp -s - simbolos/android/UrySoft-Simbolos-0.2.1.apk &&
                curl -fsS -H 'Content-Type: text/plain' --data-binary 'https://urysoft.com' "$base/api/simbolos/v1/encode?level=3" -o "$work/text.png" &&
                curl -fsS -H 'Content-Type: image/png' --data-binary @"$work/text.png" "$base/api/simbolos/v1/decode" | grep -Fxq 'https://urysoft.com'; then
               echo 'Confirmed public encode/decode of 1024 bytes and binary-identical APK'
@@ -77,11 +77,11 @@ jobs:
             sleep 3
           done
           adb shell input keyevent 82
-          adb install -r simbolos/android/UrySoft-Simbolos-0.2.0-preview.apk
+          adb install -r simbolos/android/UrySoft-Simbolos-0.2.1.apk
           adb shell am start -W -n com.urysoft.simbolos.preview/com.urysoft.simbolos.MainActivity
           for i in {1..20}; do
             adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || true
-            if adb shell cat /sdcard/ui.xml | grep -q 'Crear página'; then
+            if adb shell cat /sdcard/ui.xml | grep -q 'Crear icono de texto'; then
               echo 'Signed APK installed and its local WebView rendered the encoding form'
               exit 0
             fi

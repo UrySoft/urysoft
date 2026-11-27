@@ -1,18 +1,18 @@
 # UrySoft Símbolos
 
-Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1** y la aplicación Android es la **0.1.1**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
+Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes desde una imagen. La versión de formato es **USY1** y la aplicación Android es la **0.2.1**. El lector comprueba la cabecera, repara errores dentro del presupuesto de cada bloque y verifica el contenido antes de entregarlo.
 
-[Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.1.1.apk) · [Especificación binaria](./FORMATO.md)
+[Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.2.1.apk) · [Especificación binaria](./FORMATO.md)
 
 ## Texto o enlace
-Selecciona **Texto o enlace**, escribe el contenido, elige nivel y pulsa **Crear imagen compacta**. Cambiar de nivel conserva el texto. El lector recupera el texto, permite copiarlo y ofrece abrir direcciones http o https. La cuadrícula de datos es el menor cuadrado de al menos cuatro casillas de lado que admite el texto en UTF-8, la cabecera de 12 bytes y la paridad por bloques de hasta 255 bytes. Se añade un borde con marcadores y referencias, y un margen blanco. Cada casilla ocupa 32 × 32 píxeles.
+En **Escribir texto o pegar un enlace**, introduce el contenido, elige el nivel y pulsa **Crear icono de texto**. Para codificar un fichero usa **Subir archivo**. Cambiar de nivel conserva el texto. El lector recupera el texto, permite copiarlo y ofrece abrir direcciones http o https. La cuadrícula de datos es el menor cuadrado de al menos cuatro casillas de lado que admite el texto en UTF-8, la cabecera de 12 bytes y la paridad por bloques de hasta 255 bytes. Se añade un borde con marcadores y referencias, y un margen blanco. Cada casilla ocupa 32 × 32 píxeles.
  
 El cliente puede enviar el texto directamente a `POST /encode?level=1` con `Content-Type: text/plain; charset=utf-8`. Los niveles 2 y 3 funcionan del mismo modo. Al descodificar, la cabecera `X-UrySoft-Kind` distingue `text` de `file`. Los lectores anteriores requieren actualización para interpretar las cuadrículas compactas.
 
 ## Primer uso
 
 1. Abre la aplicación web o Android, selecciona un nivel y un archivo dentro del límite de la tabla.
-2. Pulsa **Crear página** y **Guardar**. Imprime en papel A4, a tamaño real. El documento ocupa 210 × 297 mm. La imagen generada incluye la resolución física y un código en el pie que enlaza a esta documentación.
+2. Pulsa **Crear página de archivo** y **Guardar**. Imprime en papel A4, a tamaño real. El documento ocupa 210 × 297 mm. La imagen generada incluye la resolución física y un código en el pie que enlaza a esta documentación.
 3. Para leerla, selecciona la imagen o una foto de la hoja completa y pulsa **Leer imagen**. Si falla la localización automática, pulsa **Marcar los cuatro centros** y toca los marcadores de las esquinas en el orden indicado.
 4. Guarda los bytes verificados como `recuperado.bin`. Puedes devolverles la extensión del archivo original. El formato conserva el contenido y su longitud. El nombre original no se incluye.
 

@@ -17,7 +17,7 @@ Run "$Jdk/bin/jar.exe" @('cf',"$build/app.jar",'-C',$classes,'.')
 Run "$Jdk/bin/java.exe" @('-cp',"$bin/lib/d8.jar",'com.android.tools.r8.D8','--min-api','26','--lib',$platform,'--output',$dex,"$build/app.jar")
 Run "$Jdk/bin/jar.exe" @('uf',"$build/base.apk",'-C',$dex,'classes.dex')
 Run "$bin/zipalign.exe" @('-f','4',"$build/base.apk","$build/aligned.apk")
-$apk="$OutDir/UrySoft-Simbolos-0.2.0.apk"
+$apk="$OutDir/UrySoft-Simbolos-0.2.1.apk"
 Run "$Jdk/bin/java.exe" @('-jar',"$bin/lib/apksigner.jar",'sign','--ks',$Keystore,'--ks-key-alias',$Alias,'--ks-pass','env:URY_SIGN_PASS','--out',$apk,"$build/aligned.apk")
 Run "$Jdk/bin/java.exe" @('-jar',"$bin/lib/apksigner.jar",'verify','--verbose',$apk)
 Write-Output $apk

@@ -3,12 +3,6 @@ import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
 const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
 let sourcePNG=null;
-const compactMode=()=>el('kind').value==='text';
-function syncKind(){
- el('textBox').hidden=!compactMode();el('fileBox').hidden=compactMode();
- el('encode').textContent=compactMode()?'Crear imagen compacta':'Crear página';
- reset();
-}
 function showText(data){
  const value=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(data);
  el('restored').value=value;el('resultText').hidden=false;
@@ -20,12 +14,12 @@ el('copy').onclick=()=>run(async()=>{
  catch{el('restored').select();if(!document.execCommand('copy'))throw Error('Selecciona y copia el texto recuperado.')}
  out.textContent='Texto copiado.';
 });
-el('kind').onchange=syncKind;el('message').oninput=reset;
+el('message').oninput=reset;
 let output=null,filename='',image=null,points=null,busy=false;
 function reset(){el('resultText').hidden=true;canvas.classList.remove('compact');sourcePNG=null;output=null;image=null;points=null;el('save').hidden=true;el('manual').hidden=true;canvas.hidden=true;out.textContent=''}
 function setResult(blob,name){output=blob;filename=name;el('save').hidden=false;el('save').textContent='Guardar '+name}
-async function run(fn){if(busy)return;busy=true;for(const id of ['encode','decode','manual','source','photo','level','mode','kind','message'])el(id).disabled=true;
- try{await fn()}catch(e){out.textContent=e.message}finally{busy=false;for(const id of ['encode','decode','manual','source','photo','level','mode','kind','message'])el(id).disabled=false}}
+async function run(fn){if(busy)return;busy=true;for(const id of ['encode','decode','manual','source','photo','level','mode','encodeText','message'])el(id).disabled=true;
+ try{await fn()}catch(e){out.textContent=e.message}finally{busy=false;for(const id of ['encode','decode','manual','source','photo','level','mode','encodeText','message'])el(id).disabled=false}}
 async function call(action,body,type){
  const res=await fetch(endpoint+'/'+action,{method:'POST',headers:{'Content-Type':type},body,signal:AbortSignal.timeout(30000)});
  if(!res.ok){const why=await res.json().catch(()=>({}));throw Error(why.error||'Servicio no disponible ('+res.status+')')}return res;
@@ -42,8 +36,8 @@ async function uploadPNG(){
  const {toPNG}=await import('./v1/png.mjs');
  return new Blob([await toPNG({...image,pixels:rgb})],{type:'image/png'});
 }
-async function create(){
- reset();const text=compactMode();const file=text?new Blob([el('message').value],{type:'text/plain'}):el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
+async function create(text){
+ reset();const file=text?new Blob([el('message').value],{type:'text/plain'}):el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
  if(text&&!file.size)throw Error('Escribe un texto o un enlace.');
  if(file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
  let blob;if(el('mode').value==='web'){blob=await(await call('encode?level='+l,file,text?'text/plain;charset=utf-8':'application/octet-stream')).blob();await draw(blob)}
@@ -80,7 +74,8 @@ async function loadPhoto(){
  el('manual').hidden=false;await recover(null);
 }
 const names=['superior izquierdo','superior derecho','inferior derecho','inferior izquierdo'];
-el('encode').onclick=()=>run(create);el('decode').onclick=()=>run(loadPhoto);
+el('encode').onclick=()=>run(()=>create(false));
+el('encodeText').onclick=()=>run(()=>create(true));el('decode').onclick=()=>run(loadPhoto);
 el('manual').onclick=()=>{points=[];out.textContent='Toca el centro del marcador '+names[0]+'.'};
 canvas.onclick=e=>{if(!points||busy)return;const rect=canvas.getBoundingClientRect();points.push([(e.clientX-rect.left)*canvas.width/rect.width,(e.clientY-rect.top)*canvas.height/rect.height]);
  if(points.length===4){const p=points;points=null;run(()=>recover(p))}else out.textContent='Toca el centro del marcador '+names[points.length]+'.'};
