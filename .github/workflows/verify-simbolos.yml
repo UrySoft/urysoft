@@ -51,7 +51,12 @@ jobs:
           sudo chmod a+rw /dev/kvm
           export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           sdkmanager 'system-images;android-35;google_apis;x86_64' 'platform-tools' 'emulator' >/dev/null
-          echo no | avdmanager create avd --force -n urysoft -k 'system-images;android-35;google_apis;x86_64' >/dev/null
+          export ANDROID_AVD_HOME="$RUNNER_TEMP/urysoft-avds"
+          export ANDROID_USER_HOME="$RUNNER_TEMP/urysoft-android"
+          mkdir -p "$ANDROID_AVD_HOME" "$ANDROID_USER_HOME"
+          echo no | avdmanager create avd --force -n urysoft -p "$ANDROID_AVD_HOME/urysoft.avd" -k 'system-images;android-35;google_apis;x86_64' >/dev/null
+          test -f "$ANDROID_AVD_HOME/urysoft.avd/config.ini"
+          printf 'avd.ini.encoding=UTF-8\npath=%s\ntarget=android-35\n' "$ANDROID_AVD_HOME/urysoft.avd" > "$ANDROID_AVD_HOME/urysoft.ini"
           emulator -list-avds
           df -h "$HOME"
           emulator -avd urysoft -memory 2048 -cores 2 -partition-size 1024 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect > "$RUNNER_TEMP/emu.log" 2>&1 &
