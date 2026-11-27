@@ -73,3 +73,17 @@ footer a { display: inline-flex; min-height: 44px; align-items: center; }
 @media (min-width: 700px) {
   .comic-grid.roulette-comic { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.roulette-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.roulette-gallery .landscape { grid-column: 1 / -1; }
+.roulette-gallery figure { margin: 0; min-width: 0; }
+.roulette-gallery a { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.roulette-gallery img { display: block; width: 100%; height: auto; }
+.roulette-gallery figcaption { margin-top: 8px; color: var(--muted); }
+@media (min-width: 800px) {
+  .roulette-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

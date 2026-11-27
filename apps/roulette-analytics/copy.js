@@ -1,5 +1,11 @@
 const translation = {
   es: {
+    gallery: "Capturas de la app",
+    "shot-horizontal": "Tapete en horizontal",
+    "shot-vertical": "Tapete en vertical",
+    "shot-estadisticas": "Estadísticas de las tiradas",
+    "shot-ajustes": "Configuración del tapete",
+    "shot-aviso": "Declaración de uso",
     apps: 'Todas las aplicaciones',
     theme: 'Cambiar tema',
     tagline: 'Un experimento de UrySoft con la ruleta',
@@ -25,6 +31,12 @@ const translation = {
     back: 'Volver a UrySoft', admin: 'Administración'
   },
   ca: {
+    gallery: "Captures de l’aplicació",
+    "shot-horizontal": "Tapet en horitzontal",
+    "shot-vertical": "Tapet en vertical",
+    "shot-estadisticas": "Estadístiques de les tirades",
+    "shot-ajustes": "Configuració del tapet",
+    "shot-aviso": "Declaració d’ús",
     apps: 'Totes les aplicacions',
     theme: 'Canvia el tema',
     tagline: 'Un experiment d’UrySoft amb la ruleta',
@@ -50,6 +62,12 @@ const translation = {
     back: 'Torna a UrySoft', admin: 'Administració'
   },
   en: {
+    gallery: "App screenshots",
+    "shot-horizontal": "Landscape table",
+    "shot-vertical": "Portrait table",
+    "shot-estadisticas": "Spin statistics",
+    "shot-ajustes": "Table settings",
+    "shot-aviso": "Use declaration",
     apps: 'All apps',
     theme: 'Switch theme',
     tagline: 'A UrySoft roulette experiment',
