@@ -4,6 +4,11 @@ Convierte un fichero en una página A4 de símbolos de 8 mm y recupera sus bytes
 
 [Aplicación web](https://urysoft.pages.dev/simbolos/) · [Contrato OpenAPI](./openapi.json) · [Aplicación Android firmada](https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.1.1.apk) · [Especificación binaria](./FORMATO.md)
 
+## Texto o enlace
+Selecciona **Texto o enlace**, escribe el contenido, elige nivel y pulsa **Crear imagen compacta**. Cambiar de nivel conserva el texto. El lector recupera el texto, permite copiarlo y ofrece abrir direcciones http o https. La cuadrícula de datos es el menor cuadrado de al menos cuatro casillas de lado que admite el texto en UTF-8, la cabecera de 12 bytes y la paridad por bloques de hasta 255 bytes. Se añade un borde con marcadores y referencias, y un margen blanco. Cada casilla ocupa 32 × 32 píxeles.
+ 
+El cliente puede enviar el texto directamente a `POST /encode?level=1` con `Content-Type: text/plain; charset=utf-8`. Los niveles 2 y 3 funcionan del mismo modo. Al descodificar, la cabecera `X-UrySoft-Kind` distingue `text` de `file`. Los lectores anteriores requieren actualización para interpretar las cuadrículas compactas.
+
 ## Primer uso
 
 1. Abre la aplicación web o Android, selecciona un nivel y un archivo dentro del límite de la tabla.
@@ -94,4 +99,3 @@ Se han verificado los tres niveles sobre imágenes digitales y una transformaci�
 | RGB / RGBA | Red, Green, Blue y canal Alpha | Canales admitidos en el servicio |
 | JSON | JavaScript Object Notation | Respuesta de estado y errores |
 | JDK | Java Development Kit | Compilación de la aplicación |
-

@@ -27,4 +27,15 @@ for(let y=0;y<tilted.height;y++)for(let x=0;x<tilted.width;x++){
 }
 assert.deepEqual(readImage(tilted,findCorners(tilted)).data,real);
 console.log('OK: tres niveles, extremos de tamaño, contraste, paridad, ida y vuelta HTTP, errores y fotografía sintética con localización automática.');
-
+for(const level of [1,2,3]){
+ for(const value of ['x','https://urysoft.com','  Bon dia, Oriol!\nCiència 🚀  ','x'.repeat(limits[level])]){
+  const encoded=await req('encode?level='+level,'text/plain; charset=utf-8',value);
+  assert.equal(encoded.status,200);
+  const png=new Uint8Array(await encoded.arrayBuffer());
+  const image=await fromPNG(png);
+  assert.equal(image.width,image.height);
+  const decoded=await req('decode','image/png',png);
+  assert.equal(decoded.headers.get('X-UrySoft-Kind'),'text');
+  assert.equal(await decoded.text(),value);
+ }
+}

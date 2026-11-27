@@ -33,7 +33,9 @@ public class MainActivity extends Activity {
    }
    private WebResourceResponse missing(){return new WebResourceResponse("text/plain","utf-8",404,"Not found",Collections.emptyMap(),new ByteArrayInputStream(new byte[0]));}
    @Override public boolean shouldOverrideUrlLoading(WebView v,WebResourceRequest r){
-    Uri u=r.getUrl();if("https".equals(u.getScheme())&&"github.com".equals(u.getHost()))startActivity(new Intent(Intent.ACTION_VIEW,u));
+    Uri u=r.getUrl();if(r.isForMainFrame() && ("https".equals(u.getScheme()) || "http".equals(u.getScheme())) && u.getHost()!=null){
+     try{startActivity(new Intent(Intent.ACTION_VIEW,u));}catch(android.content.ActivityNotFoundException e){Toast.makeText(MainActivity.this,"No hay navegador disponible",Toast.LENGTH_SHORT).show();}
+    }
     return true;
    }
   });

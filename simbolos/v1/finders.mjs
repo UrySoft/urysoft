@@ -1,5 +1,5 @@
 // Locate the nested squares framing the 25-column by 32-row grid.
-export function findCorners({pixels, width, height}) {
+export function findCorners({pixels, width, height}, compact=false) {
  const stride = pixels.length / (width * height);
  const gray = new Uint8Array(width * height);
  for (let i = 0, j = 0; i < gray.length; i++, j += stride) {
@@ -91,13 +91,13 @@ export function findCorners({pixels, width, height}) {
   const meanSideInModules = perimeter / scales.reduce((sum, unit) => sum + unit, 0);
   // Marker bands are 4 pixels wide in the source layout. The grid sides
   // span 192 and 248 modules, so an unrelated border typically scores poorly.
-  if (meanSideInModules < 155 || meanSideInModules > 285) continue;
+  if (meanSideInModules < (compact?30:155) || meanSideInModules > 285) continue;
 
   const dx = (a.x - b.x + c.x - d.x) / width;
   const dy = (a.y - b.y + c.y - d.y) / height;
   const support = quad.reduce((sum, p) => sum + Math.min(p.hits, 30), 0);
   const score = area / (2 * width * height) - 2 * (dx * dx + dy * dy)
-   - .8 * Math.abs(Math.log(meanSideInModules / 220)) + .008 * support;
+   - .8 * (compact?0:Math.abs(Math.log(meanSideInModules / 220))) + .008 * support;
   if (score > bestScore) {
    best = quad;
    bestScore = score;

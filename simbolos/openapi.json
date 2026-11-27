@@ -57,12 +57,18 @@
                 "type": "string",
                 "format": "binary"
               }
+            },
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              },
+              "example": "https://urysoft.com"
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Página A4",
+            "description": "Página de archivo o cuadrícula cuadrada compacta de texto UTF-8",
             "content": {
               "image/png": {
                 "schema": {
@@ -209,6 +215,15 @@
               "X-UrySoft-Corrected": {
                 "schema": {
                   "type": "integer"
+                }
+              },
+              "X-UrySoft-Kind": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "file",
+                    "text"
+                  ]
                 }
               }
             }
