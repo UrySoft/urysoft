@@ -1,10 +1,10 @@
 import {apps,pages} from '../assets/catalog-admin.js';
+import {playgroundUrls} from '../assets/playground/analytics-destinations.js';
 
 const pagePaths=new Set(pages.map(page=>page.path));
 const appIds=new Set(apps.map(app=>app.id));
 export const validPath=p=>typeof p==='string'&&p.length<180&&(pagePaths.has(p)||/^\/(?:calaix\/[a-z0-9-]+\/$|legal\/(?:[a-z0-9.-]+\/){1,4}$)/.test(p));
-import playground from '../assets/playground/catalog.json' with {type:'json'};
-const catalogDestinations=new Set([playground.original,...playground.items.map(item=>item.url)].map(url=>{
+const catalogDestinations=new Set(playgroundUrls.map(url=>{
  const destination=new URL(url);
  return destination.origin+destination.pathname;
 }));

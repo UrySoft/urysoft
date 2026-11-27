@@ -4,6 +4,7 @@ import {DatabaseSync} from 'node:sqlite';
 import {analyticsSummary,normalizeEvent} from '../server/site-analytics.js';
 import {operationsSummary} from '../server/admin-operations.js';
 import {aggregate} from '../assets/admin/charts.js';
+import {playgroundUrls} from '../assets/playground/analytics-destinations.js';
 const sql=new DatabaseSync(':memory:');for(const file of ['0001-comments.sql','0005-administration.sql'])sql.exec(readFileSync('migrations/'+file,'utf8'));
 function prepare(query,args=[]){return {bind(...args){return prepare(query,args)},first:async()=>sql.prepare(query).get(...args),all:async()=>({results:sql.prepare(query).all(...args)})}}
 const db={prepare},today=new Date().toISOString().slice(0,10),day=n=>new Date(Date.parse(today)+n*86400000).toISOString().slice(0,10);
@@ -36,6 +37,7 @@ for(const [path,target] of [['/apps/storagey/','storagey'],['/teclairc/','teclai
 }
 assert.ok(normalizeEvent({id:crypto.randomUUID(),event:'page',path:'/tienda/'},browserRequest));
 const catalog=JSON.parse(readFileSync('assets/playground/catalog.json','utf8'));
+assert.deepEqual(playgroundUrls,[catalog.original,...catalog.items.map(item=>item.url)]);
 const destination=new URL(catalog.items[0].url);
 const target=normalizeEvent({id:crypto.randomUUID(),event:'click',path:'/calaix/',target:destination.href+'?private=ignored#fragment'},browserRequest).target;
 assert.equal(target,destination.origin+destination.pathname);
