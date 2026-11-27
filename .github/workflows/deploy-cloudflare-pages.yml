@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'simbolos/**'
+      - 'functions/api/simbolos/**'
       - 'apps/roulette-analytics/**'
       - 'descargas/roulette-analytics/**'
 
@@ -29,13 +31,14 @@ jobs:
           node-version: '24'
       - name: Validate administration and Pages Functions
         run: |
+          node simbolos/test.mjs
           node tests/admin.test.mjs
           node tests/admin-evolution.test.mjs
           node tests/comments.test.mjs
       - name: Prepare public site
         run: |
           mkdir -p "$RUNNER_TEMP/urysoft-pages"
-          git archive HEAD _headers _redirects _routes.json admin apps assets ayuda calaix descargas foldery googlefbc0563638bb9d4d.html index.html legal minairo robots.txt sitemap.xml storagey teclairc tienda updates |
+          git archive HEAD _headers _redirects _routes.json admin apps assets ayuda calaix descargas foldery googlefbc0563638bb9d4d.html index.html legal minairo robots.txt simbolos/index.html simbolos/ui.mjs simbolos/v1 simbolos/openapi.json simbolos/android/UrySoft-Simbolos-0.1.0.apk sitemap.xml storagey teclairc tienda updates |
             tar -x -C "$RUNNER_TEMP/urysoft-pages"
       - name: Publish production
         env:
@@ -49,6 +52,19 @@ jobs:
           # Run from the checkout so Wrangler can bundle functions/ and its imports from server/.
           npx --yes wrangler@4.167.0 pages deploy "$RUNNER_TEMP/urysoft-pages" \
             --project-name=urysoft --branch=main --commit-hash="$GITHUB_SHA"
+      - name: Verify live UrySoft Symbols round trip
+        run: |
+          api=https://www.urysoft.com/api/simbolos/v1
+          head -c 1024 /dev/urandom > "$RUNNER_TEMP/simbolos-input.bin"
+          for attempt in {1..8}; do
+            if curl -fsS --max-time 20 -H 'Content-Type: application/octet-stream' --data-binary @"$RUNNER_TEMP/simbolos-input.bin" "$api/encode?level=3" -o "$RUNNER_TEMP/simbolos.png" &&
+               curl -fsS --max-time 20 -H 'Content-Type: image/png' --data-binary @"$RUNNER_TEMP/simbolos.png" "$api/decode" -o "$RUNNER_TEMP/simbolos-output.bin" &&
+               cmp -s "$RUNNER_TEMP/simbolos-input.bin" "$RUNNER_TEMP/simbolos-output.bin"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
       - name: Verify production administration
         run: |
           revision=$(sed -nE 's/.*(\/assets\/admin\/admin\.js\?v=[^"]+).*/\1/p' admin/index.html)

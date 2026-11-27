@@ -1,0 +1,53 @@
+import {render,readImage,limits} from './v1/codec.mjs';
+import {findCorners} from './v1/finders.mjs';
+const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
+const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://www.urysoft.com/api/simbolos/v1';
+let output=null,filename='',image=null,points=null,busy=false;
+function reset(){output=null;image=null;points=null;el('save').hidden=true;el('manual').hidden=true;canvas.hidden=true;out.textContent=''}
+function setResult(blob,name){output=blob;filename=name;el('save').hidden=false;el('save').textContent='Guardar '+name}
+async function run(fn){if(busy)return;busy=true;for(const id of ['encode','decode','manual','source','photo','level','mode'])el(id).disabled=true;
+ try{await fn()}catch(e){out.textContent=e.message}finally{busy=false;for(const id of ['encode','decode','manual','source','photo','level','mode'])el(id).disabled=false}}
+async function call(action,body,type){
+ const res=await fetch(endpoint+'/'+action,{method:'POST',headers:{'Content-Type':type},body,signal:AbortSignal.timeout(30000)});
+ if(!res.ok){const why=await res.json().catch(()=>({}));throw Error(why.error||'Servicio no disponible ('+res.status+')')}return res;
+}
+async function draw(blob){
+ const bmp=await createImageBitmap(blob);try{const scale=Math.min(1,1800/Math.max(bmp.width,bmp.height));
+ canvas.width=Math.max(1,Math.round(bmp.width*scale));canvas.height=Math.max(1,Math.round(bmp.height*scale));ctx.drawImage(bmp,0,0,canvas.width,canvas.height);canvas.hidden=false;
+ }finally{bmp.close()}
+}
+const asPNG=()=>new Promise((ok,fail)=>canvas.toBlob(v=>v?ok(v):fail(Error('Error al exportar imagen')),'image/png'));
+async function create(){
+ reset();const file=el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
+ if(file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
+ let blob;if(el('mode').value==='web'){blob=await(await call('encode?level='+l,file,'application/octet-stream')).blob();await draw(blob)}
+ else{const img=render(new Uint8Array(await file.arrayBuffer()),l);canvas.width=img.width;canvas.height=img.height;const d=ctx.createImageData(img.width,img.height);
+ for(let i=0,j=0;i<img.pixels.length;i+=3,j+=4){d.data[j]=img.pixels[i];d.data[j+1]=img.pixels[i+1];d.data[j+2]=img.pixels[i+2];d.data[j+3]=255}ctx.putImageData(d,0,0);canvas.hidden=false;
+ const {toPNG}=await import('./v1/png.mjs');blob=new Blob([await toPNG(img)],{type:'image/png'});}
+ setResult(blob,'urysoft-nivel-'+l+'.png');out.textContent='Página creada · '+file.size+' bytes.';
+}
+async function recover(markers){
+ let data,level,corrected;
+ if(el('mode').value==='web'){
+ const suffix=markers?'?corners='+encodeURIComponent(JSON.stringify(markers)):'';
+ const res=await call('decode'+suffix,await asPNG(),'image/png');data=await res.arrayBuffer();level=res.headers.get('X-UrySoft-Level');corrected=res.headers.get('X-UrySoft-Corrected');
+ }else{let result;try{result=readImage(image,markers)}catch(e){if(markers)throw e;const auto=findCorners(image);if(!auto)throw e;result=readImage(image,auto)}
+ ({data,level,corrected}=result)}
+ setResult(new Blob([data],{type:'application/octet-stream'}),'recuperado.bin');
+ el('manual').hidden=true;out.textContent='Nivel '+level+' · '+data.byteLength+' bytes verificados · '+corrected+' bytes corregidos.';
+}
+async function loadPhoto(){
+ reset();const file=el('photo').files[0];if(!file)throw Error('Selecciona una imagen.');await draw(file);
+ image={width:canvas.width,height:canvas.height,pixels:ctx.getImageData(0,0,canvas.width,canvas.height).data};
+ el('manual').hidden=false;await recover(null);
+}
+const names=['superior izquierdo','superior derecho','inferior derecho','inferior izquierdo'];
+el('encode').onclick=()=>run(create);el('decode').onclick=()=>run(loadPhoto);
+el('manual').onclick=()=>{points=[];out.textContent='Toca el centro del marcador '+names[0]+'.'};
+canvas.onclick=e=>{if(!points||busy)return;const rect=canvas.getBoundingClientRect();points.push([(e.clientX-rect.left)*canvas.width/rect.width,(e.clientY-rect.top)*canvas.height/rect.height]);
+ if(points.length===4){const p=points;points=null;run(()=>recover(p))}else out.textContent='Toca el centro del marcador '+names[points.length]+'.'};
+el('save').onclick=()=>run(async()=>{if(!output)return;
+ if(window.UrySoftAndroid){const bytes=new Uint8Array(await output.arrayBuffer());let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode(...bytes.subarray(i,i+8192));UrySoftAndroid.save(filename,output.type,btoa(s))}
+ else{const a=document.createElement('a');a.href=URL.createObjectURL(output);a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000)}});
+for(const id of ['source','photo','level','mode'])el(id).onchange=reset;
+

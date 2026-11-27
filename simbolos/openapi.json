@@ -1,0 +1,310 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "UrySoft Símbolos",
+    "version": "1.0.0",
+    "description": "Codificación y recuperación de archivos binarios en una página USY1."
+  },
+  "servers": [
+    {
+      "url": "https://www.urysoft.com/api/simbolos/v1"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/simbolos/v1"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "serviceInfo",
+        "responses": {
+          "200": {
+            "description": "Estado, versión y capacidades",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/encode": {
+      "post": {
+        "operationId": "encode",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "level",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "default": 3
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Página A4",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Demasiados bytes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo no soportado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Imagen ilegible o integridad incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/decode": {
+      "post": {
+        "operationId": "decode",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "corners",
+            "description": "Matriz JSON de cuatro centros [x,y] en píxeles",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bytes íntegros del archivo",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            },
+            "headers": {
+              "X-UrySoft-Level": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-UrySoft-Corrected": {
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetro inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Demasiados bytes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo no soportado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Imagen ilegible o integridad incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

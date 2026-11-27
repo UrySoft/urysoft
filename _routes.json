@@ -1,6 +1,7 @@
 {
   "version": 1,
   "include": [
+    "/api/simbolos/v1", "/api/simbolos/v1/*",
     "/api/comments",
     "/api/comments/*",
     "/api/foldery/*",
