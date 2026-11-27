@@ -1,0 +1,34 @@
+name: Publish Roulette Analytics 1.1.27
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-roulette-analytics-1.1.27.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      APK: descargas/roulette-analytics/Roulette-Analytics-1.1.27.apk
+      TAG: roulette-analytics-1.1.27
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify the signed installer digest
+        run: echo "4a9a41c61e942616980302e9f78e10d2517ef6b575100a5ba0d1f6925791a12c  $APK" | sha256sum -c -
+      - name: Publish the Android download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK"
+          else
+            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --latest=false \
+              --title "Roulette Analytics 1.1.27" \
+              --notes "Descarga directa para Android. Ajustes reorganizados, saldo visible durante la partida y contraseñas de ocho caracteres para nuevas cuentas."
+          fi
