@@ -1,4 +1,4 @@
-import {render,readImage,limits,gridSize,planText} from './v1/codec.mjs';
+import {render,readImage,limits,gridSize,planText} from './v1/codec.mjs?v=capacity1';
 import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
 const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
@@ -94,6 +94,7 @@ function previewGrid(){
  el('fixedBox').hidden=axis==='auto';
  el('fixedLabel').textContent=axis==='rows'?'Número de filas':'Número de columnas';
  const level=Number(el('level').value),fixed=el('fixed').valueAsNumber;
+ el('capacityHint').hidden=level!==4;
  function describe(bytes,text){
   try{
    const g=gridSize(bytes,level,text,axis,fixed);

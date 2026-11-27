@@ -2,8 +2,11 @@ import {packText,unpackText} from './text.mjs';
 // UrySoft Símbolos v1. Pure transforms shared by HTTP, browser and Android.
 export const glyphs=[25715,4623,13405,14601,21395,23788,49932,54128,24113,11730,62516,40839,64018,57240,7190,30605];
 export const palette=['111111','341520','192d13','13253b','35163a','163130','3a260b','2c2245','c35b67','b07613','73822b','238e64','208bb2','7872bd','aa69a0','9e7967'].map(h=>[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)));
-const black=[0,0,0], white=[255,255,255],bits=[0,6,10,13], parity=[0,6,10,12];
-export const limits=[0,469,790,1024];
+const black=[0,0,0], white=[255,255,255],bits=[0,6,10,13,32], parity=[0,6,10,12,6];
+export const limits=[0,469,790,1024,2676];
+const denseLevel=4;
+const denseColors=[[17,17,17],[32,91,212],[242,193,36],[199,41,107]];
+const denseBackground=[222,235,246];
 const exp=new Uint8Array(510),log=new Uint8Array(256);
 for(let i=0,v=1;i<255;i++){exp[i]=exp[i+255]=v;log[v]=i;v<<=1;if(v&256)v^=285;}
 const mul=(a,b)=>a&&b?exp[log[a]+log[b]]:0;
@@ -41,9 +44,10 @@ function rsRepair(block,n){
 }
 export function crc32(bytes){let c=-1;for(const v of bytes){c^=v;for(let j=0;j<8;j++)c=(c>>>1)^((c&1)?0xedb88320:0)}return (~c)>>>0}
 function layout(level,count=690,compact=false){
- if(![1,2,3].includes(level))throw Error('Nivel desconocido');
+ if(!Number.isInteger(level)||!limits[level])throw Error('Nivel desconocido');
  const size=Math.floor(count*bits[level]/8);
- const blocks=compact?Math.max(1,Math.ceil(size/255)):6;
+ // The dense page uses twelve 230-byte blocks, with six parity bytes each.
+ const blocks=level===denseLevel?Math.ceil(size/230):compact?Math.max(1,Math.ceil(size/255)):6;
  return Array.from({length:blocks},(_,i)=>Math.floor((size+blocks-1-i)/blocks));
 }
 function readBits(bytes,start,n){let v=0;for(let i=start;i<start+n;i++)v=v*2+((bytes[i>>3]>>(7-i%8))&1);return v}
@@ -53,11 +57,18 @@ export function encodeCells(input,level=3,side=0,rows=side,fileGrid=false,packed
  const lengths=layout(level,count,!!side),p=packed?textParity(lengths,level):parity[level];if(!(input instanceof Uint8Array)||(packed?packed.bytes.length:input.length)>limits[level])throw Error('Fichero demasiado grande o inválido');
  const frame=new Uint8Array(lengths.reduce((a,b)=>a+b-p,0));
  if(packed){
-  const view=new DataView(frame.buffer);view.setUint16(0,(packed.mode<<11)|packed.bytes.length);view.setUint32(2,crc32(input));frame.set(packed.bytes,6);
+  const view=new DataView(frame.buffer),header=textHeaderSize(level);
+  if(level===denseLevel){
+   view.setUint8(0,packed.mode);
+   view.setUint16(1,packed.bytes.length);
+  }else view.setUint16(0,(packed.mode<<11)|packed.bytes.length);
+  view.setUint32(header-4,crc32(input));
+  frame.set(packed.bytes,header);
  }else{frame.set([85,83,89,49,level,fileGrid?3:(side?2:1),input.length>>8,input.length&255]);new DataView(frame.buffer).setUint32(8,crc32(input));frame.set(input,12)}
  let off=0;const blocks=lengths.map(n=>{const a=rsEncode(frame.subarray(off,off+n-p),p);off+=n-p;return a});
  const stream=[];for(let j=0;j<lengths[0];j++)for(const b of blocks)if(j<b.length)stream.push(b[j]);
- return Uint16Array.from({length:count},(_,i)=>readBits(stream,i*bits[level],bits[level]));
+ const Words=level===denseLevel?Uint32Array:Uint16Array;
+ return Words.from({length:count},(_,i)=>readBits(stream,i*bits[level],bits[level]));
 }
 export function decodeCells(cells,level,side=0,rows=side,packed=false){
  const count=side?side*rows:690;
@@ -69,10 +80,13 @@ export function decodeCells(cells,level,side=0,rows=side,packed=false){
  const bytes=[];for(const b of blocks){corrected+=rsRepair(b,p);bytes.push(...b.subarray(0,b.length-p))}
  const frame=Uint8Array.from(bytes),len=frame[6]*256+frame[7];
  if(packed){
-  const view=new DataView(frame.buffer),tag=view.getUint16(0),length=tag&2047;
-  if(length>frame.length-6||length>limits[level])throw Error('Longitud inválida');
-  const data=unpackText(tag>>>11,frame.subarray(6,6+length));
-  if(crc32(data)!==view.getUint32(2))throw Error('Texto dañado');
+  const view=new DataView(frame.buffer),header=textHeaderSize(level);
+  const tag=view.getUint16(0);
+  const mode=level===denseLevel?view.getUint8(0):tag>>>11;
+  const length=level===denseLevel?view.getUint16(1):tag&2047;
+  if(length>frame.length-header||length>limits[level])throw Error('Longitud inválida');
+  const data=unpackText(mode,frame.subarray(header,header+length));
+  if(crc32(data)!==view.getUint32(header-4))throw Error('Texto dañado');
   return {data,level,corrected,kind:'text'};
  }
  if(frame.slice(0,6).join()!==[85,83,89,49,level,side?(frame[5]===3?3:2):1].join()||len>frame.length-12||len>limits[level])throw Error('Cabecera inválida');
@@ -111,6 +125,7 @@ export function gridSize(bytes,level,text,axis='auto',value){
  }
  throw Error('El contenido necesita más de 60 casillas en la otra dimensión. Aumenta la dimensión fija o el nivel.');
 }
+function textHeaderSize(level){return level===denseLevel?7:6}
 function textParity(lengths,level){
  // Short blocks retain four repair bytes, longer ones use the existing level budget.
  return lengths[0]<=40?4:parity[level];
@@ -119,6 +134,7 @@ export function planText(input,level,axis='auto',value){
  const packed=packText(input);
  if(packed.bytes.length>limits[level])throw Error('El texto comprimido supera los '+limits[level]+' bytes de este nivel.');
  if(axis!=='auto'&&(!['columns','rows'].includes(axis)||!Number.isInteger(value)||value<1||value>60))throw Error('Elige un número entero entre 1 y 60.');
+ const header=textHeaderSize(level);
  let best,area=Infinity;
  for(let columns=1;columns<=60;columns++){
   if(axis==='columns'&&columns!==value)continue;
@@ -126,9 +142,9 @@ export function planText(input,level,axis='auto',value){
    const candidate=(columns+3)*(rows+3);
    if(candidate>area)break;
    const count=columns*rows,size=Math.floor(count*bits[level]/8);
-   if(size>=packed.bytes.length+10){
+   if(size>=packed.bytes.length+header+4){
     const lengths=layout(level,count,true);
-    if(size-lengths.length*textParity(lengths,level)>=packed.bytes.length+6){
+    if(size-lengths.length*textParity(lengths,level)>=packed.bytes.length+header){
      if(candidate<area||Math.abs(rows-columns)<Math.abs(best.rows-best.columns)){
       best={columns,rows,packed};area=candidate;
      }
@@ -157,7 +173,16 @@ export function render(input,level=3,text=false,axis='auto',value,marks=true){
   const x=left+c*32,y=top+r*32;
   if((r===0||r===rows-1)&&(c===0||c===cols-1)){for(const [s,v] of [[28,black],[20,white],[12,black]])rect(x+(32-s)/2,y+(32-s)/2,s,s,v);continue}
   if(!r||r===rows-1||!c||c===cols-1){if(compact)continue;rect(x+3,y+3,26,26,level===1?((r+c)%2?black:white):palette[(r+c-1+16)%16]);continue}
-  const [mask,ink,bg]=unpack(cells[(r-1)*(cols-2)+c-1],level);rect(x+1,y+1,30,30,bg);
+  const cell=cells[(r-1)*(cols-2)+c-1];
+  if(level===denseLevel){
+   rect(x+1,y+1,30,30,denseBackground);
+   for(let j=0;j<16;j++){
+    const color=denseColors[(cell>>>(30-2*j))&3];
+    rect(x+4+6*(j%4),y+4+6*(j>>2),6,6,color);
+   }
+   continue;
+  }
+  const [mask,ink,bg]=unpack(cell,level);rect(x+1,y+1,30,30,bg);
   for(let j=0;j<16;j++)if(mask>>j&1)rect(x+4+6*(j%4),y+4+6*(j>>2),6,6,ink);
  }
  if(!marks)return {width,height,pixels};
@@ -204,12 +229,32 @@ export function readImage(img,points){
   for(let i=0;i<12;i++)tag=tag*2+Number(sample(48+(i+.5)*side*32/12,32).reduce((a,b)=>a+b,0)<384);
   if(tag!==(0xA80|side))continue;
  }
+ const left=compact?16:20,top=compact?16:32;
+ const columns=side||23,rowCount=rows||30;
+ // The pale frame identifies the dense profile before reading its 32-bit cells.
+ const firstCell=sample(left+34,top+34);
+ const lastCell=sample(left+32*columns+2,top+32*rowCount+2);
+ if([firstCell,lastCell].some(color=>distance(color,denseBackground)<=24**2)){
+  try{
+   const cells=[];
+   for(let r=1;r<=rowCount;r++)for(let c=1;c<=columns;c++){
+    let cell=0;
+    const x=left+32*c,y=top+32*r;
+    for(let j=0;j<16;j++){
+     const color=sample(x+7+6*(j%4),y+7+6*(j>>2));
+     cell=cell*4+nearest(color,denseColors);
+    }
+    cells.push(cell);
+   }
+   return decodeCells(cells,denseLevel,side,rows,packed);
+  }catch{/* The frame integrity check determines whether the dense profile matches. */}
+ }
  const ref=bare?palette:compact?Array.from({length:16},(_,i)=>sample(48+(i+.5)*side*2,32+(rows+1)*32)):Array.from({length:16},(_,i)=>sample(20+(i+1)*32+16,48));
  for(const level of [1,2,3]){
   try{
   const cells=[];
-  for(let r=1;r<=(rows||30);r++)for(let c=1;c<=(side||23);c++){
-   const x=(compact?16:20)+32*c,y=(compact?16:32)+32*r,samples=[];
+  for(let r=1;r<=rowCount;r++)for(let c=1;c<=columns;c++){
+   const x=left+32*c,y=top+32*r,samples=[];
    const background=[[3,3],[29,3],[3,29],[29,29]].map(([dx,dy])=>sample(x+dx,y+dy));
    const bg=background[0].map((_,i)=>{
     const channel=background.map(rgb=>rgb[i]).sort((a,b)=>a-b);

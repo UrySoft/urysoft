@@ -38,12 +38,14 @@
           {
             "in": "query",
             "name": "level",
+            "description": "Nivel 4: alta capacidad en la imagen digital original, hasta 2.676 bytes de archivo.",
             "schema": {
               "type": "integer",
               "enum": [
                 1,
                 2,
-                3
+                3,
+                4
               ],
               "default": 3
             }

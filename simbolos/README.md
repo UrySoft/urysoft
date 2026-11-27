@@ -33,8 +33,11 @@ La opción inicial procesa el archivo en el dispositivo. **Enviar al servicio we
 | 1 | Símbolo negro sobre blanco | 6 | 469 |
 | 2 | Símbolo de uno de 16 colores sobre blanco | 10 | 790 |
 | 3 | Símbolo y fondo de color con paleta restringida | 13 | 1.024 |
+| 4 | 16 módulos independientes de cuatro colores | 32 | 2.676 |
 
-El nivel 3 admite 128 parejas ordenadas de colores. La paleta se divide en dos grupos de ocho. Fondo y trazo pertenecen siempre a grupos opuestos y las 128 parejas superan o igualan la relación de luminancia 3 a 1 en la imagen digital. Las tres opciones usan las 16 formas del alfabeto corregido con cuatro orientaciones cada una. Los límites son de **datos útiles**, después del control de integridad y la redundancia. Las láminas de diseño anteriores al formato USY1 sirven como muestras visuales.
+El nivel 4 guarda hasta 2.676 bytes en las mismas 690 casillas útiles de una página automática. Guarda y usa la imagen digital original para recuperar los datos.
+
+El nivel 3 admite 128 parejas ordenadas de colores. La paleta se divide en dos grupos de ocho. Fondo y trazo pertenecen siempre a grupos opuestos y las 128 parejas superan o igualan la relación de luminancia 3 a 1 en la imagen digital. Los niveles 1 a 3 usan las 16 formas del alfabeto corregido con cuatro orientaciones cada una. Los límites son de **datos útiles**, después del control de integridad y la redundancia. Las láminas de diseño anteriores al formato USY1 sirven como muestras visuales.
 
 ## API HTTP v1
 

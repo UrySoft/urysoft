@@ -16,7 +16,7 @@ export async function handle(request){
  if(!text&&input!==(action==='encode'?'application/octet-stream':'image/png'))return json({error:'Tipo de contenido incompatible'},415);
  try{
   if(action==='encode'){
-   const level=Number(u.searchParams.get('level')??3);if(![1,2,3].includes(level))return json({error:'Nivel entre 1 y 3'},400);
+   const level=Number(u.searchParams.get('level')??3);if(!Number.isInteger(level)||!limits[level])return json({error:'Nivel entre 1 y 4'},400);
    const data=request.body?await readBounded(request.body,text?maxTextBytes:limits[level]):new Uint8Array();
    if(text)new TextDecoder('utf-8',{fatal:true}).decode(data);
    const axes=['columns','rows'].filter(key=>u.searchParams.has(key));

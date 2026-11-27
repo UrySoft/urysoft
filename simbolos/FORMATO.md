@@ -14,3 +14,11 @@
 
 **Referencia ejecutable.** codec.mjs contiene encodeCells, decodeCells, render y readImage. El servicio prueba cada nivel y cada giro y acepta únicamente una cabecera concordante y el CRC correcto. finders.mjs propone centros candidatos para fotografías. La comprobación de integridad decide si la interpretación es admisible.
 
+
+## Nivel 4 · Alta capacidad
+
+Para imágenes digitales. La página automática conserva las 690 posiciones útiles y su geometría. Cada posición tiene un marco de color `#DEEBF6` y 16 módulos de 6 × 6 píxeles en el mismo orden por filas. Cada módulo contiene dos bits. Los valores 0, 1, 2 y 3 se dibujan respectivamente como `#111111`, `#205BD4`, `#F2C124` y `#C7296B`. Se consumen primero los bits más significativos de cada palabra de 32 bits.
+
+Se mantiene la cabecera de archivo de 12 bytes con nivel 4. Se distribuyen los bytes del canal entre tantos bloques como sean necesarios para no superar 230 bytes por bloque. Se conservan el entrelazado y la comprobación de integridad. La página automática tiene 12 bloques de 230 bytes y 6 bytes de paridad en cada uno, de modo que caben 2.676 bytes de archivo. Cada bloque completo repara hasta tres errores de byte de posición desconocida.
+
+En cuadrículas compactas de texto de nivel 4, la cabecera contiene un byte de modo, dos bytes de longitud comprimida y cuatro bytes de comprobación de integridad del texto original. Los enteros multibyte se escriben en orden de byte más significativo primero. Los bloques cortos conservan los cuatro bytes de paridad del modo de texto. Los niveles anteriores mantienen su representación.

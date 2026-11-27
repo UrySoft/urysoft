@@ -8,7 +8,7 @@ const url='http://localhost/api/simbolos/v1/';
 const req=(action,type,body)=>handle(new Request(url+action,{method:'POST',headers:{'Content-Type':type},body}));
 function lum(p){return p.reduce((v,c,i)=>{let x=c/255;return v+[.2126,.7152,.0722][i]*(x<=.04045?x/12.92:((x+.055)/1.055)**2.4)},0)}
 for(let i=0;i<16;i++)for(let j=0;j<16;j++)if((i<8)!==(j<8)){let a=lum(palette[i]),b=lum(palette[j]);assert((Math.max(a,b)+.05)/(Math.min(a,b)+.05)>=3)}
-for(const l of [1,2,3]){
+for(const l of [1,2,3,4]){
  for(const size of [0,1,limits[l]-1,limits[l]]){
   const data=Uint8Array.from(randomBytes(size));const cells=encodeCells(data,l);
   cells[35]^=15;cells[81]^=21;assert.deepEqual(decodeCells(cells,l).data,data);
@@ -26,8 +26,8 @@ for(let y=0;y<tilted.height;y++)for(let x=0;x<tilted.width;x++){
  if(sx>=0&&sy>=0&&sx<im.width&&sy<im.height){const k=(sy*im.width+sx)*3,j=(y*tilted.width+x)*3;tilted.pixels.set(im.pixels.subarray(k,k+3),j)}
 }
 assert.deepEqual(readImage(tilted,findCorners(tilted)).data,real);
-console.log('OK: tres niveles, extremos de tamaño, contraste, paridad, ida y vuelta HTTP, errores y fotografía sintética con localización automática.');
-for(const level of [1,2,3]){
+console.log('OK: cuatro niveles, extremos de tamaño, contraste, paridad, ida y vuelta HTTP, errores y fotografía sintética con localización automática.');
+for(const level of [1,2,3,4]){
  for(const value of ['x','https://urysoft.com','  Bon dia, Oriol!\nCiència 🚀  ','x'.repeat(limits[level])]){
   const encoded=await req('encode?level='+level,'text/plain; charset=utf-8',value);
   assert.equal(encoded.status,200);
@@ -39,7 +39,7 @@ for(const level of [1,2,3]){
   assert.equal(await decoded.text(),value);
  }
 }
-for(const level of [1,2,3]){
+for(const level of [1,2,3,4]){
  for(const type of ['text/plain','application/octet-stream']){
   for(const axis of ['rows','columns']){
    const payload='https://urysoft.com';
@@ -73,7 +73,7 @@ for(const value of ['https://urysoft.com','https://','http://www.example.org/à'
  }
 }
 assert.throws(()=>packText(new Uint8Array(65537)));
-for(const level of [1,2,3])for(const type of ['text/plain','application/octet-stream']){
+for(const level of [1,2,3,4])for(const type of ['text/plain','application/octet-stream']){
  const url='https://urysoft.com';
  for(const shape of ['','&rows=1','&columns=9']){
   const encoded=await req('encode?marks=0&level='+level+shape,type,url);
@@ -87,3 +87,35 @@ for(const level of [1,2,3])for(const type of ['text/plain','application/octet-st
   assert.equal(await decoded.text(),url);
  }
 }
+
+const denseFile=randomBytes(2676);
+const denseText=randomBytes(2200).toString('base64').slice(0,2676);
+assert(packText(new TextEncoder().encode(denseText)).bytes.length>2047);
+assert.deepEqual([render(denseFile,4).width,render(denseFile,4).height],[840,1188]);
+for(const [query,type,payload,kind] of [
+ ['&marks=0','application/octet-stream',denseFile,'file'],
+ ['&columns=23','application/octet-stream',denseFile,'file'],
+ ['&rows=30','text/plain',denseText,'text'],
+ ['&marks=0','text/plain',denseText,'text']
+]){
+ const encoded=await req('encode?level=4'+query,type,payload);
+ assert.equal(encoded.status,200);
+ const png=await encoded.arrayBuffer(),image=await fromPNG(new Uint8Array(png));
+ if(query==='&marks=0'&&kind==='file')assert.deepEqual([image.width,image.height],[23*32,30*32]);
+ if(query==='&columns=23')assert.equal(image.width,26*32);
+ if(query==='&rows=30')assert.equal(image.height,33*32);
+ const decoded=await req('decode','image/png',png);
+ assert.equal(decoded.status,200);
+ assert.equal(decoded.headers.get('X-UrySoft-Level'),'4');
+ assert.equal(decoded.headers.get('X-UrySoft-Kind'),kind);
+ assert.deepEqual(Buffer.from(await decoded.arrayBuffer()),Buffer.from(payload));
+}
+const damagedDense=render(denseFile,4,false,'auto',undefined,false);
+for(let y=4;y<28;y++)for(let x=4;x<28;x++){
+ const pixel=(y*damagedDense.width+x)*3;
+ damagedDense.pixels.set([17,17,17],pixel);
+}
+const repairedDense=readImage(damagedDense);
+assert(repairedDense.corrected>0);
+assert.deepEqual(Buffer.from(repairedDense.data),denseFile);
+console.log('OK: alta capacidad de 2.676 bytes en 690 casillas, formatos con y sin marcas, ejes fijos, texto largo y reparación de una casilla dañada.');
