@@ -1,6 +1,6 @@
 # USY1 · Formato UrySoft Símbolos
 
-**Geometría.** Página A4, 840 × 1.188 píxeles a 4 píxeles por milímetro. Cuadrícula de 25 columnas por 32 filas de 32 píxeles con origen superior izquierdo (20,32). El perímetro contiene cuatro marcadores con anillos negros y blancos y la paleta de referencia. El interior tiene 23 × 30 = 690 posiciones. Se recorren por filas. En la primera fila exterior, las columnas 1 a 16 (contando desde cero) identifican los 16 colores del perfil de color. El pie incluye un código QR de documentación.
+**Geometría.** Página A4, 840 × 1.188 píxeles a 4 píxeles por milímetro. Cuadrícula de 25 columnas por 32 filas de 32 píxeles con origen superior izquierdo (20,32). El perímetro contiene cuatro marcadores con anillos negros y blancos y la paleta de referencia. El interior tiene 23 × 30 = 690 posiciones. Se recorren por filas. En la primera fila exterior, las columnas 1 a 16 (contando desde cero) identifican los 16 colores del perfil de color. El pie incluye un código QR que abre el descodificador web de UrySoft.
 
 **Forma y giro.** El fichero codec.mjs publica los 16 enteros del alfabeto v2. Una máscara se lee de arriba abajo, en cada fila de izquierda a derecha, con el bit menos significativo en la esquina superior izquierda. El giro positivo es antihorario. Cada glifo se dibuja como 4 × 4 módulos de 6 píxeles con origen (4,4) dentro de su casilla. El fondo coloreado abarca los píxeles 1 a 30 en ambos ejes. El código bajo de 6 bits es 4 × índice de forma + giro (0 a 3).
 

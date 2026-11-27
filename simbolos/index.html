@@ -6,8 +6,8 @@
 <label>Procesamiento <select id="mode"><option value="local">En este dispositivo</option><option value="web">Enviar al servicio web de UrySoft</option></select></label>
 <fieldset><legend>Codificar un archivo</legend><label>Nivel <select id="level"><option value="1">1 · Blanco y negro · 469 bytes</option><option value="2">2 · Trazo de color · 790 bytes</option><option value="3" selected>3 · Trazo y fondo de color · 1.024 bytes</option></select></label>
 <label>Archivo <input id="source" type="file"></label><button id="encode">Crear página</button></fieldset>
-<fieldset><legend>Descodificar una página</legend><label>Imagen original o fotografía <input id="photo" type="file" accept="image/*"></label>
-<button id="decode">Leer imagen</button> <button id="manual" hidden>Marcar los cuatro centros</button></fieldset>
+<fieldset id="descodificar"><legend>Descodificar una página</legend><label>Imagen original o fotografía <input id="photo" type="file" accept="image/*"></label>
+<button id="decode">Leer imagen</button> <button id="manual" hidden>Marcar los cuatro centros</button><p><a href="https://urysoft.pages.dev/simbolos/android/UrySoft-Simbolos-0.1.1.apk" download>Descargar la aplicación para Android (APK)</a></p></fieldset>
 <output id="status" aria-live="polite"></output><button id="save" hidden>Guardar</button>
 <canvas id="view" hidden></canvas><p><a href="https://github.com/UrySoft/urysoft/tree/main/simbolos" target="_blank" rel="noopener">Documentación y código de la API</a></p></main>
 <script type="module" src="ui.mjs"></script></html>

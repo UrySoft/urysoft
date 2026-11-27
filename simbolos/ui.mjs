@@ -2,8 +2,9 @@ import {render,readImage,limits} from './v1/codec.mjs';
 import {findCorners} from './v1/finders.mjs';
 const el=id=>document.getElementById(id),canvas=el('view'),ctx=canvas.getContext('2d',{willReadFrequently:true}),out=el('status');
 const endpoint=location.protocol==='https:'&&!location.host.includes('appassets')?location.origin+'/api/simbolos/v1':'https://urysoft.pages.dev/api/simbolos/v1';
+let sourcePNG=null;
 let output=null,filename='',image=null,points=null,busy=false;
-function reset(){output=null;image=null;points=null;el('save').hidden=true;el('manual').hidden=true;canvas.hidden=true;out.textContent=''}
+function reset(){sourcePNG=null;output=null;image=null;points=null;el('save').hidden=true;el('manual').hidden=true;canvas.hidden=true;out.textContent=''}
 function setResult(blob,name){output=blob;filename=name;el('save').hidden=false;el('save').textContent='Guardar '+name}
 async function run(fn){if(busy)return;busy=true;for(const id of ['encode','decode','manual','source','photo','level','mode'])el(id).disabled=true;
  try{await fn()}catch(e){out.textContent=e.message}finally{busy=false;for(const id of ['encode','decode','manual','source','photo','level','mode'])el(id).disabled=false}}
@@ -16,7 +17,13 @@ async function draw(blob){
  canvas.width=Math.max(1,Math.round(bmp.width*scale));canvas.height=Math.max(1,Math.round(bmp.height*scale));ctx.drawImage(bmp,0,0,canvas.width,canvas.height);canvas.hidden=false;
  }finally{bmp.close()}
 }
-const asPNG=()=>new Promise((ok,fail)=>canvas.toBlob(v=>v?ok(v):fail(Error('Error al exportar imagen')),'image/png'));
+async function uploadPNG(){
+ if(sourcePNG)return sourcePNG;
+ const rgb=new Uint8Array(image.width*image.height*3);
+ for(let i=0,j=0;i<image.pixels.length;i+=4,j+=3)rgb.set(image.pixels.subarray(i,i+3),j);
+ const {toPNG}=await import('./v1/png.mjs');
+ return new Blob([await toPNG({...image,pixels:rgb})],{type:'image/png'});
+}
 async function create(){
  reset();const file=el('source').files[0],l=Number(el('level').value);if(!file)throw Error('Selecciona un archivo.');
  if(file.size>limits[l])throw Error('Este nivel admite '+limits[l]+' bytes. El fichero tiene '+file.size+'.');
@@ -30,7 +37,7 @@ async function recover(markers){
  let data,level,corrected;
  if(el('mode').value==='web'){
  const suffix=markers?'?corners='+encodeURIComponent(JSON.stringify(markers)):'';
- const res=await call('decode'+suffix,await asPNG(),'image/png');data=await res.arrayBuffer();level=res.headers.get('X-UrySoft-Level');corrected=res.headers.get('X-UrySoft-Corrected');
+ const res=await call('decode'+suffix,await uploadPNG(),'image/png');data=await res.arrayBuffer();level=res.headers.get('X-UrySoft-Level');corrected=res.headers.get('X-UrySoft-Corrected');
  }else{let result;try{result=readImage(image,markers)}catch(e){if(markers)throw e;const auto=findCorners(image);if(!auto)throw e;result=readImage(image,auto)}
  ({data,level,corrected}=result)}
  setResult(new Blob([data],{type:'application/octet-stream'}),'recuperado.bin');
@@ -39,6 +46,16 @@ async function recover(markers){
 async function loadPhoto(){
  reset();const file=el('photo').files[0];if(!file)throw Error('Selecciona una imagen.');await draw(file);
  image={width:canvas.width,height:canvas.height,pixels:ctx.getImageData(0,0,canvas.width,canvas.height).data};
+ if(file.size<=12000000){
+  const header=new Uint8Array(await file.slice(0,8).arrayBuffer());
+  if(header.join(',')==='137,80,78,71,13,10,26,10'){
+   const {fromPNG}=await import('./v1/png.mjs');
+   try{
+    const original=await fromPNG(new Uint8Array(await file.arrayBuffer()));
+    if(original.width===canvas.width && original.height===canvas.height){image=original;sourcePNG=file}
+   }catch{/* Other PNG formats use the browser-decoded pixels. */}
+  }
+ }
  el('manual').hidden=false;await recover(null);
 }
 const names=['superior izquierdo','superior derecho','inferior derecho','inferior izquierdo'];
