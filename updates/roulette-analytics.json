@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "app": "roulette-analytics",
+  "status": "published",
+  "versionName": "1.1.29",
+  "versionCode": 36,
+  "downloadUrl": "https://github.com/UrySoft/urysoft/releases/download/roulette-analytics-1.1.29/Roulette-Analytics-1.1.29.apk",
+  "sha256": "58cd497c930fd9d831225d84bf15afa14299739c4665b9b5d1ca1e689a4c1327",
+  "mandatory": false,
+  "changelog": {
+    "es": "Canal directo de UrySoft. Comprobación de actualizaciones al abrir la app y desde Ajustes.",
+    "ca": "Canal directe d’UrySoft. Comprovació d’actualitzacions en obrir l’app i des de Configuració.",
+    "en": "UrySoft direct channel. Checks for updates on opening the app and from Settings."
+  }
+}

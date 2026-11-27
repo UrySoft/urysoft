@@ -2,6 +2,7 @@ const translation = {
   es: {
     apps: 'Aplicaciones', intro: 'Registra tiradas, explora las frecuencias y simula jugadas desde el tapete de ruleta.',
     download: 'Descargar para Android', help: 'Guía de instalación en Android',
+    reinstall: 'Si tienes una versión anterior, desinstálala antes de instalar la 1.1.29. Después, vuelve a entrar con la misma cuenta para conservar tus créditos. A partir de esta versión recibirás avisos de actualización al abrir la app.',
     board: 'Tapete interactivo', boardText: 'Introduce el número que ha salido tocando su casilla y ajusta las fichas de la simulación.',
     stats: 'Historial y estadísticas', statsText: 'Consulta frecuencias y rachas. Puedes usar una foto para cargar las estadísticas iniciales.',
     account: '50 créditos de bienvenida', accountText: 'Crea tu cuenta con usuario y contraseña. Consulta el saldo desde el tapete y consérvalo al cambiar de dispositivo.',
@@ -14,6 +15,7 @@ const translation = {
   ca: {
     apps: 'Aplicacions', intro: 'Registra tirades, explora les freqüències i simula jugades des del tapet de ruleta.',
     download: 'Descarrega per a Android', help: 'Guia d’instal·lació a Android',
+    reinstall: 'Si tens una versió anterior, desinstal·la-la abans d’instal·lar la 1.1.29. Torna a entrar amb el mateix compte per conservar els crèdits. A partir d’aquesta versió rebràs avisos d’actualització en obrir l’app.',
     board: 'Tapet interactiu', boardText: 'Introdueix el número que ha sortit tocant-ne la casella i ajusta les fitxes de la simulació.',
     stats: 'Historial i estadístiques', statsText: 'Consulta les freqüències i les ratxes. Pots fer servir una foto per carregar les estadístiques inicials.',
     account: '50 crèdits de benvinguda', accountText: 'Crea el teu compte amb usuari i contrasenya. Consulta el saldo des del tapet i conserva’l quan canviïs de dispositiu.',
@@ -26,6 +28,7 @@ const translation = {
   en: {
     apps: 'Apps', intro: 'Record spins, explore frequencies, and simulate plays on an interactive roulette layout.',
     download: 'Download for Android', help: 'Android installation guide',
+    reinstall: 'If you have an earlier version, uninstall it before installing 1.1.29. Sign in with the same account to keep your credits. From this version onward, the app will check for updates when it opens.',
     board: 'Interactive layout', boardText: 'Tap the winning number to record a spin and adjust the chips used in the simulation.',
     stats: 'History and statistics', statsText: 'Review frequencies and streaks. You can use a photo to load initial statistics.',
     account: '50 welcome credits', accountText: 'Create an account with a username and password. See your balance on the roulette layout and keep it across devices.',
