@@ -26,6 +26,11 @@
     .features article { border: 1px solid var(--line); background: var(--panel); border-radius: 13px; padding: 17px; }
     .features p, .notice, footer { color: var(--muted); }
     .features p { margin: 0; }
+    .invitation { border: 1px solid var(--line); background: var(--panel); border-radius: 13px; margin: 0 0 24px; padding: 17px; }
+    .invitation p { margin: 0 0 8px; }
+    .invitation input, .invitation button { min-height: 44px; font: inherit; border-radius: 8px; padding: 6px 10px; border: 1px solid var(--line); }
+    .invitation input { max-width: 100%; background: var(--canvas); color: var(--fg); }
+    .invitation button { background: var(--accent); color: #211707; font-weight: 680; cursor: pointer; }
     footer { border-top: 1px solid var(--line); padding: 14px 0 24px; font-size: 14px; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
     footer a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; }
@@ -56,10 +61,20 @@
       <p><a href="/ayuda/instalar-android/" data-copy="help">Guía de instalación en Android</a></p>
     </div></section>
     <div class="wrap">
+      <section class="invitation" id="invitation" aria-labelledby="invitation-title" hidden>
+        <h2 id="invitation-title" data-copy="invitation">Tu invitación</h2>
+        <p data-copy="invitationHelp">Introduce este código al crear tu cuenta desde la aplicación.</p>
+        <div class="downloads">
+          <input id="invitation-code" aria-labelledby="invitation-title" readonly>
+          <button type="button" id="copy-invitation" data-copy="copyCode">Copiar código</button>
+          <span id="copy-status" role="status"></span>
+        </div>
+      </section>
       <section class="features" aria-label="Funciones">
         <article><h2 data-copy="board">Tapete interactivo</h2><p data-copy="boardText">Introduce el número que ha salido tocando su casilla y ajusta las fichas de la simulación.</p></article>
         <article><h2 data-copy="stats">Historial y estadísticas</h2><p data-copy="statsText">Consulta frecuencias y rachas. Puedes usar una foto para cargar las estadísticas iniciales.</p></article>
-        <article><h2 data-copy="account">Acceso con tu cuenta</h2><p data-copy="accountText">Crea un usuario y una contraseña. Tu cuenta conserva el saldo al cambiar de dispositivo.</p></article>
+        <article><h2 data-copy="account">50 créditos de bienvenida</h2><p data-copy="accountText">Crea tu cuenta con usuario y contraseña. Consulta el saldo desde el tapete y consérvalo al cambiar de dispositivo.</p></article>
+        <article><h2 data-copy="referrals">Invita a tus amigos</h2><p data-copy="referralsText">Comparte tu enlace desde Créditos. Recibe 50 créditos por cada alta con tu código y 5 cuando uno de tus invitados consigue una nueva alta.</p></article>
       </section>
       <p class="notice" data-copy="notice">Para simulación e investigación estadística. Los resultados históricos no predicen la siguiente tirada.</p>
     </div>

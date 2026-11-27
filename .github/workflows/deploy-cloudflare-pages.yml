@@ -63,16 +63,25 @@ jobs:
           echo "::error::The production admin page is not serving the expected revision."
           exit 1
 
-      - name: Verify published Roulette Analytics download
-        if: github.event_name == 'push'
+      - name: Verify Roulette Analytics on the homepage and app page
         run: |
-          file=descargas/roulette-analytics/Roulette-Analytics-1.1.25.apk
+          detail=/apps/roulette-analytics/
+          download=$(sed -nE 's@.*href="(/descargas/roulette-analytics/Roulette-Analytics-[0-9]+\.[0-9]+\.[0-9]+\.apk)".*@\1@p' "apps/roulette-analytics/index.html")
+          test -n "$download"
+          test -f ".${download}"
           for attempt in {1..12}; do
-            if curl -fsSL --max-time 15 "https://www.urysoft.com/$file?deployment=$GITHUB_SHA-$attempt" -o "$RUNNER_TEMP/roulette.apk" &&
-                cmp -s "$file" "$RUNNER_TEMP/roulette.apk"; then
+            revision="deployment=$GITHUB_SHA-$attempt"
+            if curl -fsSL --max-time 15 "https://www.urysoft.com/?$revision" -o "$RUNNER_TEMP/roulette-home.html" &&
+                grep -Fq "\"detailUrl\":\"$detail\"" "$RUNNER_TEMP/roulette-home.html" &&
+                grep -Fq "\"url\":\"$download\"" "$RUNNER_TEMP/roulette-home.html" &&
+                curl -fsSL --max-time 15 "https://www.urysoft.com/${detail#/}?$revision" -o "$RUNNER_TEMP/roulette-detail.html" &&
+                grep -Fq 'data-app="roulette-analytics"' "$RUNNER_TEMP/roulette-detail.html" &&
+                grep -Fq "href=\"$download\"" "$RUNNER_TEMP/roulette-detail.html" &&
+                curl -fsSL --max-time 15 "https://www.urysoft.com/${download#/}?$revision" -o "$RUNNER_TEMP/roulette.apk" &&
+                cmp -s ".${download}" "$RUNNER_TEMP/roulette.apk"; then
               exit 0
             fi
             sleep 5
           done
-          echo "::error::UrySoft is not serving the signed Roulette Analytics installer."
+          echo "::error::The UrySoft homepage, app page or Roulette Analytics installer does not match this deployment."
           exit 1
