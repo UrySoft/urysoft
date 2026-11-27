@@ -13,8 +13,8 @@ async function call(action,body,type){
  if(!res.ok){const why=await res.json().catch(()=>({}));throw Error(why.error||'Servicio no disponible ('+res.status+')')}return res;
 }
 async function draw(blob){
- const bmp=await createImageBitmap(blob);try{const scale=Math.min(1,1800/Math.max(bmp.width,bmp.height));
- canvas.width=Math.max(1,Math.round(bmp.width*scale));canvas.height=Math.max(1,Math.round(bmp.height*scale));ctx.drawImage(bmp,0,0,canvas.width,canvas.height);canvas.hidden=false;
+ const bmp=await createImageBitmap(blob);try{const scale=Math.min(1,2048/Math.max(bmp.width,bmp.height),Math.sqrt(4000000/(bmp.width*bmp.height)));
+ canvas.width=Math.max(1,Math.floor(bmp.width*scale));canvas.height=Math.max(1,Math.floor(bmp.height*scale));ctx.drawImage(bmp,0,0,canvas.width,canvas.height);canvas.hidden=false;
  }finally{bmp.close()}
 }
 async function uploadPNG(){

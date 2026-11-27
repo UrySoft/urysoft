@@ -111,7 +111,12 @@ export function readImage(img,points){
   try{
   const cells=[];
   for(let r=1;r<=30;r++)for(let c=1;c<=23;c++){
-   const x=20+32*c,y=32+32*r,bg=sample(x+2,y+2),samples=[];
+   const x=20+32*c,y=32+32*r,samples=[];
+   const background=[[3,3],[29,3],[3,29],[29,29]].map(([dx,dy])=>sample(x+dx,y+dy));
+   const bg=background[0].map((_,i)=>{
+    const channel=background.map(rgb=>rgb[i]).sort((a,b)=>a-b);
+    return (channel[1]+channel[2])/2;
+   });
    for(let j=0;j<16;j++)samples.push(sample(x+7+6*(j%4),y+7+6*(j>>2)));
    let ink=samples[0];for(const s of samples)if(distance(s,bg)>distance(ink,bg))ink=s;
    let mask=0;for(let i=0;i<16;i++)if(distance(samples[i],ink)<distance(samples[i],bg))mask|=1<<i;
@@ -123,6 +128,6 @@ export function readImage(img,points){
   return decodeCells(cells,level);
   }catch(e){/* The verified frame selects the rotation and profile. */}
  }}
- throw Error('Página ilegible. Comprueba los cuatro centros o utiliza la imagen original.');
+ throw Error('No se pudo verificar el archivo. Prueba con el PNG original o con una captura de pantalla que incluya toda la cuadrícula.');
 }
 
