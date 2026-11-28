@@ -18,6 +18,9 @@ const COPY = {
     "installHelp": "¿Problemas al instalar? Guía Android",
     "intro": "TeclaIRC es un cliente IRC para Android preconfigurado para conectarte al servidor público ChatHispano. Elige un alias, entra en un canal o abre un chat privado.",
     "items": [
+      "Abre Canales para consultar el directorio. Si llega un listado provisional, TeclaIRC vuelve a consultarlo automáticamente.",
+      "Cambia de canal o de privado en la lista lateral izquierda. Desde ahí puedes aceptar una invitación, rechazarla o bloquear a quien la envió.",
+      "Filtra el chat por autor o bloquea a un usuario desde uno de sus mensajes.",
       "Previsualiza los enlaces que comparten otros usuarios. Las miniaturas aparecen en la conversación para que puedas ver de qué se trata antes de abrir el enlace.",
       "En Galería puedes buscar las miniaturas de un canal o privado y recorrerlas por fecha o usuario en páginas de 100. Si una vista previa falla, puedes seguir viendo las demás.",
       "Conecta tu cuenta de ChatGPT para generar automáticamente una propuesta a partir de la conversación al tocar «Sugerir respuesta». Puedes revisarla y editarla antes de enviarla.",
@@ -77,6 +80,9 @@ const COPY = {
     "installHelp": "Problemes per instal·lar? Guia Android",
     "intro": "TeclaIRC és un client IRC per a Android preconfigurat per connectar-te al servidor públic ChatHispano. Tria un àlies, entra en un canal o obre un xat privat.",
     "items": [
+      "Obre Canals per consultar el directori. Si arriba una llista provisional, TeclaIRC torna a consultar-lo automàticament.",
+      "Canvia de canal o de xat privat al tauler de l’esquerra. Hi pots acceptar una invitació, rebutjar-la o bloquejar qui l’ha enviat.",
+      "Filtra el xat per autor o bloqueja un usuari des d’un dels seus missatges.",
       "Previsualitza els enllaços que comparteixen altres usuaris. Les miniatures apareixen a la conversa perquè puguis veure de què es tracta abans d’obrir l’enllaç.",
       "A Galeria pots cercar les miniatures d’un canal o un xat privat i veure-les per data o per usuari en pàgines de 100. Si falla una previsualització, pots continuar veient les altres.",
       "Connecta el teu compte de ChatGPT per generar automàticament una proposta a partir de la conversa quan toquis «Sugerir respuesta». La pots revisar i editar abans d’enviar-la.",
@@ -136,6 +142,9 @@ const COPY = {
     "installHelp": "Trouble installing? Android guide",
     "intro": "TeclaIRC is an Android IRC client preconfigured for the public ChatHispano server. Pick a nickname, join a channel, or start a private chat.",
     "items": [
+      "Open Channels to browse the directory. If the server sends a provisional list, TeclaIRC requests it again automatically.",
+      "Switch channels or private chats in the left sidebar. You can accept or decline an invite, or block the sender.",
+      "Filter the chat by sender or block a user from one of their messages.",
       "Preview links other users share. Thumbnails appear in the conversation so you can see what a link contains before opening it.",
       "In Gallery, search thumbnails from a channel or private chat and browse them by date or user, 100 per page. If a preview fails, you can keep browsing the others.",
       "Connect your ChatGPT account to automatically generate a reply based on the conversation when you tap “Sugerir respuesta”. You can review and edit it before sending.",

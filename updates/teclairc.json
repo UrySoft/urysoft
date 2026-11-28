@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "teclairc",
   "status": "published",
-  "versionCode": 24,
-  "versionName": "2.4.6",
-  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.6.apk",
-  "sha256": "b1a4b6c08c4f542fe16baf95d029734ad875c7eb147d2b2305b9d4d3ea4964d5",
+  "versionCode": 27,
+  "versionName": "2.4.8",
+  "downloadUrl": "https://urysoft.pages.dev/descargas/teclairc/TeclaIRC-2.4.8.apk",
+  "sha256": "5984880e8c110ed1c2785ca48be12df297ba164db2d15b04f10e25808b4fd400",
   "changelog": {
-    "es": "La galería usa menos memoria al cargar miniaturas. Al cambiar de página se cancelan las cargas que ya no ves. Si falla una vista previa, puedes seguir navegando.",
-    "ca": "La galeria fa servir menys memòria en carregar miniatures. En canviar de pàgina es cancel·len les càrregues que ja no veus. Si falla una previsualització, pots continuar navegant.",
-    "en": "The gallery uses less memory when loading thumbnails. Moving to another page cancels loads for thumbnails you can no longer see. If a preview fails, you can keep browsing."
+    "es": "El directorio de canales se reintenta automáticamente si el servidor envía un listado provisional. La lista lateral reúne canales, privados e invitaciones. Puedes filtrar por autor o bloquearlo desde un mensaje.",
+    "ca": "El directori de canals es torna a consultar automàticament si el servidor envia una llista provisional. El tauler lateral agrupa canals, xats privats i invitacions. Pots filtrar per autor o bloquejar-lo des d’un missatge.",
+    "en": "The channel directory retries automatically when the server sends a provisional list. The sidebar brings together channels, private chats and invites. Filter by sender or block them from a message."
   }
 }
